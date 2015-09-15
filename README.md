@@ -1,2 +1,2 @@
 # simulator
-Simulate ORS, Gateway, Exchang, Priceboard, Business securities company
+Simulate ORS, Gateway, Exchange, Priceboard, Business securities company
