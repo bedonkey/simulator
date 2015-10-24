@@ -1,0 +1,18 @@
+<div id="aftype_edit" class="popup" ng-show="popupOpen">
+	<img src="images/close.png" class="btn_close" title="Close Window" alt="Close" ng-click="mask=false;popupOpen=false;closeEditBox()"/>
+	 <div class="form-inline" ng-show="isAddBox">
+        <label for="inputKey">Name</label>
+        <input type="text" class="form-control" id="name" ng-model="afTypeDetail.name">
+    </div>
+    <div class="form-inline">
+        <label for="inputKey">Basket</label>
+        <select class="form-control" ng-model="afTypeDetail.basket" style="width: 230px">
+            <option ng-repeat="bak in baskets" value="{{bak.id}}" ng-bind="bak.id"></option>
+        </select>
+    </div>
+   
+	<div id="editButton" ng-show="isAddBox">
+		<span class="error" ng-bind="addError"></span>
+		<input class="btn btn-md grey_button" type="submit" value="Add" ng-click="add()"/>
+	</div>
+</div>

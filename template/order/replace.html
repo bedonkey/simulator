@@ -1,0 +1,14 @@
+<div id="order-replace" class="popup" ng-show="replaceBoxShow">
+	<img src="images/close.png" class="btn_close" title="Close Window" alt="Close" ng-click="mask=false;replaceBoxShow=false;"/>
+	 <div class="form-inline">
+        <label for="inputPrice">New Price</label>
+        <input type="text" class="form-control" ng-model="orderReplace.price">
+    </div>
+    <div class="form-inline">
+        <label for="inputQuantity">New Quantity</label>
+        <input type="text" class="form-control" ng-model="orderReplace.qty">
+    </div>
+	<div id="replaceButton">
+		<input class="btn btn-md grey_button" type="submit" value="Replace" ng-click="replace()"/>
+	</div>
+</div>

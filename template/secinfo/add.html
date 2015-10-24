@@ -1,0 +1,23 @@
+<div id="secinfo_edit" class="popup" ng-show="popupOpen">
+	<img src="images/close.png" class="btn_close" title="Close Window" alt="Close" ng-click="mask=false;popupOpen=false;closeEditBox()"/>
+	 <div class="form-inline" ng-show="isAddBox">
+        <label for="inputKey">Symbol</label>
+        <input type="text" class="form-control" id="symbol" ng-model="secDetail.symbol">
+    </div>
+    <div class="form-inline">
+        <label for="inputKey">Floor Price</label>
+        <input type="text" class="form-control" id="floor" ng-model="secDetail.floor">
+    </div>
+    <div class="form-inline">
+        <label for="inputValue">Ref Price</label>
+        <input type="text" class="form-control" id="ceil" ng-model="secDetail.ref">
+    </div>
+    <div class="form-inline">
+        <label for="inputValue">Ceil Price</label>
+        <input type="text" class="form-control" id="ceil" ng-model="secDetail.ceil">
+    </div>
+	<div id="editButton" ng-show="isAddBox">
+		<span class="error" ng-bind="secAddError"></span>
+		<input class="btn btn-md grey_button" type="submit" value="Add" ng-click="add()"/>
+	</div>
+</div>
