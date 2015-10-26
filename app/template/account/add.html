@@ -1,0 +1,110 @@
+<div id="account_edit" class="popup" ng-show="popupOpen">
+	<img src="images/close.png" class="btn_close" title="Close Window" alt="Close" ng-click="popupOpen=false;mask=false;closeEditBox()"/>
+	<div style="overflow:hidden;">
+		<div class="cash">
+			<div ng-show="isAddBox">
+				<div class="text">AccountID</div>
+				<div>
+					<input class="input" type="text" name="id" ng-model="accountDetail.id"/>
+				</div>
+			</div>
+			<div>
+				<div class="text">Balance</div>
+				<div>
+					<input class="input" type="text" name="balance" ng-model="accountDetail.balance"/>
+				</div>
+			</div>
+			<div>
+				<div class="text">Hold</div>
+				<div>
+					<input class="input" type="text" name="hold" ng-model="accountDetail.hold"/>
+				</div>
+			</div>
+			<div>
+				<div class="text">TotalDebt</div>
+				<div>
+					<input class="input" type="text" name="tobaldebt" />
+				</div>
+			</div>
+			<div>
+				<div class="text">T0</div>
+				<div>
+					<input class="input" type="text" name="t0" ng-model="accountDetail.t0"/>
+				</div>
+			</div>
+			<div>
+				<div class="text">T1</div>
+				<div>
+					<input class="input" type="text" name="t1" ng-model="accountDetail.t1"/>
+				</div>
+			</div>
+			<div>
+				<div class="text">T2</div>
+				<div>
+					<input class="input" type="text" name="t2" ng-model="accountDetail.t2"/>
+				</div>
+			</div>
+			<div>
+				<div class="text">AfType</div>
+				<div>
+					<select class="form-control" ng-model="accountDetail.afType" style="width: 170px" ng-change="onChangeAfType(accountDetail)">
+						<option ng-repeat="type in aftypes" value="{{type.name}}" ng-bind="type.name"></option>
+					</select>
+				</div>
+			</div>
+			<div>
+				<div class="text">AutoAdv</div>
+				<div style="line-height: 30px;">
+					<input type="checkbox" ng-model="accountDetail.autoAdv" ng-click="onChangeAfType(accountDetail)">
+				</div>
+			</div>
+		</div>
+		
+		<div class="trade">
+			<table class="table">
+				<colgroup>
+		            <col width="10%" />
+		            <col width="20%" />
+		            <col width="20%" />
+		            <col width="15%" />
+		            <col width="10%" />
+		            <col width="10%" />
+		            <col width="10%" />
+		            <col width="5%" />
+		        </colgroup>
+		        <thead>
+					<tr>
+						<th>Symbol</th>
+						<th>Balance</th>
+						<th>Mortgage</th>
+						<th>Hold</th>
+						<th>T0</th>
+						<th>T1</th>
+						<th>T2</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="sec in accountDetail.secs">
+						<td><input class="input" type="text" ng-model="sec.symbol" /></td>
+						<td><input class="input" type="text" ng-model="sec.qty" /></td>
+						<td>0</td>
+						<td><input class="input" type="text" ng-model="sec.hold" /></td>
+						<td><input class="input" type="text" ng-model="sec.t0" /></td>
+						<td><input class="input" type="text" ng-model="sec.t1" /></td>
+						<td><input class="input" type="text" ng-model="sec.t2" /></td>
+						<td><img alt="Edit" src="images/remove.png" height="20px" ng-click="removeSec(sec)"/></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="add">
+				<img  alt="Add Trade" class="add_item" src="images/add.png" height="25px" ng-click="addSec()"/>
+			</div>
+			
+		</div>
+		<div class="action" ng-show="isAddBox">
+			<span class="error" ng-bind="accAddError"></span>
+			<input class="btn btn-md grey_button" type="submit" value="Add Account" ng-click="add()"/>
+		</div>
+	</div>
+</div>

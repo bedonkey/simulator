@@ -1,0 +1,36 @@
+<div id="aftype" ng-controller="AfTypeController">
+	<div class="col-sm-12">
+		<div class="add">
+			<img  alt="Add SecInfo" class="add_item" src="images/add.png" height="30px" ng-click="mask=true;popupOpen=true;openAddBox()"/>
+		</div>
+	</div>
+	<div class="result_box col-sm-12">
+		<table class="secinfo table table-striped">
+			<colgroup>
+	            <col width="20%" />
+	            <col width="60%" />
+	            <col width="20%" />
+	        </colgroup>
+	        <thead>
+				<tr>
+					<th>AfType</th>
+					<th>Basket</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="type in aftypes">
+					<td ng-bind="type.name"></td>
+					<td ng-bind="type.basket"></td>
+					<td>
+						<img alt="Edit" src="images/remove.png" height="25px" ng-click="remove(type)"/>
+						<img alt="Edit" src="images/edit.png" height="25px" ng-click="openEditBox(type)"/>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div aftype-add></div>
+	<div id="mask" ng-show="mask"></div>
+</div>

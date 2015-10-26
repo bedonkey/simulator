@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+<title>ORS Simulator</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script type="text/javascript" src="js/lib/angular.min.js"></script>
+</head>
+<script type="text/javascript">
+	var myApp = angular.module('myApp',[]);
+	myApp.controller('GreetingController', ['$scope', function($scope) {
+	  $scope.names = ['Jani', 'Hege', 'Kai'];
+		$scope.test = function(index) {
+			console.log(index)
+		}
+	}]);
+</script>
+<body>
+	<div ng-controller="GreetingController">
+	  <div ng-repeat="x in names">
+	    <p ng-class='test($index)' ng-show='true'>{{x}}</p>
+	  </div>
+	</div>
+	 
+</body>
+</html>
