@@ -1,6 +1,13 @@
 // Generated on 2014-02-03 using generator-webapp 0.4.7
 'use strict';
 
+var LIVERELOAD_PORT = 35729,
+    lrSnippet = require('connect-livereload')({port: LIVERELOAD_PORT}),
+    path = require('path'),
+    mountFolder = function (connect, dir) {
+        return connect.static(require('path').resolve(dir));
+    };
+
 module.exports = function (grunt) {
 
     // Load grunt tasks automatically
@@ -9,25 +16,49 @@ module.exports = function (grunt) {
     // Time how long tasks take. Can help when optimizing build times
     require('time-grunt')(grunt);
 
-    var options = {
-        // Project settings
-        paths: {
-           // Configurable paths
-           app: 'app',
-           dist: 'dist'
-        }	
+    var config = {
+        app: 'app',
+        dist: 'dist'
     };
 
     // Define the configuration for all the tasks
     grunt.initConfig({
-        clean  : {
+        conf : config,
+        clean : {
 			dist : {
 			       files : [{
 					dot : true,
-					src : ['.tmp', '<%= paths.dist %>/*', '!<%= paths.dist %>/.git*']
+					src : ['.tmp', '<%= conf.dist %>/*', '!<%= conf.dist %>/.git*']
 				}]
 			},
 		},
+
+        watch: {
+            javascript: {
+                files: ['<%= conf.app %>/scripts/**/*.js'],
+                tasks: []
+            },
+            sass: {
+                files: ['<%= conf.app %>/styles/{,*/}*.{scss,sass}'],
+                tasks: ['sass', 'autoprefixer']
+            },
+            bower: {
+                files: ['<%= conf.app %>/bower_components/**/*.js'],
+                tasks: ['bower']
+            },
+            livereload: {
+                options: {
+                    livereload: LIVERELOAD_PORT
+                },
+                files: [
+                    '<%= conf.app %>/{,*/}*.html',
+                    '{.tmp,<%= conf.app %>}/scripts/{,*/}*.js',
+                    '{.tmp,<%= conf.app %>}/styles/{,*/}*.css',
+                    '<%= conf.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+                ]
+            }
+        },
+
         copy : {
 			dist : {
 				files : [ {
@@ -55,9 +86,6 @@ module.exports = function (grunt) {
             },
             dist: {
                 path: 'http://<%= connect.options.hostname %>:<%= connect.options.port %>/index.html'
-            },
-            report: {
-                path: 'docs/complexity/index.html'
             }
         },
         connect: {
@@ -72,19 +100,7 @@ module.exports = function (grunt) {
                         return [
                             lrSnippet,
                             mountFolder(connect, '.tmp'),
-                            mountFolder(connect, yeomanConfig.app)
-                        ];
-                    }
-                }
-            },
-            test: {
-                options: {
-                    hostname: '127.0.0.1',
-                    port: 9999,
-                    middleware: function (connect) {
-                        return [
-                            mountFolder(connect, '.tmp'),
-                            mountFolder(connect, yeomanConfig.app)
+                            mountFolder(connect, config.app)
                         ];
                     }
                 }
@@ -93,7 +109,7 @@ module.exports = function (grunt) {
                 options: {
                     middleware: function (connect) {
                         return [
-                            mountFolder(connect, yeomanConfig.thisDist)
+                            mountFolder(connect, config.thisDist)
                         ];
                     }
                 }
@@ -102,12 +118,19 @@ module.exports = function (grunt) {
 
     });
 
+    grunt.registerTask('serve', function(target) {
+        grunt.task.run([
+            'connect:livereload',
+            'open:app',
+            'watch'
+        ]);
+    });
+
     grunt.registerTask('build', [
         'clean:dist',
         'concat',
         'uglify',		
-        'copy:dist',
-        'server'
+        'copy:dist'
     ]);
 
 };
