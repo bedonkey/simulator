@@ -20,32 +20,85 @@ module.exports = function (grunt) {
 
     // Define the configuration for all the tasks
     grunt.initConfig({
-          clean  : {
-		dist : {
-		       files : [{
-				dot : true,
-				src : ['.tmp', '<%= paths.dist %>/*', '!<%= paths.dist %>/.git*']
-			}]
+        clean  : {
+			dist : {
+			       files : [{
+					dot : true,
+					src : ['.tmp', '<%= paths.dist %>/*', '!<%= paths.dist %>/.git*']
+				}]
+			},
 		},
-	},
         copy : {
-		dist : {
-			files : [ {
+			dist : {
+				files : [ {
+					expand : true,
+					dot    : false,
+					cwd    : '<%= paths.app %>',
+					dest   : '<%= paths.dist %>',
+					src    : [ '*.{ico,png,txt}', '.htaccess', 'images/{,*/}*.webp', '{,*/}*.html', 'styles/fonts/{,*/}*.*' ]
+				}]
+			},
+			styles : {
 				expand : true,
 				dot    : false,
-				cwd    : '<%= paths.app %>',
-				dest   : '<%= paths.dist %>',
-				src    : [ '*.{ico,png,txt}', '.htaccess', 'images/{,*/}*.webp', '{,*/}*.html', 'styles/fonts/{,*/}*.*' ]
-			}]
+				cwd    : '<%= paths.app %>/styles',
+				dest   : '.tmp/styles/',
+				src    : '{,*/}*.css'
+			}
 		},
-		styles : {
-			expand : true,
-			dot    : false,
-			cwd    : '<%= paths.app %>/styles',
-			dest   : '.tmp/styles/',
-			src    : '{,*/}*.css'
-		}
-	},
+		/**
+         * Server
+         */
+        open: {
+            app: {
+                path: 'http://localhost:<%= connect.options.port %>/index.html'
+            },
+            dist: {
+                path: 'http://<%= connect.options.hostname %>:<%= connect.options.port %>/index.html'
+            },
+            report: {
+                path: 'docs/complexity/index.html'
+            }
+        },
+        connect: {
+            options: {
+                port: 9000,
+                // change this to '0.0.0.0' to access the server from outside
+                hostname: '0.0.0.0'
+            },
+            livereload: {
+                options: {
+                    middleware: function (connect) {
+                        return [
+                            lrSnippet,
+                            mountFolder(connect, '.tmp'),
+                            mountFolder(connect, yeomanConfig.app)
+                        ];
+                    }
+                }
+            },
+            test: {
+                options: {
+                    hostname: '127.0.0.1',
+                    port: 9999,
+                    middleware: function (connect) {
+                        return [
+                            mountFolder(connect, '.tmp'),
+                            mountFolder(connect, yeomanConfig.app)
+                        ];
+                    }
+                }
+            },
+            dist: {
+                options: {
+                    middleware: function (connect) {
+                        return [
+                            mountFolder(connect, yeomanConfig.thisDist)
+                        ];
+                    }
+                }
+            }
+        }
 
     });
 
@@ -53,7 +106,8 @@ module.exports = function (grunt) {
         'clean:dist',
         'concat',
         'uglify',		
-        'copy:dist'
+        'copy:dist',
+        'server'
     ]);
 
 };
