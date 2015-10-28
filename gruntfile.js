@@ -16,9 +16,11 @@ module.exports = function (grunt) {
     // Time how long tasks take. Can help when optimizing build times
     require('time-grunt')(grunt);
 
-    var config = {
+    var version = '0.1',
+    config = {
         app: 'app',
-        dist: 'dist'
+        dist: 'dist',
+        thisDist: 'dist/' + version
     };
 
     // Define the configuration for all the tasks
@@ -64,8 +66,8 @@ module.exports = function (grunt) {
 				files : [ {
 					expand : true,
 					dot    : false,
-					cwd    : '<%= paths.app %>',
-					dest   : '<%= paths.dist %>',
+					cwd    : '<%= conf.app %>',
+					dest   : '<%= conf.dist %>',
 					src    : [ '*.{ico,png,txt}', '.htaccess', 'images/{,*/}*.webp', '{,*/}*.html', 'styles/fonts/{,*/}*.*' ]
 				}]
 			},
@@ -77,6 +79,14 @@ module.exports = function (grunt) {
 				src    : '{,*/}*.css'
 			}
 		},
+
+        processhtml: {
+            dist: {
+                files: [
+                    {expand: true, cwd: config.app, src: ['**/*.html', '!bower_components/**/*.html'], dest: '.tmp'}
+                ]
+            }
+        },
 		/**
          * Server
          */
@@ -99,7 +109,6 @@ module.exports = function (grunt) {
                     middleware: function (connect) {
                         return [
                             lrSnippet,
-                            mountFolder(connect, '.tmp'),
                             mountFolder(connect, config.app)
                         ];
                     }
@@ -114,7 +123,27 @@ module.exports = function (grunt) {
                     }
                 }
             }
-        }
+        },
+        cssmin: {
+            target: {
+                files: [{
+                    expand: true,
+                    cwd: 'app/css',
+                    src: ['*.css', '!*.min.css'],
+                    dest: 'dist/css',
+                    ext: '.min.css'
+            }]
+          }
+        },
+        concat: {
+            options: {
+              separator: ';',
+            },
+            dist: {
+              src: ['app/js/*.js', 'app/js/**/*.js', 'bower_components/angular/angular.min.js', 'bower_components/jquery/dist/jquery.min.js', 'bower_components/jquery-nicescroll/jquery.nicescroll.min.js' , 'bower_components/bootstrap/dist/js/bootstrap.min.js'],
+              dest: 'dist/js/main.js',
+            },
+        },
 
     });
 
@@ -128,8 +157,10 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
+        'processhtml',
         'concat',
-        'uglify',		
+        'cssmin',
+        // 'uglify',		
         'copy:dist'
     ]);
 
