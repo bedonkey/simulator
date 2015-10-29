@@ -5,6 +5,42 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="bower_components/jquery-nicescroll/jquery.nicescroll.min.js"></script>
+	<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+	<script type="text/javascript" src="js/directive/EnterHandleDirective.js"></script>
+	<script type="text/javascript" src="js/directive/CommandHandleDirective.js"></script>
+	<script type="text/javascript" src="js/global/InitData.js"></script>
+	<script type="text/javascript" src="js/global/Utils.js"></script>
+	<script type="text/javascript" src="js/global/IdGenerator.js"></script>
+	<script type="text/javascript" src="js/global/DateTime.js"></script>
+	<script type="text/javascript" src="js/directive/UppercaseDirective.js"></script>
+	<script type="text/javascript" src="js/secinfo/Secinfo.js"></script>
+	<script type="text/javascript" src="js/secinfo/Validator.js"></script>
+	<script type="text/javascript" src="js/secinfo/SecInfoController.js"></script>
+	<script type="text/javascript" src="js/account/Account.js"></script>
+	<script type="text/javascript" src="js/account/Validator.js"></script>
+	<script type="text/javascript" src="js/account/AccountController.js"></script>
+	<script type="text/javascript" src="js/aftype/AfType.js"></script>
+	<script type="text/javascript" src="js/aftype/AfTypeController.js"></script>
+	<script type="text/javascript" src="js/basket/Basket.js"></script>
+	<script type="text/javascript" src="js/basket/BasketController.js"></script>
+	<script type="text/javascript" src="js/exchange/ExchangeController.js"></script>
+	<script type="text/javascript" src="js/exchange/Matcher.js"></script>
+	<script type="text/javascript" src="js/order/OrderStore.js"></script>
+	<script type="text/javascript" src="js/order/Order.js"></script>
+	<script type="text/javascript" src="js/order/Validator.js"></script>
+	<script type="text/javascript" src="js/priceboard/PriceBoard.js"></script>
+	<script type="text/javascript" src="js/priceboard/PriceBoardController.js"></script>
+	<script type="text/javascript" src="js/orderbook/OrderBookController.js"></script>
+	<script type="text/javascript" src="js/dock/DockService.js"></script>
+	<script type="text/javascript" src="js/dock/DockController.js"></script>
+	<script type="text/javascript" src="js/robot/LogScreen.js"></script>
+	<script type="text/javascript" src="js/robot/Interpreter.js"></script>
+	<script type="text/javascript" src="js/robot/RobotController.js"></script>
+	<script type="text/javascript" src="js/TabController.js"></script>
+	<script type="text/javascript" src="js/MainApp.js"></script>
 </head>
 <body>
 	<div id="wrap" class="container" ng-controller="TabsCtrl">
@@ -39,7 +75,5 @@
 		</div>
 		<div ng-include="'dock.html'" ng-controller="DockController" ng-show="isShowDock"></div>
 	</div>
-	<script data-main="main" src="js/config.js"></script>
-	<script data-main="main" src="bower_components/requirejs/require.js"></script>
 </body>
 </html>
