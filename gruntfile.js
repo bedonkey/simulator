@@ -68,15 +68,8 @@ module.exports = function (grunt) {
 					dot    : false,
 					cwd    : '<%= conf.app %>',
 					dest   : '<%= conf.dist %>',
-					src    : [ '*.{ico,png,txt}', '.htaccess', 'images/{,*/}*.webp', '{,*/}*.html', 'styles/fonts/{,*/}*.*' ]
+					src    : [ '*.{ico,png,txt}', '.htaccess', 'images/*.{jpg,png,gif}', '{,*/}*.html', '**/{,*/}*.html', '{,*/}*.robot' , '{,*/}*.json']
 				}]
-			},
-			styles : {
-				expand : true,
-				dot    : false,
-				cwd    : '<%= paths.app %>/styles',
-				dest   : '.tmp/styles/',
-				src    : '{,*/}*.css'
 			}
 		},
 
@@ -129,20 +122,46 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: 'app/css',
-                    src: ['*.css', '!*.min.css'],
+                    src: ['*.css'],
                     dest: 'dist/css',
                     ext: '.min.css'
-            }]
+                },{
+                    expand: true,
+                    cwd: 'app/bower_components/bootstrap/dist/css',
+                    src: ['bootstrap.css'],
+                    dest: 'dist/css',
+                    ext: '.min.css'
+                }]
           }
         },
         concat: {
             options: {
               separator: ';',
             },
-            dist: {
-              src: ['app/js/*.js', 'app/js/**/*.js', 'bower_components/angular/angular.min.js', 'bower_components/jquery/dist/jquery.min.js', 'bower_components/jquery-nicescroll/jquery.nicescroll.min.js' , 'bower_components/bootstrap/dist/js/bootstrap.min.js'],
+            component: {
+              src: ['app/js/**/*.js', '!app/js/TabController.js', '!app/js/MainApp.js'],
+              dest: 'dist/js/components.js',
+            },
+            main: {
+              src: ['app/js/TabController.js', 'app/js/MainApp.js'],
               dest: 'dist/js/main.js',
             },
+            jquery: {
+              src: ['app/bower_components/jquery/dist/jquery.js'],
+              dest: 'dist/js/jquery.js',
+            },
+            nicescroll: {
+              src: ['app/bower_components/jquery-nicescroll/jquery.nicescroll.js'],
+              dest: 'dist/js/jquery.nicescroll.js',
+            },
+            bootstrap: {
+              src: ['app/bower_components/bootstrap/dist/js/bootstrap.js'],
+              dest: 'dist/js/bootstrap.js',
+            },
+            angular: {
+              src: ['app/bower_components/angular/angular.js'],
+              dest: 'dist/js/angular.js',
+            }
         },
 
     });
