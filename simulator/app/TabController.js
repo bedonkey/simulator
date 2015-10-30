@@ -2,36 +2,36 @@ TabController = function($scope) {
     $scope.tabs = [
         {
             title: 'Order Book',
-            url: 'orderbook.html'
+            url: 'app/components/orderbook/orderbook.html'
         }, {
             title: 'Price Board',
-            url: 'priceboard.html'
+            url: 'app/components/priceboard/priceboard.html'
         }, {
             title: 'Exchange',
-            url: 'exchange.html'
+            url: 'app/components/exchange/exchange.html'
         }, {
             title: 'RobotTest',
-            url: 'robot.html'
+            url: 'app/components/robot/robot.html'
         }
     ];
 
     $scope.tabsSetting = [
         {
             title: 'Account',
-            url: 'account.html'
+            url: 'app/components/account/account.html'
         }, {
             title: 'SecInfo',
-            url: 'secinfo.html'
+            url: 'app/components/secinfo/secinfo.html'
         },{
             title: 'AfType',
-            url: 'aftype.html'
+            url: 'app/components/aftype/aftype.html'
         }, {
             title: 'Basket',
-            url: 'basket.html'
+            url: 'app/components/basket/basket.html'
         }
     ];
 
-    $scope.currentTab = 'orderbook.html';
+    $scope.currentTab = 'app/components/orderbook/orderbook.html';
 
     $scope.showDock = function() {
         if ($scope.currentTab == 'orderbook.html' || $scope.currentTab == 'priceboard.html' || $scope.currentTab == 'exchange.html') {

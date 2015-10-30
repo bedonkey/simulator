@@ -6,14 +6,14 @@ RobotController = function($scope, $http, logScreen, interpeter) {
     $scope.logData = logScreen.getLogData();
 
     $scope.init = function() {
-    	$http.get('testresource/system-keyword.robot')
+    	$http.get('app/resources/system-keyword.robot')
         .success(function(data, status, headers, config) {
             if (data && status === 200) {
                 $scope.keywords = data;
             }
         });
 
-        $http.get('testcase/testcase.json')
+        $http.get('app/resources/testcase/testcase.json')
         .success(function(data, status, headers, config) {
             if (data && status === 200) {
                 $scope.testcases = data;
@@ -25,7 +25,7 @@ RobotController = function($scope, $http, logScreen, interpeter) {
 	   $scope.isClickTest = true;
 	   $scope.selectedTest = selectedTest;
 	   $scope.testTitle = selectedTest;
-	   $http.get('testcase/' + selectedTest + '.robot')
+	   $http.get('app/resources/testcase/' + selectedTest + '.robot')
         .success(function(data, status, headers, config) {
             if (data && status === 200) {
                 $scope.testContent = data;
@@ -61,7 +61,7 @@ RobotController = function($scope, $http, logScreen, interpeter) {
     }
 
     $scope.test = function(test, doTest) {
-        $http.get('testcase/' + test.name + '.robot')
+        $http.get('app/resources/testcase/' + test.name + '.robot')
         .success(function(data, status, headers, config) {
             if (data && status === 200) {
                 test.content = data;

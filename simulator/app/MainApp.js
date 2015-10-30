@@ -31,43 +31,43 @@ app.controller("RobotController", ['$scope', '$http', 'logScreen', 'interpreter'
 
 app.directive("orderDetail", function(){
   return {
-    templateUrl: 'template/order/detail.html'
+    templateUrl: 'app/components/order/detail.html'
   };
 });
 
 app.directive("orderReplace", function(){
   return {
-    templateUrl: 'template/order/replace.html'
+    templateUrl: 'app/components/order/replace.html'
   };
 });
 
 app.directive("accountAdd", function(){
   return {
-    templateUrl: 'template/account/add.html'
+    templateUrl: 'app/components/account/add.html'
   };
 });
 
 app.directive("secinfoAdd", function(){
   return {
-    templateUrl: 'template/secinfo/add.html'
+    templateUrl: 'app/components/secinfo/add.html'
   };
 });
 
 app.directive("aftypeAdd", function(){
   return {
-    templateUrl: 'template/aftype/add.html'
+    templateUrl: 'app/components/aftype/add.html'
   };
 });
 
 app.directive("basketAdd", function(){
   return {
-    templateUrl: 'template/basket/add.html'
+    templateUrl: 'app/components/basket/add.html'
   };
 });
 
 app.directive("mask", function(){
   return {
-    templateUrl: 'template/mask.html'
+    templateUrl: 'app/shared/mask.html'
   };
 });
 
