@@ -30,7 +30,7 @@ module.exports = function (grunt) {
 			dist : {
 			       files : [{
 					dot : true,
-					src : ['.tmp', '<%= conf.dist %>/*', '!<%= conf.dist %>/.git*']
+					src : ['<%= conf.dist %>/*', '!<%= conf.dist %>/.git*']
 				}]
 			},
 		},
@@ -54,8 +54,8 @@ module.exports = function (grunt) {
                 },
                 files: [
                     '<%= conf.app %>/{,*/}*.html',
-                    '{.tmp,<%= conf.app %>}/scripts/{,*/}*.js',
-                    '{.tmp,<%= conf.app %>}/styles/{,*/}*.css',
+                    '{<%= conf.app %>}/scripts/{,*/}*.js',
+                    '{<%= conf.app %>}/styles/{,*/}*.css',
                     '<%= conf.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
             }
@@ -72,14 +72,6 @@ module.exports = function (grunt) {
 				}]
 			}
 		},
-
-        processhtml: {
-            dist: {
-                files: [
-                    {expand: true, cwd: config.app, src: ['**/*.html', '!bower_components/**/*.html'], dest: '.tmp'}
-                ]
-            }
-        },
 		/**
          * Server
          */
@@ -176,7 +168,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
-        'processhtml',
         'concat',
         'cssmin',
         // 'uglify',		
