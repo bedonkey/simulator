@@ -18,7 +18,7 @@ module.exports = function (grunt) {
 
     var version = '0.1',
     config = {
-        app: 'app',
+        app: 'simulator',
         dist: 'dist',
         thisDist: 'dist/' + version
     };
@@ -37,12 +37,8 @@ module.exports = function (grunt) {
 
         watch: {
             javascript: {
-                files: ['<%= conf.app %>/scripts/**/*.js'],
+                files: ['<%= conf.app %>/app/components/**/*.js'],
                 tasks: []
-            },
-            sass: {
-                files: ['<%= conf.app %>/styles/{,*/}*.{scss,sass}'],
-                tasks: ['sass', 'autoprefixer']
             },
             bower: {
                 files: ['<%= conf.app %>/bower_components/**/*.js'],
@@ -54,9 +50,9 @@ module.exports = function (grunt) {
                 },
                 files: [
                     '<%= conf.app %>/{,*/}*.html',
-                    '{<%= conf.app %>}/scripts/{,*/}*.js',
-                    '{<%= conf.app %>}/styles/{,*/}*.css',
-                    '<%= conf.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+                    '{<%= conf.app %>}/app/components/{,*/}*.js',
+                    '{<%= conf.app %>}/assets/css/{,*/}*.css',
+                    '<%= conf.app %>/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
             }
         },
@@ -68,7 +64,7 @@ module.exports = function (grunt) {
 					dot    : false,
 					cwd    : '<%= conf.app %>',
 					dest   : '<%= conf.dist %>',
-					src    : [ '*.{ico,png,txt}', '.htaccess', 'images/*.{jpg,png,gif}', '{,*/}*.html', '**/{,*/}*.html', '{,*/}*.robot' , '{,*/}*.json']
+					src    : [ '*.{ico,png,txt}', '.htaccess', 'assets/images/*.{jpg,png,gif}', '{,*/}*.html', '**/{,*/}*.html', 'app/resources/**/*.robot' , 'app/resources/**/*.json']
 				}]
 			}
 		},
@@ -113,13 +109,13 @@ module.exports = function (grunt) {
             target: {
                 files: [{
                     expand: true,
-                    cwd: 'app/css',
+                    cwd: 'simulator/assets/css',
                     src: ['*.css'],
                     dest: 'dist/css',
                     ext: '.min.css'
                 },{
                     expand: true,
-                    cwd: 'app/bower_components/bootstrap/dist/css',
+                    cwd: 'simulator/bower_components/bootstrap/dist/css',
                     src: ['bootstrap.css'],
                     dest: 'dist/css',
                     ext: '.min.css'
@@ -131,27 +127,31 @@ module.exports = function (grunt) {
               separator: ';',
             },
             component: {
-              src: ['app/js/**/*.js', '!app/js/TabController.js', '!app/js/MainApp.js'],
+              src: ['simulator/app/components/**/*.js'],
               dest: 'dist/js/components.js',
             },
+            utils: {
+              src: ['simulator/assets/js/*.js'],
+              dest: 'dist/js/utils.js',
+            },
             main: {
-              src: ['app/js/TabController.js', 'app/js/MainApp.js'],
+              src: ['simulator/app/TabController.js', 'simulator/app/MainApp.js'],
               dest: 'dist/js/main.js',
             },
             jquery: {
-              src: ['app/bower_components/jquery/dist/jquery.js'],
+              src: ['simulator/bower_components/jquery/dist/jquery.js'],
               dest: 'dist/js/jquery.js',
             },
             nicescroll: {
-              src: ['app/bower_components/jquery-nicescroll/jquery.nicescroll.js'],
+              src: ['simulator/bower_components/jquery-nicescroll/jquery.nicescroll.js'],
               dest: 'dist/js/jquery.nicescroll.js',
             },
             bootstrap: {
-              src: ['app/bower_components/bootstrap/dist/js/bootstrap.js'],
+              src: ['simulator/bower_components/bootstrap/dist/js/bootstrap.js'],
               dest: 'dist/js/bootstrap.js',
             },
             angular: {
-              src: ['app/bower_components/angular/angular.js'],
+              src: ['simulator/bower_components/angular/angular.js'],
               dest: 'dist/js/angular.js',
             }
         },
@@ -170,7 +170,7 @@ module.exports = function (grunt) {
         'clean:dist',
         'concat',
         'cssmin',
-        // 'uglify',		
+        //'uglify',		
         'copy:dist'
     ]);
 

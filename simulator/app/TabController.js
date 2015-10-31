@@ -34,7 +34,7 @@ TabController = function($scope) {
     $scope.currentTab = 'app/components/orderbook/orderbook.html';
 
     $scope.showDock = function() {
-        if ($scope.currentTab == 'orderbook.html' || $scope.currentTab == 'priceboard.html' || $scope.currentTab == 'exchange.html') {
+        if ($scope.currentTab.indexOf('orderbook') > -1 || $scope.currentTab.indexOf('priceboard') > -1 || $scope.currentTab.indexOf('exchange') > -1) {
             $scope.isShowDock = true;
         } else {
             $scope.isShowDock = false;

@@ -7,7 +7,7 @@
 					<li ng-class="{selected: test.name === selectedTest}" ng-repeat="test in testcases" ng-click="setSelected(test.name)">
 						<input type="checkbox" ng-model="test.chose" ng-true-value="true" ng-false-value="false">
 						{{test.name}}
-						<img alt="Selected" ng-src="images/circle-{{test.status}}.png" height="16px" ng-show="test.status != undefined && test.status != ''"/>
+						<img alt="Selected" ng-src="assets/images/circle-{{test.status}}.png" height="16px" ng-show="test.status != undefined && test.status != ''"/>
 					</li>
 				</ul>
 			</div>
@@ -29,7 +29,7 @@
 		<div class="run">
 			<h4 ng-bind="testTitle"></h4>
 			<input class="btn btn-md grey_button" type="submit" value="Run Test" ng-click="runtest()"/>
-			<img class="save" alt="Save" src="images/save.png" height="25px" ng-click="save()" ng-show="!isSave"/>
+			<img class="save" alt="Save" src="assets/images/save.png" height="25px" ng-click="save()" ng-show="!isSave"/>
 		</div>
 		<div class="status-bar" ng-class="{'':testPass=='', 'green':testPass=='true', 'red':testPass=='false'}"></div>
 		
@@ -39,7 +39,7 @@
 	</div>
 
 	<div id="console" ng-class="isLarge?'large':'small'" ng-init="isLarge=false">
-		<img class="resizeBox" alt="Resize" src="images/resize.png" height="25px" ng-click="isLarge = !isLarge"/>
+		<img class="resizeBox" alt="Resize" src="assets/images/resize.png" height="25px" ng-click="isLarge = !isLarge"/>
 		<div class="logData">
 			<p ng-repeat="log in logData track by $index" ng-bind="log"></p>
 		</div>
