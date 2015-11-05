@@ -648,6 +648,11 @@ img.btn_close {
 	line-height: 50px;
 }
 
+#price-board table td.row-focus {
+	width: 100px;
+	background:#2A2A2A;
+}
+
 #testcases {
 	height: 100%;
 	color: white;
@@ -758,4 +763,13 @@ img.btn_close {
 
 #testcase-editor .run input{
 	float: right;
+}
+
+.blink {
+	background-color: #ffcc00 !important;
+	color: #000 !important;
+}
+
+.blink span{
+	color: #000 !important;
 }

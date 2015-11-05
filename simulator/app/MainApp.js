@@ -5,6 +5,7 @@ app.directive('uppercased', UppercaseDirective);
 app.directive('cellChange', CellChangeDirective);
 app.directive('focusMe', FocusMeDirective);
 app.directive('autofocus', AutoFocusDirective);
+app.directive('blink', BlinkDirective);
 
 app.service('accountValidator', AccountValidator);
 app.service('account', ['accountValidator', 'aftype', Account]);

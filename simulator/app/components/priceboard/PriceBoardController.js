@@ -16,8 +16,8 @@ PriceBoardController = function($scope, priceBoard) {
         }
     }
 
-    $scope.showhide = function(data) {
-        return data.px > 0 && data.qty > 0;
+    $scope.blink = function(data) {
+        alert(0);
     }
 
     $scope.init();
