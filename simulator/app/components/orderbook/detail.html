@@ -1,0 +1,52 @@
+<div id="order-popup" class="popup" ng-show="detailBoxShow">
+	<img src="assets/images/close.png" class="btn_close" title="Close Window" alt="Close" ng-click="mask=false;detailBoxShow=false;closeDetailBox()"/>
+	<table class="table">
+		 <colgroup>
+            <col width="8%" />
+            <col width="10%" />
+            <col width="10%" />
+            <col width="8%" />
+            <col width="8%" />
+            <col width="8%" />
+            <col width="8%" />
+            <col width="10%" />
+            <col width="10%" />
+            <col width="10%" />
+            <col width="10%" />
+        </colgroup>
+		<thead>
+        
+		<tr>
+			<th>Time</th>
+			<th>Event</th>
+			<th>ID</th>
+			<th>Acc</th>
+			<th>Sym</th>
+			<th>Side</th>
+			<th>Qty</th>
+			<th>Price</th>
+			<th>MatchQty</th>
+			<th>MatchPX</th>
+			<th>RemainQty</th>
+		</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="od in ordersDetail track by $index">
+				<td ng-bind="od.time"></td>
+				<td class="status" ng-bind="od.status"></td>
+				<td ng-bind="od.orderID"></td>
+				<td ng-bind="od.account"></td>
+				<td ng-bind="od.symbol"></td>
+				<td ng-bind="od.side"></td>
+				<td ng-bind="od.qty"></td>
+				<td ng-bind="od.price"></td>
+				<td ng-bind="od.avgQty"></td>
+				<td ng-bind="od.avgPX"></td>
+				<td ng-bind="od.remain"></td>
+			<tr>
+		</tbody>
+	</table>
+	<div class="loading" style="display:none;">
+		<img src="assets/images/loading_trans.gif" height="20px"/>
+	</div>
+</div>
