@@ -40,4 +40,7 @@
 }, {
   "return": "",
   "function": "ResetAccounts()"
+}, {
+  "return": "",
+  "function": "OpenExchange()"
 }]

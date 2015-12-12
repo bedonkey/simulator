@@ -9,6 +9,7 @@ DockService = function(account, secinfo) {
         sym : '',
         floor : '',
         ceil : '',
+        session : 'CLOSE',
         
     };
     currentAcc = '';
@@ -20,6 +21,10 @@ DockService = function(account, secinfo) {
 DockService.prototype = {
     initDock: function() {
         return dockInfo;
+    },
+
+    setSession: function(session) {
+        dockInfo.session = session;
     },
 
     setCurrentAcc: function(accId) {

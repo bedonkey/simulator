@@ -1,4 +1,5 @@
 # Case: check pp0, qmax; change aftype; check qmax
+OpenExchange()
 result = GetPP0(1)
 Assert(result, 10000000)
 

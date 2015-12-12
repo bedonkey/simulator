@@ -315,6 +315,18 @@ img {
 	font-size: 10px;
 }
 
+#info .session.exclose {
+	font-weight: bold;
+	color: red;
+	font-size: 16px;
+}
+
+#info .session.exopen {
+	font-weight: bold;
+	color: green;
+	font-size: 16px;
+}
+
 #info .security .sym {
 	font-weight: bold;
 }
@@ -331,7 +343,7 @@ img {
 
 #info .exchange {
 	float: left;
-	padding: 5px 20px 5px 2px;
+	padding: 2px 5px;
 }
 
 #info .account {
@@ -772,4 +784,31 @@ img.btn_close {
 
 .blink span{
 	color: #000 !important;
+}
+
+#change-session {
+	margin: auto;
+    padding: 20px 0;
+    text-align: center;
+    width: 140px;
+    height: 70px;
+}
+
+#change-session .btn-session{
+	font-weight: bold;
+	border-radius: 0px;
+	background: white;
+	width: 70px;
+	height: 30px;
+	line-height: 30px;
+	float: left;
+	cursor: pointer;
+}
+
+.btn-ex-open {
+	background: green !important;
+}
+
+.btn-ex-close {
+	background: red !important;
 }

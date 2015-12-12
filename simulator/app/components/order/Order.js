@@ -1,10 +1,11 @@
-Order = function(orderValidator, afType, orderStore, matcher, account, priceBoard) {
+Order = function(orderValidator, afType, orderStore, matcher, account, priceBoard, exchange) {
 	this.orderValidator = orderValidator;
 	this.orderStore = orderStore;
 	this.account = account;
 	this.priceBoard = priceBoard;
 	this.matcher = matcher;
 	this.afType = afType;
+	this.exchange = exchange;
 };
 
 Order.prototype = {
@@ -12,6 +13,9 @@ Order.prototype = {
 	place: function(ord) {
 		var result = {};
 		var error = this.orderValidator.clientValidate(ord);
+		if (this.exchange.getSession() == "CLOSE") {
+			error = "Exchange is close";
+		}
 		if (error == undefined) {
 			error = this.orderValidator.validatePlace(ord);
 		}
@@ -56,7 +60,9 @@ Order.prototype = {
 		} else {
 			error = "Order not found";
 		}
-		
+		if (this.exchange.getSession() == "CLOSE") {
+			error = "Exchange is close";
+		}
 		if (error == undefined) {
 			if (ord.qty <= oldOrd.avgQty) {
 				error = "Not Enough qty";
@@ -98,9 +104,16 @@ Order.prototype = {
 	},
 
 	cancel: function(ord) {
+		var error = undefined;
 		var result = {};
 		var order = this.orderStore.getNewOrder(ord.orderID);
-		if (order != null) {
+		if (order == null) {
+        	error = "Order not found";
+		}
+		if (this.exchange.getSession() == "CLOSE") {
+			error = "Exchange is close";
+		}
+		if (error == undefined) {
 			if(order.side == 'Buy') {
 				this.account.unHold(order);
 			} else {
@@ -116,8 +129,8 @@ Order.prototype = {
 			result.status = true;
         	result.msg = '';
 		} else {
-			result.status = false;
-        	result.msg = "Order not found";
+        	result.status = false;
+        	result.msg = error;
 		}
 		return result;
 	},

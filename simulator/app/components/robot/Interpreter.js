@@ -1,7 +1,8 @@
-Interpreter = function(logScreen, order, account) {
+Interpreter = function(logScreen, order, account, exchange) {
 	this.logScreen = logScreen;
     this.order = order;
     this.account = account;
+    this.exchange = exchange;
 };
 
 Interpreter.prototype = {
@@ -98,6 +99,9 @@ Interpreter.prototype = {
             if (func == 'ResetAccounts') {
                 this.doResetAccounts();
             }
+            if (func == 'OpenExchange') {
+                this.doOpenExchange();
+            }
     	};
     	return result;
     },
@@ -192,6 +196,11 @@ Interpreter.prototype = {
     doResetAccounts: function() {
         this.logScreen.append("Reset Accounts")
         this.account.init();
+    },
+
+    doOpenExchange: function() {
+        this.logScreen.append("Open Exchange")
+        this.exchange.open();
     },
 
     getValuePara: function(para) {

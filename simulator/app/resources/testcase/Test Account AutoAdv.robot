@@ -1,4 +1,5 @@
 # Case: change aftype none margin; set autoAdv, place match, cancel remain, check PP0
+OpenExchange()
 SetAfType(1, 100)
 result = GetAfType(1)
 Assert(result, 100)

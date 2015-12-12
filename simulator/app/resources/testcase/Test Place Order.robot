@@ -1,3 +1,4 @@
+OpenExchange()
 result = Place(1, AAA, Buy, 5000, 100)
 Assert(result.msg, Price must lower than ceil price)
 

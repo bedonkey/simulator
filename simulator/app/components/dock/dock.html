@@ -18,6 +18,10 @@
 			<input type="button" class="btn btn-lg {{buttonColor}}" type="submit" value="Place Order" ng-click="place()"/>
 		</div>
 		<div id="info">
+			<div class="exchange">
+				<span class="des">[EX]</span>
+				<span class="session" ng-class="dockInfo.session=='OPEN' ? 'exopen' : 'exclose'" ng-bind="dockInfo.session"></span>
+			</div>
 			<div class="account">
 				<span class="des">[ACC]</span>
 				<span class="acc" ng-bind="dockInfo.acc"></span>
