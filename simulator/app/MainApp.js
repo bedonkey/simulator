@@ -33,8 +33,8 @@ app.controller("PriceBoardController", ['$scope', 'priceBoard', PriceBoardContro
 app.controller("DockController", ['$scope', 'order', 'dockService', DockController]);
 app.controller("RobotController", ['$scope', '$http', 'logScreen', 'interpreter', RobotController]);
 
-app.directive("orderDetail", function(){return {templateUrl:'app/components/order/detail.html'};});
-app.directive("orderReplace", function(){return {templateUrl:'app/components/order/replace.html'};});
+app.directive("orderDetail", function(){return {templateUrl:'app/components/orderbook/detail.html'};});
+app.directive("orderReplace", function(){return {templateUrl:'app/components/orderbook/replace.html'};});
 app.directive("accountAdd", function(){return {templateUrl:'app/components/account/add.html'};});
 app.directive("secinfoAdd", function(){return {templateUrl:'app/components/secinfo/add.html'};});
 app.directive("aftypeAdd", function(){return {templateUrl:'app/components/aftype/add.html'};});
