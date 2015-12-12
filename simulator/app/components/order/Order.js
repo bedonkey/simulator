@@ -1,9 +1,9 @@
-Order = function(orderValidator, afType, orderStore, matcher, account, priceBoard, exchange) {
+Order = function(orderValidator, afType, orderStore, exchange, account, priceBoard, exchange) {
 	this.orderValidator = orderValidator;
 	this.orderStore = orderStore;
 	this.account = account;
 	this.priceBoard = priceBoard;
-	this.matcher = matcher;
+	this.exchange = exchange;
 	this.afType = afType;
 	this.exchange = exchange;
 };
@@ -39,8 +39,8 @@ Order.prototype = {
 				this.account.holdTrade(ord.account, ord.symbol, ord.qty);
 			}
 			this.priceBoard.add(newOrder);
-			this.matcher.addOrderMatch(newOrder);
-            this.matcher.matching(newOrder);
+			this.exchange.addOrderMatch(newOrder);
+            this.exchange.matching(newOrder);
         }
         if (error == undefined) {
         	result.status = true;
@@ -85,8 +85,8 @@ Order.prototype = {
 				newOrder.status = 'Replaced';
 	    		this.orderStore.pushToMap(newOrder.originalID, newOrder);
 	        	this.priceBoard.add(newOrder);
-	        	this.matcher.resort(oldOrd);
-	        	this.matcher.matching(oldOrd);
+	        	this.exchange.resort(oldOrd);
+	        	this.exchange.matching(oldOrd);
 
 	        	if(oldOrd.side == 'Buy') {
 					this.account.hold(newOrder);

@@ -1,8 +1,8 @@
-ExchangeController = function($scope, matcher, exchange) {
+ExchangeController = function($scope, exchange, exchange) {
 
     $scope.init = function() {
-        $scope.orderBuy = matcher.getAllOrderBuy();
-        $scope.orderSell = matcher.getAllOrderSell();
+        $scope.orderBuy = exchange.getAllOrderBuy();
+        $scope.orderSell = exchange.getAllOrderSell();
         $scope.session = exchange.getSession();
     }
 
@@ -14,6 +14,7 @@ ExchangeController = function($scope, matcher, exchange) {
     $scope.closeSession = function() {
     	$scope.session = 'CLOSE';
     	exchange.close();
+        exchange.expiredOrders();
     }
     $scope.init();
 } 
