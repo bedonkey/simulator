@@ -1,0 +1,77 @@
+<div id="exchange" ng-controller="ExchangeController">
+	<div id="change-session">
+		<div type="button" class="btn-session" ng-class="session=='OPEN'?'btn-ex-open':''" ng-click="openSession()">OPEN</div>
+        <div type="button" class="btn-session" ng-class="session=='CLOSE'?'btn-ex-close':''" ng-click="closeSession()">CLOSE</div>
+	</div>
+	<div id="orderBuy" class="col-sm-6">
+		<table class="table table-striped table-bordered">
+			<colgroup>
+		            <col width="20%" />
+		            <col width="20%" />
+		            <col width="20%" />
+		            <col width="10%" />
+		            <col width="10%" />
+		            <col width="10%" />
+		            <col width="10%" />
+		        </colgroup>
+			<thead>
+			<tr>
+				<th>TIME</th>
+				<th>ORDERID</th>
+				<th>ACCOUNT</th>
+				<th>SYMBOL</th>
+				<th>SIDE</th>
+				<th>QTY</th>
+				<th>PRICE</th>
+			</tr>
+			</thead>
+			<tbody>
+			 	<tr ng-repeat="order in orderBuy" ng-if="order.remain > 0">
+					<td ng-bind="order.time"></td>
+					<td ng-bind="order.orderID"></td>
+					<td ng-bind="order.account"></td>
+					<td ng-bind="order.symbol"></td>
+					<td ng-bind="order.side"></td>
+					<td ng-bind="order.remain"></td>
+					<td ng-bind="order.price"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div id="orderSell" class="col-sm-6">
+		<table class="table table-striped table-bordered">
+			<colgroup>
+		            <col width="20%" />
+		            <col width="20%" />
+		            <col width="20%" />
+		            <col width="10%" />
+		            <col width="10%" />
+		            <col width="10%" />
+		            <col width="10%" />
+		        </colgroup>
+			<thead>
+			<tr>
+				<th>TIME</th>
+				<th>ORDERID</th>
+				<th>ACCOUNT</th>
+				<th>SYMBOL</th>
+				<th>SIDE</th>
+				<th>QTY</th>
+				<th>PRICE</th>
+			</tr>
+			</thead>
+			<tbody>
+			 	<tr ng-repeat="order in orderSell" ng-if="order.remain > 0">
+					<td ng-bind="order.time"></td>
+					<td ng-bind="order.orderID"></td>
+					<td ng-bind="order.account"></td>
+					<td ng-bind="order.symbol"></td>
+					<td ng-bind="order.side"></td>
+					<td ng-bind="order.remain"></td>
+					<td ng-bind="order.price"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

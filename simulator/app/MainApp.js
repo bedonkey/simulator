@@ -33,10 +33,10 @@ app.controller("PriceBoardController", ['$scope', 'priceBoard', PriceBoardContro
 app.controller("DockController", ['$scope', 'order', 'dockService', DockController]);
 app.controller("RobotController", ['$scope', '$http', 'logScreen', 'interpreter', RobotController]);
 
-app.directive("orderDetail", function(){return {templateUrl:'app/components/orderbook/detail.html'};});
-app.directive("orderReplace", function(){return {templateUrl:'app/components/orderbook/replace.html'};});
-app.directive("accountAdd", function(){return {templateUrl:'app/components/account/add.html'};});
-app.directive("secinfoAdd", function(){return {templateUrl:'app/components/secinfo/add.html'};});
-app.directive("aftypeAdd", function(){return {templateUrl:'app/components/aftype/add.html'};});
-app.directive("basketAdd", function(){return {templateUrl:'app/components/basket/add.html'};});
+app.directive("orderDetail", function(){return {templateUrl:'app/modules/home/orderbook/detail.html'};});
+app.directive("orderReplace", function(){return {templateUrl:'app/modules/home/orderbook/replace.html'};});
+app.directive("accountAdd", function(){return {templateUrl:'app/modules/ors/account/add.html'};});
+app.directive("secinfoAdd", function(){return {templateUrl:'app/modules/ors/secinfo/add.html'};});
+app.directive("aftypeAdd", function(){return {templateUrl:'app/modules/ors/aftype/add.html'};});
+app.directive("basketAdd", function(){return {templateUrl:'app/modules/ors/basket/add.html'};});
 app.directive("mask", function(){return {templateUrl:'app/shared/mask.html'};});
