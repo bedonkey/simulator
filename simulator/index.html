@@ -49,32 +49,69 @@
 	<script type="text/javascript" src="app/MainApp.js"></script>
 </head>
 <body>
+	
 	<div id="wrap" class="container" ng-controller="TabsCtrl">
 		<nav class="navbar navbar-inverse">
-			<div class="navbar-header">
+			<div id="logo" class="navbar-header">
 		      	<a class="navbar-brand">SIMULATOR</a>
 		    </div>
-		  <div class="container-fluid">
-		    <div id="tabs">
+		  	<div id="tabs" class="container-fluid">
 		      	<ul class="nav navbar-nav">
-		      		<li ng-repeat="tab in tabs" 
-               			ng-class="{active:isActiveTab(tab.url)}" 
-                		ng-click="onClickTab(tab)"><a>{{tab.title}}</a>
+            		<li ng-click="onClickTab('app/components/orderbook/orderbook.html')">
+                		<a href="#orderbook" data-toggle="tab">Order Book</a>
             		</li>
-            		<li class="dropdown">
-			          	<a class="dropdown-toggle" data-toggle="dropdown" href="#">Setting
-			          	<span class="caret"></span></a>
-			          	<ul class="dropdown-menu">
-			            	<li ng-repeat="tab in tabsSetting" 
-		               			ng-class="{active:isActiveTab(tab.url)}" 
-		                		ng-click="onClickTab(tab)"><a>{{tab.title}}</a>
-		            		</li>
-			          	</ul>
-			        </li>
+            		<li ng-click="onClickTab('app/components/priceboard/priceboard.html')">
+                		<a href="#priceboard" data-toggle="tab">Price Board</a>
+            		</li>
+            		<li ng-click="onClickTab('app/components/exchange/exchange.html')">
+                		<a href="#exchange" data-toggle="tab">Exchange</a>
+            		</li>
+            		<li ng-click="onClickTab('app/components/robot/robot.html')">
+                		<a href="#rebottest" data-toggle="tab">RobotTest</a>
+            		</li>
+            		<li>
+            			<a href="#orstab" data-toggle="tab">ORS</a>
+					</li>
 		      	</ul>
+		  	</div>
+		  	<div id="sub-tabs">
+			  	<ul class="tab-content">
+			  		<li class="tab-pane" id="orderbook"></li>
+			  		<li class="tab-pane" id="priceboard"></li>
+			  		<li class="tab-pane" id="exchange">
+			  			<ul class="nav navbar-nav">
+		            		<li ng-click="onClickTab('app/components/account/account.html')">
+		            			<a data-toggle="tab">Monitor</a>
+		            		</li>
+		            		<li ng-click="onClickTab('app/components/secinfo/secinfo.html')">
+		            			<a data-toggle="tab">Orders</a>
+		            		</li>
+		            		<li ng-click="onClickTab('app/components/secinfo/secinfo.html')">
+		            			<a data-toggle="tab">SecInfo</a>
+		            		</li>
+			            </ul>
+			  		</li>
+			  		<li class="tab-pane" id="rebottest"></li>
+			        <li class="tab-pane" id="orstab">
+			            <ul class="nav navbar-nav">
+		            		<li ng-click="onClickTab('app/components/account/account.html')">
+		            			<a data-toggle="tab">Account</a>
+		            		</li>
+		            		<li ng-click="onClickTab('app/components/secinfo/secinfo.html')">
+		            			<a data-toggle="tab">SecInfo</a>
+		            		</li>
+		            		<li ng-click="onClickTab('app/components/aftype/aftype.html')">
+		            			<a data-toggle="tab">AfType</a>
+		            		</li>
+		            		<li ng-click="onClickTab('app/components/basket/basket.html')">
+		            			<a data-toggle="tab">Basket</a>
+		            		</li>
+			            </ul>
+			        </li>
+		    	</ul>
 		    </div>
-		  </div>
 		</nav>
+
 		
 		<div id="main-content">
 			<div ng-include="currentTab"></div>

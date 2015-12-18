@@ -10,8 +10,28 @@ img {
 	cursor: pointer;
 }
 
+#logo {
+	width: 130px;
+}
+
 .col-sm-12, .col-sm-3, .col-sm-8 {
     padding: 0;
+}
+
+#sub-tabs .navbar-nav > li > a {
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+#sub-tabs ul {
+	margin-bottom: 0;
+    margin-top: 0;
+    padding-left: 65px;
+}
+
+#sub-tabs {
+	height: 32px;
+	border-top: 2px solid #777;
 }
 
 #wrap {
