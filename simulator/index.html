@@ -53,70 +53,8 @@
 	<script type="text/javascript" src="app/MainApp.js"></script>
 </head>
 <body>
-	
 	<div id="wrap" class="container" ng-controller="TabsCtrl">
-		<nav class="navbar navbar-inverse">
-			<div id="logo" class="navbar-header">
-		      	<a class="navbar-brand">SIMULATOR</a>
-		    </div>
-		  	<div id="tabs" class="container-fluid">
-		      	<ul class="nav navbar-nav">
-            		<li ng-click="onClickTabOrderBook()">
-                		<a href="#orderbook" data-toggle="tab">Order Book</a>
-            		</li>
-            		<li ng-click="onClickTabPriceBoard()">
-                		<a href="#priceboard" data-toggle="tab">Price Board</a>
-            		</li>
-            		<li ng-click="onClickTabORSAccount()">
-            			<a href="#orstab" data-toggle="tab">ORS</a>
-					</li>
-            		<li ng-click="onClickTabExchangeMonitor()">
-                		<a href="#exchange" data-toggle="tab">Exchange</a>
-            		</li>
-            		<li ng-click="onClickTabRobot()">
-                		<a href="#rebottest" data-toggle="tab">RobotTest</a>
-            		</li>
-		      	</ul>
-		  	</div>
-		  	<div id="sub-tabs">
-			  	<ul class="tab-content">
-			  		<li class="tab-pane" id="orderbook"></li>
-			  		<li class="tab-pane" id="priceboard"></li>
-			  		<li class="tab-pane" id="exchange">
-			  			<ul class="nav navbar-nav">
-		            		<li ng-click="onClickTabExchangeMonitor()">
-		            			<a data-toggle="tab">Monitor</a>
-		            		</li>
-		            		<li ng-click="onClickTabExchangeOrders()">
-		            			<a data-toggle="tab">Orders</a>
-		            		</li>
-		            		<li ng-click="onClickTabExchangeSecInfo()">
-		            			<a data-toggle="tab">SecInfo</a>
-		            		</li>
-			            </ul>
-			  		</li>
-			  		<li class="tab-pane" id="rebottest"></li>
-			        <li class="tab-pane" id="orstab">
-			            <ul class="nav navbar-nav">
-		            		<li ng-click="onClickTabORSAccount()">
-		            			<a data-toggle="tab">Account</a>
-		            		</li>
-		            		<li ng-click="onClickTabORSSecInfo()">
-		            			<a data-toggle="tab">SecInfo</a>
-		            		</li>
-		            		<li ng-click="onClickTabORSAfType()">
-		            			<a data-toggle="tab">AfType</a>
-		            		</li>
-		            		<li ng-click="onClickTabORSBasket()">
-		            			<a data-toggle="tab">Basket</a>
-		            		</li>
-			            </ul>
-			        </li>
-		    	</ul>
-		    </div>
-		</nav>
-
-		
+		<div ng-include="'app/shared/nav.html'"></div>
 		<div id="main-content">
 			<div ng-include="currentTab"></div>
 		</div>
