@@ -56,6 +56,7 @@
 	<div id="wrap" class="container" ng-controller="TabsCtrl">
 		<div ng-include="'app/shared/nav.html'"></div>
 		<div id="main-content">
+			<div class="welcome" ng-show="currentTab==''">Simulator</div>
 			<div ng-include="currentTab"></div>
 		</div>
 		<div ng-include="'app/modules/home/dock/dock.html'" ng-controller="DockController" ng-show="isShowDock"></div>

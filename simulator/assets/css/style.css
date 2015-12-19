@@ -14,6 +14,11 @@ img {
 	cursor: pointer;
 }
 
+.welcome {
+	font-size: 200px;
+	text-align: center;
+}
+
 #logo {
 	width: 130px;
 }
@@ -695,11 +700,11 @@ img.btn_close {
 	position: absolute;
 	top: 0;
 	bottom: 0;
-	padding-top: 75px;
+	padding-top: 100px;
 }
 
 #testcases .testcase {
-	height: 50%;
+	height: 100%;
 	border: 1px solid #333;
 	overflow: scroll;
 }
@@ -766,29 +771,28 @@ img.btn_close {
     box-sizing: border-box;
 }
 
-#testcases .box-title {
+#robottest .box-title {
 	background: #333;
 	padding: 5px;
 	font-weight: bold;
+	color: white;
 }
 
-#testcases .box-content {
+#robottest .box-content {
 	padding: 5px;
 	color: #ddd;
 }
 
-#testcases .resource {
-	overflow: scroll;
-	height: 50%;
+#robottest .resource {
 	border: 1px solid #333;
 }
 
-#testcases .resource li{
+#robottest .resource li{
 	margin: 0;
 	padding: 0;
 }
 
-#testcases .resource .return{
+#robottest .resource .return{
 	color: magenta;
 }
 
@@ -835,4 +839,13 @@ img.btn_close {
 
 .btn-ex-close {
 	background: red !important;
+}
+
+#mo, #gateway {
+	text-align: center;
+}
+
+.message {
+	font-size: 18px;
+	color: #eee;
 }

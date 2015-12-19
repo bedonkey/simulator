@@ -1,0 +1,13 @@
+<div id="robottest" ng-controller="RobotController">
+	<div class="resource">
+		<div class="box-title">Keywords</div>
+		<div class="box-content">
+			<ul>
+				<li ng-repeat="keyword in keywords">
+					<span class="return" ng-bind="keyword.return"></span>
+					<span ng-bind="keyword.function"></span>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

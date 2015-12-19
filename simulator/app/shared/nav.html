@@ -1,0 +1,56 @@
+<nav class="navbar navbar-inverse">
+	<div id="logo" class="navbar-header">
+      	<a class="navbar-brand">SIMULATOR</a>
+    </div>
+  	<div id="tabs" class="container-fluid">
+      	<ul class="nav navbar-nav">
+    		<li ng-click="onClickTabHome()"><a href="#home" data-toggle="tab">Home</a></li>
+    		<li ng-click="onClickTabORS()"><a href="#orstab" data-toggle="tab">ORS</a></li>
+			<li ng-click="onClickTabMO()"><a href="#motab" data-toggle="tab">MO</a></li>
+    		<li ng-click="onClickTabGateway()"><a href="#gateway" data-toggle="tab">Gateway</a></li>
+    		<li ng-click="onClickTabExchange()"><a href="#exchange" data-toggle="tab">Exchange</a></li>
+    		<li ng-click="onClickTabRobot()"><a href="#rebottest" data-toggle="tab">RobotTest</a></li>
+      	</ul>
+  	</div>
+  	<div id="sub-tabs">
+	  	<ul class="tab-content">
+	  		<li class="tab-pane" id="home">
+	  			<ul class="nav navbar-nav">
+	  				<li ng-click="onClickTabOrderBook()"><a href="orderbook" data-toggle="tab">Order Book</a></li>
+            		<li ng-click="onClickTabPriceBoard()"><a href="priceboard" data-toggle="tab">Price Board</a></li>
+	  			</ul>
+	  		</li>
+	  		<li class="tab-pane" id="motab">
+	  			<ul class="nav navbar-nav">
+            		<li ng-click=""><a href="mo-monitor" data-toggle="tab">Monitor</a></li>
+	            </ul>
+	  		</li>
+	  		<li class="tab-pane" id="gateway">
+	  			<ul class="nav navbar-nav">
+            		<li ng-click=""><a href="gw-monitor" data-toggle="tab">Monitor</a></li>
+	            </ul>
+	  		</li>
+	  		<li class="tab-pane" id="exchange">
+	  			<ul class="nav navbar-nav">
+            		<li ng-click="onClickTabExchangeMonitor()"><a href="ex-monitor" data-toggle="tab">Monitor</a></li>
+            		<li ng-click="onClickTabExchangeOrders()"><a href="ex-orders" data-toggle="tab">Orders</a></li>
+            		<li ng-click="onClickTabExchangeSecInfo()"><a href="ex-secinfo" data-toggle="tab">SecInfo</a></li>
+	            </ul>
+	  		</li>
+	  		<li class="tab-pane" id="rebottest">
+	  			<ul class="nav navbar-nav">
+            		<li ng-click="onClickTabRobotTestcases()"><a href="robot-testcase" data-toggle="tab">TestCases</a></li>
+            		<li ng-click="onClickTabRobotKeywords()"><a href="robot-keyword" data-toggle="tab">Keywords</a></li>
+	            </ul>
+	  		</li>
+	        <li class="tab-pane" id="orstab">
+	            <ul class="nav navbar-nav">
+            		<li ng-click="onClickTabORSAccount()"><a href="ors-account" data-toggle="tab">Account</a></li>
+            		<li ng-click="onClickTabORSSecInfo()"><a href="ors-secinfo" data-toggle="tab">SecInfo</a></li>
+            		<li ng-click="onClickTabORSAfType()"><a href="ors-aftype" data-toggle="tab">AfType</a></li>
+            		<li ng-click="onClickTabORSBasket()"><a href="ors-basket" data-toggle="tab">Basket</a></li>
+	            </ul>
+	        </li>
+    	</ul>
+    </div>
+</nav>

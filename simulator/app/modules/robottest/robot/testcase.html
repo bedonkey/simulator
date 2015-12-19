@@ -12,17 +12,6 @@
 				</ul>
 			</div>
 		</div>
-		<div class="resource">
-			<div class="box-title">Keywords</div>
-			<div class="box-content">
-				<ul>
-					<li ng-repeat="keyword in keywords">
-						<span class="return" ng-bind="keyword.return"></span>
-						<span ng-bind="keyword.function"></span>
-					</li>
-				</ul>
-			</div>
-		</div>
 	</div>
 
 	<div id="testcase-editor" class="">
@@ -49,7 +38,6 @@
 <script>
 	$(document).ready(function() {
 		$("#testcases .testcase").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
-		$("#testcases .resource").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
 		$("#console").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
 		$("#testcase-editor textarea").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
   	});

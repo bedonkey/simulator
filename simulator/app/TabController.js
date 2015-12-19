@@ -9,23 +9,19 @@ TabController = function($scope) {
     tabUrl["ors-secinfo"] = "app/modules/ors/secinfo/secinfo.html";
     tabUrl["ors-aftype"] = "app/modules/ors/aftype/aftype.html";
     tabUrl["ors-basket"] = "app/modules/ors/basket/basket.html";
-    tabUrl["robottest"] = "app/modules/robottest/robot/robot.html";
+    tabUrl["mo-monitor"] = "app/modules/mo/monitor.html";
+    tabUrl["gw-monitor"] = "app/modules/gateway/monitor.html";
+    tabUrl["robot-keyword"] = "app/modules/robottest/robot/keyword.html";
+    tabUrl["robot-testcase"] = "app/modules/robottest/robot/testcase.html";
 
-    $scope.isShowDock = true;
-    $scope.currentTab = tabUrl["orderbook"];
-
-    $scope.onClickTabRobot = function () {
-        $scope.isShowDock = false;
-        $scope.currentTab = tabUrl["robottest"];
-    }
+    $scope.isShowDock = false;
+    $scope.currentTab = "";
 
     $scope.onClickTabPriceBoard = function () {
-        $scope.isShowDock = true;
         $scope.currentTab = tabUrl["priceboard"];
     }
 
     $scope.onClickTabOrderBook = function () {
-        $scope.isShowDock = true;
         $scope.currentTab = tabUrl["orderbook"];
     }
 
@@ -56,22 +52,18 @@ TabController = function($scope) {
     }
 
     $scope.onClickTabExchangeMonitor = function () {
-        $scope.isShowDock = false;
         $scope.currentTab = tabUrl["ex-monitor"];
     }
 
     $scope.onClickTabExchangeOrders = function () {
-        $scope.isShowDock = false;
         $scope.currentTab = tabUrl["ex-orders"];
     } 
 
     $scope.onClickTabExchangeSecInfo = function () {
-        $scope.isShowDock = false;
         $scope.currentTab = tabUrl["ex-secinfo"];
     } 
 
     $scope.onClickTabORSBasket = function () {
-        $scope.isShowDock = false;
         $scope.currentTab = tabUrl["ors-basket"];
     }
 
@@ -89,17 +81,61 @@ TabController = function($scope) {
     }
 
     $scope.onClickTabORSAfType = function () {
-        $scope.isShowDock = false;
         $scope.currentTab = tabUrl["ors-aftype"];
     }
 
     $scope.onClickTabORSSecInfo = function () {
-        $scope.isShowDock = false;
         $scope.currentTab = tabUrl["ors-secinfo"];
     }
 
     $scope.onClickTabORSAccount = function () {
-        $scope.isShowDock = false;
         $scope.currentTab = tabUrl["ors-account"];
+    }
+
+    $scope.onClickTabMO = function () {
+        $scope.isShowDock = false;
+        var curTab = tabUrl["mo-monitor"];
+        var homeTab = angular.element("#motab li");
+        angular.forEach(homeTab, function(e) {
+            var elem = angular.element(e);
+            if(elem.hasClass('active')) {
+                curTab = tabUrl[elem.find('a').attr('href')];
+            }
+        });
+        $scope.currentTab = curTab;
+    }
+
+    $scope.onClickTabGateway = function () {
+        $scope.isShowDock = false;
+        var curTab = tabUrl["gw-monitor"];
+        var homeTab = angular.element("#gateway li");
+        angular.forEach(homeTab, function(e) {
+            var elem = angular.element(e);
+            if(elem.hasClass('active')) {
+                curTab = tabUrl[elem.find('a').attr('href')];
+            }
+        });
+        $scope.currentTab = curTab;
+    }
+
+    $scope.onClickTabRobot = function () {
+        $scope.isShowDock = false;
+        var curTab = tabUrl["robot-testcase"];
+        var homeTab = angular.element("#robottest li");
+        angular.forEach(homeTab, function(e) {
+            var elem = angular.element(e);
+            if(elem.hasClass('active')) {
+                curTab = tabUrl[elem.find('a').attr('href')];
+            }
+        });
+        $scope.currentTab = curTab;
+    }
+
+    $scope.onClickTabRobotKeywords = function () {
+        $scope.currentTab = tabUrl["robot-keyword"];
+    }
+
+    $scope.onClickTabRobotTestcases = function () {
+        $scope.currentTab = tabUrl["robot-testcase"];
     }
 } 
