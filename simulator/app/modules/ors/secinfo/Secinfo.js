@@ -35,6 +35,7 @@ SecInfo.prototype = {
 	},
 
 	delete: function(symbol) {
+		console.log("delete")
 		for (var i = 0; i < secs.length; i++) {
             if (secs[i].symbol == symbol) {
                 secs.splice(i, 1);

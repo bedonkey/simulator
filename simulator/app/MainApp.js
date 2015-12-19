@@ -15,6 +15,7 @@ app.service('orderValidator', ['account', 'secinfo', 'aftype', OrderValidator]);
 app.service('order', ['orderValidator', 'aftype', 'orderStore', 'exchange', 'account', 'priceBoard', 'exchange', Order]);
 app.service('secInfoValidator', SecInfoValidator);
 app.service('secinfo', ['secInfoValidator', SecInfo]);
+app.service('ex_secinfo', ['secInfoValidator', Ex_SecInfo]);
 app.service('priceBoard', ['secinfo', PriceBoard]);
 app.service('orderStore', OrderStore);
 app.service('dockService', ['account', 'secinfo', DockService]);
@@ -23,7 +24,7 @@ app.service('interpreter', ['logScreen', 'order', 'account', 'exchange', Interpr
 app.service('exchange', ['account', 'orderStore', 'priceBoard','dockService', Exchange]);
 
 app.controller("TabsCtrl", ['$scope', TabController]);
-app.controller('ExchangeController', ['$scope', 'exchange', 'exchange', ExchangeController]);
+app.controller('ExchangeController', ['$scope', 'exchange', 'ex_secinfo', ExchangeController]);
 app.controller("SecInfoController", ['$scope', 'secinfo', SecInfoController]);
 app.controller("AccountController", ['$scope', 'account', 'aftype', AccountController]);
 app.controller("AfTypeController", ['$scope', 'aftype', 'basket', AfTypeController]);

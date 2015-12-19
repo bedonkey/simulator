@@ -8,7 +8,7 @@ Account = function(accountValidator, afType) {
 Account.prototype = {
 	init: function() {
 		accounts = {};
-		accounts = InitData.accounts();
+		accounts = InitData.accounts;
 		for (var i = 0; i < accounts.length; i++) {
 			this.refresh(accounts[i]);
 		}

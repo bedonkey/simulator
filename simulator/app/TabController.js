@@ -2,6 +2,7 @@ TabController = function($scope) {
     var tabUrl = {};
     tabUrl["orderbook"] = "app/modules/home/orderbook/orderbook.html";
     tabUrl["priceboard"] = "app/modules/home/priceboard/priceboard.html";
+    tabUrl["condition"] = "app/modules/home/condition/monitor.html";
     tabUrl["ex-monitor"] = "app/modules/exchange/monitor.html";
     tabUrl["ex-orders"] = "app/modules/exchange/orders.html";
     tabUrl["ex-secinfo"] = "app/modules/exchange/secinfo.html";
@@ -9,8 +10,8 @@ TabController = function($scope) {
     tabUrl["ors-secinfo"] = "app/modules/ors/secinfo/secinfo.html";
     tabUrl["ors-aftype"] = "app/modules/ors/aftype/aftype.html";
     tabUrl["ors-basket"] = "app/modules/ors/basket/basket.html";
-    tabUrl["mo-monitor"] = "app/modules/mo/monitor.html";
-    tabUrl["gw-monitor"] = "app/modules/gateway/monitor.html";
+    tabUrl["mo-config"] = "app/modules/mo/config.html";
+    tabUrl["gw-orderqueue"] = "app/modules/gateway/orderqueue.html";
     tabUrl["robot-keyword"] = "app/modules/robottest/robot/keyword.html";
     tabUrl["robot-testcase"] = "app/modules/robottest/robot/testcase.html";
 
@@ -23,6 +24,10 @@ TabController = function($scope) {
 
     $scope.onClickTabOrderBook = function () {
         $scope.currentTab = tabUrl["orderbook"];
+    }
+
+    $scope.onClickTabCondition = function () {
+        $scope.currentTab = tabUrl["condition"];
     }
 
     $scope.onClickTabHome = function () {
@@ -94,7 +99,7 @@ TabController = function($scope) {
 
     $scope.onClickTabMO = function () {
         $scope.isShowDock = false;
-        var curTab = tabUrl["mo-monitor"];
+        var curTab = tabUrl["mo-config"];
         var homeTab = angular.element("#motab li");
         angular.forEach(homeTab, function(e) {
             var elem = angular.element(e);
@@ -107,7 +112,7 @@ TabController = function($scope) {
 
     $scope.onClickTabGateway = function () {
         $scope.isShowDock = false;
-        var curTab = tabUrl["gw-monitor"];
+        var curTab = tabUrl["gw-orderqueue"];
         var homeTab = angular.element("#gateway li");
         angular.forEach(homeTab, function(e) {
             var elem = angular.element(e);
