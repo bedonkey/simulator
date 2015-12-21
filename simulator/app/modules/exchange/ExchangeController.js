@@ -1,7 +1,8 @@
-ExchangeController = function($scope, exchange, ex_secinfo) {
+ExchangeController = function($scope, exchange, exSecinfo) {
     $scope.search = {
         symbol : ''
     };
+    
     $scope.init = function() {
         $scope.orderBuy = exchange.getAllOrderBuy();
         $scope.orderSell = exchange.getAllOrderSell();
@@ -20,7 +21,7 @@ ExchangeController = function($scope, exchange, ex_secinfo) {
     }
     $scope.init();
 
-    $scope.secs = ex_secinfo.getAll();
+    $scope.secs = exSecinfo.getAll();
 
     $scope.openEditBox = function(sec) {
         $scope.mask=true;
@@ -39,7 +40,7 @@ ExchangeController = function($scope, exchange, ex_secinfo) {
     }
 
     $scope.add = function() {
-        var result = ex_secinfo.add($scope.secDetail);
+        var result = exSecinfo.add($scope.secDetail);
         if(result != "") {
             $scope.secAddError = result;
         } else {
@@ -49,7 +50,7 @@ ExchangeController = function($scope, exchange, ex_secinfo) {
     }
 
     $scope.remove = function(sec) {
-        ex_secinfo.delete(sec.symbol);
-        $scope.secs = ex_secinfo.get($scope.search.symbol);
+        exSecinfo.delete(sec.symbol);
+        $scope.secs = exSecinfo.get($scope.search.symbol);
     }
 } 

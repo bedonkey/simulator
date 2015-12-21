@@ -1,16 +1,11 @@
 AfType = function(basket) {
 	this.basket = basket;
-	var aftypes;
-	this.init();
+	this.aftypes = InitData.aftypes;
 };
 
 AfType.prototype = {
-	init: function() {
-		aftypes = InitData.aftypes;
-	},
-
 	getAll: function() {
-		return aftypes;
+		return this.aftypes;
 	},
 
 	add: function(type) {
@@ -19,7 +14,7 @@ AfType.prototype = {
 	        error = "AfType exist";
 	    }
 		if (error == "") {
-	        aftypes.push(type);
+	        this.aftypes.push(type);
         }
         return error;
 	},
@@ -29,16 +24,16 @@ AfType.prototype = {
 	},
 
 	delete: function(name) {
-		for (var i = 0; i < aftypes.length; i++) {
-            if (aftypes[i].name == name) {
-                aftypes.splice(i, 1);
+		for (var i = 0; i < this.aftypes.length; i++) {
+            if (this.aftypes[i].name == name) {
+                this.aftypes.splice(i, 1);
             }
         };
 	},
 
 	checkExist: function(name) {
-        for (var i = 0; i < aftypes.length; i++) {
-            if (name == aftypes[i].name) {
+        for (var i = 0; i < this.aftypes.length; i++) {
+            if (name == this.aftypes[i].name) {
                 return true;
             }
         };
@@ -47,9 +42,9 @@ AfType.prototype = {
 
     getPriceMargin: function(type, sym) {
     	var basketID = 0;
-    	for (var i = 0; i < aftypes.length; i++) {
-            if (type == aftypes[i].name) {
-                basketID = aftypes[i].basket;
+    	for (var i = 0; i < this.aftypes.length; i++) {
+            if (type == this.aftypes[i].name) {
+                basketID = this.aftypes[i].basket;
                 break;
             }
         };

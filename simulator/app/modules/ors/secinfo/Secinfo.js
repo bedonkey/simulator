@@ -1,16 +1,12 @@
 SecInfo = function(secInfoValidator) {
 	this.secInfoValidator = secInfoValidator;
-	var secs;
-	this.init();
+	this.secs = InitData.secs;
 };
 
 SecInfo.prototype = {
-	init: function() {
-		secs = InitData.secs;
-	},
 
 	getAll: function() {
-		return secs;
+		return this.secs;
 	},
 
 	add: function(sec) {
@@ -19,16 +15,16 @@ SecInfo.prototype = {
 	        error = "Symbol exist";
 	    }
 		if (error == "") {
-	        secs.push(sec);
+	        this.secs.push(sec);
         }
         return error;
 	},
 
 	get: function(symbol) {
 		var newsecs = [];
-		for (var i = 0; i < secs.length; i++) {
-            if (symbol == undefined || symbol == '' || secs[i].symbol == symbol) {
-                newsecs.push(secs[i]);
+		for (var i = 0; i < this.secs.length; i++) {
+            if (symbol == undefined || symbol == '' || this.secs[i].symbol == symbol) {
+                newsecs.push(this.secs[i]);
             }
         };
 		return newsecs;
@@ -37,18 +33,18 @@ SecInfo.prototype = {
 	delete: function(symbol) {
 		console.log("delete")
 		for (var i = 0; i < secs.length; i++) {
-            if (secs[i].symbol == symbol) {
-                secs.splice(i, 1);
+            if (this.secs[i].symbol == symbol) {
+                this.secs.splice(i, 1);
             }
         };
 	},
 
 	checkExist: function(symbol) {
-        for (var i = 0; i < secs.length; i++) {
-            if (symbol == secs[i].symbol) {
+        for (var i = 0; i < this.secs.length; i++) {
+            if (symbol == this.secs[i].symbol) {
                 return true;
             }
         };
         return false;
     }
-}	
+}

@@ -2,25 +2,25 @@ Exchange = function(account, orderStore, priceBoard, dockService) {
 	this.account = account;
 	this.orderStore = orderStore;
 	this.priceBoard = priceBoard;
-	matchOrdersSell = [];
-	matchOrdersBuy = [];
-	session = 'CLOSE';
+	this.matchOrdersSell = [];
+	this.matchOrdersBuy = [];
+	this.session = 'CLOSE';
 	this.dockService = dockService;
 };
 
 Exchange.prototype = {
 
 	init: function() {
-		matchOrdersSell.length = 0;
-		matchOrdersBuy.length = 0;
+		this.matchOrdersSell.length = 0;
+		this.matchOrdersBuy.length = 0;
 	},
 
 	getAllOrderBuy: function() {
-		return matchOrdersBuy;
+		return this.matchOrdersBuy;
 	},
 
 	getAllOrderSell: function() {
-		return matchOrdersSell;
+		return this.matchOrdersSell;
 	},
 
 	resort: function(ord) {
@@ -42,38 +42,38 @@ Exchange.prototype = {
 	},
 
 	addOrderBuyMatch: function(ord) {
-		for (var i = 0; i < matchOrdersBuy.length; i++) {
-			if (ord.price > matchOrdersBuy[i].price) {
-				matchOrdersBuy.splice(i, 0, ord);
+		for (var i = 0; i < this.matchOrdersBuy.length; i++) {
+			if (ord.price > this.matchOrdersBuy[i].price) {
+				this.matchOrdersBuy.splice(i, 0, ord);
 				return;
 			}
 		}
-		matchOrdersBuy.push(ord);
+		this.matchOrdersBuy.push(ord);
 	},
 
 	addOrderSellMatch: function(ord) {
-		for (var i = 0; i < matchOrdersSell.length; i++) {
-			if (ord.price < matchOrdersSell[i].price) {
-				matchOrdersSell.splice(i, 0, ord);
+		for (var i = 0; i < this.matchOrdersSell.length; i++) {
+			if (ord.price < this.matchOrdersSell[i].price) {
+				this.matchOrdersSell.splice(i, 0, ord);
 				return;
 			}
 		}
-		matchOrdersSell.push(ord);
+		this.matchOrdersSell.push(ord);
 	},
 
 	removeOrderBuyMatch: function(ord) {
-		for (var i = 0; i < matchOrdersBuy.length; i++) {
-			if (ord.orderID == matchOrdersBuy[i].orderID) {
-				matchOrdersBuy.splice(i, 1);
+		for (var i = 0; i < this.matchOrdersBuy.length; i++) {
+			if (ord.orderID == this.matchOrdersBuy[i].orderID) {
+				this.matchOrdersBuy.splice(i, 1);
 				return;
 			}
 		}
 	},
 
 	removeOrderSellMatch: function(ord) {
-		for (var i = 0; i < matchOrdersSell.length; i++) {
-			if (ord.orderID == matchOrdersSell[i].orderID) {
-				matchOrdersSell.splice(i, 1);
+		for (var i = 0; i < this.matchOrdersSell.length; i++) {
+			if (ord.orderID == this.matchOrdersSell[i].orderID) {
+				this.matchOrdersSell.splice(i, 1);
 				return;
 			}
 		}
@@ -88,26 +88,26 @@ Exchange.prototype = {
 	},
 
 	matchingBuy: function(ord) {
-		for (var i = 0; i < matchOrdersSell.length; i++) {
+		for (var i = 0; i < this.matchOrdersSell.length; i++) {
 			if (ord.remain == 0) {
             	break;
             }
-            if (matchOrdersSell[i].remain > 0 && matchOrdersSell[i].symbol == ord.symbol && matchOrdersSell[i].account != ord.account) {
-        		if (ord.price >= matchOrdersSell[i].price) {
-        			this.match(ord, matchOrdersSell[i], ord.price);
+            if (this.matchOrdersSell[i].remain > 0 && this.matchOrdersSell[i].symbol == ord.symbol && this.matchOrdersSell[i].account != ord.account) {
+        		if (ord.price >= this.matchOrdersSell[i].price) {
+        			this.match(ord, this.matchOrdersSell[i], ord.price);
         		}
             }
         }
 	},
 
 	matchingSell: function(ord) {
-		for (var i = 0; i < matchOrdersBuy.length; i++) {
+		for (var i = 0; i < this.matchOrdersBuy.length; i++) {
 			if (ord.remain == 0) {
             	break;
             }
-            if (matchOrdersBuy[i].remain > 0 && matchOrdersBuy[i].symbol == ord.symbol && matchOrdersBuy[i].account != ord.account) {
-        		if (ord.price <= matchOrdersBuy[i].price) {
-        			this.match(ord, matchOrdersBuy[i], matchOrdersBuy[i].price);
+            if (this.matchOrdersBuy[i].remain > 0 && this.matchOrdersBuy[i].symbol == ord.symbol && this.matchOrdersBuy[i].account != ord.account) {
+        		if (ord.price <= this.matchOrdersBuy[i].price) {
+        			this.match(ord, this.matchOrdersBuy[i], this.matchOrdersBuy[i].price);
         		}
             }
         }
@@ -153,14 +153,14 @@ Exchange.prototype = {
 	},
 
 	expiredOrders: function() {
-		for (var i = 0; i < matchOrdersBuy.length; i++) {
-			this.expired(matchOrdersBuy[i]);
-			matchOrdersBuy.splice(i, 1);
+		for (var i = 0; i < this.matchOrdersBuy.length; i++) {
+			this.expired(this.matchOrdersBuy[i]);
+			this.matchOrdersBuy.splice(i, 1);
 		}
 
-		for (var i = 0; i < matchOrdersSell.length; i++) {
-			this.expired(matchOrdersSell[i]);
-			matchOrdersSell.splice(i, 1);
+		for (var i = 0; i < this.matchOrdersSell.length; i++) {
+			this.expired(this.matchOrdersSell[i]);
+			this.matchOrdersSell.splice(i, 1);
 		}
 	},
 
@@ -175,17 +175,17 @@ Exchange.prototype = {
 	},
 
 	getSession: function() {
-		return session;
+		return this.session;
 	},
 
 	close: function() {
-		session = 'CLOSE';
+		this.session = 'CLOSE';
 		this.dockService.setSession('CLOSE');
 
 	},
 
 	open: function() {
-		session = 'OPEN';
+		this.session = 'OPEN';
 		this.dockService.setSession('OPEN');
 	}
 

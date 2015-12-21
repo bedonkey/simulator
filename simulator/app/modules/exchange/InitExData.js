@@ -1,5 +1,5 @@
 InitExData = {
-	secs : [{
+	exSecs : [{
 		    id:1,
 		    symbol:"AAA",
 		    floor:1000,
@@ -64,7 +64,7 @@ InitExData = {
 		},
 		{
 		    id:10,
-		    symbol:"KKK",
+		    symbol:"WWW",
 		    floor:10000,
 		    ref: 11000,
 		    ceil: 12000

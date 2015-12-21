@@ -1,70 +1,68 @@
 Account = function(accountValidator, afType) {
 	this.accountValidator = accountValidator;
 	this.afType = afType;
-	var accounts;
+	this.accounts = InitData.accounts;
 	this.init();
 };
 
 Account.prototype = {
 	init: function() {
-		accounts = {};
-		accounts = InitData.accounts;
-		for (var i = 0; i < accounts.length; i++) {
-			this.refresh(accounts[i]);
+		for (var i = 0; i < this.accounts.length; i++) {
+			this.refresh(this.accounts[i]);
 		}
 	},
 
 	getAll: function() {
-		return accounts;
+		return this.accounts;
 	},
 
-	add: function(account) {
-        var error = this.accountValidator.clientValidate(account);
-        if (error != '' && this.checkExist(account.id)) {
+	add: function(acc) {
+        var error = this.accountValidator.clientValidate(acc);
+        if (error != '' && this.checkExist(acc.id)) {
 	        error = "Account Exist";
 	    }
 		if (error == "") {
-			account.pp0 = 0;
-        	account.ppcash = 0;
-        	account.hold = 0;
-	        accounts.push(account);
-	        this.refresh(account);
+			acc.pp0 = 0;
+        	acc.ppcash = 0;
+        	acc.hold = 0;
+	        this.accounts.push(acc);
+	        this.refresh(acc);
         }
         return error;
 	},
 
-	delete: function(account) {
-		for (var i = 0; i < accounts.length; i++) {
-            if (account.id == accounts[i].id) {
-                accounts.splice(i, 1);
+	delete: function(acc) {
+		for (var i = 0; i < this.accounts.length; i++) {
+            if (acc.id == this.accounts[i].id) {
+                this.accounts.splice(i, 1);
             }
         };
 	},
 
-	checkExist: function(accountId) {
-        for (var i = 0; i < accounts.length; i++) {
-            if (accountId == accounts[i].id) {
+	checkExist: function(accID) {
+        for (var i = 0; i < this.accounts.length; i++) {
+            if (accID == this.accounts[i].id) {
                 return true;
             }
         }
         return false;
     },
 
-    get: function(accountID) {
+    get: function(accID) {
 		var newAccs = [];
-		for (var i = 0; i < accounts.length; i++) {
-            if (accountID == undefined  || accountID == ''  || accounts[i].id == accountID) {
-                newAccs.push(accounts[i]);
+		for (var i = 0; i < athis.ccounts.length; i++) {
+            if (accID == undefined  || accID == ''  || this.accounts[i].id == accID) {
+                newAccs.push(this.accounts[i]);
             }
         };
 		return newAccs;
 	},
 
-	getByID: function(accountID) {
+	getByID: function(accID) {
 		var newAccs = [];
-		for (var i = 0; i < accounts.length; i++) {
-            if (accountID == undefined  || accountID == ''  || accounts[i].id == accountID) {
-                newAccs.push(accounts[i]);
+		for (var i = 0; i < this.accounts.length; i++) {
+            if (accID == undefined  || accID == ''  || this.accounts[i].id == accID) {
+                newAccs.push(this.accounts[i]);
             }
         };
 		return newAccs[0];

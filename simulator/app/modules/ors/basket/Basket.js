@@ -1,15 +1,11 @@
 Basket = function() {
-	var baskets;
-	this.init();
+	this.baskets = InitData.baskets;
 };
 
 Basket.prototype = {
-	init: function() {
-		baskets = InitData.baskets;
-	},
 
 	getAll: function() {
-		return baskets;
+		return this.baskets;
 	},
 
 	add: function(bak) {
@@ -21,23 +17,23 @@ Basket.prototype = {
 	        error = "Basket exist";
 	    }
 		if (error == "") {
-	        baskets.push(bak);
+	        this.baskets.push(bak);
         }
         return error;
 	},
 
 	delete: function(id) {
-		for (var i = 0; i < baskets.length; i++) {
-            if (baskets[i].id == id) {
-                baskets.splice(i, 1);
+		for (var i = 0; i < this.baskets.length; i++) {
+            if (this.baskets[i].id == id) {
+                this.baskets.splice(i, 1);
             }
         };
 	},
 
 	deleteSymbol: function(id, sym) {
-		for (var i = 0; i < baskets.length; i++) {
-            if (baskets[i].id == id) {
-            	var data = baskets[i].data;
+		for (var i = 0; i < this.baskets.length; i++) {
+            if (this.baskets[i].id == id) {
+            	var data = this.baskets[i].data;
             	for (var j = 0; j < data.length; j++) {
             		if (data[j].symbol == sym) {
             			data.splice(j, 1);
@@ -50,8 +46,8 @@ Basket.prototype = {
 	},
 
 	checkExist: function(id) {
-        for (var i = 0; i < baskets.length; i++) {
-            if (id == baskets[i].id) {
+        for (var i = 0; i < this.baskets.length; i++) {
+            if (id == this.baskets[i].id) {
                 return true;
             }
         };
@@ -59,9 +55,9 @@ Basket.prototype = {
     },
 
     getPrice: function(id, sym) {
-    	for (var i = 0; i < baskets.length; i++) {
-            if (id == baskets[i].id) {
-            	var data = baskets[i].data;
+    	for (var i = 0; i < this.baskets.length; i++) {
+            if (id == this.baskets[i].id) {
+            	var data = this.baskets[i].data;
             	for (var j = 0; j < data.length; j++) {
             		if (data[j].symbol == sym) {
             			return data[j].price;
