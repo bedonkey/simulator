@@ -1,12 +1,12 @@
 Account = function(accountValidator, afType) {
 	this.accountValidator = accountValidator;
 	this.afType = afType;
-	this.accounts = InitData.accounts;
 	this.init();
 };
 
 Account.prototype = {
 	init: function() {
+		this.accounts = InitData.accounts();
 		for (var i = 0; i < this.accounts.length; i++) {
 			this.refresh(this.accounts[i]);
 		}
@@ -50,7 +50,7 @@ Account.prototype = {
 
     get: function(accID) {
 		var newAccs = [];
-		for (var i = 0; i < athis.ccounts.length; i++) {
+		for (var i = 0; i < this.accounts.length; i++) {
             if (accID == undefined  || accID == ''  || this.accounts[i].id == accID) {
                 newAccs.push(this.accounts[i]);
             }
@@ -153,30 +153,30 @@ Account.prototype = {
 	},
 
 	setAfType: function(accountID, type) {
-		for (var i = 0; i < accounts.length; i++) {
-            if (accountID == undefined  || accountID == ''  || accounts[i].id == accountID) {
-                accounts[i].afType = type;
-                this.refresh(accounts[i]);
+		for (var i = 0; i < this.accounts.length; i++) {
+            if (accountID == undefined  || accountID == ''  || this.accounts[i].id == accountID) {
+                this.accounts[i].afType = type;
+                this.refresh(this.accounts[i]);
                 break;
             }
         };
 	},
 
 	setAutoAdv: function(accountID) {
-		for (var i = 0; i < accounts.length; i++) {
-            if (accountID == undefined  || accountID == ''  || accounts[i].id == accountID) {
-                accounts[i].autoAdv = true;
-                this.refresh(accounts[i]);
+		for (var i = 0; i < this.accounts.length; i++) {
+            if (accountID == undefined  || accountID == ''  || this.accounts[i].id == accountID) {
+                this.accounts[i].autoAdv = true;
+                this.refresh(this.accounts[i]);
                 break;
             }
         };
 	},
 
 	disableAutoAdv: function(accountID) {
-		for (var i = 0; i < accounts.length; i++) {
-            if (accountID == undefined  || accountID == ''  || accounts[i].id == accountID) {
-                accounts[i].autoAdv = false;
-                this.refresh(accounts[i]);
+		for (var i = 0; i < this.accounts.length; i++) {
+            if (accountID == undefined  || accountID == ''  || this.accounts[i].id == accountID) {
+                this.accounts[i].autoAdv = false;
+                this.refresh(this.accounts[i]);
                 break;
             }
         };

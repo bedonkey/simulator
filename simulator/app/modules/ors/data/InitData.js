@@ -1,5 +1,6 @@
 InitData = {
-	accounts: [{
+	accounts: function() {
+		return [{
 		    id:1,
 		    balance: 10000000,
 		    hold: 0,
@@ -292,8 +293,8 @@ InitData = {
 		    }],
 		    afType: "2000",
 		    autoAdv: false
-		}],
-
+		}]
+		},
 	secs : [{
 		    id:1,
 		    symbol:"AAA",
