@@ -37,7 +37,7 @@ module.exports = function (grunt) {
 
         watch: {
             javascript: {
-                files: ['<%= conf.app %>/app/components/**/*.js'],
+                files: ['<%= conf.app %>/app/modules/**/*.js'],
                 tasks: []
             },
             bower: {
@@ -50,7 +50,7 @@ module.exports = function (grunt) {
                 },
                 files: [
                     '<%= conf.app %>/{,*/}*.html',
-                    '{<%= conf.app %>}/app/components/{,*/}*.js',
+                    '{<%= conf.app %>}/app/modules/{,*/}*.js',
                     '{<%= conf.app %>}/assets/css/{,*/}*.css',
                     '<%= conf.app %>/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
@@ -127,8 +127,12 @@ module.exports = function (grunt) {
               separator: ';',
             },
             component: {
-              src: ['simulator/app/components/**/*.js'],
-              dest: 'dist/js/components.js',
+              src: ['simulator/app/modules/**/*.js'],
+              dest: 'dist/js/modules.js',
+            },
+            directive: {
+              src: ['simulator/app/directive/*.js'],
+              dest: 'dist/js/directive.js',
             },
             utils: {
               src: ['simulator/assets/js/*.js'],
