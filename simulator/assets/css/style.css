@@ -114,8 +114,8 @@ img {
 #dock {
 	position: fixed;
 	bottom: 0;
-	width: 90%;
-	right: 5%;
+	width: 95%;
+	right: 2.5%;
 	background-color: #222;
 }
 
@@ -124,7 +124,7 @@ img {
 	bottom: 0;
 	background-color: #000;
 	right: 5%;
-	left: 30%;
+	left: 27.5%;
 	border-top: 2px solid #333;
 	color: #ddd;
 	padding: 5px;
@@ -173,7 +173,7 @@ img {
 }
 
 #main-content {
-	width: 90%;
+	width: 95%;
 	margin: auto;
 }
 
@@ -305,7 +305,7 @@ img {
 #placeOrderButton input.btn {
 	position: fixed;
 	bottom: 0;
-	right: 5%;
+	right: 2.5%;
 	height: 50px;
 	font-size: 18px;
 	background: #222;
@@ -701,6 +701,7 @@ img.btn_close {
 	top: 0;
 	bottom: 0;
 	padding-top: 100px;
+	width: 25%;
 }
 
 #testcases .testcase {
@@ -733,7 +734,7 @@ img.btn_close {
     float: right;
     position: absolute;
     right: 5%;
-    width: 65%;
+    width: 67.5%;
 }
 
 #testcase-editor .status-bar{
