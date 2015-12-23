@@ -1,6 +1,6 @@
 <nav class="navbar navbar-inverse">
 	<div id="logo" class="navbar-header">
-      	<a class="navbar-brand">SIMULATOR</a>
+      	<a class="navbar-brand" ng-click="onClickLogo()">SIMULATOR</a>
     </div>
   	<div id="tabs" class="container-fluid">
       	<ul class="nav navbar-nav">
@@ -11,7 +11,13 @@
     		<li ng-click="onClickTabExchange()"><a href="#exchange" data-toggle="tab">Exchange</a></li>
     		<li ng-click="onClickTabRobot()"><a href="#rebottest" data-toggle="tab">RobotTest</a></li>
     		<li ng-click="onClickTabLearn()"><a href="#learn" data-toggle="tab">Learn</a></li>
+    		
       	</ul>
+		<div class='account'>
+			<span class='username'>Guest</span>
+			<img alt="Account Setting" class="acc-setting" src="assets/images/account.png" height="25px"/>
+		</div>		
+					
   	</div>
   	<div id="sub-tabs">
 	  	<ul class="tab-content">

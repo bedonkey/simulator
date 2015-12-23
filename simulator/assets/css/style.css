@@ -23,6 +23,17 @@ img {
 	width: 130px;
 }
 
+#tabs .account {
+	float: right;
+	padding: 10px 0;
+}
+
+#tabs .account {
+	color: #eee;
+	font-weight: bold;
+	font-size: 13px;
+}
+
 .col-sm-12, .col-sm-3, .col-sm-8 {
     padding: 0;
 }

@@ -1,4 +1,4 @@
-TabController = function($scope) {
+TabController = function($scope, $window) {
     var tabUrl = {};
     tabUrl["orderbook"] = "app/modules/home/orderbook/orderbook.html";
     tabUrl["priceboard"] = "app/modules/home/priceboard/priceboard.html";
@@ -18,6 +18,10 @@ TabController = function($scope) {
 
     $scope.isShowDock = false;
     $scope.currentTab = "";
+
+    $scope.onClickLogo = function () {
+        $window.location.reload();
+    }
 
     $scope.onClickTabPriceBoard = function () {
         $scope.currentTab = tabUrl["priceboard"];

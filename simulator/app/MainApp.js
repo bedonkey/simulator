@@ -23,7 +23,7 @@ app.service('logScreen', LogScreen);
 app.service('interpreter', ['logScreen', 'order', 'account', 'exchange', Interpreter]);
 app.service('exchange', ['account', 'orderStore', 'priceBoard','dockService', Exchange]);
 
-app.controller("TabsCtrl", ['$scope', TabController]);
+app.controller("TabsCtrl", ['$scope', '$window', TabController]);
 app.controller('ExchangeController', ['$scope', 'exchange', 'exSecinfo', ExchangeController]);
 app.controller("SecInfoController", ['$scope', 'secinfo', SecInfoController]);
 app.controller("AccountController", ['$scope', 'account', 'aftype', AccountController]);
