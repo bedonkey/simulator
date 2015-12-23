@@ -854,7 +854,7 @@ img.btn_close {
 	background: red !important;
 }
 
-#mo, #gateway {
+#mo, #gateway, #conditional {
 	text-align: center;
 }
 

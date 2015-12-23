@@ -17,6 +17,11 @@ Order.prototype = {
 			error = "Exchange is close";
 		}
 		if (error == undefined) {
+			if (this.orderStore.getOppositeOrder(ord) != null) {
+				error = "Has pending trade balance";
+			}
+		}
+		if (error == undefined) {
 			error = this.orderValidator.validatePlace(ord);
 		}
 		if (error == undefined) {

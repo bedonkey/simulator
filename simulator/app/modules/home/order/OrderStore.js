@@ -44,4 +44,21 @@ OrderStore.prototype = {
         orderMap[id] = listOrder;
 	},
 
+	getOppositeOrder: function(ord) {
+		for (var i = 0; i < orders.length; i++) {
+			if (ord.side == "Buy") {
+				if (orders[i].side == "Sell" && orders[i].account == ord.account&& orders[i].symbol == ord.symbol) {
+					return orders[i];
+				}
+			}
+
+			if (ord.side == "Sell") {
+				if (orders[i].side == "Buy" && orders[i].account == ord.account&& orders[i].symbol == ord.symbol) {
+					return orders[i];
+				}
+			}
+		};
+        return null;
+	}
+
 }	

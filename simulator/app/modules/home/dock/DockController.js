@@ -108,6 +108,7 @@ DockController = function($scope, order, dockService) {
         if (result.status == false) {
             $scope.commandFocus = false;
             alert(result.msg);
+            return false;
         } else {
             dockService.refreshAccount();
         }
