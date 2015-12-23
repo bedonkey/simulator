@@ -29,6 +29,22 @@ OrderBookController = function($scope, order, orderStore, dockSerice) {
         }
     }
 
+    $scope.unhold = function(ord) {
+        var result = order.unhold(ord);
+        if (result.status == false) {
+            alert(result.msg);
+        } else {
+            dockSerice.refreshAccount();
+        }
+    }
+
+    $scope.unholdAll = function() {
+        $scope.orders.forEach(function(ord) {
+            order.unhold(ord);
+            dockSerice.refreshAccount();
+        });
+    }
+
     $scope.replace = function() {
         var result = order.replace($scope.orderReplace);
         if (result.status == false) {

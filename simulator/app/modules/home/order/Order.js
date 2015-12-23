@@ -135,4 +135,36 @@ Order.prototype = {
 		return result;
 	},
 
+	unhold: function(ord) {
+		var error = undefined;
+		var result = {};
+		var order = this.orderStore.getNewOrder(ord.orderID);
+		if (order == null) {
+        	error = "Order not found";
+		}
+		if (this.exchange.getSession() == "CLOSE") {
+			error = "Exchange is close";
+		}
+		if (error == undefined) {
+			if(order.side == 'Buy') {
+				this.account.unHold(order);
+			} else {
+				this.account.unHoldTrade(order.account, order.symbol, order.remain);
+			}
+			order.status = "Done For Day";
+			order.remain = 0;
+			order.time = DateTime.getCurentDateTime();
+			var cancelOrder = Utils.clone(order);
+			cancelOrder.orderID = IdGenerator.getId();
+			this.orderStore.pushToMap(order.originalID, cancelOrder);
+			this.priceBoard.remove(order);
+			result.status = true;
+        	result.msg = '';
+		} else {
+        	result.status = false;
+        	result.msg = error;
+		}
+		return result;
+	},
+
 }	

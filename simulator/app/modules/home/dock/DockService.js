@@ -9,7 +9,7 @@ DockService = function(account, secinfo) {
         sym : '',
         floor : '',
         ceil : '',
-        session : 'CLOSE',
+        session : Session.INIT,
         
     };
     currentAcc = '';

@@ -4,7 +4,7 @@ Exchange = function(account, orderStore, priceBoard, dockService) {
 	this.priceBoard = priceBoard;
 	this.matchOrdersSell = [];
 	this.matchOrdersBuy = [];
-	this.session = 'CLOSE';
+	this.session = Session.INIT;
 	this.dockService = dockService;
 };
 
@@ -179,14 +179,13 @@ Exchange.prototype = {
 	},
 
 	close: function() {
-		this.session = 'CLOSE';
-		this.dockService.setSession('CLOSE');
-
+		this.session = Session.CLOSE;
+		this.dockService.setSession(Session.CLOSE);
 	},
 
 	open: function() {
-		this.session = 'OPEN';
-		this.dockService.setSession('OPEN');
+		this.session = Session.OPEN;
+		this.dockService.setSession(Session.OPEN);
 	}
 
 }	

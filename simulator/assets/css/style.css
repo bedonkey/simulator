@@ -128,6 +128,7 @@ img {
 	width: 95%;
 	right: 2.5%;
 	background-color: #222;
+	padding-top: 5px;
 }
 
 #console {
@@ -527,8 +528,8 @@ img {
 
 .popup {
 	background: #333;
-	padding: 20px; 	
-	border: 2px solid #ddd;
+	padding: 10px; 	
+	border: 2px solid #eee;
 	float: left;
 	font-size: 1.2em;
 	z-index: 99999;
@@ -589,7 +590,7 @@ img {
 
 img.btn_close {
 	float: right;
-	margin: -30px -30px 0 0;
+	margin: -20px -20px 0 0;
 	border: 0px;
 	cursor: pointer;
 }

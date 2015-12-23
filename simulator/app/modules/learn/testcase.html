@@ -1,0 +1,33 @@
+<div id="robottest" ng-controller="RobotController">
+	<div id="testcases">
+		<div class="testcase">
+			<div class="box-title">TestCase</div>
+			<div class="box-content">
+				<ul>
+					<li ng-class="{selected: test.name === selectedTest}" ng-repeat="test in testcases" ng-click="setSelected(test.name)">
+						{{test.name}}
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div id="testcase-editor" class="">
+		<div class="run">
+			<h4 ng-bind="testTitle"></h4>
+		</div>
+		 <textarea rows="22" ng-bind="testContent" ng-keyup="editTestcase()" ng-show="isClickTest">
+		</textarea> 
+		
+		<div class="nextStep">
+			<input class="btn btn-md grey_button" type="submit" value="Next" ng-click="nextStep()"/>
+		</div>
+	</div>
+
+</div>
+<script>
+	$(document).ready(function() {
+		$("#testcases .testcase").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
+		$("#testcase-editor textarea").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
+  	});
+</script>
