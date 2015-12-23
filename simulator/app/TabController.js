@@ -14,6 +14,7 @@ TabController = function($scope) {
     tabUrl["gw-orderqueue"] = "app/modules/gateway/orderqueue.html";
     tabUrl["robot-keyword"] = "app/modules/robottest/robot/keyword.html";
     tabUrl["robot-testcase"] = "app/modules/robottest/robot/testcase.html";
+    tabUrl["learn-testcase"] = "app/modules/learn/testcase.html";
 
     $scope.isShowDock = false;
     $scope.currentTab = "";
@@ -142,5 +143,18 @@ TabController = function($scope) {
 
     $scope.onClickTabRobotTestcases = function () {
         $scope.currentTab = tabUrl["robot-testcase"];
+    }
+
+    $scope.onClickTabLearn = function () {
+        $scope.isShowDock = false;
+        var curTab = tabUrl["learn-testcase"];
+        var homeTab = angular.element("#learn li");
+        angular.forEach(homeTab, function(e) {
+            var elem = angular.element(e);
+            if(elem.hasClass('active')) {
+                curTab = tabUrl[elem.find('a').attr('href')];
+            }
+        });
+        $scope.currentTab = curTab;
     }
 } 
