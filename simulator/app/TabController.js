@@ -12,12 +12,12 @@ TabController = function($scope, $window) {
     tabUrl["ors-basket"] = "app/modules/ors/basket/basket.html";
     tabUrl["mo-config"] = "app/modules/mo/config.html";
     tabUrl["gw-orderqueue"] = "app/modules/gateway/orderqueue.html";
-    tabUrl["robot-keyword"] = "app/modules/robottest/robot/keyword.html";
-    tabUrl["robot-testcase"] = "app/modules/robottest/robot/testcase.html";
+    tabUrl["robot-keyword"] = "app/modules/robottest/keyword.html";
+    tabUrl["robot-testcase"] = "app/modules/robottest/testcase.html";
     tabUrl["learn-testcase"] = "app/modules/learn/testcase.html";
 
     $scope.isShowDock = false;
-    $scope.currentTab = "";
+    $scope.currentTab = tabUrl["learn-testcase"];
 
     $scope.onClickLogo = function () {
         $window.location.reload();

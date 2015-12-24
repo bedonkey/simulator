@@ -33,6 +33,7 @@ app.controller("OrderBookController", ['$scope', 'order', 'orderStore', 'dockSer
 app.controller("PriceBoardController", ['$scope', 'priceBoard', PriceBoardController]);
 app.controller("DockController", ['$scope', 'order', 'dockService', DockController]);
 app.controller("RobotController", ['$scope', '$http', 'logScreen', 'interpreter', RobotController]);
+app.controller("LearnController", ['$scope', '$http', LearnController]);
 
 app.directive("orderDetail", function(){return {templateUrl:'app/modules/home/orderbook/detail.html'};});
 app.directive("orderReplace", function(){return {templateUrl:'app/modules/home/orderbook/replace.html'};});

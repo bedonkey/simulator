@@ -135,7 +135,7 @@ img {
 	position: fixed;
 	bottom: 0;
 	background-color: #000;
-	right: 5%;
+	right: 2.5%;
 	left: 27.5%;
 	border-top: 2px solid #333;
 	color: #ddd;
@@ -158,7 +158,7 @@ img {
 
 #console .resizeBox{
 	position: fixed;
-	right: 5%;
+	right: 2.5%;
 	opacity: 0.6;
 }
 
@@ -745,8 +745,8 @@ img.btn_close {
 	color: #ddd;
     float: right;
     position: absolute;
-    right: 5%;
-    width: 67.5%;
+    right: 2.5%;
+    width: 70%;
 }
 
 #testcase-editor .status-bar{
@@ -784,7 +784,7 @@ img.btn_close {
     box-sizing: border-box;
 }
 
-#robottest .box-title {
+.box-title {
 	background: #333;
 	padding: 5px;
 	font-weight: bold;
@@ -861,4 +861,52 @@ img.btn_close {
 .message {
 	font-size: 18px;
 	color: #eee;
+}
+
+#learn-box {
+	color: #ddd;
+    float: right;
+    position: absolute;
+    right: 2.5%;
+    width: 70%;
+}
+
+#learn-box .status-bar{
+	height: 10px;
+}
+
+#learn-bar {
+    background-color: #111;
+    border-top: 2px solid #333;
+    bottom: 0;
+    color: #ddd;
+    left: 27.5%;
+    overflow: scroll;
+    padding: 5px;
+    position: fixed;
+    right: 2.5%;
+    height: 100px;
+    width: 70%;
+}
+
+#learn-bar .mainInfo {
+	float: left;
+	width: 80%;
+	height: 90px;
+	padding: 5px;
+	font-size: 16px;
+}
+
+#learn-bar .nextButton {
+	float: right;
+}
+
+#learn-box textarea{
+	background-color: #333;
+	border: none;
+	padding: 20px;
+	width: 100%;
+	-webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }

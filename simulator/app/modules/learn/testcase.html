@@ -1,4 +1,4 @@
-<div id="robottest" ng-controller="RobotController">
+<div id="learn" ng-controller="LearnController">
 	<div id="testcases">
 		<div class="testcase">
 			<div class="box-title">TestCase</div>
@@ -12,15 +12,26 @@
 		</div>
 	</div>
 
-	<div id="testcase-editor" class="">
+	<div id="learn-box" class="">
 		<div class="run">
 			<h4 ng-bind="testTitle"></h4>
 		</div>
-		 <textarea rows="22" ng-bind="testContent" ng-keyup="editTestcase()" ng-show="isClickTest">
-		</textarea> 
-		
-		<div class="nextStep">
-			<input class="btn btn-md grey_button" type="submit" value="Next" ng-click="nextStep()"/>
+		 <div class="content">
+		 	<ul>
+		 		<li ng-repeat="line in lines">
+		 			{{line}}
+		 		</li>
+		 	</ul>
+		 	
+		</div> 
+	</div>
+
+	<div id="learn-bar">
+		<div class="mainInfo">
+			This is a testcase Test Account None Margin None AutoAdv 
+		</div>
+		<div class="nextButton">
+			<img alt="Next Step" src="assets/images/next.png" height="90px" ng-click="nextStep()"/>
 		</div>
 	</div>
 
@@ -28,6 +39,7 @@
 <script>
 	$(document).ready(function() {
 		$("#testcases .testcase").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
-		$("#testcase-editor textarea").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
+		$("#learn-bar").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
+		$("#learn-box").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
   	});
 </script>
