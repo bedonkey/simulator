@@ -1,5 +1,6 @@
 # Case 0: change aftype, place, match partial filled, cancel
 OpenExchange()
+ClearExchange()
 SetAfType(1, 1000)
 
 result = GetAfType(1)

@@ -43,4 +43,7 @@
 }, {
   "return": "",
   "function": "OpenExchange()"
+}, {
+  "return": "",
+  "function": "ClearExchange()"
 }]

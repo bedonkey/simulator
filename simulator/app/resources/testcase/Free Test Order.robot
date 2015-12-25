@@ -1,4 +1,5 @@
 OpenExchange()
+ClearExchange()
 ord1 = Place(1, AAA, Buy, 2000, 100)
 Assert(ord1.status, true)
 

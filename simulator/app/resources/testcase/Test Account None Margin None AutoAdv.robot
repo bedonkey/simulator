@@ -1,4 +1,5 @@
 OpenExchange()
+ClearExchange()
 SetAfType(1, 100)
 result = GetAfType(1)
 Assert(result, 100)

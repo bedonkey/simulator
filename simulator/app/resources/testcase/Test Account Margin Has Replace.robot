@@ -1,5 +1,6 @@
 # Case1: place, replace, change aftype, cancel
 OpenExchange()
+ClearExchange()
 result = GetPP0(1)
 Assert(result, 10000000)
 

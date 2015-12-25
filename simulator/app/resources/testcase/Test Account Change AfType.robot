@@ -1,5 +1,8 @@
 # Case: check pp0, Qmax; change aftype 1000, check PP0, Qmax; change aftype 2000; check PP0, Qmax
 OpenExchange()
+ClearExchange()
+ResetAccounts()
+
 result = GetPP0(1)
 Assert(result, 10000000)
 

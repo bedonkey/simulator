@@ -102,6 +102,9 @@ Interpreter.prototype = {
             if (func == 'OpenExchange') {
                 this.doOpenExchange();
             }
+            if (func == 'ClearExchange') {
+                this.doClearExchange();
+            }
     	};
     	return result;
     },
@@ -201,6 +204,11 @@ Interpreter.prototype = {
     doOpenExchange: function() {
         this.logScreen.append("Open Exchange")
         this.exchange.open();
+    },
+
+    doClearExchange: function() {
+        this.logScreen.append("Clear Exchange")
+        this.exchange.init();
     },
 
     getValuePara: function(para) {

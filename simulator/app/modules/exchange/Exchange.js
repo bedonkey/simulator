@@ -13,6 +13,7 @@ Exchange.prototype = {
 	init: function() {
 		this.matchOrdersSell.length = 0;
 		this.matchOrdersBuy.length = 0;
+		this.orderStore.init();
 	},
 
 	getAllOrderBuy: function() {

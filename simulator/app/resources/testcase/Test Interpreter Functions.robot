@@ -1,4 +1,5 @@
 OpenExchange()
+ClearExchange()
 result = GetPP0(1)
 Assert(result, 10000000)
 
@@ -42,10 +43,10 @@ Assert(result.status, true)
 result = Place(1, AAA, Buy, 2800, 150)
 Assert(result.status, true)
 
-result = Place(2, AAA, Sell, 2200, 100)
+result = Place(2, BBB, Sell, 3200, 100)
 Assert(result.status, true)
 
-result = Place(3, AAA, Sell, 2500, 100)
+result = Place(3, BBB, Sell, 3500, 100)
 Assert(result.status, true)
 
 result = Cancel(result.msg)
