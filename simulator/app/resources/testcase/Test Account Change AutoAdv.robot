@@ -27,10 +27,10 @@ Assert(result, 10200000)
 result = GetQmax(1, AAA, 2000)
 Assert(result, 5100)
 
-ord1 = Place(1, AAA, Buy, 2000, 5100)
+ord1 = Place(1, BBB, Buy, 2000, 5100)
 Assert(ord1.status, true)
 
-result = GetQmax(1, AAA, 2000)
+result = GetQmax(1, BBB, 2000)
 Assert(result, 0)
 
 DisableAutoAdv(1)
