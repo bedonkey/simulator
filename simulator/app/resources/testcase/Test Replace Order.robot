@@ -26,7 +26,7 @@ Assert(result.msg, Don't enough balance)
 result = Cancel(ord1.msg)
 Assert(result.status, true)
 
-ord2 = Place(1, AAA, Sell, 2000, 100)
+ord2 = Place(2, AAA, Sell, 2000, 100)
 Assert(ord2.status, true)
 
 result = Replace(ord2.msg, 2000, 1000000)

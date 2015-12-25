@@ -763,9 +763,31 @@ img.btn_close {
 	background-color: red;
 }
 
-#testcase-editor h4{
+#testcase-editor h4 {
 	padding-left: 20px;
 	float: left;
+}
+
+#learn-box h4{
+	padding-left: 20px;
+}
+
+#learn-box .content {
+	height: 400px;
+	overflow: scroll;
+}
+
+#learn-box ul {
+	list-style: none;
+	padding: 0;
+}
+
+#learn-box .lineActive {
+	background: #777;
+}
+
+#learn-box ul li{
+	padding: 3px 10px;
 }
 
 #testcase-editor .save{
@@ -881,7 +903,6 @@ img.btn_close {
     bottom: 0;
     color: #ddd;
     left: 27.5%;
-    overflow: scroll;
     padding: 5px;
     position: fixed;
     right: 2.5%;

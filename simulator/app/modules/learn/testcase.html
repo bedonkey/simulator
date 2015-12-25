@@ -13,12 +13,10 @@
 	</div>
 
 	<div id="learn-box" class="">
-		<div class="run">
-			<h4 ng-bind="testTitle"></h4>
-		</div>
+		<h4 ng-bind="testTitle"></h4>
 		 <div class="content">
 		 	<ul>
-		 		<li ng-repeat="line in lines">
+		 		<li ng-repeat="line in lines track by $index" ng-class="$index == curLine ? 'lineActive' : ''">
 		 			{{line}}
 		 		</li>
 		 	</ul>
@@ -28,7 +26,7 @@
 
 	<div id="learn-bar">
 		<div class="mainInfo">
-			This is a testcase Test Account None Margin None AutoAdv 
+			Explain here
 		</div>
 		<div class="nextButton">
 			<img alt="Next Step" src="assets/images/next.png" height="90px" ng-click="nextStep()"/>
@@ -39,7 +37,6 @@
 <script>
 	$(document).ready(function() {
 		$("#testcases .testcase").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
-		$("#learn-bar").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
-		$("#learn-box").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
+		$("#learn-box .content").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
   	});
 </script>

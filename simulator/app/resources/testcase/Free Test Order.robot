@@ -42,7 +42,7 @@ Assert(cancelOrder.status, true)
 result = Place(3, BBB, Sell, 2500, 100)
 Assert(result.status, true)
 
-result = Place(2, BBB, Buy, 2500, 100)
+result = Place(4, BBB, Buy, 2500, 100)
 Assert(result.status, true)
 
 ResetAccounts()
