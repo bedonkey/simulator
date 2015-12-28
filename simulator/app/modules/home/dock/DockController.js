@@ -106,7 +106,6 @@ DockController = function($scope, order, dockService) {
     $scope.place = function() {
         var result = order.place($scope.orderPlace);
         if (result.status == false) {
-            $scope.commandFocus = false;
             alert(result.msg);
             return false;
         } else {
