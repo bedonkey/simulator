@@ -1,14 +1,14 @@
+
 <div id="order-popup" class="popup" ng-show="detailBoxShow">
 	<img src="assets/images/close.png" class="btn_close" title="Close Window" alt="Close" ng-click="mask=false;detailBoxShow=false;closeDetailBox()"/>
 	<table class="table">
 		 <colgroup>
             <col width="8%" />
+            <col width="12%" />
             <col width="10%" />
             <col width="10%" />
-            <col width="8%" />
-            <col width="8%" />
-            <col width="8%" />
-            <col width="8%" />
+            <col width="10%" />
+            <col width="10%" />
             <col width="10%" />
             <col width="10%" />
             <col width="10%" />
@@ -26,7 +26,6 @@
 			<th>Qty</th>
 			<th>Price</th>
 			<th>MatchQty</th>
-			<th>MatchPX</th>
 			<th>RemainQty</th>
 		</tr>
 		</thead>
@@ -41,7 +40,6 @@
 				<td ng-bind="od.qty"></td>
 				<td ng-bind="od.price"></td>
 				<td ng-bind="od.avgQty"></td>
-				<td ng-bind="od.avgPX"></td>
 				<td ng-bind="od.remain"></td>
 			<tr>
 		</tbody>

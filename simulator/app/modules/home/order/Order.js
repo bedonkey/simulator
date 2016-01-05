@@ -26,15 +26,8 @@ Order.prototype = {
 		}
 		if (error == undefined) {
 			ord.status = "New";
-	    	ord.orderID = IdGenerator.getId();
-	    	ord.originalID = ord.orderID;
-	    	ord.time = DateTime.getCurentDateTime();
-	    	ord.avgQty = 0;
-	    	ord.avgPX = 0;
-	    	ord.remain = ord.qty;
 	    	var acc = this.account.getByID(ord.account);
 	    	ord.priceMargin = this.afType.getPriceMargin(acc.afType, ord.symbol);
-
 	    	var newOrder = Utils.clone(ord);
 	        this.orderStore.add(newOrder);
 	        this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
@@ -46,11 +39,13 @@ Order.prototype = {
 			this.priceBoard.add(newOrder);
 			this.exchange.addOrderMatch(newOrder);
             this.exchange.matching(newOrder);
-        }
-        if (error == undefined) {
-        	result.status = true;
+            result.status = true;
         	result.msg = ord.orderID;
         } else {
+        	ord.status = "ORS Rejected";
+	    	var newOrder = Utils.clone(ord);
+	        this.orderStore.add(newOrder);
+	        this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
         	result.status = false;
         	result.msg = error;
         }
@@ -64,44 +59,54 @@ Order.prototype = {
 			error = this.orderValidator.validateReplace(oldOrd, ord);
 		} else {
 			error = "Order not found";
+			result.status = false;
+        	result.msg = error;
+        	return result;
 		}
 		if (this.exchange.getSession() == "CLOSE") {
 			error = "Exchange is close";
 		}
+		if (ord.qty <= oldOrd.avgQty) {
+			error = "Not Enough qty";
+		}
 		if (error == undefined) {
-			if (ord.qty <= oldOrd.avgQty) {
-				error = "Not Enough qty";
+			if(oldOrd.side == 'Buy') {
+				this.account.unHold(oldOrd);
 			} else {
-				if(oldOrd.side == 'Buy') {
-					this.account.unHold(oldOrd);
-				} else {
-					this.account.unHoldTrade(oldOrd.account, oldOrd.symbol, oldOrd.qty);
-				}
-				this.priceBoard.remove(oldOrd);
-				oldOrd.price = ord.price;
-				oldOrd.qty = ord.qty;
-				oldOrd.remain = ord.qty - oldOrd.avgQty;
-
-				oldOrd.orderID = IdGenerator.getId();
-				oldOrd.time = DateTime.getCurentDateTime();
-				var acc = this.account.getByID(ord.account);
-	    		oldOrd.priceMargin = this.afType.getPriceMargin(acc.afType, oldOrd.symbol);
-				var newOrder = Utils.clone(oldOrd);
-				newOrder.status = 'Replaced';
-	    		this.orderStore.pushToMap(newOrder.originalID, newOrder);
-	        	this.priceBoard.add(newOrder);
-	        	this.exchange.resort(oldOrd);
-	        	this.exchange.matching(oldOrd);
-
-	        	if(oldOrd.side == 'Buy') {
-					this.account.hold(newOrder);
-				} else {
-					this.account.holdTrade(newOrder.account, newOrder.symbol, newOrder.qty);
-				}
-				result.status = true;
-	        	result.msg = oldOrd.orderID;
+				this.account.unHoldTrade(oldOrd.account, oldOrd.symbol, oldOrd.qty);
 			}
+			this.priceBoard.remove(oldOrd);
+			oldOrd.price = ord.price;
+			oldOrd.qty = ord.qty;
+			oldOrd.remain = ord.qty - oldOrd.avgQty;
+
+			oldOrd.orderID = IdGenerator.getId();
+			oldOrd.time = DateTime.getCurentDateTime();
+			var acc = this.account.getByID(ord.account);
+    		oldOrd.priceMargin = this.afType.getPriceMargin(acc.afType, oldOrd.symbol);
+			var newOrder = Utils.clone(oldOrd);
+			newOrder.status = 'Replaced';
+    		this.orderStore.pushToMap(newOrder.originalID, newOrder);
+        	this.priceBoard.add(newOrder);
+        	this.exchange.resort(oldOrd);
+        	this.exchange.matching(oldOrd);
+
+        	if(oldOrd.side == 'Buy') {
+				this.account.hold(newOrder);
+			} else {
+				this.account.holdTrade(newOrder.account, newOrder.symbol, newOrder.qty);
+			}
+			result.status = true;
+        	result.msg = oldOrd.orderID;
         } else {
+        	var newOrder = Utils.clone(oldOrd);
+        	newOrder.status = 'ORS Rejected';
+        	newOrder.price = ord.price;
+			newOrder.qty = ord.qty;
+			newOrder.remain = ord.qty - oldOrd.avgQty;
+			newOrder.orderID = IdGenerator.getId();
+			newOrder.time = DateTime.getCurentDateTime();
+    		this.orderStore.pushToMap(newOrder.originalID, newOrder);
         	result.status = false;
         	result.msg = error;
         }
@@ -114,6 +119,9 @@ Order.prototype = {
 		var order = this.orderStore.getNewOrder(ord.orderID);
 		if (order == null) {
         	error = "Order not found";
+        	result.status = false;
+        	result.msg = error;
+        	return result;
 		}
 		if (this.exchange.getSession() == "CLOSE") {
 			error = "Exchange is close";
@@ -134,6 +142,12 @@ Order.prototype = {
 			result.status = true;
         	result.msg = '';
 		} else {
+			var cancelOrder = Utils.clone(order);
+			cancelOrder.status = "ORS Rejected";
+			cancelOrder.remain = 0;
+			cancelOrder.time = DateTime.getCurentDateTime();
+			cancelOrder.orderID = IdGenerator.getId();
+			this.orderStore.pushToMap(order.originalID, cancelOrder);
         	result.status = false;
         	result.msg = error;
 		}
