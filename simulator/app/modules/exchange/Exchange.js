@@ -1,4 +1,5 @@
-Exchange = function(account, orderStore, priceBoard, dockService) {
+Exchange = function(exchangeValidator, account, orderStore, priceBoard, dockService) {
+	this.exchangeValidator = exchangeValidator;
 	this.account = account;
 	this.orderStore = orderStore;
 	this.priceBoard = priceBoard;
@@ -14,6 +15,24 @@ Exchange.prototype = {
 		this.matchOrdersSell.length = 0;
 		this.matchOrdersBuy.length = 0;
 		this.orderStore.init();
+	},
+
+	place: function(ord) {
+		var error = this.exchangeValidator.validateSecInfo(ord);
+		if (error != undefined) {
+			return error;
+		}
+		this.addOrderMatch(ord);
+        this.matching(ord);
+	},
+
+	replace: function(ord) {
+		var error = this.exchangeValidator.validateSecInfo(ord);
+		if (error != undefined) {
+			return error;
+		}
+		this.resort(ord);
+        this.matching(ord);
 	},
 
 	getAllOrderBuy: function() {

@@ -30,6 +30,14 @@ Order.prototype = {
 	    	ord.priceMargin = this.afType.getPriceMargin(acc.afType, ord.symbol);
 	    	var newOrder = Utils.clone(ord);
 	        this.orderStore.add(newOrder);
+			error = this.exchange.place(newOrder);
+			if (error != undefined) {
+				newOrder.status = "Rejected";
+				this.orderStore.pushToMap(ord.originalID, newOrder);
+				result.status = false;
+        		result.msg = error;
+        		return result;
+			}
 	        this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
 			if(ord.side == 'Buy') {
 				this.account.hold(ord);
@@ -37,14 +45,11 @@ Order.prototype = {
 				this.account.holdTrade(ord.account, ord.symbol, ord.qty);
 			}
 			this.priceBoard.add(newOrder);
-			this.exchange.addOrderMatch(newOrder);
-            this.exchange.matching(newOrder);
             result.status = true;
         	result.msg = ord.orderID;
         } else {
         	ord.status = "ORS Rejected";
 	    	var newOrder = Utils.clone(ord);
-	        this.orderStore.add(newOrder);
 	        this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
         	result.status = false;
         	result.msg = error;
@@ -85,11 +90,21 @@ Order.prototype = {
 			var acc = this.account.getByID(ord.account);
     		oldOrd.priceMargin = this.afType.getPriceMargin(acc.afType, oldOrd.symbol);
 			var newOrder = Utils.clone(oldOrd);
+			var pendingReplace = Utils.clone(oldOrd);
+    		pendingReplace.status = "Pending Replace";
+			this.orderStore.pushToMap(ord.originalID, pendingReplace);
+			error = this.exchange.replace(oldOrd);
+        	if (error != undefined) {
+				newOrder.status = "Rejected";
+				this.orderStore.pushToMap(ord.originalID, newOrder);
+				result.status = false;
+        		result.msg = error;
+        		return result;
+			}
+
 			newOrder.status = 'Replaced';
     		this.orderStore.pushToMap(newOrder.originalID, newOrder);
         	this.priceBoard.add(newOrder);
-        	this.exchange.resort(oldOrd);
-        	this.exchange.matching(oldOrd);
 
         	if(oldOrd.side == 'Buy') {
 				this.account.hold(newOrder);
@@ -135,6 +150,9 @@ Order.prototype = {
 			order.status = "Canceled";
 			order.remain = 0;
 			order.time = DateTime.getCurentDateTime();
+			var pendingCancel = Utils.clone(order);
+    		pendingCancel.status = "Pending Cancel";
+			this.orderStore.pushToMap(ord.originalID, pendingCancel);
 			var cancelOrder = Utils.clone(order);
 			cancelOrder.orderID = IdGenerator.getId();
 			this.orderStore.pushToMap(order.originalID, cancelOrder);

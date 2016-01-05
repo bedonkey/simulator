@@ -774,7 +774,6 @@ img.btn_close {
 
 #learn-box .content {
 	height: 400px;
-	overflow: scroll;
 }
 
 #learn-box ul {
@@ -891,6 +890,10 @@ img.btn_close {
     position: absolute;
     right: 2.5%;
     width: 70%;
+    padding-bottom: 100px;
+    bottom: 0;
+    top: 0;
+    padding-top: 100px;
 }
 
 #learn-box .status-bar{

@@ -51,9 +51,9 @@ OrderBookController = function($scope, order, orderStore, dockSerice) {
             alert(result.msg);
         } else {
             dockSerice.refreshAccount();
-            $scope.replaceBoxShow = false;
-            $scope.mask = false;
         }
+        $scope.replaceBoxShow = false;
+        $scope.mask = false;
     }
 
     $scope.init();

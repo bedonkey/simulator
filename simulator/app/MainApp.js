@@ -21,7 +21,8 @@ app.service('orderStore', OrderStore);
 app.service('dockService', ['account', 'secinfo', DockService]);
 app.service('logScreen', LogScreen);
 app.service('interpreter', ['logScreen', 'order', 'account', 'exchange', Interpreter]);
-app.service('exchange', ['account', 'orderStore', 'priceBoard','dockService', Exchange]);
+app.service('exchangeValidator', ['exSecinfo', ExchangeValidator]);
+app.service('exchange', ['exchangeValidator', 'account', 'orderStore', 'priceBoard','dockService', Exchange]);
 
 app.controller("TabsCtrl", ['$scope', '$window', TabController]);
 app.controller('ExchangeController', ['$scope', 'exchange', 'exSecinfo', ExchangeController]);
