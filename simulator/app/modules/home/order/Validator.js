@@ -16,12 +16,6 @@ OrderValidator.prototype = {
 	},
 
 	validatePlace: function(ord) {
-        ord.orderID = IdGenerator.getId();
-        ord.originalID = ord.orderID;
-        ord.time = DateTime.getCurentDateTime();
-        ord.avgQty = 0;
-        ord.avgPX = 0;
-        ord.remain = ord.qty;
         var accs = this.account.get(ord.account);
         if (accs.length == 0) return "Account not exist";
         var secs = this.secinfo.get(ord.symbol);

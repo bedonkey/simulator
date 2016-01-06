@@ -12,6 +12,12 @@ Order.prototype = {
 
 	place: function(ord) {
 		var result = {};
+		ord.orderID = IdGenerator.getId();
+        ord.originalID = ord.orderID;
+        ord.time = DateTime.getCurentDateTime();
+        ord.avgQty = 0;
+        ord.avgPX = 0;
+        ord.remain = ord.qty;
 		var error = this.orderValidator.clientValidate(ord);
 		if (this.exchange.getSession() == "CLOSE") {
 			error = "Exchange is close";
@@ -48,9 +54,11 @@ Order.prototype = {
             result.status = true;
         	result.msg = ord.orderID;
         } else {
-        	ord.status = "ORS Rejected";
 	    	var newOrder = Utils.clone(ord);
-	        this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
+        	newOrder.status = "ORS Rejected";
+        	newOrder.text = error;
+        	this.orderStore.add(newOrder);
+	        this.orderStore.pushToMap(ord.originalID, newOrder);
         	result.status = false;
         	result.msg = error;
         }
@@ -60,6 +68,9 @@ Order.prototype = {
 	replace: function(ord) {
 		var result = {};
 		var oldOrd = this.orderStore.getNewOrder(ord.orderID);
+		var pendingReplace = Utils.clone(oldOrd);
+		pendingReplace.status = "Pending Replace";
+		this.orderStore.pushToMap(ord.originalID, pendingReplace);
 		if (oldOrd != null) {
 			error = this.orderValidator.validateReplace(oldOrd, ord);
 		} else {
@@ -90,9 +101,7 @@ Order.prototype = {
 			var acc = this.account.getByID(ord.account);
     		oldOrd.priceMargin = this.afType.getPriceMargin(acc.afType, oldOrd.symbol);
 			var newOrder = Utils.clone(oldOrd);
-			var pendingReplace = Utils.clone(oldOrd);
-    		pendingReplace.status = "Pending Replace";
-			this.orderStore.pushToMap(ord.originalID, pendingReplace);
+			
 			error = this.exchange.replace(oldOrd);
         	if (error != undefined) {
 				newOrder.status = "Rejected";
@@ -121,6 +130,7 @@ Order.prototype = {
 			newOrder.remain = ord.qty - oldOrd.avgQty;
 			newOrder.orderID = IdGenerator.getId();
 			newOrder.time = DateTime.getCurentDateTime();
+			newOrder.text = error;
     		this.orderStore.pushToMap(newOrder.originalID, newOrder);
         	result.status = false;
         	result.msg = error;
