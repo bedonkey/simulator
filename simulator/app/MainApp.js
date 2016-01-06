@@ -12,7 +12,7 @@ app.service('account', ['accountValidator', 'aftype', Account]);
 app.service('aftype', ['basket', AfType]);
 app.service('basket', Basket);
 app.service('orderValidator', ['account', 'secinfo', 'aftype', OrderValidator]);
-app.service('order', ['orderValidator', 'aftype', 'orderStore', 'exchange', 'account', 'priceBoard', 'exchange', Order]);
+app.service('order', ['orderValidator', 'aftype', 'orderStore', 'account', 'priceBoard', 'exchange', Order]);
 app.service('secInfoValidator', SecInfoValidator);
 app.service('secinfo', ['secInfoValidator', SecInfo]);
 app.service('exSecinfo', ExSecInfo);

@@ -1,9 +1,9 @@
-ExSecInfo = function(secInfoValidator) {
+SecInfo = function(secInfoValidator) {
 	this.secInfoValidator = secInfoValidator;
-	this.secs = InitExData.exSecs;
+	this.secs = InitData.secs;
 };
 
-ExSecInfo.prototype = {
+SecInfo.prototype = {
 
 	getAll: function() {
 		return this.secs;
@@ -15,6 +15,7 @@ ExSecInfo.prototype = {
 	        error = "Symbol exist";
 	    }
 		if (error == "") {
+			console.log(sec)
 	        this.secs.push(sec);
         }
         return error;
@@ -46,4 +47,4 @@ ExSecInfo.prototype = {
         };
         return false;
     }
-}	
+}

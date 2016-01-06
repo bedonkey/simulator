@@ -15,6 +15,7 @@ SecInfo.prototype = {
 	        error = "Symbol exist";
 	    }
 		if (error == "") {
+			console.log(sec)
 	        this.secs.push(sec);
         }
         return error;
@@ -31,8 +32,7 @@ SecInfo.prototype = {
 	},
 
 	delete: function(symbol) {
-		console.log("delete")
-		for (var i = 0; i < secs.length; i++) {
+		for (var i = 0; i < this.secs.length; i++) {
             if (this.secs[i].symbol == symbol) {
                 this.secs.splice(i, 1);
             }

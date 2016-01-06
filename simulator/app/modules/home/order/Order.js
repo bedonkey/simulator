@@ -1,11 +1,10 @@
-Order = function(orderValidator, afType, orderStore, exchange, account, priceBoard, exchange) {
+Order = function(orderValidator, afType, orderStore, account, priceBoard, exchange) {
 	this.orderValidator = orderValidator;
 	this.orderStore = orderStore;
 	this.account = account;
 	this.priceBoard = priceBoard;
 	this.exchange = exchange;
 	this.afType = afType;
-	this.exchange = exchange;
 };
 
 Order.prototype = {

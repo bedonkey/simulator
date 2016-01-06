@@ -1,4 +1,4 @@
-<div id="secinfo" ng-controller="ExchangeController">
+<div id="secinfo" ng-controller="SecInfoController">
 	<div class="search-box well form-inline">
 			<div class="search-input">
 				<input class="form-control" type="text" style="width:400px;" ng-model="search.symbol" ng-enter="search()" uppercased placeholder="Symbol"/>
@@ -12,11 +12,12 @@
 	<div class="result_box col-sm-12">
 		<table class="secinfo table table-striped">
 			<colgroup>
+	            <col width="15%" />
 	            <col width="20%" />
 	            <col width="20%" />
-	            <col width="20%" />
-	            <col width="20%" />
-	            <col width="20%" />
+	            <col width="15%" />
+	            <col width="15%" />
+	            <col width="15%" />
 	        </colgroup>
 	        <thead>
 				<tr>
@@ -24,6 +25,7 @@
 					<th>Floor Price</th>
 					<th>Reference Price</th>
 					<th>Ceil Price</th>
+					<th>Status</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -33,6 +35,7 @@
 					<td ng-bind="sec.floor"></td>
 					<td ng-bind="sec.ref"></td>
 					<td ng-bind="sec.ceil"></td>
+					<td ng-bind="sec.status"></td>
 					<td>
 						<img alt="Edit" src="assets/images/remove.png" height="25px" ng-click="remove(sec)"/>
 						<img alt="Edit" src="assets/images/edit.png" height="25px" ng-click="openEditBox(sec)"/>
