@@ -43,3 +43,5 @@ app.directive("secinfoAdd", function(){return {templateUrl:'app/modules/ors/seci
 app.directive("aftypeAdd", function(){return {templateUrl:'app/modules/ors/aftype/add.html'};});
 app.directive("basketAdd", function(){return {templateUrl:'app/modules/ors/basket/add.html'};});
 app.directive("mask", function(){return {templateUrl:'app/shared/mask.html'};});
+
+app.filter('split', function() {return function(input, splitChar, splitIndex) {return input.split(splitChar)[splitIndex];}});

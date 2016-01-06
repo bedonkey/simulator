@@ -4,7 +4,7 @@ InitExData = {
 		    symbol:"AAA",
 		    floor:1000,
 		    ref: 2000,
-		    ceil: 2500
+		    ceil: 3000
 		},
 		{
 		    id:2,

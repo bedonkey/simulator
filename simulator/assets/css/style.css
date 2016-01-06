@@ -773,7 +773,8 @@ img.btn_close {
 }
 
 #learn-box .content {
-	height: 400px;
+	height: 100%;
+	overflow: scroll;
 }
 
 #learn-box ul {
@@ -890,7 +891,7 @@ img.btn_close {
     position: absolute;
     right: 2.5%;
     width: 70%;
-    padding-bottom: 100px;
+    padding-bottom: 140px;
     bottom: 0;
     top: 0;
     padding-top: 100px;
@@ -917,13 +918,22 @@ img.btn_close {
 	float: left;
 	width: 80%;
 	height: 90px;
-	padding: 5px;
+	padding: 10px;
 	font-size: 16px;
+	text-align: center;
 }
 
 #learn-bar .nextButton {
 	float: right;
+	text-align: right;
+	width: 10%;
 }
+
+#learn-bar .prevButton {
+	float: left;
+	width: 10%;
+}
+
 
 #learn-box textarea{
 	background-color: #333;

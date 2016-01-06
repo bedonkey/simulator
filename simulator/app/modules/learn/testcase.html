@@ -17,7 +17,7 @@
 		 <div class="content">
 		 	<ul>
 		 		<li ng-repeat="line in lines track by $index" ng-class="$index == curLine ? 'lineActive' : ''">
-		 			{{line}}
+		 			{{line| split:'#':0}}
 		 		</li>
 		 	</ul>
 		 	
@@ -25,8 +25,11 @@
 	</div>
 
 	<div id="learn-bar">
+		<div class="prevButton">
+			<img alt="Prev Step" src="assets/images/prev.png" height="90px" ng-click="prevStep()"/>
+		</div>
 		<div class="mainInfo">
-			Explain here
+			{{explain}}
 		</div>
 		<div class="nextButton">
 			<img alt="Next Step" src="assets/images/next.png" height="90px" ng-click="nextStep()"/>

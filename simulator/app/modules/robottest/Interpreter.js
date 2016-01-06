@@ -19,11 +19,12 @@ Interpreter.prototype = {
             if (tests[i] == '' || tests[i].indexOf('#') == 0) {
                 continue;
             }
-            if (tests[i].indexOf('=') > 0) {
-                var vab = tests[i].substring(0, tests[i].indexOf('=')).trim();
-                var testfunc = tests[i].substring(tests[i].indexOf('=') + 1, tests[i].length).trim();
+            var testData = tests[i].split('#')[0];
+            if (testData.indexOf('=') > 0) {
+                var vab = testData.substring(0, testData.indexOf('=')).trim();
+                var testfunc = testData.substring(testData.indexOf('=') + 1, testData.length).trim();
             } else {
-                var testfunc = tests[i];
+                var testfunc = testData;
             }
     		var func = testfunc.substring(0, testfunc.indexOf('('));
 	    	var para = testfunc.substring(testfunc.indexOf('(') + 1, testfunc.indexOf(')')).split(',');

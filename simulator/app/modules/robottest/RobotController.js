@@ -90,7 +90,6 @@ RobotController = function($scope, $http, logScreen, interpeter) {
         for (var i = 0; i < $scope.testcases.length; i++) {
             this.test($scope.testcases[i], this.doTest);
         };
-        
     }
 
     $scope.init();
