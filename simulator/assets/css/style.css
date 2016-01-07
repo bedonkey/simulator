@@ -532,7 +532,7 @@ img {
 .popup {
 	background: #333;
 	padding: 10px; 	
-	border: 2px solid #eee;
+	border: 1px solid #eee;
 	float: left;
 	font-size: 1.2em;
 	z-index: 99999;

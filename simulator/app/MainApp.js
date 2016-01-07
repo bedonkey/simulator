@@ -27,6 +27,7 @@ app.service('exchange', ['exchangeValidator', 'account', 'orderStore', 'priceBoa
 app.controller("TabsCtrl", ['$scope', '$window', TabController]);
 app.controller('ExchangeController', ['$scope', 'exchange', 'exSecinfo', ExchangeController]);
 app.controller("SecInfoController", ['$scope', 'secinfo', SecInfoController]);
+app.controller("ExSecInfoController", ['$scope', 'exSecinfo', ExSecInfoController]);
 app.controller("AccountController", ['$scope', 'account', 'aftype', AccountController]);
 app.controller("AfTypeController", ['$scope', 'aftype', 'basket', AfTypeController]);
 app.controller("BasketController", ['$scope', 'basket', BasketController]);
@@ -40,6 +41,7 @@ app.directive("orderDetail", function(){return {templateUrl:'app/modules/home/or
 app.directive("orderReplace", function(){return {templateUrl:'app/modules/home/orderbook/replace.html'};});
 app.directive("accountAdd", function(){return {templateUrl:'app/modules/ors/account/add.html'};});
 app.directive("secinfoAdd", function(){return {templateUrl:'app/modules/ors/secinfo/add.html'};});
+app.directive("exSecinfoAdd", function(){return {templateUrl:'app/modules/exchange/secinfo/add.html'};});
 app.directive("aftypeAdd", function(){return {templateUrl:'app/modules/ors/aftype/add.html'};});
 app.directive("basketAdd", function(){return {templateUrl:'app/modules/ors/basket/add.html'};});
 app.directive("mask", function(){return {templateUrl:'app/shared/mask.html'};});

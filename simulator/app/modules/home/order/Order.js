@@ -38,6 +38,7 @@ Order.prototype = {
 			error = this.exchange.place(newOrder);
 			if (error != undefined) {
 				newOrder.status = "Rejected";
+				newOrder.text = error;
 				this.orderStore.pushToMap(ord.originalID, newOrder);
 				result.status = false;
         		result.msg = error;

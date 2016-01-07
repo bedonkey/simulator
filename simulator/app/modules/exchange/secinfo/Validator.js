@@ -1,16 +1,10 @@
-SecInfoValidator = function() {
+ExSecInfoValidator = function() {
 };
 
-SecInfoValidator.prototype = {
+ExSecInfoValidator.prototype = {
 	clientValidate: function(sec) {
-		var error = "";
-        if (sec.symbol == undefined) {
-            error = "Symbol not empty";
-        } else if (sec.floor == undefined) {
-            error = "Floor price not empty";
-        } else if (sec.ceil == undefined) {
-            error = "Ceil price not empty";
-        }
-        return error;
+        if (sec.symbol == undefined) return "Symbol not empty";
+        if (sec.floor == undefined) return "Floor price not empty";
+        if (sec.ceil == undefined) return "Ceil price not empty";
 	}
 }	

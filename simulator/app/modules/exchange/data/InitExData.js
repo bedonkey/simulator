@@ -1,5 +1,5 @@
 InitExData = {
-	exSecs : [{
+	secs : [{
 		    id:1,
 		    symbol:"AAA",
 		    floor:1000,

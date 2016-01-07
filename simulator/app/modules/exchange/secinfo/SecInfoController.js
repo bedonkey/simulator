@@ -1,4 +1,4 @@
-SecInfoController = function($scope, secinfo) {
+ExSecInfoController = function($scope, secinfo) {
     $scope.search = {
         symbol : ''
     };
@@ -22,7 +22,7 @@ SecInfoController = function($scope, secinfo) {
 
     $scope.add = function() {
         var result = secinfo.add($scope.secDetail);
-        if(result != "") {
+        if(result != undefined) {
             $scope.secAddError = result;
         } else {
             $scope.mask = false;
