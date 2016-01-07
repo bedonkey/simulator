@@ -16,8 +16,8 @@ TabController = function($scope, $window) {
     tabUrl["robot-testcase"] = "app/modules/robottest/testcase.html";
     tabUrl["learn-testcase"] = "app/modules/learn/testcase.html";
 
-    $scope.isShowDock = true;
-    $scope.currentTab = tabUrl["ors-secinfo"];
+    $scope.isShowDock = false;
+    $scope.currentTab = tabUrl["robot-testcase"];
 
     $scope.onClickLogo = function () {
         $window.location.reload();

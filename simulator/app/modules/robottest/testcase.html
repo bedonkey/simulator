@@ -22,8 +22,20 @@
 		</div>
 		<div class="status-bar" ng-class="{'':testPass=='', 'green':testPass=='true', 'red':testPass=='false'}"></div>
 		
-		 <textarea rows="22" ng-bind="testContent" ng-keyup="editTestcase()" ng-show="isClickTest">
-		</textarea> 
+		<div class="content">
+		 	<ul>
+		 		<li ng-repeat="line in lines track by $index" ng-class="$index == curLine ? 'lineActive' : ''">
+		 			<div class="col1">
+		 				{{line| split:'#':0}}
+		 			</div>
+		 			<div class="col2">
+		 				{{line| split:'#':1}}
+		 			</div>
+		 			
+		 		</li>
+		 	</ul>
+		 	
+		</div>
 		
 	</div>
 
@@ -39,6 +51,6 @@
 	$(document).ready(function() {
 		$("#testcases .testcase").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
 		$("#console").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
-		$("#testcase-editor textarea").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
+		$("#testcase-editor .content").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
   	});
 </script>

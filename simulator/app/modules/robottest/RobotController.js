@@ -28,7 +28,7 @@ RobotController = function($scope, $http, logScreen, interpeter) {
 	   $http.get('app/resources/testcase/' + selectedTest + '.robot')
         .success(function(data, status, headers, config) {
             if (data && status === 200) {
-                $scope.testContent = data;
+                $scope.lines = data.match(/[^\r\n]+/g);
             }
         });
 	};

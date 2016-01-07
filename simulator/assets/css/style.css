@@ -149,7 +149,7 @@ img {
 }
 
 #console.small {
-	height: 150px;
+	height: 50px;
 }
 
 #console.large {
@@ -771,6 +771,37 @@ img.btn_close {
 	float: left;
 }
 
+#testcase-editor .content {
+	height: 100%;
+	overflow: scroll;
+}
+
+
+#testcase-editor .content ul {
+	padding: 0;
+	border-right: 1px solid #333;
+	border-top: 1px solid #333;
+}
+
+#testcase-editor .content li {
+	list-style: none;
+	clear: both;
+	overflow: hidden;
+	border-bottom: 1px solid #333;
+}
+
+#testcase-editor .content .col1 {
+	float: left;
+	width: 50%;
+	border-right: 1px solid #333;
+	padding: 5px;
+}
+#testcase-editor .content .col2 {
+	float: left;
+	width: 50%;
+	padding: 5px;
+}
+
 #learn-box h4{
 	padding-left: 20px;
 }
@@ -886,6 +917,18 @@ img.btn_close {
 .message {
 	font-size: 18px;
 	color: #eee;
+}
+
+#testcase-editor {
+	color: #ddd;
+    float: right;
+    position: absolute;
+    right: 2.5%;
+    width: 70%;
+    padding-bottom: 100px;
+    bottom: 0;
+    top: 0;
+    padding-top: 100px;
 }
 
 #learn-box {
