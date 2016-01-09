@@ -722,7 +722,6 @@ img.btn_close {
 #testcases .testcase {
 	height: 100%;
 	border: 1px solid #333;
-	overflow: scroll;
 }
 
 #testcases .testcase img{
@@ -772,8 +771,7 @@ img.btn_close {
 }
 
 #testcase-editor .content {
-	height: 100%;
-	overflow: scroll;
+	height: 500px;
 }
 
 

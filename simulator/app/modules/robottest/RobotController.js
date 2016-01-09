@@ -17,6 +17,7 @@ RobotController = function($scope, $http, logScreen, interpeter) {
         .success(function(data, status, headers, config) {
             if (data && status === 200) {
                 $scope.testcases = data;
+                $("#testcases .testcase").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
             }
         });
     }
@@ -29,6 +30,7 @@ RobotController = function($scope, $http, logScreen, interpeter) {
         .success(function(data, status, headers, config) {
             if (data && status === 200) {
                 $scope.lines = data.match(/[^\r\n]+/g);
+                $("#testcase-editor .content").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
             }
         });
 	};
