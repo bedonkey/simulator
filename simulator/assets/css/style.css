@@ -771,7 +771,7 @@ img.btn_close {
 }
 
 #testcase-editor .content {
-	height: 500px;
+	height: 100%;
 }
 
 
@@ -806,7 +806,6 @@ img.btn_close {
 
 #learn-box .content {
 	height: 100%;
-	overflow: scroll;
 }
 
 #learn-box ul {

@@ -18,6 +18,7 @@ LearnController = function($scope, $http) {
         .success(function(data, status, headers, config) {
             if (data && status === 200) {
                 $scope.testcases = data;
+                $("#testcases .testcase").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
             }
         });
     }
@@ -32,6 +33,7 @@ LearnController = function($scope, $http) {
             if (data && status === 200) {
                 $scope.lines = data.match(/[^\r\n]+/g);
                 $scope.explain = $scope.lines[0].split('#')[1];
+                $("#learn-box .content").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
             }
         });
         
