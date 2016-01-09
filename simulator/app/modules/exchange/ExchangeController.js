@@ -1,4 +1,4 @@
-ExchangeController = function($scope, exchange, exSecinfo) {
+ExchangeController = function($scope, exchange, exSecinfo, sessionManager) {
     $scope.search = {
         symbol : ''
     };
@@ -6,17 +6,17 @@ ExchangeController = function($scope, exchange, exSecinfo) {
     $scope.init = function() {
         $scope.orderBuy = exchange.getAllOrderBuy();
         $scope.orderSell = exchange.getAllOrderSell();
-        $scope.session = exchange.getSession();
+        $scope.session = sessionManager.getSession();
     }
 
     $scope.openSession = function() {
     	$scope.session = 'OPEN';
-    	exchange.open();
+    	sessionManager.open();
     }
 
     $scope.closeSession = function() {
     	$scope.session = 'CLOSE';
-    	exchange.close();
+    	sessionManager.close();
         exchange.expiredOrders();
     }
     $scope.init();

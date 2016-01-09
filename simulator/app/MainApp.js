@@ -22,10 +22,11 @@ app.service('dockService', ['account', 'secinfo', DockService]);
 app.service('logScreen', LogScreen);
 app.service('interpreter', ['logScreen', 'order', 'account', 'exchange', Interpreter]);
 app.service('exchangeValidator', ['exSecinfo', ExchangeValidator]);
-app.service('exchange', ['exchangeValidator', 'account', 'orderStore', 'priceBoard','dockService', Exchange]);
+app.service('exchange', ['exchangeValidator', 'account', 'orderStore', 'priceBoard','sessionManager', Exchange]);
+app.service('sessionManager', ['dockService', SessionManager]);
 
 app.controller("TabsCtrl", ['$scope', '$window', TabController]);
-app.controller('ExchangeController', ['$scope', 'exchange', 'exSecinfo', ExchangeController]);
+app.controller('ExchangeController', ['$scope', 'exchange', 'exSecinfo', 'sessionManager', ExchangeController]);
 app.controller("SecInfoController", ['$scope', 'secinfo', SecInfoController]);
 app.controller("ExSecInfoController", ['$scope', 'exSecinfo', ExSecInfoController]);
 app.controller("AccountController", ['$scope', 'account', 'aftype', AccountController]);

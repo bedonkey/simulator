@@ -1,12 +1,10 @@
-Exchange = function(exchangeValidator, account, orderStore, priceBoard, dockService) {
+Exchange = function(exchangeValidator, account, orderStore, priceBoard) {
 	this.exchangeValidator = exchangeValidator;
 	this.account = account;
 	this.orderStore = orderStore;
 	this.priceBoard = priceBoard;
 	this.matchOrdersSell = [];
 	this.matchOrdersBuy = [];
-	this.session = Session.INIT;
-	this.dockService = dockService;
 };
 
 Exchange.prototype = {
@@ -204,20 +202,6 @@ Exchange.prototype = {
     		this.account.unHold(ord);
     	}
     	this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
-	},
-
-	getSession: function() {
-		return this.session;
-	},
-
-	close: function() {
-		this.session = Session.CLOSE;
-		this.dockService.setSession(Session.CLOSE);
-	},
-
-	open: function() {
-		this.session = Session.OPEN;
-		this.dockService.setSession(Session.OPEN);
 	}
 
 }	

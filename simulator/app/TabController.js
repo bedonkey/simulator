@@ -1,5 +1,6 @@
 TabController = function($scope, $window) {
     var tabUrl = {};
+    tabUrl["home-monitor"] = "app/modules/home/monitor.html";
     tabUrl["orderbook"] = "app/modules/home/orderbook/orderbook.html";
     tabUrl["priceboard"] = "app/modules/home/priceboard/priceboard.html";
     tabUrl["condition"] = "app/modules/home/condition/monitor.html";
@@ -21,6 +22,10 @@ TabController = function($scope, $window) {
 
     $scope.onClickLogo = function () {
         $window.location.reload();
+    }
+
+    $scope.onClickTabHomeMonitor = function () {
+        $scope.currentTab = tabUrl["home-monitor"];
     }
 
     $scope.onClickTabPriceBoard = function () {
