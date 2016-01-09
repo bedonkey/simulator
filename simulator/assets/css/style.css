@@ -204,11 +204,11 @@ img {
 }
 
 .green {
-	color: lime;
+	color: lime !important;
 }
 
 .red {
-	color: red;
+	color: red !important;
 }
 
 .yellow {
@@ -555,7 +555,7 @@ img {
 	padding: 7px 0;
 }
 
-#secinfo_edit label, #aftype_edit label {
+#secinfo_edit label, #aftype_edit label, #ors-session-edit label {
 	width: 105px;
 	padding: 7px 0;
 }
@@ -886,15 +886,40 @@ img.btn_close {
 	color: #000 !important;
 }
 
-#change-session {
+#monitor {
 	margin: auto;
     padding: 20px 0;
     text-align: center;
-    width: 140px;
     height: 70px;
+    width: 500px;
 }
 
-#change-session .btn-session{
+#monitor .monitor-detail {
+	float: left;
+	color: white;
+}
+
+#monitor .module {
+	height: 50px;
+	padding: 10px;
+}
+
+#monitor .module .session {
+	font-weight: bold;
+	line-height: 30px;
+	padding-right: 10px;
+}
+
+#monitor .module-name {
+	color: white;
+	width: 200px;
+	line-height: 30px;
+	float: left;
+	text-align: left;
+}
+
+
+#monitor .btn-session {
 	font-weight: bold;
 	border-radius: 0px;
 	background: white;
@@ -905,11 +930,11 @@ img.btn_close {
 	cursor: pointer;
 }
 
-.btn-ex-open {
+.btn-session-open {
 	background: green !important;
 }
 
-.btn-ex-close {
+.btn-session-close {
 	background: red !important;
 }
 
@@ -992,4 +1017,13 @@ img.btn_close {
 	-webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+}
+
+#ors-session-edit {
+	width: 265px;
+	text-align: left;
+}
+
+#ors-session-edit select {
+	width: 120px;
 }

@@ -1,8 +1,9 @@
-Exchange = function(exchangeValidator, account, orderStore, priceBoard) {
+Exchange = function(exchangeValidator, account, orderStore, priceBoard, sessionManager) {
 	this.exchangeValidator = exchangeValidator;
 	this.account = account;
 	this.orderStore = orderStore;
 	this.priceBoard = priceBoard;
+	this.sessionManager = sessionManager;
 	this.matchOrdersSell = [];
 	this.matchOrdersBuy = [];
 };
@@ -20,7 +21,7 @@ Exchange.prototype = {
 		if (error != undefined) {
 			return error;
 		}
-		if (this.session == "CLOSE") {
+		if (this.sessionManager.getExchangeSession() == "CLOSE") {
 			return "Exchange is close";
 		}
 		this.addOrderMatch(ord);
@@ -32,7 +33,7 @@ Exchange.prototype = {
 		if (error != undefined) {
 			return error;
 		}
-		if (this.session == "CLOSE") {
+		if (this.sessionManager.getExchangeSession() == "CLOSE") {
 			return "Exchange is close";
 		}
 		this.resort(ord);
@@ -40,7 +41,7 @@ Exchange.prototype = {
 	},
 
 	cancel: function(ord) {
-		if (this.session == "CLOSE") {
+		if (this.sessionManager.getExchangeSession() == "CLOSE") {
 			return "Exchange is close";
 		}
 	},
@@ -202,6 +203,5 @@ Exchange.prototype = {
     		this.account.unHold(ord);
     	}
     	this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
-	}
-
+	},
 }	

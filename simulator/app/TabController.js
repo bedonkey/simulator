@@ -1,10 +1,9 @@
 TabController = function($scope, $window) {
     var tabUrl = {};
-    tabUrl["home-monitor"] = "app/modules/home/monitor.html";
+    tabUrl["home-monitor"] = "app/modules/home/monitor/monitor.html";
     tabUrl["orderbook"] = "app/modules/home/orderbook/orderbook.html";
     tabUrl["priceboard"] = "app/modules/home/priceboard/priceboard.html";
     tabUrl["condition"] = "app/modules/home/condition/monitor.html";
-    tabUrl["ex-monitor"] = "app/modules/exchange/monitor.html";
     tabUrl["ex-orders"] = "app/modules/exchange/orders.html";
     tabUrl["ex-secinfo"] = "app/modules/exchange/secinfo/secinfo.html";
     tabUrl["ors-account"] = "app/modules/ors/account/account.html";
@@ -17,22 +16,25 @@ TabController = function($scope, $window) {
     tabUrl["robot-testcase"] = "app/modules/robottest/testcase.html";
     tabUrl["learn-testcase"] = "app/modules/learn/testcase.html";
 
-    $scope.isShowDock = true;
-    $scope.currentTab = tabUrl["orderbook"];
+    $scope.isShowDock = false;
+    $scope.currentTab = tabUrl["home-monitor"];
 
     $scope.onClickLogo = function () {
         $window.location.reload();
     }
 
     $scope.onClickTabHomeMonitor = function () {
+        $scope.isShowDock = false;
         $scope.currentTab = tabUrl["home-monitor"];
     }
 
     $scope.onClickTabPriceBoard = function () {
+        $scope.isShowDock = true;
         $scope.currentTab = tabUrl["priceboard"];
     }
 
     $scope.onClickTabOrderBook = function () {
+        $scope.isShowDock = true;
         $scope.currentTab = tabUrl["orderbook"];
     }
 
@@ -41,8 +43,8 @@ TabController = function($scope, $window) {
     }
 
     $scope.onClickTabHome = function () {
-        $scope.isShowDock = true;
-        var curTab = tabUrl["orderbook"];
+        $scope.isShowDock = false;
+        var curTab = tabUrl["home-monitor"];
         var homeTab = angular.element("#home li");
         angular.forEach(homeTab, function(e) {
             var elem = angular.element(e);
@@ -55,7 +57,7 @@ TabController = function($scope, $window) {
 
     $scope.onClickTabExchange = function () {
         $scope.isShowDock = false;
-        var curTab = tabUrl["ex-monitor"];
+        var curTab = tabUrl["ex-orders"];
         var homeTab = angular.element("#exchange li");
         angular.forEach(homeTab, function(e) {
             var elem = angular.element(e);
@@ -64,10 +66,6 @@ TabController = function($scope, $window) {
             }
         });
         $scope.currentTab = curTab;
-    }
-
-    $scope.onClickTabExchangeMonitor = function () {
-        $scope.currentTab = tabUrl["ex-monitor"];
     }
 
     $scope.onClickTabExchangeOrders = function () {

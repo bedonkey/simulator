@@ -1,10 +1,11 @@
-Order = function(orderValidator, afType, orderStore, account, priceBoard, exchange) {
+Order = function(orderValidator, afType, orderStore, account, priceBoard, exchange, sessionManager) {
 	this.orderValidator = orderValidator;
 	this.orderStore = orderStore;
 	this.account = account;
 	this.priceBoard = priceBoard;
 	this.exchange = exchange;
 	this.afType = afType;
+	this.sessionManager = sessionManager;
 };
 
 Order.prototype = {
@@ -17,6 +18,9 @@ Order.prototype = {
         ord.avgPX = 0;
         ord.remain = ord.qty;
 		var error = this.orderValidator.clientValidate(ord);
+		if (this.sessionManager.getORSSession() == Session.ors.CLOSE) {
+			error = "ORS session is close";
+		}
 		if (error == undefined) {
 			if (this.orderStore.getOppositeOrder(ord) != null) {
 				error = "Has pending trade balance";
@@ -74,6 +78,9 @@ Order.prototype = {
 			result.status = false;
         	result.msg = error;
         	return result;
+		}
+		if (this.sessionManager.getORSSession() == Session.ors.CLOSE) {
+			error = "ORS session is close";
 		}
 		if (ord.qty <= oldOrd.avgQty) {
 			error = "Not Enough qty";
@@ -141,8 +148,8 @@ Order.prototype = {
         	result.msg = error;
         	return result;
 		}
-		if (this.exchange.getSession() == "CLOSE") {
-			error = "Exchange is close";
+		if (this.sessionManager.getORSSession() == Session.ors.CLOSE) {
+			error = "ORS session is close";
 		}
 		if (error == undefined) {
 			var pendingCancel = Utils.clone(order);
