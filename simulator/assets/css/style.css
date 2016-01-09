@@ -284,10 +284,16 @@ img {
 	border-top: 2px solid #ccc;
 }
 
-#orderBook table th, #orderSell table th , #orderBuy table th, #order-popup table th {
+#orderBook table th, #orderSell table th , #orderBuy table th {
 	background-color: #333;
 	text-align: center;
 }
+
+#order-popup table th {
+	background-color: #333;
+	text-align: left;
+}
+
 #order-popup table th, #order-popup table td {
 	border-color: #777;
 }

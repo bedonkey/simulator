@@ -22,6 +22,9 @@ Exchange.prototype = {
 		if (error != undefined) {
 			return error;
 		}
+		if (this.session == "CLOSE") {
+			return "Exchange is close";
+		}
 		this.addOrderMatch(ord);
         this.matching(ord);
 	},
@@ -31,8 +34,17 @@ Exchange.prototype = {
 		if (error != undefined) {
 			return error;
 		}
+		if (this.session == "CLOSE") {
+			return "Exchange is close";
+		}
 		this.resort(ord);
         this.matching(ord);
+	},
+
+	cancel: function(ord) {
+		if (this.session == "CLOSE") {
+			return "Exchange is close";
+		}
 	},
 
 	getAllOrderBuy: function() {

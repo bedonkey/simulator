@@ -8,7 +8,6 @@ Order = function(orderValidator, afType, orderStore, account, priceBoard, exchan
 };
 
 Order.prototype = {
-
 	place: function(ord) {
 		var result = {};
 		ord.orderID = IdGenerator.getId();
@@ -18,9 +17,6 @@ Order.prototype = {
         ord.avgPX = 0;
         ord.remain = ord.qty;
 		var error = this.orderValidator.clientValidate(ord);
-		if (this.exchange.getSession() == "CLOSE") {
-			error = "Exchange is close";
-		}
 		if (error == undefined) {
 			if (this.orderStore.getOppositeOrder(ord) != null) {
 				error = "Has pending trade balance";
@@ -78,9 +74,6 @@ Order.prototype = {
 			result.status = false;
         	result.msg = error;
         	return result;
-		}
-		if (this.exchange.getSession() == "CLOSE") {
-			error = "Exchange is close";
 		}
 		if (ord.qty <= oldOrd.avgQty) {
 			error = "Not Enough qty";
@@ -152,6 +145,19 @@ Order.prototype = {
 			error = "Exchange is close";
 		}
 		if (error == undefined) {
+			var pendingCancel = Utils.clone(order);
+    		pendingCancel.status = "Pending Cancel";
+			this.orderStore.pushToMap(ord.originalID, pendingCancel);
+
+			error = this.exchange.cancel(order);
+        	if (error != undefined) {
+				newOrder.status = "Rejected";
+				this.orderStore.pushToMap(ord.originalID, order);
+				result.status = false;
+        		result.msg = error;
+        		return result;
+			}
+
 			if(order.side == 'Buy') {
 				this.account.unHold(order);
 			} else {
@@ -160,9 +166,7 @@ Order.prototype = {
 			order.status = "Canceled";
 			order.remain = 0;
 			order.time = DateTime.getCurentDateTime();
-			var pendingCancel = Utils.clone(order);
-    		pendingCancel.status = "Pending Cancel";
-			this.orderStore.pushToMap(ord.originalID, pendingCancel);
+			
 			var cancelOrder = Utils.clone(order);
 			cancelOrder.orderID = IdGenerator.getId();
 			this.orderStore.pushToMap(order.originalID, cancelOrder);
