@@ -30,27 +30,36 @@ Order.prototype = {
 			error = this.orderValidator.validatePlace(ord);
 		}
 		if (error == undefined) {
-			ord.status = "New";
 	    	var acc = this.account.getByID(ord.account);
 	    	ord.priceMargin = this.afType.getPriceMargin(acc.afType, ord.symbol);
-	    	var newOrder = Utils.clone(ord);
-	        this.orderStore.add(newOrder);
-			error = this.exchange.place(newOrder);
-			if (error != undefined) {
-				newOrder.status = "Rejected";
-				newOrder.text = error;
-				this.orderStore.pushToMap(ord.originalID, newOrder);
-				result.status = false;
-        		result.msg = error;
-        		return result;
+			if (this.sessionManager.getORSSession() == Session.ors.OPEN) {
+				ord.status = "New";
+				var newOrder = Utils.clone(ord);
+	        	this.orderStore.add(newOrder);
+				error = this.exchange.place(newOrder);
+				if (error != undefined) {
+					newOrder.status = "Rejected";
+					newOrder.text = error;
+					this.orderStore.pushToMap(ord.originalID, newOrder);
+					result.status = false;
+	        		result.msg = error;
+	        		return result;
+				}
+				this.priceBoard.add(newOrder);
 			}
+			if (this.sessionManager.getORSSession() == Session.ors.NEW) {
+				ord.status = "Pending New";
+				var newOrder = Utils.clone(ord);
+	        	this.orderStore.add(newOrder);
+			}
+
 	        this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
 			if(ord.side == 'Buy') {
 				this.account.hold(ord);
 			} else {
 				this.account.holdTrade(ord.account, ord.symbol, ord.qty);
 			}
-			this.priceBoard.add(newOrder);
+			
             result.status = true;
         	result.msg = ord.orderID;
         } else {
