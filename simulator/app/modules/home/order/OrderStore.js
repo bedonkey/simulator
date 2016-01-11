@@ -19,7 +19,7 @@ OrderStore.prototype = {
 
 	getNewOrder: function(ordID) {
         for (var i = 0; i < orders.length; i++) {
-            if (orders[i].orderID == ordID && (orders[i].status == 'New' || orders[i].status == 'Partial Filled')) {
+            if (orders[i].orderID == ordID && (orders[i].status == OrdStatus.NEW || orders[i].status == OrdStatus.PARTIAL_FILLED)) {
                 return orders[i];
             }
         };
@@ -46,14 +46,14 @@ OrderStore.prototype = {
 
 	getOppositeOrder: function(ord) {
 		for (var i = 0; i < orders.length; i++) {
-			if (ord.side == "Buy") {
-				if (orders[i].side == "Sell" && orders[i].account == ord.account&& orders[i].symbol == ord.symbol) {
+			if (ord.side == Side.BUY) {
+				if (orders[i].side == Side.SELL && orders[i].account == ord.account&& orders[i].symbol == ord.symbol) {
 					return orders[i];
 				}
 			}
 
-			if (ord.side == "Sell") {
-				if (orders[i].side == "Buy" && orders[i].account == ord.account&& orders[i].symbol == ord.symbol) {
+			if (ord.side == Side.SELL) {
+				if (orders[i].side == Side.BUY && orders[i].account == ord.account&& orders[i].symbol == ord.symbol) {
 					return orders[i];
 				}
 			}

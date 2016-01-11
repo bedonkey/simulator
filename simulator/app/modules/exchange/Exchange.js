@@ -21,7 +21,7 @@ Exchange.prototype = {
 		if (error != undefined) {
 			return error;
 		}
-		if (this.sessionManager.getExchangeSession() == "CLOSE") {
+		if (this.sessionManager.getExchangeSession() == Session.ex.CLOSE) {
 			return "Exchange is close";
 		}
 		this.addOrderMatch(ord);
@@ -33,7 +33,7 @@ Exchange.prototype = {
 		if (error != undefined) {
 			return error;
 		}
-		if (this.sessionManager.getExchangeSession() == "CLOSE") {
+		if (this.sessionManager.getExchangeSession() == Session.ex.CLOSE) {
 			return "Exchange is close";
 		}
 		this.resort(ord);
@@ -41,7 +41,7 @@ Exchange.prototype = {
 	},
 
 	cancel: function(ord) {
-		if (this.sessionManager.getExchangeSession() == "CLOSE") {
+		if (this.sessionManager.getExchangeSession() == Session.ex.CLOSE) {
 			return "Exchange is close";
 		}
 	},
@@ -55,7 +55,7 @@ Exchange.prototype = {
 	},
 
 	resort: function(ord) {
-		if (ord.side == 'Sell') {
+		if (ord.side == Side.SELL) {
 			this.removeOrderSellMatch(ord);
 			this.addOrderSellMatch(ord);
 		} else {
@@ -65,7 +65,7 @@ Exchange.prototype = {
 	},
 
 	addOrderMatch: function(ord) {
-		if (ord.side == 'Sell') {
+		if (ord.side == Side.SELL) {
 			this.addOrderSellMatch(ord);
 		} else {
 			this.addOrderBuyMatch(ord);
@@ -111,7 +111,7 @@ Exchange.prototype = {
 	},
 
 	matching: function(ord) {
-		if (ord.side == 'Sell') {
+		if (ord.side == Side.SELL) {
 			this.matchingSell(ord);
 		} else {
 			this.matchingBuy(ord);
@@ -148,20 +148,20 @@ Exchange.prototype = {
     	var matchQty;
     	if (ord2.remain == ord1.remain) {
     		matchQty = ord1.remain;
-	    	ord1.status = 'Filled';
-        	ord2.status = 'Filled';
+	    	ord1.status = OrdStatus.FILLED;
+        	ord2.status = OrdStatus.FILLED;
         	ord1.remain = 0;
         	ord2.remain = 0;
     	} else if (ord2.remain > ord1.remain) {
     		matchQty = ord1.remain;
-    		ord1.status = 'Filled';
-        	ord2.status = 'Partial Filled';
+    		ord1.status = OrdStatus.FILLED;
+        	ord2.status = OrdStatus.PARTIAL_FILLED;
         	ord2.remain = ord2.remain - ord1.remain;
         	ord1.remain = 0;
     	} else if (ord2.remain < ord1.remain) {
     		matchQty = ord2.remain;
-    		ord1.status = 'Partial Filled';
-        	ord2.status = 'Filled';
+    		ord1.status = OrdStatus.PARTIAL_FILLED;
+        	ord2.status = OrdStatus.FILLED;
         	ord1.remain = ord1.remain - ord2.remain;
         	ord2.remain = 0;
     	}
@@ -169,7 +169,7 @@ Exchange.prototype = {
     	ord1.avgPX = matchPx;
     	ord2.avgQty += parseInt(matchQty);
     	ord2.avgPX = matchPx;
-    	if (ord1.side == 'Sell') {
+    	if (ord1.side == Side.SELL) {
     		this.account.unHoldT0(ord1.account, ord1.symbol, matchPx * matchQty);
     		this.account.unHoldTradeT0(ord2.account, ord2.symbol, matchQty);
     	} else {
@@ -196,8 +196,8 @@ Exchange.prototype = {
 	},
 
 	expired: function(ord) {
-		ord.status = 'Expired';
-		if (ord.side == 'Sell') {
+		ord.status = OrdStatus.EXPIRED;
+		if (ord.side == Side.SELL) {
     		this.account.unHoldTrade(ord.account, ord.symbol, ord.remain);
     	} else {
     		this.account.unHold(ord);

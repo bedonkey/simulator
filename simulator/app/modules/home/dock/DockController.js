@@ -6,7 +6,7 @@ DockController = function($scope, order, dockService) {
             symbol : 'AAA',
             sec: {},
             acc: {},
-            side: 'Buy',
+            side: Side.BUY,
             price: 2000,
             qty: 100
         };
@@ -33,12 +33,12 @@ DockController = function($scope, order, dockService) {
                 dockService.refeshSymbol();
             }
             if ($scope.command.key == 'S') {
-                $scope.orderPlace.side = 'Sell';
+                $scope.orderPlace.side = Side.SELL;
                 $scope.command.key = '';
                 this.onSideChange();
             }
             if ($scope.command.key == 'B') {
-                $scope.orderPlace.side = 'Buy';
+                $scope.orderPlace.side = Side.BUY;
                 $scope.command.key = '';
                 this.onSideChange();
             }
@@ -84,7 +84,7 @@ DockController = function($scope, order, dockService) {
     }
 
     $scope.onSideChange = function() {
-        if ($scope.orderPlace.side == 'Sell') {
+        if ($scope.orderPlace.side == Side.SELL) {
             $scope.buttonColor = 'red_button';
         } else {
             $scope.buttonColor = 'green_button';

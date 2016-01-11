@@ -23,7 +23,7 @@ OrderValidator.prototype = {
         if (ord.price < secs[0].floor) return "Price must larger than floor price";
         if (ord.price > secs[0].ceil) return "Price must lower than ceil price";
         if (secs[0].status == 'H') return "Symbol is halt";
-        if (ord.side == 'Buy') {
+        if (ord.side == Side.BUY) {
             var priceMargin = this.afType.getPriceMargin(accs[0].afType, ord.symbol);
             if ((ord.price - priceMargin) * ord.qty > accs[0].pp0) return "Don't enough balance";
         } else {
@@ -39,7 +39,7 @@ OrderValidator.prototype = {
         if (secs.length == 0) return "Symbol not exist";
         if (ord.price < secs[0].floor) return "Price must larger than floor price";
         if (ord.price > secs[0].ceil) return "Price must lower than ceil price";
-        if (oldOrd.side == 'Buy') {
+        if (oldOrd.side == Side.BUY) {
             var priceMargin = this.afType.getPriceMargin(accs[0].afType, oldOrd.symbol);
             if ((ord.price - priceMargin) * ord.qty > accs[0].pp0 + (oldOrd.price - priceMargin)* oldOrd.qty) return "Don't enough balance";
         } else {

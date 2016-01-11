@@ -9,7 +9,7 @@ DockService = function(account, secinfo) {
         sym : '',
         floor : '',
         ceil : '',
-        session : Session.exchange.INIT,
+        session : Session.ex.INIT,
         
     };
     currentAcc = '';
@@ -67,7 +67,7 @@ DockService.prototype = {
             var secs = acc[0].secs;
             for (var i = 0; i < secs.length; i++) {
                 if(secs[i]['symbol'] == dockInfo.sym) {
-                    if (currentSide == 'Sell') {
+                    if (currentSide == Side.SELL) {
                         var trade = parseInt(secs[i]['qty']) - parseInt(secs[i]['hold']);
                         dockInfo.trade = ' Trade: ' + trade;
                     } else {

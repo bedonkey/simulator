@@ -1,10 +1,10 @@
 Session = {
-	exchange : {
+	ex : {
 		INIT: "OPEN",
 		OPEN: "OPEN",
 		CLOSE:"CLOSE"
 	},
-	gateway: {
+	gw: {
 		INIT: "OPEN",
 		OPEN: "OPEN",
 		CLOSE:"CLOSE"

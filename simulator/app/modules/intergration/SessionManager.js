@@ -6,8 +6,8 @@ SessionManager = function(dockService) {
 SessionManager.prototype = {
 
 	init: function() {
-		this.exSession = Session.exchange.INIT;
-		this.gwSession = Session.gateway.INIT;
+		this.exSession = Session.ex.INIT;
+		this.gwSession = Session.gw.INIT;
 		this.orsSession = Session.ors.INIT;
 	},
 
@@ -16,13 +16,13 @@ SessionManager.prototype = {
 	},
 
 	closeExchange: function() {
-		this.exSession = Session.exchange.CLOSE;
-		this.dockService.setSession(Session.exchange.CLOSE);
+		this.exSession = Session.ex.CLOSE;
+		this.dockService.setSession(Session.ex.CLOSE);
 	},
 
 	openExchange: function() {
-		this.exSession = Session.exchange.OPEN;
-		this.dockService.setSession(Session.exchange.OPEN);
+		this.exSession = Session.ex.OPEN;
+		this.dockService.setSession(Session.ex.OPEN);
 	},
 
 	getGatewaySession: function() {
@@ -30,11 +30,11 @@ SessionManager.prototype = {
 	},
 
 	closeGateway: function() {
-		this.gwSession = Session.gateway.CLOSE;
+		this.gwSession = Session.gw.CLOSE;
 	},
 
 	openGateway: function() {
-		this.gwSession = Session.gateway.OPEN;
+		this.gwSession = Session.gw.OPEN;
 	},
 
 	getORSSession: function() {
