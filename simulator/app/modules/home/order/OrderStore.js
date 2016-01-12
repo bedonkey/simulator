@@ -47,13 +47,13 @@ OrderStore.prototype = {
 	getOppositeOrder: function(ord) {
 		for (var i = 0; i < orders.length; i++) {
 			if (ord.side == Side.BUY) {
-				if (orders[i].side == Side.SELL && orders[i].account == ord.account&& orders[i].symbol == ord.symbol) {
+				if (orders[i].side == Side.SELL && orders[i].account == ord.account && orders[i].symbol == ord.symbol) {
 					return orders[i];
 				}
 			}
 
 			if (ord.side == Side.SELL) {
-				if (orders[i].side == Side.BUY && orders[i].account == ord.account&& orders[i].symbol == ord.symbol) {
+				if (orders[i].side == Side.BUY && orders[i].account == ord.account && orders[i].symbol == ord.symbol) {
 					return orders[i];
 				}
 			}

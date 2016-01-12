@@ -22,7 +22,7 @@ Exchange.prototype = {
 			return error;
 		}
 		if (this.sessionManager.getExchangeSession() == Session.ex.CLOSE) {
-			return "Exchange is close";
+			return ErrorCode.EX_05;
 		}
 		this.addOrderMatch(ord);
         this.matching(ord);
@@ -34,7 +34,7 @@ Exchange.prototype = {
 			return error;
 		}
 		if (this.sessionManager.getExchangeSession() == Session.ex.CLOSE) {
-			return "Exchange is close";
+			return ErrorCode.EX_05;
 		}
 		this.resort(ord);
         this.matching(ord);
@@ -42,7 +42,7 @@ Exchange.prototype = {
 
 	cancel: function(ord) {
 		if (this.sessionManager.getExchangeSession() == Session.ex.CLOSE) {
-			return "Exchange is close";
+			return ErrorCode.EX_05;
 		}
 	},
 

@@ -19,11 +19,11 @@ Order.prototype = {
         ord.remain = ord.qty;
 		var error = this.orderValidator.clientValidate(ord);
 		if (this.sessionManager.getORSSession() == Session.ors.CLOSE) {
-			error = "ORS session is close";
+			error = ErrorCode.ORS_01;
 		}
 		if (error == undefined) {
 			if (this.orderStore.getOppositeOrder(ord) != null) {
-				error = "Has pending trade balance";
+				error = ErrorCode.ORS_04;
 			}
 		}
 		if (error == undefined) {
@@ -83,16 +83,16 @@ Order.prototype = {
 		if (oldOrd != null) {
 			error = this.orderValidator.validateReplace(oldOrd, ord);
 		} else {
-			error = "Order not found";
+			error = ErrorCode.ORS_02;
 			result.status = false;
         	result.msg = error;
         	return result;
 		}
 		if (this.sessionManager.getORSSession() == Session.ors.CLOSE) {
-			error = "ORS session is close";
+			error = ErrorCode.ORS_01;
 		}
 		if (ord.qty <= oldOrd.avgQty) {
-			error = "Not Enough qty";
+			error = ErrorCode.ORS_03;
 		}
 		if (error == undefined) {
 			if(oldOrd.side == Side.BUY) {
@@ -152,13 +152,13 @@ Order.prototype = {
 		var result = {};
 		var order = this.orderStore.getNewOrder(ord.orderID);
 		if (order == null) {
-        	error = "Order not found";
+        	error = ErrorCode.ORS_02;
         	result.status = false;
         	result.msg = error;
         	return result;
 		}
 		if (this.sessionManager.getORSSession() == Session.ors.CLOSE) {
-			error = "ORS session is close";
+			error = ErrorCode.ORS_01;
 		}
 		if (error == undefined) {
 			var pendingCancel = Utils.clone(order);
@@ -207,10 +207,10 @@ Order.prototype = {
 		var result = {};
 		var order = this.orderStore.getNewOrder(ord.orderID);
 		if (order == null) {
-        	error = "Order not found";
+        	error = ErrorCode.ORS_02;
 		}
 		if (this.exchange.getSession() == Session.ex.CLOSE) {
-			error = "Exchange is close";
+			error = ErrorCode.EX_05;
 		}
 		if (error == undefined) {
 			if(order.side == Side.BUY) {

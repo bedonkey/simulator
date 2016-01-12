@@ -20,7 +20,7 @@ PriceBoard.prototype = {
 
 	add: function(ord) {
 		var row = board[ord.symbol];
-		if (ord.side == 'Sell') {
+		if (ord.side == Side.SELL) {
 			for (var i = 0; i < row['sell'].length; i++) {
 	            if (ord.price == row['sell'][i].px) {
 	                row['sell'][i].qty += parseInt(ord.qty);
@@ -62,7 +62,7 @@ PriceBoard.prototype = {
 
 	subtract: function(sym, side, px, qty) {
 		var row = board[sym];
-		if (side == 'Sell') {
+		if (side == Side.SELL) {
 			for (var i = 0; i < row['sell'].length; i++) {
 	            if (px == row['sell'][i].px) {
 	                row['sell'][i].qty -= parseInt(qty);
@@ -87,7 +87,7 @@ PriceBoard.prototype = {
 
 	remove: function(ord) {
 		var row = board[ord.symbol];
-		if (ord.side == 'Sell') {
+		if (ord.side == Side.SELL) {
 			for (var i = 0; i < row['sell'].length; i++) {
 	            if (ord.price == row['sell'][i].px) {
 	                row['sell'][i].qty -= parseInt(ord.qty);

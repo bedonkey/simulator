@@ -5,9 +5,9 @@ ExchangeValidator = function(secinfo) {
 ExchangeValidator.prototype = {
 	validateSecInfo: function(ord) {
         var secs = this.secinfo.get(ord.symbol);
-        if (secs.length == 0) return "Symbol not exist";
-        if (ord.price < secs[0].floor) return "Price must larger than floor price";
-        if (ord.price > secs[0].ceil) return "Price must lower than ceil price";
-        if (secs[0].status == 'H') return "Symbol is halt";
+        if (secs.length == 0) return ErrorCode.EX_01;
+        if (ord.price < secs[0].floor) return ErrorCode.EX_02;
+        if (ord.price > secs[0].ceil) return ErrorCode.EX_03;
+        if (secs[0].status == 'H') return ErrorCode.EX_04;
 	}
 }	

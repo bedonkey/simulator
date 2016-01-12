@@ -1,12 +1,26 @@
 ErrorCode = {
-	ex : {
-		
-	},
-	gw: {
-		
-	},
-	ors: {
-		
-	}
-	
+	EX_01: "Symbol not exist",
+	EX_02: "Price must larger than floor price",
+	EX_03: "Price must lower than ceil price",
+	EX_04: "Symbol is halt",
+	EX_05: "Exchange is close",
+
+	ORS_01: "ORS session is close",
+	ORS_02: "Order not found",
+	ORS_03: "Not Enough qty",
+	ORS_04: "Has pending trade balance",
+	ORS_05: "Account not empty",
+	ORS_06: "Symbol not empty",
+	ORS_07: "Price not empty",
+	ORS_08: "Price not is number",
+	ORS_09: "Quantity not empty",
+	ORS_10: "Quantity not is number",
+	ORS_11: "Quantity must greater than 0",
+	ORS_12: "Account not exist",
+	ORS_13: "Symbol not exist",
+	ORS_14: "Don't enough balance",
+	ORS_15: "Don't enough trade",
+	ORS_16: "Symbol is halt",
+	ORS_17: "Price must larger than floor price",
+	ORS_18: "Price must lower than ceil price",
 }
