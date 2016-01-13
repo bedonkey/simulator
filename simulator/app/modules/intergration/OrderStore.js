@@ -69,7 +69,7 @@ OrderStore.prototype = {
 
 	getNewOrder: function(ordID) {
         for (var i = 0; i < orders.length; i++) {
-            if (orders[i].orderID == ordID && (orders[i].status == OrdStatus.NEW || orders[i].status == OrdStatus.PARTIAL_FILLED)) {
+            if (orders[i].orderID == ordID && (orders[i].status == OrdStatus.NEW || orders[i].status == OrdStatus.PARTIAL_FILLED || orders[i].status == OrdStatus.PENDING_NEW)) {
                 return orders[i];
             }
         };
