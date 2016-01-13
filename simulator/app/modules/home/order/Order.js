@@ -179,7 +179,7 @@ Order.prototype = {
 			} else {
 				this.account.unHoldTrade(order.account, order.symbol, order.remain);
 			}
-			order.status = OrdStatus.Canceled;
+			order.status = OrdStatus.CANCELED;
 			order.remain = 0;
 			order.time = DateTime.getCurentDateTime();
 			
@@ -209,7 +209,7 @@ Order.prototype = {
 		if (order == null) {
         	error = ErrorCode.ORS_02;
 		}
-		if (this.exchange.getSession() == Session.ex.CLOSE) {
+		if (this.sessionManager.getExchangeSession() == Session.ex.CLOSE) {
 			error = ErrorCode.EX_05;
 		}
 		if (error == undefined) {

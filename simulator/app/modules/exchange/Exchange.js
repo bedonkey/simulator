@@ -4,15 +4,13 @@ Exchange = function(exchangeValidator, account, orderStore, priceBoard, sessionM
 	this.orderStore = orderStore;
 	this.priceBoard = priceBoard;
 	this.sessionManager = sessionManager;
-	this.matchOrdersSell = [];
-	this.matchOrdersBuy = [];
+	this.matchOrdersBuy = this.orderStore.getAllOrderBuy();
+	this.matchOrdersSell = this.orderStore.getAllOrderSell();
 };
 
 Exchange.prototype = {
 
 	init: function() {
-		this.matchOrdersSell.length = 0;
-		this.matchOrdersBuy.length = 0;
 		this.orderStore.init();
 	},
 
@@ -46,67 +44,21 @@ Exchange.prototype = {
 		}
 	},
 
-	getAllOrderBuy: function() {
-		return this.matchOrdersBuy;
-	},
-
-	getAllOrderSell: function() {
-		return this.matchOrdersSell;
-	},
-
 	resort: function(ord) {
 		if (ord.side == Side.SELL) {
-			this.removeOrderSellMatch(ord);
-			this.addOrderSellMatch(ord);
+			this.orderStore.removeOrderSellMatch(ord);
+			this.orderStore.addOrderSellMatch(ord);
 		} else {
-			this.removeOrderBuyMatch(ord);
-			this.addOrderBuyMatch(ord);
+			this.orderStore.removeOrderBuyMatch(ord);
+			this.orderStore.addOrderBuyMatch(ord);
 		}
 	},
 
 	addOrderMatch: function(ord) {
 		if (ord.side == Side.SELL) {
-			this.addOrderSellMatch(ord);
+			this.orderStore.addOrderSellMatch(ord);
 		} else {
-			this.addOrderBuyMatch(ord);
-		}
-	},
-
-	addOrderBuyMatch: function(ord) {
-		for (var i = 0; i < this.matchOrdersBuy.length; i++) {
-			if (ord.price > this.matchOrdersBuy[i].price) {
-				this.matchOrdersBuy.splice(i, 0, ord);
-				return;
-			}
-		}
-		this.matchOrdersBuy.push(ord);
-	},
-
-	addOrderSellMatch: function(ord) {
-		for (var i = 0; i < this.matchOrdersSell.length; i++) {
-			if (ord.price < this.matchOrdersSell[i].price) {
-				this.matchOrdersSell.splice(i, 0, ord);
-				return;
-			}
-		}
-		this.matchOrdersSell.push(ord);
-	},
-
-	removeOrderBuyMatch: function(ord) {
-		for (var i = 0; i < this.matchOrdersBuy.length; i++) {
-			if (ord.orderID == this.matchOrdersBuy[i].orderID) {
-				this.matchOrdersBuy.splice(i, 1);
-				return;
-			}
-		}
-	},
-
-	removeOrderSellMatch: function(ord) {
-		for (var i = 0; i < this.matchOrdersSell.length; i++) {
-			if (ord.orderID == this.matchOrdersSell[i].orderID) {
-				this.matchOrdersSell.splice(i, 1);
-				return;
-			}
+			this.orderStore.addOrderBuyMatch(ord);
 		}
 	},
 

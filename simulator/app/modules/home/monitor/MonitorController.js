@@ -7,22 +7,22 @@ MonitorController = function($scope, sessionManager) {
 
     $scope.closeExchangeSession = function() {
         sessionManager.closeExchange();
-        $scope.exSession = Session.exchange.CLOSE;
+        $scope.exSession = Session.ex.CLOSE;
     }
 
     $scope.openExchangeSession = function() {
         sessionManager.openExchange();
-        $scope.exSession = Session.exchange.OPEN;
+        $scope.exSession = Session.ex.OPEN;
     }
 
     $scope.closeGatewaySession = function() {
         sessionManager.closeGateway();
-        $scope.gwSession = Session.gateway.CLOSE;
+        $scope.gwSession = Session.gw.CLOSE;
     }
 
     $scope.openGatewaySession = function() {
         sessionManager.openGateway();
-        $scope.gwSession = Session.gateway.OPEN;
+        $scope.gwSession = Session.gw.OPEN;
     }
 
     $scope.setORSSession = function(session) {
