@@ -1,7 +1,7 @@
 <div id="monitor" ng-controller="MonitorController">
 	<div class="module">
 		<div class="module-name">
-			<span>ORS Session<span>
+			<span>ORS Session</span>
 		</div>
 		<div class="monitor-detail">
 			HNX: <span class="session yellow" ng-class="{CLOSE:'red', OPEN:'green'}[orsSession]" ng-bind="orsSession" />
@@ -11,7 +11,7 @@
 	</div>
 	<div class="module">
 		<div class="module-name">
-			<span>Gateway Session<span>
+			<span>Gateway Session</span>
 		</div>
 		
 		<div type="button" class="btn-session" ng-class="gwSession=='OPEN'?'btn-session-open':''" ng-click="openGatewaySession()">OPEN</div>
@@ -19,7 +19,7 @@
 	</div>
 	<div class="module">
 		<div class="module-name">
-			<span>Exchange Session<span>
+			<span>Exchange Session</span>
 		</div>
 		<div type="button" class="btn-session" ng-class="exSession=='OPEN'?'btn-session-open':''" ng-click="openExchangeSession()">OPEN</div>
         <div type="button" class="btn-session" ng-class="exSession=='CLOSE'?'btn-session-close':''" ng-click="closeExchangeSession()">CLOSE</div>

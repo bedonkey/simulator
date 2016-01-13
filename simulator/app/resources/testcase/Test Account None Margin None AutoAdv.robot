@@ -1,4 +1,5 @@
 OpenExchange()
+OpenORS()
 ClearExchange()
 SetAfType(1, 100)
 result = GetAfType(1)

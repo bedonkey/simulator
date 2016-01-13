@@ -1,16 +1,16 @@
 Session = {
 	ex : {
-		INIT: "OPEN",
+		CUR: "OPEN",
 		OPEN: "OPEN",
 		CLOSE:"CLOSE"
 	},
 	gw: {
-		INIT: "OPEN",
+		CUR: "OPEN",
 		OPEN: "OPEN",
 		CLOSE:"CLOSE"
 	},
 	ors: {
-		INIT: "NEW",
+		CUR: "NEW",
 		NEW: "NEW",
 		OPEN: "OPEN",
 		CLOSE:"CLOSE"

@@ -1,5 +1,6 @@
 # Case 0: change aftype, place, match partial filled, cancel
 OpenExchange()
+OpenORS()
 ClearExchange()
 SetAfType(1, 1000)
 

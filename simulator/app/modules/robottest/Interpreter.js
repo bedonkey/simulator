@@ -1,7 +1,8 @@
-Interpreter = function(logScreen, order, account, exchange) {
+Interpreter = function(logScreen, order, account, exchange, sessionManager) {
 	this.logScreen = logScreen;
     this.order = order;
     this.account = account;
+    this.sessionManager = sessionManager;
     this.exchange = exchange;
 };
 
@@ -102,6 +103,9 @@ Interpreter.prototype = {
             }
             if (func == 'OpenExchange') {
                 this.doOpenExchange();
+            }
+            if (func == 'OpenORS') {
+                this.doOpenORS();
             }
             if (func == 'ClearExchange') {
                 this.doClearExchange();
@@ -204,7 +208,12 @@ Interpreter.prototype = {
 
     doOpenExchange: function() {
         this.logScreen.append("Open Exchange")
-        this.exchange.open();
+        this.sessionManager.openExchange();
+    },
+
+    doOpenORS: function() {
+        this.logScreen.append("Open ORS")
+        this.sessionManager.openORS();
     },
 
     doClearExchange: function() {

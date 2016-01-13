@@ -20,7 +20,7 @@ app.service('priceBoard', ['secinfo', PriceBoard]);
 app.service('orderStore', OrderStore);
 app.service('dockService', ['account', 'secinfo', DockService]);
 app.service('logScreen', LogScreen);
-app.service('interpreter', ['logScreen', 'order', 'account', 'exchange', Interpreter]);
+app.service('interpreter', ['logScreen', 'order', 'account', 'exchange', 'sessionManager', Interpreter]);
 app.service('exchangeValidator', ['exSecinfo', ExchangeValidator]);
 app.service('exchange', ['exchangeValidator', 'account', 'orderStore', 'priceBoard', 'sessionManager', Exchange]);
 app.service('sessionManager', ['dockService', SessionManager]);

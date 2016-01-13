@@ -69,11 +69,18 @@ OrderStore.prototype = {
 
 	getNewOrder: function(ordID) {
         for (var i = 0; i < orders.length; i++) {
-            if (orders[i].orderID == ordID && (orders[i].status == OrdStatus.NEW || orders[i].status == OrdStatus.PARTIAL_FILLED || orders[i].status == OrdStatus.PENDING_NEW)) {
+            if (orders[i].orderID == ordID && this.isAvailable(orders[i])) {
                 return orders[i];
             }
         };
         return null;
+	},
+
+	isAvailable: function(ord) {
+		if((ord.status == OrdStatus.NEW || ord.status == OrdStatus.PARTIAL_FILLED || ord.status == OrdStatus.PENDING_NEW)) {
+			return true;
+		}
+		return false;
 	},
 
 	getDetail: function(ordID) {
@@ -96,13 +103,13 @@ OrderStore.prototype = {
 
 	getOppositeOrder: function(ord) {
 		for (var i = 0; i < orders.length; i++) {
-			if (ord.side == Side.BUY) {
+			if (ord.side == Side.BUY && this.isAvailable(orders[i])) {
 				if (orders[i].side == Side.SELL && orders[i].account == ord.account && orders[i].symbol == ord.symbol) {
 					return orders[i];
 				}
 			}
 
-			if (ord.side == Side.SELL) {
+			if (ord.side == Side.SELL && this.isAvailable(orders[i])) {
 				if (orders[i].side == Side.BUY && orders[i].account == ord.account && orders[i].symbol == ord.symbol) {
 					return orders[i];
 				}

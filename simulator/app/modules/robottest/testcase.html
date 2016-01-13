@@ -6,7 +6,7 @@
 				<ul>
 					<li ng-class="{selected: test.name === selectedTest}" ng-repeat="test in testcases" ng-click="setSelected(test.name)">
 						<input type="checkbox" ng-model="test.chose" ng-true-value="true" ng-false-value="false">
-						{{test.name}}
+						{{ test.name | limitTo: 35 }}{{test.name.length > 35 ? '...' : ''}}
 						<img alt="Selected" ng-src="assets/images/circle-{{test.status}}.png" height="16px" ng-show="test.status != undefined && test.status != ''"/>
 					</li>
 				</ul>

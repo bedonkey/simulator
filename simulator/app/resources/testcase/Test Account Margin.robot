@@ -1,4 +1,5 @@
 OpenExchange()
+OpenORS()
 ClearExchange()
 result = GetPP0(1)
 Assert(result, 10000000)
