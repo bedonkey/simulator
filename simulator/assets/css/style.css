@@ -19,8 +19,9 @@ img {
 	text-align: center;
 }
 
-#logo {
-	width: 130px;
+#logo .version{
+	font-size: 12px;
+	color: white;
 }
 
 #tabs .account {

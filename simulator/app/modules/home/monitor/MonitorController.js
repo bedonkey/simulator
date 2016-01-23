@@ -1,4 +1,4 @@
-MonitorController = function($scope, sessionManager) {
+MonitorController = function($scope, order, sessionManager) {
     $scope.init = function() {
        $scope.exSession = sessionManager.getExchangeSession();
        $scope.gwSession = sessionManager.getGatewaySession();
@@ -27,6 +27,9 @@ MonitorController = function($scope, sessionManager) {
 
     $scope.setORSSession = function(session) {
         sessionManager.setORSSession(session);
+        if (session == Session.ors.OPEN) {
+            order.fireOrder();
+        }
         $scope.orsSession = session;
         $scope.mask = false;
         $scope.popupORS = false;

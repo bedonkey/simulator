@@ -18,9 +18,6 @@ Order.prototype = {
         ord.avgPX = 0;
         ord.remain = ord.qty;
 		var error = this.orderValidator.clientValidate(ord);
-		if (this.sessionManager.getORSSession() == Session.ors.CLOSE) {
-			error = ErrorCode.ORS_01;
-		}
 		if (error == undefined) {
 			if (this.orderStore.getOppositeOrder(ord) != null) {
 				error = ErrorCode.ORS_04;
@@ -74,6 +71,30 @@ Order.prototype = {
         return result;
 	},
 
+	fireOrder: function () {
+		console.log('Fire');
+		var orders = this.orderStore.getPendingNewOrder();
+		for (var i = 0; i < orders.length; i++) {
+			this.sendOrderToGateway(orders[i]);
+		}
+	},
+
+	sendOrderToGateway: function(ord) {
+		ord.status = OrdStatus.NEW;
+		var newOrder = Utils.clone(ord);
+		error = this.exchange.place(newOrder);
+		if (error != undefined) {
+			newOrder.status = OrdStatus.REJECTED;
+			newOrder.text = error;
+			this.orderStore.pushToMap(ord.originalID, newOrder);
+			result.status = false;
+    		result.msg = error;
+    		return result;
+		}
+		this.priceBoard.add(newOrder);
+		this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
+	},
+
 	replace: function(ord) {
 		var result = {};
 		var oldOrd = this.orderStore.getNewOrder(ord.orderID);
@@ -87,12 +108,6 @@ Order.prototype = {
 			result.status = false;
         	result.msg = error;
         	return result;
-		}
-		if (this.sessionManager.getORSSession() == Session.ors.CLOSE) {
-			error = ErrorCode.ORS_01;
-		}
-		if (ord.qty <= oldOrd.avgQty) {
-			error = ErrorCode.ORS_03;
 		}
 		if (error == undefined) {
 			if(oldOrd.side == Side.BUY) {
@@ -157,9 +172,7 @@ Order.prototype = {
         	result.msg = error;
         	return result;
 		}
-		if (this.sessionManager.getORSSession() == Session.ors.CLOSE) {
-			error = ErrorCode.ORS_01;
-		}
+		if (error == undefined) error = this.orderValidator.validateCancel();
 		if (error == undefined) {
 			var pendingCancel = Utils.clone(order);
     		pendingCancel.status = OrdStatus.PENDING_CANCEL;
@@ -206,12 +219,8 @@ Order.prototype = {
 		var error = undefined;
 		var result = {};
 		var order = this.orderStore.getNewOrder(ord.orderID);
-		if (order == null) {
-        	error = ErrorCode.ORS_02;
-		}
-		if (this.sessionManager.getExchangeSession() == Session.ex.CLOSE) {
-			error = ErrorCode.EX_05;
-		}
+		if (order == null) error = ErrorCode.ORS_02;
+		if (error == undefined) error = this.orderValidator.validateUnhold();
 		if (error == undefined) {
 			if(order.side == Side.BUY) {
 				this.account.unHold(order);

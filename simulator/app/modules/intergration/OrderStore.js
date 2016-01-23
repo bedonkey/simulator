@@ -76,6 +76,16 @@ OrderStore.prototype = {
         return null;
 	},
 
+	getPendingNewOrder: function() {
+		var pendingNewOrders = [];
+		for (var i = 0; i < orders.length; i++) {
+            if (orders[i].status == OrdStatus.PENDING_NEW) {
+                pendingNewOrders.push(orders[i]);
+            }
+        };
+        return pendingNewOrders;
+	},
+
 	isAvailable: function(ord) {
 		if((ord.status == OrdStatus.NEW || ord.status == OrdStatus.PARTIAL_FILLED || ord.status == OrdStatus.PENDING_NEW)) {
 			return true;
