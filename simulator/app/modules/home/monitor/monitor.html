@@ -5,7 +5,10 @@
 		</div>
 		<div class="monitor-detail">
 			HNX: <span class="session yellow" ng-class="{CLOSE:'red', OPEN:'green'}[orsSession]" ng-bind="orsSession" />
-			<img alt="Replace Order" src="assets/images/setting.png" height="30px" ng-click="openORS();$event.stopPropagation();"/>
+			HOSE: <span class="session yellow" ng-class="{CLOSE:'red', OPEN:'green'}[orsSession]" ng-bind="orsSession" />
+		</div>
+		<div class="setting">
+			<img alt="Set ORS session" src="assets/images/setting.png" height="30px" ng-click="openORS();$event.stopPropagation();"/>
 		</div>
 		
 	</div>
@@ -14,8 +17,13 @@
 			<span>Gateway Session</span>
 		</div>
 		
-		<div type="button" class="btn-session" ng-class="gwSession=='OPEN'?'btn-session-open':''" ng-click="openGatewaySession()">OPEN</div>
-        <div type="button" class="btn-session" ng-class="gwSession=='CLOSE'?'btn-session-close':''" ng-click="closeGatewaySession()">CLOSE</div>
+		<div class="monitor-detail">
+			HNX: <span class="session yellow" ng-class="{CLOSE:'red', OPEN:'green'}[gwSession]" ng-bind="gwSession" />
+			HOSE: <span class="session yellow" ng-class="{CLOSE:'red', OPEN:'green'}[gwSession]" ng-bind="gwSession" />
+		</div>
+		<div class="setting">
+			<img alt="Set Gateway session" src="assets/images/setting.png" height="30px" ng-click="openGW();$event.stopPropagation();"/>
+		</div>
 	</div>
 	<div class="module">
 		<div class="module-name">
@@ -24,7 +32,7 @@
 		<div type="button" class="btn-session" ng-class="exSession=='OPEN'?'btn-session-open':''" ng-click="openExchangeSession()">OPEN</div>
         <div type="button" class="btn-session" ng-class="exSession=='CLOSE'?'btn-session-close':''" ng-click="closeExchangeSession()">CLOSE</div>
 	</div>
-	<div id="ors-session-edit" class="popup" ng-show="popupORS">
+	<div class="session-edit popup" ng-show="popupORS">
 		<img src="assets/images/close.png" class="btn_close" title="Close Window" alt="Close" ng-click="mask=false;popupORS=false"/>
 		 
 	    <div class="form-inline">
@@ -43,5 +51,26 @@
 			<input class="btn btn-md grey_button right" type="submit" value="Set" ng-click="setORSSession(orsSessionInput.session)"/>
 		</div>
 	</div>
+
+	<div class="session-edit popup" ng-show="popupGW">
+		<img src="assets/images/close.png" class="btn_close" title="Close Window" alt="Close" ng-click="mask=false;popupGW=false"/>
+		 
+	    <div class="form-inline">
+	        <label for="inputValue">Exchange</label>
+	        <select class="form-control" ng-model="gwSessionInput.exchange">
+	            <option value="HNX">HNX</option>
+	        </select>
+	        <label for="inputValue">Session</label>
+	        <select class="form-control" ng-model="gwSessionInput.session">
+	            <option value="NEW">NEW</option>
+	            <option value="OPEN">OPEN</option>
+	            <option value="CLOSE">CLOSE</option>
+	        </select>
+	    </div>
+		<div>
+			<input class="btn btn-md grey_button right" type="submit" value="Set" ng-click="setGWSession(gwSessionInput.session)"/>
+		</div>
+	</div>
+
 	<div id="mask" ng-show="mask"></div>
 </div>

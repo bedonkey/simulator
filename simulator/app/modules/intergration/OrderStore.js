@@ -1,4 +1,5 @@
 OrderStore = function() {
+	orderQueue = [];
 	orders = [];
 	this.matchOrdersSell = [];
 	this.matchOrdersBuy = [];
@@ -9,12 +10,21 @@ OrderStore.prototype = {
 
 	init: function() {
 		orders.length = 0;
+		orderQueue.length = 0;
 		this.matchOrdersSell.length = 0;
 		this.matchOrdersBuy.length = 0;
 	},
 
 	getAll: function() {
 		return orders;
+	},
+
+	getAllOrderQueueOnGateway: function() {
+		return orderQueue;
+	},
+
+	putOrderToQueue: function(obj) {
+		orderQueue.push(obj);
 	},
 
 	getAllOrderBuy: function() {

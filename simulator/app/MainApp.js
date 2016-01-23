@@ -12,7 +12,7 @@ app.service('account', ['accountValidator', 'aftype', Account]);
 app.service('aftype', ['basket', AfType]);
 app.service('basket', Basket);
 app.service('orderValidator', ['account', 'secinfo', 'aftype', 'sessionManager', OrderValidator]);
-app.service('order', ['orderValidator', 'aftype', 'orderStore', 'account', 'priceBoard', 'exchange', 'sessionManager', Order]);
+app.service('order', ['orderValidator', 'aftype', 'orderStore', 'account', 'priceBoard', 'gateway', 'sessionManager', Order]);
 app.service('secInfoValidator', SecInfoValidator);
 app.service('secinfo', ['secInfoValidator', SecInfo]);
 app.service('exSecinfo', ExSecInfo);
@@ -22,10 +22,12 @@ app.service('dockService', ['account', 'secinfo', DockService]);
 app.service('logScreen', LogScreen);
 app.service('interpreter', ['logScreen', 'order', 'account', 'exchange', 'sessionManager', Interpreter]);
 app.service('exchangeValidator', ['exSecinfo', ExchangeValidator]);
+app.service('gateway', ['orderStore', 'exchange', 'sessionManager', Gateway]);
 app.service('exchange', ['exchangeValidator', 'account', 'orderStore', 'priceBoard', 'sessionManager', Exchange]);
 app.service('sessionManager', ['dockService', SessionManager]);
 
 app.controller("TabsCtrl", ['$scope', '$window', TabController]);
+app.controller('GatewayController', ['$scope', 'orderStore', GatewayController]);
 app.controller('ExchangeController', ['$scope', 'orderStore', ExchangeController]);
 app.controller("SecInfoController", ['$scope', 'secinfo', SecInfoController]);
 app.controller("ExSecInfoController", ['$scope', 'exSecinfo', ExSecInfoController]);
@@ -37,7 +39,7 @@ app.controller("PriceBoardController", ['$scope', 'priceBoard', PriceBoardContro
 app.controller("DockController", ['$scope', 'order', 'dockService', DockController]);
 app.controller("RobotController", ['$scope', '$http', 'logScreen', 'interpreter', RobotController]);
 app.controller("LearnController", ['$scope', '$http', LearnController]);
-app.controller("MonitorController", ['$scope','order', 'sessionManager', MonitorController]);
+app.controller("MonitorController", ['$scope','order', 'gateway', 'sessionManager', MonitorController]);
 
 app.directive("orderDetail", function(){return {templateUrl:'app/modules/home/orderbook/detail.html'};});
 app.directive("orderReplace", function(){return {templateUrl:'app/modules/home/orderbook/replace.html'};});

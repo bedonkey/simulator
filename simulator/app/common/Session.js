@@ -5,12 +5,13 @@ Session = {
 		CLOSE:"CLOSE"
 	},
 	gw: {
-		CUR: "OPEN",
+		CUR: "NEW",
+		NEW: "NEW",
 		OPEN: "OPEN",
 		CLOSE:"CLOSE"
 	},
 	ors: {
-		CUR: "NEW",
+		CUR: "OPEN",
 		NEW: "NEW",
 		OPEN: "OPEN",
 		CLOSE:"CLOSE"

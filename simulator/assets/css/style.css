@@ -20,7 +20,7 @@ img {
 }
 
 #logo .version{
-	font-size: 12px;
+	font-size: 10px;
 	color: white;
 }
 
@@ -296,6 +296,11 @@ img {
 
 #placeOrder input[type="text"]{
 	width: 120px;
+}
+
+#orderQueue {
+	margin: auto;
+	float: none;
 }
 
 #orderSell .table-bordered thead{
@@ -581,7 +586,7 @@ img {
 	padding: 7px 0;
 }
 
-#secinfo_edit label, #aftype_edit label, #ors-session-edit label {
+#secinfo_edit label, #aftype_edit label, .session-edit label {
 	width: 105px;
 	padding: 7px 0;
 }
@@ -772,7 +777,7 @@ img.btn_close {
 }
 
 #testcases li.selected {
-	border-bottom: 2px solid #333;
+	border-bottom: 2px solid #777;
 }
 
 #testcase-editor {
@@ -917,12 +922,14 @@ img.btn_close {
     padding: 20px 0;
     text-align: center;
     height: 70px;
-    width: 500px;
+    width: 600px;
 }
 
 #monitor .monitor-detail {
 	float: left;
 	color: white;
+	width: 325px;
+	text-align: left;
 }
 
 #monitor .module {
@@ -1045,11 +1052,11 @@ img.btn_close {
     box-sizing: border-box;
 }
 
-#ors-session-edit {
+.session-edit {
 	width: 265px;
 	text-align: left;
 }
 
-#ors-session-edit select {
-	width: 120px;
+.session-edit select {
+	width: 120px !important;
 }

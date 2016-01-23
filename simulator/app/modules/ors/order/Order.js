@@ -1,9 +1,9 @@
-Order = function(orderValidator, afType, orderStore, account, priceBoard, exchange, sessionManager) {
+Order = function(orderValidator, afType, orderStore, account, priceBoard, gateway, sessionManager) {
 	this.orderValidator = orderValidator;
 	this.orderStore = orderStore;
 	this.account = account;
 	this.priceBoard = priceBoard;
-	this.exchange = exchange;
+	this.gateway = gateway;
 	this.afType = afType;
 	this.sessionManager = sessionManager;
 };
@@ -33,7 +33,7 @@ Order.prototype = {
 				ord.status = OrdStatus.NEW;
 				var newOrder = Utils.clone(ord);
 	        	this.orderStore.add(newOrder);
-				error = this.exchange.place(newOrder);
+				error = this.gateway.receive(newOrder, 'place');
 				if (error != undefined) {
 					newOrder.status = OrdStatus.REJECTED;
 					newOrder.text = error;
@@ -82,7 +82,7 @@ Order.prototype = {
 	sendOrderToGateway: function(ord) {
 		ord.status = OrdStatus.NEW;
 		var newOrder = Utils.clone(ord);
-		error = this.exchange.place(newOrder);
+		error = this.gateway.receive(newOrder, 'place');
 		if (error != undefined) {
 			newOrder.status = OrdStatus.REJECTED;
 			newOrder.text = error;
@@ -126,7 +126,7 @@ Order.prototype = {
     		oldOrd.priceMargin = this.afType.getPriceMargin(acc.afType, oldOrd.symbol);
 			var newOrder = Utils.clone(oldOrd);
 			
-			error = this.exchange.replace(oldOrd);
+			error = this.exchange.receive(oldOrd, 'replace');
         	if (error != undefined) {
 				newOrder.status = OrdStatus.REJECTED;
 				this.orderStore.pushToMap(ord.originalID, newOrder);
@@ -178,7 +178,7 @@ Order.prototype = {
     		pendingCancel.status = OrdStatus.PENDING_CANCEL;
 			this.orderStore.pushToMap(ord.originalID, pendingCancel);
 
-			error = this.exchange.cancel(order);
+			error = this.gateway.receive(order, 'cancel');
         	if (error != undefined) {
 				newOrder.status = OrdStatus.REJECTED;
 				this.orderStore.pushToMap(ord.originalID, order);

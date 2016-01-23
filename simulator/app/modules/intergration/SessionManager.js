@@ -22,12 +22,8 @@ SessionManager.prototype = {
 		return Session.gw.CUR;
 	},
 
-	closeGateway: function() {
-		Session.gw.CUR = Session.gw.CLOSE;
-	},
-
-	openGateway: function() {
-		Session.gw.CUR = Session.gw.OPEN;
+	setGatewaySession: function(session) {
+		Session.gw.CUR = session;
 	},
 
 	getORSSession: function() {
@@ -37,13 +33,5 @@ SessionManager.prototype = {
 	setORSSession: function(session) {
 		Session.ors.CUR = session;
 	},
-
-	closeORS: function() {
-		Session.ors.CUR = Session.ors.CLOSE;
-	},
-
-	openORS: function() {
-		Session.ors.CUR = Session.ors.OPEN;
-	}
 
 }	
