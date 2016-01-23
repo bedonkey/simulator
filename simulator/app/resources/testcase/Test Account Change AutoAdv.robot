@@ -1,5 +1,6 @@
 # Case: place match; set autoAdv; check PP0, Qmax; place; check Qmax; disable autoAdv; check PP0; cancel; check PP0
 OpenExchange()
+OpenGateway()
 OpenORS()
 ClearExchange()
 result = GetPP0(1)

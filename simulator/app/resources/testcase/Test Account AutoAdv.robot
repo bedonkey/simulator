@@ -1,5 +1,6 @@
 # Case: change aftype none margin; set autoAdv, place match, cancel remain, check PP0
 OpenExchange()
+OpenGateway()
 OpenORS()
 ClearExchange()
 SetAfType(1, 100)

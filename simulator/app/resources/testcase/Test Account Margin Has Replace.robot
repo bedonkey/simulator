@@ -1,5 +1,6 @@
 # Case1: place, replace, change aftype, cancel
 OpenExchange()
+OpenGateway()
 OpenORS()
 ClearExchange()
 result = GetPP0(1)

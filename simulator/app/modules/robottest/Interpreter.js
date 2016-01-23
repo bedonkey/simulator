@@ -104,6 +104,9 @@ Interpreter.prototype = {
             if (func == 'OpenExchange') {
                 this.doOpenExchange();
             }
+            if (func == 'OpenGateway') {
+                this.doOpenGateway();
+            }
             if (func == 'OpenORS') {
                 this.doOpenORS();
             }
@@ -206,6 +209,11 @@ Interpreter.prototype = {
         this.account.init();
     },
 
+    doOpenGateway: function() {
+        this.logScreen.append("Open Gateway")
+        this.sessionManager.setGatewaySession(Session.gw.OPEN);
+    },
+
     doOpenExchange: function() {
         this.logScreen.append("Open Exchange")
         this.sessionManager.openExchange();
@@ -213,7 +221,7 @@ Interpreter.prototype = {
 
     doOpenORS: function() {
         this.logScreen.append("Open ORS")
-        this.sessionManager.openORS();
+        this.sessionManager.setORSSession(Session.ors.OPEN);
     },
 
     doClearExchange: function() {

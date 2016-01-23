@@ -1,4 +1,5 @@
 OpenExchange()
+OpenGateway()
 OpenORS()
 ClearExchange()
 result = GetPP0(1)

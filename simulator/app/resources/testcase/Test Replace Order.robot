@@ -1,4 +1,5 @@
 OpenExchange()
+OpenGateway()
 OpenORS()
 ClearExchange()
 result = Place(1, AAA, Buy, 2000, 100)

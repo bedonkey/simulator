@@ -1,5 +1,6 @@
 # Case: check pp0, qmax; change aftype; check qmax
 OpenExchange()
+OpenGateway()
 OpenORS()
 ClearExchange()
 ResetAccounts()

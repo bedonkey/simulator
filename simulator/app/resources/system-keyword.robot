@@ -42,6 +42,12 @@
   "function": "ResetAccounts()"
 }, {
   "return": "",
+  "function": "OpenORS()"
+}, {
+  "return": "",
+  "function": "OpenGateway()"
+}, {
+  "return": "",
   "function": "OpenExchange()"
 }, {
   "return": "",

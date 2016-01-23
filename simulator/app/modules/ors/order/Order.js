@@ -126,7 +126,7 @@ Order.prototype = {
     		oldOrd.priceMargin = this.afType.getPriceMargin(acc.afType, oldOrd.symbol);
 			var newOrder = Utils.clone(oldOrd);
 			
-			error = this.exchange.receive(oldOrd, 'replace');
+			error = this.gateway.receive(oldOrd, 'replace');
         	if (error != undefined) {
 				newOrder.status = OrdStatus.REJECTED;
 				this.orderStore.pushToMap(ord.originalID, newOrder);

@@ -1,4 +1,5 @@
 OpenExchange()
+OpenGateway()
 OpenORS()
 ClearExchange()
 SetAfType(1, 100)
