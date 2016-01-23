@@ -3,7 +3,6 @@ TabController = function($scope, $window) {
     tabUrl["home-monitor"] = "app/modules/home/monitor/monitor.html";
     tabUrl["orderbook"] = "app/modules/home/orderbook/orderbook.html";
     tabUrl["priceboard"] = "app/modules/home/priceboard/priceboard.html";
-    tabUrl["condition"] = "app/modules/home/condition/monitor.html";
     tabUrl["ex-orders"] = "app/modules/exchange/orders.html";
     tabUrl["ex-secinfo"] = "app/modules/exchange/secinfo/secinfo.html";
     tabUrl["ors-account"] = "app/modules/ors/account/account.html";
@@ -18,6 +17,24 @@ TabController = function($scope, $window) {
 
     $scope.isShowDock = false;
     $scope.currentTab = tabUrl["home-monitor"];
+
+    $scope.onClickTab = function (tab) {
+        $scope.isShowDock = false;
+        var curTab;
+        var homeTab = angular.element(tab + " li");
+        angular.forEach(homeTab, function(e) {
+            var elem = angular.element(e);
+            if(elem.hasClass('active')) {
+                curTab = tabUrl[elem.find('a').attr('href')];
+            }
+        });
+        if (curTab == undefined) {
+            var firstTab = angular.element(tab + " li").first();
+            curTab = tabUrl[firstTab.find('a').attr('href')];
+            firstTab.addClass('active');
+        }
+        $scope.currentTab = curTab;
+    }
 
     $scope.onClickLogo = function () {
         $window.location.reload();
@@ -38,36 +55,6 @@ TabController = function($scope, $window) {
         $scope.currentTab = tabUrl["orderbook"];
     }
 
-    $scope.onClickTabCondition = function () {
-        $scope.currentTab = tabUrl["condition"];
-    }
-
-    $scope.onClickTabHome = function () {
-        $scope.isShowDock = false;
-        var curTab = tabUrl["home-monitor"];
-        var homeTab = angular.element("#home li");
-        angular.forEach(homeTab, function(e) {
-            var elem = angular.element(e);
-            if(elem.hasClass('active')) {
-                curTab = tabUrl[elem.find('a').attr('href')];
-            }
-        });
-        $scope.currentTab = curTab;
-    }
-
-    $scope.onClickTabExchange = function () {
-        $scope.isShowDock = false;
-        var curTab = tabUrl["ex-orders"];
-        var homeTab = angular.element("#exchange li");
-        angular.forEach(homeTab, function(e) {
-            var elem = angular.element(e);
-            if(elem.hasClass('active')) {
-                curTab = tabUrl[elem.find('a').attr('href')];
-            }
-        });
-        $scope.currentTab = curTab;
-    }
-
     $scope.onClickTabExchangeOrders = function () {
         $scope.currentTab = tabUrl["ex-orders"];
     } 
@@ -78,19 +65,6 @@ TabController = function($scope, $window) {
 
     $scope.onClickTabORSBasket = function () {
         $scope.currentTab = tabUrl["ors-basket"];
-    }
-
-    $scope.onClickTabORS = function () {
-        $scope.isShowDock = false;
-        var curTab = tabUrl["ors-account"];
-        var homeTab = angular.element("#orstab li");
-        angular.forEach(homeTab, function(e) {
-            var elem = angular.element(e);
-            if(elem.hasClass('active')) {
-                curTab = tabUrl[elem.find('a').attr('href')];
-            }
-        });
-        $scope.currentTab = curTab;
     }
 
     $scope.onClickTabORSAfType = function () {
@@ -105,63 +79,11 @@ TabController = function($scope, $window) {
         $scope.currentTab = tabUrl["ors-account"];
     }
 
-    $scope.onClickTabMO = function () {
-        $scope.isShowDock = false;
-        var curTab = tabUrl["mo-config"];
-        var homeTab = angular.element("#motab li");
-        angular.forEach(homeTab, function(e) {
-            var elem = angular.element(e);
-            if(elem.hasClass('active')) {
-                curTab = tabUrl[elem.find('a').attr('href')];
-            }
-        });
-        $scope.currentTab = curTab;
-    }
-
-    $scope.onClickTabGateway = function () {
-        $scope.isShowDock = false;
-        var curTab = tabUrl["gw-orderqueue"];
-        var homeTab = angular.element("#gateway li");
-        angular.forEach(homeTab, function(e) {
-            var elem = angular.element(e);
-            if(elem.hasClass('active')) {
-                curTab = tabUrl[elem.find('a').attr('href')];
-            }
-        });
-        $scope.currentTab = curTab;
-    }
-
-    $scope.onClickTabRobot = function () {
-        $scope.isShowDock = false;
-        var curTab = tabUrl["robot-testcase"];
-        var homeTab = angular.element("#robottest li");
-        angular.forEach(homeTab, function(e) {
-            var elem = angular.element(e);
-            if(elem.hasClass('active')) {
-                curTab = tabUrl[elem.find('a').attr('href')];
-            }
-        });
-        $scope.currentTab = curTab;
-    }
-
     $scope.onClickTabRobotKeywords = function () {
         $scope.currentTab = tabUrl["robot-keyword"];
     }
 
     $scope.onClickTabRobotTestcases = function () {
         $scope.currentTab = tabUrl["robot-testcase"];
-    }
-
-    $scope.onClickTabLearn = function () {
-        $scope.isShowDock = false;
-        var curTab = tabUrl["learn-testcase"];
-        var homeTab = angular.element("#learn li");
-        angular.forEach(homeTab, function(e) {
-            var elem = angular.element(e);
-            if(elem.hasClass('active')) {
-                curTab = tabUrl[elem.find('a').attr('href')];
-            }
-        });
-        $scope.currentTab = curTab;
     }
 } 

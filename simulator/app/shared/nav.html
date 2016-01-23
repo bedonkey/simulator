@@ -4,13 +4,13 @@
     </div>
   	<div id="tabs" class="container-fluid">
       	<ul class="nav navbar-nav">
-    		<li ng-click="onClickTabHome()"><a href="#home" data-toggle="tab">Home</a></li>
-    		<li ng-click="onClickTabORS()"><a href="#orstab" data-toggle="tab">ORS</a></li>
-			<li ng-click="onClickTabMO()"><a href="#motab" data-toggle="tab">MO</a></li>
-    		<li ng-click="onClickTabGateway()"><a href="#gateway" data-toggle="tab">Gateway</a></li>
-    		<li ng-click="onClickTabExchange()"><a href="#exchange" data-toggle="tab">Exchange</a></li>
-    		<li ng-click="onClickTabRobot()"><a href="#rebottest" data-toggle="tab">RobotTest</a></li>
-    		<li ng-click="onClickTabLearn()"><a href="#learn" data-toggle="tab">Learn</a></li>
+    		<li ng-click="onClickTab('#home')"><a href="#home" data-toggle="tab">Home</a></li>
+    		<li ng-click="onClickTab('#orstab')"><a href="#orstab" data-toggle="tab">ORS</a></li>
+			<li ng-click="onClickTab('#motab')"><a href="#motab" data-toggle="tab">MO</a></li>
+    		<li ng-click="onClickTab('#gateway')"><a href="#gateway" data-toggle="tab">Gateway</a></li>
+    		<li ng-click="onClickTab('#exchange')"><a href="#exchange" data-toggle="tab">Exchange</a></li>
+    		<li ng-click="onClickTab('#robottest')"><a href="#rebottest" data-toggle="tab">RobotTest</a></li>
+    		<li ng-click="onClickTab('#learn')"><a href="#learn" data-toggle="tab">Learn</a></li>
     		
       	</ul>
 		<div class='account'>
@@ -25,7 +25,6 @@
 	  			<ul class="nav navbar-nav">
 	  				<li ng-click="onClickTabHomeMonitor()"><a href="home-monitor" data-toggle="tab">Monitor</a></li>
 	  				<li ng-click="onClickTabOrderBook()"><a href="orderbook" data-toggle="tab">Order Book</a></li>
-	  				<li ng-click="onClickTabCondition()"><a href="condition" data-toggle="tab">Condition</a></li>
             		<li ng-click="onClickTabPriceBoard()"><a href="priceboard" data-toggle="tab">Price Board</a></li>
 	  			</ul>
 	  		</li>

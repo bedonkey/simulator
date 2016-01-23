@@ -1,11 +1,11 @@
-ExchangeController = function($scope, exchange) {
+ExchangeController = function($scope, orderStore) {
     $scope.search = {
         symbol : ''
     };
     
     $scope.init = function() {
-        $scope.orderBuy = exchange.getAllOrderBuy();
-        $scope.orderSell = exchange.getAllOrderSell();
+        $scope.orderBuy = orderStore.getAllOrderBuy();
+        $scope.orderSell = orderStore.getAllOrderSell();
     }
     $scope.init();
 } 

@@ -26,7 +26,7 @@ app.service('exchange', ['exchangeValidator', 'account', 'orderStore', 'priceBoa
 app.service('sessionManager', ['dockService', SessionManager]);
 
 app.controller("TabsCtrl", ['$scope', '$window', TabController]);
-app.controller('ExchangeController', ['$scope', 'exchange', 'exSecinfo', ExchangeController]);
+app.controller('ExchangeController', ['$scope', 'orderStore', ExchangeController]);
 app.controller("SecInfoController", ['$scope', 'secinfo', SecInfoController]);
 app.controller("ExSecInfoController", ['$scope', 'exSecinfo', ExSecInfoController]);
 app.controller("AccountController", ['$scope', 'account', 'aftype', AccountController]);
