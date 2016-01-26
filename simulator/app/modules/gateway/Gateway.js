@@ -2,7 +2,6 @@ Gateway = function(orderStore, exchange, sessionManager) {
 	this.orderStore = orderStore;
 	this.exchange = exchange;
 	this.sessionManager = sessionManager;
-	this.orderQueue = this.orderStore.getAllOrderQueueOnGateway();
 };
 
 Gateway.prototype = {
@@ -38,9 +37,10 @@ Gateway.prototype = {
 	},
 
 	fireOrder: function() {
-		for (var i = 0; i < this.orderQueue.length; i++) {
-			this.sendToExchange(this.orderQueue[i].order, this.orderQueue[i].action);
-			this.orderQueue.splice(i, 1);
+		orderQueue = this.orderStore.getAllOrderQueueOnGateway();
+		for (var i = 0; i < orderQueue.length; i++) {
+			this.sendToExchange(orderQueue[i].order, orderQueue[i].action);
 		}
+		this.orderStore.clearQueue();
 	}
 }	

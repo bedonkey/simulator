@@ -6,7 +6,7 @@
 	</div>
 	<div class="col-sm-12">
 		<div class="add">
-			<img  alt="Add Account" class="add_item" src="assets/images/add.png" height="30px" ng-click="mask=true;popupOpen=true;openAddBox()"/>
+			<span class="glyphicon glyphicon-plus" ng-click="mask=true;popupOpen=true;openAddBox()"></span>
 		</div>
 	</div>
 	<div class="result_box col-sm-12">
@@ -55,9 +55,9 @@
 						</td>
 						<td ng-bind="acc.afType"></td>
 						<td ng-bind="acc.autoAdv"></td>
-						<td>
-							<img alt="Remove" src="assets/images/remove.png" height="25px" ng-click="remove(acc)"/>
-							<img alt="Edit" src="assets/images/edit.png" height="25px" ng-click="openEditBox(acc)"/>
+						<td class="action">
+							<span class="glyphicon glyphicon-remove right" ng-click="remove(acc)"></span>
+							<span class="glyphicon glyphicon-pencil right" ng-click="openEditBox(acc)"></span>
 						</td>
 					</tr>
 				</tbody>

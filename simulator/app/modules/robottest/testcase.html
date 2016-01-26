@@ -40,7 +40,7 @@
 	</div>
 
 	<div id="console" ng-class="isLarge?'large':'small'" ng-init="isLarge=false">
-		<img class="resizeBox" alt="Resize" src="assets/images/resize.png" height="25px" ng-click="isLarge = !isLarge"/>
+		<div class="glyphicon glyphicon-resize-vertical" ng-click="isLarge = !isLarge"></div>
 		<div class="logData">
 			<p ng-repeat="log in logData track by $index" ng-bind="log"></p>
 		</div>

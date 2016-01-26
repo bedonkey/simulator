@@ -21,6 +21,7 @@ DockController = function($scope, order, dockService) {
     }
 
     $scope.commandPress = function() {
+        console.log($scope.command.key);
         if ($scope.command.key != '' && $scope.command.key != undefined) {
             if ($scope.command.key == 'A') {
                 $scope.accountFocus = true;

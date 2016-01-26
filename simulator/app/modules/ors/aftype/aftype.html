@@ -1,7 +1,7 @@
 <div id="aftype" ng-controller="AfTypeController">
 	<div class="col-sm-12">
 		<div class="add">
-			<img  alt="Add SecInfo" class="add_item" src="assets/images/add.png" height="30px" ng-click="mask=true;popupOpen=true;openAddBox()"/>
+			<span class="glyphicon glyphicon-plus" ng-click="mask=true;popupOpen=true;openAddBox()"></span>
 		</div>
 	</div>
 	<div class="result_box col-sm-12">
@@ -22,9 +22,9 @@
 				<tr ng-repeat="type in aftypes">
 					<td ng-bind="type.name"></td>
 					<td ng-bind="type.basket"></td>
-					<td>
-						<img alt="Edit" src="assets/images/remove.png" height="25px" ng-click="remove(type)"/>
-						<img alt="Edit" src="assets/images/edit.png" height="25px" ng-click="openEditBox(type)"/>
+					<td class="action">
+						<span class="glyphicon glyphicon-remove right" ng-click="remove(type)"></span>
+						<span class="glyphicon glyphicon-pencil right" ng-click="openEditBox(type)"></span>
 					</td>
 				</tr>
 			</tbody>

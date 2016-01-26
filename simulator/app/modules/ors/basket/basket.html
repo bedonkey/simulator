@@ -1,7 +1,7 @@
 <div id="basket" ng-controller="BasketController">
 	<div class="col-sm-12">
 		<div class="add">
-			<img  alt="Add SecInfo" class="add_item" src="assets/images/add.png" height="30px" ng-click="mask=true;popupOpen=true;openAddBox()"/>
+			<span class="glyphicon glyphicon-plus" ng-click="mask=true;popupOpen=true;openAddBox()"></span>
 		</div>
 	</div>
 	<div class="result_box col-sm-12">
@@ -27,9 +27,9 @@
 							{{$last ? '' : ', '}}
 						</span>
 					</td>
-					<td>
-						<img alt="Edit" src="assets/images/remove.png" height="25px" ng-click="remove(bak)"/>
-						<img alt="Edit" src="assets/images/edit.png" height="25px" ng-click="openEditBox(bak)"/>
+					<td class="action">
+						<span class="glyphicon glyphicon-remove right" ng-click="remove(bak)"></span>
+						<span class="glyphicon glyphicon-pencil right" ng-click="openEditBox(bak)"></span>
 					</td>
 				</tr>
 			</tbody>

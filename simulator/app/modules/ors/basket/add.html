@@ -20,13 +20,15 @@
             <tr ng-repeat="data in basketDetail.data">
                 <td><input class="input" type="text" ng-model="data.symbol" uppercased/></td>
                 <td><input class="input" type="text" ng-model="data.price" /></td>
-                <td><img alt="Edit" src="assets/images/remove.png" height="20px" ng-click="removeSymbol(basketDetail.id, data.symbol)"/></td>
+                <td class="action">
+                    <span class="glyphicon glyphicon-remove right" ng-click="removeSymbol(basketDetail.id, data.symbol)"></span>
+                </td>
             </tr>
         </tbody>
     </table>
 
     <div class="add">
-        <img  alt="Add Symbol" class="add_item" src="assets/images/add.png" height="25px" ng-click="addSymbol(basketDetail.id)"/>
+        <span class="glyphicon glyphicon-plus" ng-click="addSymbol(basketDetail.id)" style="font-size: 20px;"></span>
     </div>
    
     <div id="editButton" ng-show="isAddBox">

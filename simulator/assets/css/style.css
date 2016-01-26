@@ -1,5 +1,10 @@
 @CHARSET "ISO-8859-1";
 
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('fonts/glyphicons-halflings-regular.woff');
+}
+
 body, html {
 	margin: 0;
 	padding: 0;
@@ -11,6 +16,10 @@ html * {
 }
 
 img {
+	cursor: pointer;
+}
+
+span.glyphicon, .glyphicon {
 	cursor: pointer;
 }
 
@@ -27,6 +36,12 @@ img {
 #tabs .account {
 	float: right;
 	padding: 10px 0;
+}
+
+.account span.glyphicon-user {
+	color: #777;
+	font-size: 20px;
+	padding-left: 5px;
 }
 
 #tabs .account {
@@ -178,10 +193,10 @@ img {
 	height: 300px;
 }
 
-#console .resizeBox{
-	position: fixed;
-	right: 2.5%;
-	opacity: 0.6;
+#console .glyphicon-resize-vertical {
+	float: right;
+	font-size: 25px;
+	color: #777;
 }
 
 #closeDock {
@@ -191,6 +206,11 @@ img {
 	right: -10px;
 	top: -10px;
 	cursor: pointer;
+}
+
+#closeDock span.glyphicon-remove-circle {
+	font-size: 25px;
+	color: #ddd;
 }
 
 #loadingPlaceOrder {
@@ -318,6 +338,25 @@ img {
 #orderBook table th, #orderSell table th , #orderBuy table th {
 	background-color: #333;
 	text-align: center;
+}
+
+#orderBook .action span{
+	color: #777;
+	font-size: 20px;
+	cursor: pointer;
+	padding: 0 2px;
+}
+
+#orderBook .action span.glyphicon-remove{
+	color: #d22d2d;
+}
+
+#orderBook .action span.glyphicon-pencil{
+	color: #339966;
+}
+
+#orderBook .action span.glyphicon-off{
+	color: #ddd;
 }
 
 #order-popup table th {
@@ -578,6 +617,19 @@ img {
 	top: 0; left: 0;right: 0;
 	margin: 10% auto;
 	position: fixed;
+	color: white;
+	font-size: 15px;
+}
+
+.popup span.glyphicon-remove-sign {
+	font-size: 25px;
+	color: #ddd;
+	float: right;
+    margin: -20px -20px 0 0;
+}
+
+.popup .btn {
+	margin-top: 10px;
 }
 
 #account_edit .text {
@@ -594,11 +646,6 @@ img {
 #order-replace label {
 	width: 125px;
 	padding: 7px 0;
-}
-
-.popup {
-	color: white;
-	font-size: 15px;
 }
 
 #secinfo_edit input[type=text] {
@@ -659,9 +706,30 @@ img.btn_close {
 	cursor: pointer;
 }
 
+.action span.glyphicon-remove {
+	color: red;
+	padding: 0 2px;
+	font-size: 18px;
+}
+
+td.action {
+	padding-right: 0px !important;
+}
+
+.action span.glyphicon-pencil {
+	color: #339966;
+	padding: 0 2px;
+	font-size: 18px;
+}
+
 #account .add {
 	text-align: right;
 	margin: auto;
+}
+
+.add span{
+	color: lime;
+	font-size: 30px;
 }
 
 #account img{
@@ -963,6 +1031,11 @@ img.btn_close {
 	cursor: pointer;
 }
 
+#monitor span.glyphicon-cog {
+	color: #777;
+	font-size: 30px;
+}
+
 .btn-session-open {
 	background: green !important;
 }
@@ -1019,6 +1092,12 @@ img.btn_close {
     right: 2.5%;
     height: 100px;
     width: 70%;
+}
+
+#learn-bar span.glyphicon {
+	font-size: 50px;
+	color: #777;
+	padding-top: 20px;
 }
 
 #learn-bar .mainInfo {

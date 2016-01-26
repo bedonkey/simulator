@@ -71,9 +71,9 @@
 					<td ng-bind="order.remain"></td>
 					<td class="status" ng-bind="order.status"></td>
 					<td class="action">
-						<img alt="Replace Order" src="assets/images/edit.png" height="25px" ng-click="openReplaceBox(order);$event.stopPropagation();"/>
-						<img alt="Cancel Order" src="assets/images/delete.png" height="25px" ng-click="cancel(order);$event.stopPropagation();"/>
-						<img alt="Unhold Order" src="assets/images/unhold.png" height="25px" ng-click="unhold(order);$event.stopPropagation();"/>
+						<span class="glyphicon glyphicon-pencil" ng-click="openReplaceBox(order);$event.stopPropagation();"></span>
+						<span class="glyphicon glyphicon-remove" ng-click="cancel(order);$event.stopPropagation();"></span>
+						<span class="glyphicon glyphicon-off" ng-click="unhold(order);$event.stopPropagation();"></span>
 					</td>
 				</tr>
 			</tbody>

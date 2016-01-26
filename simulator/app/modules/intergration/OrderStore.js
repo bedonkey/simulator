@@ -1,8 +1,8 @@
 OrderStore = function() {
 	orderQueue = [];
 	orders = [];
-	this.matchOrdersSell = [];
-	this.matchOrdersBuy = [];
+	matchOrdersSell = [];
+	matchOrdersBuy = [];
 	orderMap = {};
 };
 
@@ -11,8 +11,8 @@ OrderStore.prototype = {
 	init: function() {
 		orders.length = 0;
 		orderQueue.length = 0;
-		this.matchOrdersSell.length = 0;
-		this.matchOrdersBuy.length = 0;
+		matchOrdersSell.length = 0;
+		matchOrdersBuy.length = 0;
 	},
 
 	getAll: function() {
@@ -27,47 +27,51 @@ OrderStore.prototype = {
 		orderQueue.push(obj);
 	},
 
+	clearQueue: function() {
+		orderQueue.length = 0;
+	},
+
 	getAllOrderBuy: function() {
-		return this.matchOrdersBuy;
+		return matchOrdersBuy;
 	},
 
 	getAllOrderSell: function() {
-		return this.matchOrdersSell;
+		return matchOrdersSell;
 	},
 
 	addOrderSellMatch: function(ord) {
-		for (var i = 0; i < this.matchOrdersSell.length; i++) {
-			if (ord.price < this.matchOrdersSell[i].price) {
-				this.matchOrdersSell.splice(i, 0, ord);
+		for (var i = 0; i < matchOrdersSell.length; i++) {
+			if (ord.price < matchOrdersSell[i].price) {
+				matchOrdersSell.splice(i, 0, ord);
 				return;
 			}
 		}
-		this.matchOrdersSell.push(ord);
+		matchOrdersSell.push(ord);
 	},
 
 	addOrderBuyMatch: function(ord) {
-		for (var i = 0; i < this.matchOrdersBuy.length; i++) {
-			if (ord.price > this.matchOrdersBuy[i].price) {
-				this.matchOrdersBuy.splice(i, 0, ord);
+		for (var i = 0; i < matchOrdersBuy.length; i++) {
+			if (ord.price > matchOrdersBuy[i].price) {
+				matchOrdersBuy.splice(i, 0, ord);
 				return;
 			}
 		}
-		this.matchOrdersBuy.push(ord);
+		matchOrdersBuy.push(ord);
 	},
 
 	removeOrderBuyMatch: function(ord) {
-		for (var i = 0; i < this.matchOrdersBuy.length; i++) {
-			if (ord.orderID == this.matchOrdersBuy[i].orderID) {
-				this.matchOrdersBuy.splice(i, 1);
+		for (var i = 0; i < matchOrdersBuy.length; i++) {
+			if (ord.orderID == matchOrdersBuy[i].orderID) {
+				matchOrdersBuy.splice(i, 1);
 				return;
 			}
 		}
 	},
 
 	removeOrderSellMatch: function(ord) {
-		for (var i = 0; i < this.matchOrdersSell.length; i++) {
-			if (ord.orderID == this.matchOrdersSell[i].orderID) {
-				this.matchOrdersSell.splice(i, 1);
+		for (var i = 0; i < matchOrdersSell.length; i++) {
+			if (ord.orderID == matchOrdersSell[i].orderID) {
+				matchOrdersSell.splice(i, 1);
 				return;
 			}
 		}
