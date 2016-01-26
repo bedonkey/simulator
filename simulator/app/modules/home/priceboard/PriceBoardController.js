@@ -1,7 +1,9 @@
 PriceBoardController = function($scope, priceBoard) {
+    $scope.dataLoaded = false;
 
     $scope.init = function() {
         $scope.board = priceBoard.getAll();
+        setTimeout(function(){ $scope.dataLoaded = true }, 500);
     }
 
     $scope.updateColor = function(price, ref) {
@@ -14,10 +16,6 @@ PriceBoardController = function($scope, priceBoard) {
                 return 'yellow';
             }
         }
-    }
-
-    $scope.blink = function(data) {
-        alert(0);
     }
 
     $scope.init();

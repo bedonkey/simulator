@@ -4,7 +4,7 @@ BlinkDirective = function(){
         link: function (scope, element, attrs) {
             scope.$watch(function() {return element.attr('data'); },
                 function( newValue, oldValue ) {
-                    if (newValue != undefined && newValue != '' && newValue != 0) {
+                    if (scope.dataLoaded &&newValue != undefined && newValue != '' && newValue != 0) {
                         element.addClass('blink'); 
                         setTimeout(function(){ element.removeClass('blink');  }, 500);  
                     }
