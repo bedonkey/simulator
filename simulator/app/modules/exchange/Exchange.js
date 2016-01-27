@@ -56,8 +56,12 @@ Exchange.prototype = {
 
 	addOrderMatch: function(ord) {
 		if (ord.side == Side.SELL) {
+			console.log("Add ord Sell")
+			console.log(ord)
 			this.orderStore.addOrderSellMatch(ord);
 		} else {
+			console.log("Add ord Buy")
+			console.log(ord)
 			this.orderStore.addOrderBuyMatch(ord);
 		}
 	},

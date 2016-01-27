@@ -1,90 +1,90 @@
 OrderStore = function() {
-	orderQueue = [];
-	orders = [];
-	matchOrdersSell = [];
-	matchOrdersBuy = [];
-	orderMap = {};
+	this.orderQueue = [];
+	this.orders = [];
+	this.matchOrdersSell = [];
+	this.matchOrdersBuy = [];
+	this.orderMap = {};
 };
 
 OrderStore.prototype = {
 
 	init: function() {
-		orders.length = 0;
-		orderQueue.length = 0;
-		matchOrdersSell.length = 0;
-		matchOrdersBuy.length = 0;
+		this.orders.length = 0;
+		this.orderQueue.length = 0;
+		this.matchOrdersSell.length = 0;
+		this.matchOrdersBuy.length = 0;
 	},
 
 	getAll: function() {
-		return orders;
+		return this.orders;
 	},
 
 	getAllOrderQueueOnGateway: function() {
-		return orderQueue;
+		return this.orderQueue;
 	},
 
 	putOrderToQueue: function(obj) {
-		orderQueue.push(obj);
+		this.orderQueue.push(obj);
 	},
 
 	clearQueue: function() {
-		orderQueue.length = 0;
+		this.orderQueue.length = 0;
 	},
 
 	getAllOrderBuy: function() {
-		return matchOrdersBuy;
+		return this.matchOrdersBuy;
 	},
 
 	getAllOrderSell: function() {
-		return matchOrdersSell;
+		return this.matchOrdersSell;
 	},
 
 	addOrderSellMatch: function(ord) {
-		for (var i = 0; i < matchOrdersSell.length; i++) {
-			if (ord.price < matchOrdersSell[i].price) {
-				matchOrdersSell.splice(i, 0, ord);
+		for (var i = 0; i < this.matchOrdersSell.length; i++) {
+			if (ord.price < this.matchOrdersSell[i].price) {
+				this.matchOrdersSell.splice(i, 0, ord);
 				return;
 			}
 		}
-		matchOrdersSell.push(ord);
+		this.matchOrdersSell.push(ord);
 	},
 
 	addOrderBuyMatch: function(ord) {
-		for (var i = 0; i < matchOrdersBuy.length; i++) {
-			if (ord.price > matchOrdersBuy[i].price) {
-				matchOrdersBuy.splice(i, 0, ord);
+		for (var i = 0; i < this.matchOrdersBuy.length; i++) {
+			if (ord.price > this.matchOrdersBuy[i].price) {
+				this.matchOrdersBuy.splice(i, 0, ord);
 				return;
 			}
 		}
-		matchOrdersBuy.push(ord);
+		this.matchOrdersBuy.push(ord);
 	},
 
 	removeOrderBuyMatch: function(ord) {
-		for (var i = 0; i < matchOrdersBuy.length; i++) {
-			if (ord.orderID == matchOrdersBuy[i].orderID) {
-				matchOrdersBuy.splice(i, 1);
+		for (var i = 0; i < this.matchOrdersBuy.length; i++) {
+			if (ord.orderID == this.matchOrdersBuy[i].orderID) {
+				this.matchOrdersBuy.splice(i, 1);
 				return;
 			}
 		}
 	},
 
 	removeOrderSellMatch: function(ord) {
-		for (var i = 0; i < matchOrdersSell.length; i++) {
-			if (ord.orderID == matchOrdersSell[i].orderID) {
-				matchOrdersSell.splice(i, 1);
+		for (var i = 0; i < this.matchOrdersSell.length; i++) {
+			if (ord.orderID == this.matchOrdersSell[i].orderID) {
+				this.matchOrdersSell.splice(i, 1);
 				return;
 			}
 		}
 	},
 
 	add: function(ord) {
-		orders.push(ord);
+		this.orders.push(ord);
 	},
 
 	getNewOrder: function(ordID) {
-        for (var i = 0; i < orders.length; i++) {
-            if (orders[i].orderID == ordID && this.isAvailable(orders[i])) {
-                return orders[i];
+        for (var i = 0; i < this.orders.length; i++) {
+            if (this.orders[i].orderID == ordID && this.isAvailable(this.orders[i])) {
+                return this.orders[i];
             }
         };
         return null;
@@ -92,9 +92,9 @@ OrderStore.prototype = {
 
 	getPendingNewOrder: function() {
 		var pendingNewOrders = [];
-		for (var i = 0; i < orders.length; i++) {
-            if (orders[i].status == OrdStatus.PENDING_NEW) {
-                pendingNewOrders.push(orders[i]);
+		for (var i = 0; i < this.orders.length; i++) {
+            if (this.orders[i].status == OrdStatus.PENDING_NEW) {
+                pendingNewOrders.push(this.orders[i]);
             }
         };
         return pendingNewOrders;
@@ -108,34 +108,34 @@ OrderStore.prototype = {
 	},
 
 	getDetail: function(ordID) {
-        if (ordID in orderMap) {
-            return orderMap[ordID];
+        if (ordID in this.orderMap) {
+            return this.orderMap[ordID];
         }
         return null;
 	},
 
 	pushToMap: function(id, ord) {
 		var listOrder;
-        if (id in orderMap) {
-        	listOrder = orderMap[id];
+        if (id in this.orderMap) {
+        	listOrder = this.orderMap[id];
         } else {
         	listOrder = [];
         }
         listOrder.push(ord);
-        orderMap[id] = listOrder;
+        this.orderMap[id] = listOrder;
 	},
 
 	getOppositeOrder: function(ord) {
-		for (var i = 0; i < orders.length; i++) {
-			if (ord.side == Side.BUY && this.isAvailable(orders[i])) {
-				if (orders[i].side == Side.SELL && orders[i].account == ord.account && orders[i].symbol == ord.symbol) {
-					return orders[i];
+		for (var i = 0; i < this.orders.length; i++) {
+			if (ord.side == Side.BUY && this.isAvailable(this.orders[i])) {
+				if (this.orders[i].side == Side.SELL && this.orders[i].account == ord.account && this.orders[i].symbol == ord.symbol) {
+					return this.orders[i];
 				}
 			}
 
-			if (ord.side == Side.SELL && this.isAvailable(orders[i])) {
-				if (orders[i].side == Side.BUY && orders[i].account == ord.account && orders[i].symbol == ord.symbol) {
-					return orders[i];
+			if (ord.side == Side.SELL && this.isAvailable(this.orders[i])) {
+				if (this.orders[i].side == Side.BUY && this.orders[i].account == ord.account && this.orders[i].symbol == ord.symbol) {
+					return this.orders[i];
 				}
 			}
 		};

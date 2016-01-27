@@ -23,6 +23,10 @@ span.glyphicon, .glyphicon {
 	cursor: pointer;
 }
 
+span.glyphicon:hover, .glyphicon:hover {
+	opacity: 0.6;
+}
+
 .welcome {
 	font-size: 200px;
 	text-align: center;
@@ -194,9 +198,11 @@ span.glyphicon, .glyphicon {
 }
 
 #console .glyphicon-resize-vertical {
-	float: right;
 	font-size: 25px;
 	color: #777;
+	position: fixed;
+	right: 2.5%;
+	top: auto;
 }
 
 #closeDock {
@@ -357,6 +363,11 @@ span.glyphicon, .glyphicon {
 
 #orderBook .action span.glyphicon-off{
 	color: #ddd;
+}
+
+td.time {
+	font-size: 12px;
+	line-height: 22px !important;
 }
 
 #order-popup table th {

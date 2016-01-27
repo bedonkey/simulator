@@ -22,7 +22,7 @@
 			</tr>
 			</thead>
 			<tbody>
-			 	<tr ng-repeat="order in orderBuy" ng-if="order.remain > 0">
+			 	<tr ng-repeat="order in orderBuy track by $index" ng-if="order.remain > 0">
 					<td ng-bind="order.time"></td>
 					<td ng-bind="order.orderID"></td>
 					<td ng-bind="order.account"></td>
@@ -58,7 +58,7 @@
 			</tr>
 			</thead>
 			<tbody>
-			 	<tr ng-repeat="order in orderSell" ng-if="order.remain > 0">
+			 	<tr ng-repeat="order in orderSell track by $index" ng-if="order.remain > 0">
 					<td ng-bind="order.time"></td>
 					<td ng-bind="order.orderID"></td>
 					<td ng-bind="order.account"></td>

@@ -5,7 +5,7 @@ Session = {
 		CLOSE:"CLOSE"
 	},
 	gw: {
-		CUR: "NEW",
+		CUR: "OPEN",
 		NEW: "NEW",
 		OPEN: "OPEN",
 		CLOSE:"CLOSE"

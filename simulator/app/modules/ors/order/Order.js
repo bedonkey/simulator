@@ -10,7 +10,6 @@ Order = function(orderValidator, afType, orderStore, account, priceBoard, gatewa
 
 Order.prototype = {
 	place: function(ord) {
-		var result = {};
 		ord.orderID = IdGenerator.getId();
         ord.originalID = ord.orderID;
         ord.time = DateTime.getCurentDateTime();
@@ -30,18 +29,24 @@ Order.prototype = {
 	    	var acc = this.account.getByID(ord.account);
 	    	ord.priceMargin = this.afType.getPriceMargin(acc.afType, ord.symbol);
 			if (this.sessionManager.getORSSession() == Session.ors.OPEN) {
-				ord.status = OrdStatus.NEW;
-				var newOrder = Utils.clone(ord);
-	        	this.orderStore.add(newOrder);
-				error = this.gateway.receive(newOrder, 'place');
-				if (error != undefined) {
+				var result = this.gateway.receive(Utils.clone(ord), 'place');
+				if (result.error != undefined) {
+					var newOrder = Utils.clone(ord);
 					newOrder.status = OrdStatus.REJECTED;
-					newOrder.text = error;
+					newOrder.text = result.error;
+					this.orderStore.add(newOrder);
 					this.orderStore.pushToMap(ord.originalID, newOrder);
-					result.status = false;
-	        		result.msg = error;
-	        		return result;
+	        		return {status: false, msg: result.error};
+				} else if (result.exec == 'A') {
+					ord.status = OrdStatus.PENDING_NEW;
+					var newOrder = Utils.clone(ord);
+	        		this.orderStore.add(newOrder);
+				} else if (result.exec == '0') {
+					ord.status = OrdStatus.NEW;
+					var newOrder = Utils.clone(ord);
+	        		this.orderStore.add(newOrder);
 				}
+
 				this.priceBoard.add(newOrder);
 			}
 			if (this.sessionManager.getORSSession() == Session.ors.NEW) {
@@ -56,19 +61,19 @@ Order.prototype = {
 			} else {
 				this.account.holdTrade(ord.account, ord.symbol, ord.qty);
 			}
-			
-            result.status = true;
-        	result.msg = ord.orderID;
+        	return {status: true, msg: ord.orderID};
         } else {
-	    	var newOrder = Utils.clone(ord);
-        	newOrder.status = OrdStatus.ORS_REJECTED;
-        	newOrder.text = error;
-        	this.orderStore.add(newOrder);
-	        this.orderStore.pushToMap(ord.originalID, newOrder);
-        	result.status = false;
-        	result.msg = error;
+	    	this.processORSReject(ord, error);
+        	return {status: false, msg: error};
         }
-        return result;
+	},
+
+	processORSReject: function(ord, error) {
+		var newOrder = Utils.clone(ord);
+    	newOrder.status = OrdStatus.ORS_REJECTED;
+    	newOrder.text = error;
+    	this.orderStore.add(newOrder);
+        this.orderStore.pushToMap(ord.originalID, newOrder);
 	},
 
 	fireOrder: function () {
@@ -87,9 +92,6 @@ Order.prototype = {
 			newOrder.status = OrdStatus.REJECTED;
 			newOrder.text = error;
 			this.orderStore.pushToMap(ord.originalID, newOrder);
-			result.status = false;
-    		result.msg = error;
-    		return result;
 		}
 		this.priceBoard.add(newOrder);
 		this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
@@ -105,9 +107,7 @@ Order.prototype = {
 			error = this.orderValidator.validateReplace(oldOrd, ord);
 		} else {
 			error = ErrorCode.ORS_02;
-			result.status = false;
-        	result.msg = error;
-        	return result;
+        	return {status: false, msg: error};
 		}
 		if (error == undefined) {
 			if(oldOrd.side == Side.BUY) {
@@ -126,13 +126,11 @@ Order.prototype = {
     		oldOrd.priceMargin = this.afType.getPriceMargin(acc.afType, oldOrd.symbol);
 			var newOrder = Utils.clone(oldOrd);
 			
-			error = this.gateway.receive(oldOrd, 'replace');
-        	if (error != undefined) {
+			var result = this.gateway.receive(oldOrd, 'replace');
+        	if (result.error != undefined) {
 				newOrder.status = OrdStatus.REJECTED;
 				this.orderStore.pushToMap(ord.originalID, newOrder);
-				result.status = false;
-        		result.msg = error;
-        		return result;
+        		return {status: false, msg: result.error};
 			}
 
 			newOrder.status = OrdStatus.REPLACED;
@@ -144,8 +142,7 @@ Order.prototype = {
 			} else {
 				this.account.holdTrade(newOrder.account, newOrder.symbol, newOrder.qty);
 			}
-			result.status = true;
-        	result.msg = oldOrd.orderID;
+        	return {status: true, msg: oldOrd.orderID};
         } else {
         	var newOrder = Utils.clone(oldOrd);
         	newOrder.status = OrdStatus.ORS_REJECTED;
@@ -156,10 +153,8 @@ Order.prototype = {
 			newOrder.time = DateTime.getCurentDateTime();
 			newOrder.text = error;
     		this.orderStore.pushToMap(newOrder.originalID, newOrder);
-        	result.status = false;
-        	result.msg = error;
+        	return {status: false, msg: error};
         }
-        return result;
 	},
 
 	cancel: function(ord) {
@@ -168,9 +163,7 @@ Order.prototype = {
 		var order = this.orderStore.getNewOrder(ord.orderID);
 		if (order == null) {
         	error = ErrorCode.ORS_02;
-        	result.status = false;
-        	result.msg = error;
-        	return result;
+        	return {status: false, msg: error};
 		}
 		if (error == undefined) error = this.orderValidator.validateCancel();
 		if (error == undefined) {
@@ -178,13 +171,11 @@ Order.prototype = {
     		pendingCancel.status = OrdStatus.PENDING_CANCEL;
 			this.orderStore.pushToMap(ord.originalID, pendingCancel);
 
-			error = this.gateway.receive(order, 'cancel');
-        	if (error != undefined) {
-				newOrder.status = OrdStatus.REJECTED;
+			var result = this.gateway.receive(order, 'cancel');
+        	if (result.error != undefined) {
+				order.status = OrdStatus.REJECTED;
 				this.orderStore.pushToMap(ord.originalID, order);
-				result.status = false;
-        		result.msg = error;
-        		return result;
+        		return {status: false, msg: result.error};
 			}
 
 			if(order.side == Side.BUY) {
@@ -200,8 +191,7 @@ Order.prototype = {
 			cancelOrder.orderID = IdGenerator.getId();
 			this.orderStore.pushToMap(order.originalID, cancelOrder);
 			this.priceBoard.remove(order);
-			result.status = true;
-        	result.msg = '';
+        	return {status: true, msg: ''};
 		} else {
 			var cancelOrder = Utils.clone(order);
 			cancelOrder.status = OrdStatus.ORS_REJECTED;
@@ -209,10 +199,8 @@ Order.prototype = {
 			cancelOrder.time = DateTime.getCurentDateTime();
 			cancelOrder.orderID = IdGenerator.getId();
 			this.orderStore.pushToMap(order.originalID, cancelOrder);
-        	result.status = false;
-        	result.msg = error;
+        	return {status: false, msg: error};
 		}
-		return result;
 	},
 
 	unhold: function(ord) {
@@ -234,13 +222,10 @@ Order.prototype = {
 			cancelOrder.orderID = IdGenerator.getId();
 			this.orderStore.pushToMap(order.originalID, cancelOrder);
 			this.priceBoard.remove(order);
-			result.status = true;
-        	result.msg = '';
+        	return {status: true, msg: ''};
 		} else {
-        	result.status = false;
-        	result.msg = error;
+        	return {status: false, msg: error};
 		}
-		return result;
 	},
 
 }	

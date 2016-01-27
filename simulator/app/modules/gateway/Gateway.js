@@ -12,14 +12,15 @@ Gateway.prototype = {
 	receive: function(ord, action) {
 		if (this.sessionManager.getGatewaySession() == Session.gw.NEW) {
 			this.orderStore.putOrderToQueue({order:ord, action:action});
+			return {exec: 'A'};
 		}
 
 		if (this.sessionManager.getGatewaySession() == Session.gw.OPEN) {
-			this.sendToExchange(ord, action);
+			return {exec: '0', error: this.sendToExchange(ord, action)};
 		}
 
 		if (this.sessionManager.getGatewaySession() == Session.gw.CLOSE) {
-			return "Gateway is closed";
+			return {error:"Gateway is closed"};
 		}
 		
 	},

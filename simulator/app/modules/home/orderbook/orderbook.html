@@ -59,7 +59,7 @@
 			</thead>
 			<tbody>
 			 	<tr ng-repeat="order in orders | filter: {account: search.account, symbol: search.symbol, side: search.side, status: search.status} | orderBy:'originalID':true " ng-click="openDetailBox(order.originalID)">
-					<td ng-bind="order.time" ng-class="(order.side == 'Buy')? 'buyBorder' : 'sellBorder'"></td>
+					<td ng-bind="order.time" class="time" ng-class="(order.side == 'Buy')? 'buyBorder' : 'sellBorder'"></td>
 					<td ng-bind="order.orderID"></td>
 					<td ng-bind="order.account"></td>
 					<td ng-bind="order.symbol"></td>
