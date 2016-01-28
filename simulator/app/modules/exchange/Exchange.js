@@ -97,6 +97,7 @@ Exchange.prototype = {
 	},
 
 	match: function(ord1, ord2, matchPx) {
+		var ord1Session = ord1.status;
     	var matchQty;
     	if (ord2.remain == ord1.remain) {
     		matchQty = ord1.remain;
@@ -134,7 +135,9 @@ Exchange.prototype = {
     	matchOrd2.time = DateTime.getCurentDateTime();
 
         this.orderStore.pushToMap(ord2.originalID, matchOrd2);
-        //this.orderStore.pushToMap(ord1.originalID, matchOrd1);
+        if (ord1Session != undefined) {
+        	this.orderStore.pushToMap(ord1.originalID, matchOrd1);
+        }
         this.priceBoard.addMatch(ord1.symbol, matchPx, matchQty);
         this.priceBoard.subtract(ord1.symbol, ord1.side, ord1.price, matchQty);
         this.priceBoard.subtract(ord2.symbol, ord2.side, ord2.price, matchQty);

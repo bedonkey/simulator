@@ -40,8 +40,8 @@ Gateway.prototype = {
 	fireOrder: function() {
 		orderQueue = this.orderStore.getAllOrderQueueOnGateway();
 		for (var i = 0; i < orderQueue.length; i++) {
-			this.sendToExchange(orderQueue[i].order, orderQueue[i].action);
 			orderQueue[i].order.status = OrdStatus.NEW;
+			this.sendToExchange(orderQueue[i].order, orderQueue[i].action);
 		}
 		this.orderStore.clearQueue();
 	}
