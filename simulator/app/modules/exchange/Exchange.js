@@ -56,12 +56,8 @@ Exchange.prototype = {
 
 	addOrderMatch: function(ord) {
 		if (ord.side == Side.SELL) {
-			console.log("Add ord Sell")
-			console.log(ord)
 			this.orderStore.addOrderSellMatch(ord);
 		} else {
-			console.log("Add ord Buy")
-			console.log(ord)
 			this.orderStore.addOrderBuyMatch(ord);
 		}
 	},
@@ -132,8 +128,13 @@ Exchange.prototype = {
     		this.account.unHoldTradeT0(ord1.account, ord1.symbol, matchQty);
     		this.account.unHoldT0(ord2.account, ord2.symbol, matchPx * matchQty);
     	}
-        this.orderStore.pushToMap(ord2.originalID, Utils.clone(ord2));
-        this.orderStore.pushToMap(ord1.originalID, Utils.clone(ord1));
+    	var matchOrd1 = Utils.clone(ord1);
+    	var matchOrd2 = Utils.clone(ord2);
+    	matchOrd1.time = DateTime.getCurentDateTime();
+    	matchOrd2.time = DateTime.getCurentDateTime();
+
+        this.orderStore.pushToMap(ord2.originalID, matchOrd2);
+        //this.orderStore.pushToMap(ord1.originalID, matchOrd1);
         this.priceBoard.addMatch(ord1.symbol, matchPx, matchQty);
         this.priceBoard.subtract(ord1.symbol, ord1.side, ord1.price, matchQty);
         this.priceBoard.subtract(ord2.symbol, ord2.side, ord2.price, matchQty);

@@ -29,32 +29,30 @@ Order.prototype = {
 	    	var acc = this.account.getByID(ord.account);
 	    	ord.priceMargin = this.afType.getPriceMargin(acc.afType, ord.symbol);
 			if (this.sessionManager.getORSSession() == Session.ors.OPEN) {
-				var result = this.gateway.receive(Utils.clone(ord), 'place');
+				
+				var result = this.gateway.receive(ord, 'place');
 				if (result.error != undefined) {
-					var newOrder = Utils.clone(ord);
-					newOrder.status = OrdStatus.REJECTED;
-					newOrder.text = result.error;
-					this.orderStore.add(newOrder);
-					this.orderStore.pushToMap(ord.originalID, newOrder);
+					ord.status = OrdStatus.REJECTED;
+					ord.text = result.error;
+					this.orderStore.add(ord);
+					this.orderStore.pushToMap(ord.originalID, ord);
 	        		return {status: false, msg: result.error};
-				} else if (result.exec == 'A') {
-					ord.status = OrdStatus.PENDING_NEW;
-					var newOrder = Utils.clone(ord);
-	        		this.orderStore.add(newOrder);
-				} else if (result.exec == '0') {
-					ord.status = OrdStatus.NEW;
-					var newOrder = Utils.clone(ord);
-	        		this.orderStore.add(newOrder);
 				}
-
-				this.priceBoard.add(newOrder);
+				
+				if (ord.status == undefined) {
+					if (result.exec == 'A') {
+						ord.status = OrdStatus.PENDING_NEW;
+					} else if (result.exec == '0') {
+						ord.status = OrdStatus.NEW;
+					}
+				}
+				this.priceBoard.add(ord);
 			}
 			if (this.sessionManager.getORSSession() == Session.ors.NEW) {
 				ord.status = OrdStatus.PENDING_NEW;
-				var newOrder = Utils.clone(ord);
-	        	this.orderStore.add(newOrder);
 			}
 
+			this.orderStore.add(ord);
 	        this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
 			if(ord.side == Side.BUY) {
 				this.account.hold(ord);
@@ -69,15 +67,14 @@ Order.prototype = {
 	},
 
 	processORSReject: function(ord, error) {
-		var newOrder = Utils.clone(ord);
-    	newOrder.status = OrdStatus.ORS_REJECTED;
-    	newOrder.text = error;
-    	this.orderStore.add(newOrder);
-        this.orderStore.pushToMap(ord.originalID, newOrder);
+    	ord.status = OrdStatus.ORS_REJECTED;
+    	ord.text = error;
+    	this.orderStore.add(ord);
+        this.orderStore.pushToMap(ord.originalID, ord);
 	},
 
 	fireOrder: function () {
-		console.log('Fire');
+		console.log('ORS Fire');
 		var orders = this.orderStore.getPendingNewOrder();
 		for (var i = 0; i < orders.length; i++) {
 			this.sendOrderToGateway(orders[i]);
@@ -86,15 +83,14 @@ Order.prototype = {
 
 	sendOrderToGateway: function(ord) {
 		ord.status = OrdStatus.NEW;
-		var newOrder = Utils.clone(ord);
-		error = this.gateway.receive(newOrder, 'place');
-		if (error != undefined) {
-			newOrder.status = OrdStatus.REJECTED;
-			newOrder.text = error;
-			this.orderStore.pushToMap(ord.originalID, newOrder);
+		var result = this.gateway.receive(ord, 'place');
+		if (result.error != undefined) {
+			ord.status = OrdStatus.REJECTED;
+			ord.text = result.error;
+			this.orderStore.pushToMap(ord.originalID, ord);
 		}
-		this.priceBoard.add(newOrder);
-		this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
+		this.priceBoard.add(ord);
+		this.orderStore.pushToMap(ord.originalID, ord);
 	},
 
 	replace: function(ord) {

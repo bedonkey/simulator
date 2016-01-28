@@ -41,6 +41,7 @@ Gateway.prototype = {
 		orderQueue = this.orderStore.getAllOrderQueueOnGateway();
 		for (var i = 0; i < orderQueue.length; i++) {
 			this.sendToExchange(orderQueue[i].order, orderQueue[i].action);
+			orderQueue[i].order.status = OrdStatus.NEW;
 		}
 		this.orderStore.clearQueue();
 	}

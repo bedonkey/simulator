@@ -105,7 +105,8 @@ DockController = function($scope, order, dockService) {
     }
 
     $scope.place = function() {
-        var result = order.place($scope.orderPlace);
+        var ord = Utils.clone($scope.orderPlace);
+        var result = order.place(ord);
         if (result.status == false) {
             alert(result.msg);
         } else {
