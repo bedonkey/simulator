@@ -22,6 +22,7 @@ Exchange.prototype = {
 		if (this.sessionManager.getExchangeSession() == Session.ex.CLOSE) {
 			return ErrorCode.EX_05;
 		}
+		ord.status = OrdStatus.NEW;
 		this.addOrderMatch(ord);
         this.matching(ord);
 	},

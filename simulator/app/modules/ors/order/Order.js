@@ -28,8 +28,10 @@ Order.prototype = {
 		if (error == undefined) {
 	    	var acc = this.account.getByID(ord.account);
 	    	ord.priceMargin = this.afType.getPriceMargin(acc.afType, ord.symbol);
+	    	if (this.sessionManager.getORSSession() == Session.ors.NEW) {
+				ord.status = OrdStatus.PENDING_NEW;
+			}
 			if (this.sessionManager.getORSSession() == Session.ors.OPEN) {
-				
 				var result = this.gateway.receive(ord, 'place');
 				if (result.error != undefined) {
 					ord.status = OrdStatus.REJECTED;
@@ -38,7 +40,6 @@ Order.prototype = {
 					this.orderStore.pushToMap(ord.originalID, ord);
 	        		return {status: false, msg: result.error};
 				}
-				
 				if (ord.status == undefined) {
 					if (result.exec == 'A') {
 						ord.status = OrdStatus.PENDING_NEW;
@@ -48,10 +49,6 @@ Order.prototype = {
 				}
 				this.priceBoard.add(ord);
 			}
-			if (this.sessionManager.getORSSession() == Session.ors.NEW) {
-				ord.status = OrdStatus.PENDING_NEW;
-			}
-
 			this.orderStore.add(ord);
 	        this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
 			if(ord.side == Side.BUY) {
@@ -82,7 +79,6 @@ Order.prototype = {
 	},
 
 	sendOrderToGateway: function(ord) {
-		ord.status = OrdStatus.NEW;
 		var result = this.gateway.receive(ord, 'place');
 		if (result.error != undefined) {
 			ord.status = OrdStatus.REJECTED;
@@ -121,14 +117,14 @@ Order.prototype = {
 			var acc = this.account.getByID(ord.account);
     		oldOrd.priceMargin = this.afType.getPriceMargin(acc.afType, oldOrd.symbol);
 			var newOrder = Utils.clone(oldOrd);
-			
-			var result = this.gateway.receive(oldOrd, 'replace');
-        	if (result.error != undefined) {
-				newOrder.status = OrdStatus.REJECTED;
-				this.orderStore.pushToMap(ord.originalID, newOrder);
-        		return {status: false, msg: result.error};
+			if (this.sessionManager.getORSSession() == Session.ors.OPEN) {
+				var result = this.gateway.receive(oldOrd, 'replace');
+	        	if (result.error != undefined) {
+					newOrder.status = OrdStatus.REJECTED;
+					this.orderStore.pushToMap(ord.originalID, newOrder);
+	        		return {status: false, msg: result.error};
+				}
 			}
-
 			newOrder.status = OrdStatus.REPLACED;
     		this.orderStore.pushToMap(newOrder.originalID, newOrder);
         	this.priceBoard.add(newOrder);
@@ -166,14 +162,14 @@ Order.prototype = {
 			var pendingCancel = Utils.clone(order);
     		pendingCancel.status = OrdStatus.PENDING_CANCEL;
 			this.orderStore.pushToMap(ord.originalID, pendingCancel);
-
-			var result = this.gateway.receive(order, 'cancel');
-        	if (result.error != undefined) {
-				order.status = OrdStatus.REJECTED;
-				this.orderStore.pushToMap(ord.originalID, order);
-        		return {status: false, msg: result.error};
+			if (this.sessionManager.getORSSession() == Session.ors.OPEN) {
+				var result = this.gateway.receive(order, 'cancel');
+	        	if (result.error != undefined) {
+					order.status = OrdStatus.REJECTED;
+					this.orderStore.pushToMap(ord.originalID, order);
+	        		return {status: false, msg: result.error};
+				}
 			}
-
 			if(order.side == Side.BUY) {
 				this.account.unHold(order);
 			} else {

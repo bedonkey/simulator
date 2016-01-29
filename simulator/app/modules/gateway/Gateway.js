@@ -12,6 +12,7 @@ Gateway.prototype = {
 	receive: function(ord, action) {
 		if (this.sessionManager.getGatewaySession() == Session.gw.NEW) {
 			this.orderStore.putOrderToQueue({order:ord, action:action});
+			console.log('Push to gateway queue')
 			return {exec: 'A'};
 		}
 
@@ -40,7 +41,6 @@ Gateway.prototype = {
 	fireOrder: function() {
 		orderQueue = this.orderStore.getAllOrderQueueOnGateway();
 		for (var i = 0; i < orderQueue.length; i++) {
-			orderQueue[i].order.status = OrdStatus.NEW;
 			this.sendToExchange(orderQueue[i].order, orderQueue[i].action);
 		}
 		this.orderStore.clearQueue();
