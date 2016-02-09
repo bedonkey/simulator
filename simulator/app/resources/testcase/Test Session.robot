@@ -9,8 +9,12 @@ Assert(result.status, true)
 status = GetOrderStatus(result.msg)
 Assert(status, Pending New)
 
-OpenGateway() # Set session on Gateway is Open
 OpenORS() # Set sesison on ORS is Open
+
+status = GetOrderStatus(result.msg)
+Assert(status, Pending New)
+
+OpenGateway() # Set session on Gateway is Open
 
 status = GetOrderStatus(result.msg)
 Assert(status, New)
