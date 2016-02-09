@@ -19,6 +19,15 @@ OrderStore.prototype = {
 		return this.orders;
 	},
 
+	gerOrderById: function(ordID) {
+		for (var i = 0; i < this.orders.length; i++) {
+            if (this.orders[i].orderID == ordID) {
+                return this.orders[i];
+            }
+        };
+        return null;
+	},
+
 	getAllOrderQueueOnGateway: function() {
 		return this.orderQueue;
 	},

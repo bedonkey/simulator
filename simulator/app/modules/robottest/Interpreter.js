@@ -59,6 +59,13 @@ Interpreter.prototype = {
                     variables[vab] = retu;
                 }
             }
+            if (func == 'Unhold') {
+                para = this.getValuePara(para[0]);
+                var retu = this.doUnhold(para);
+                if (vab != '') {
+                    variables[vab] = retu;
+                }
+            }
             if (func == 'Replace') {
                 var retu = this.doReplace(para);
                 if (vab != '') {
@@ -85,6 +92,13 @@ Interpreter.prototype = {
             }
             if (func == 'GetAutoAdv') {
                 var retu = this.doGetAutoAdv(para);
+                if (vab != '') {
+                    variables[vab] = retu;
+                }
+            }
+            if (func == 'GetOrderStatus') {
+                para = this.getValuePara(para[0]);
+                var retu = this.doGetOrderStatus(para);
                 if (vab != '') {
                     variables[vab] = retu;
                 }
@@ -162,10 +176,17 @@ Interpreter.prototype = {
     },
 
     doCancel: function(para) {
-        var orderCancel = {};
-        orderCancel.orderID = para;
-        this.logScreen.append("Cancel Order: " + JSON.stringify(orderCancel));
-        return this.order.cancel(orderCancel);
+        var ord = {};
+        ord.orderID = para;
+        this.logScreen.append("Cancel Order: " + JSON.stringify(ord));
+        return this.order.cancel(ord);
+    },
+
+    doUnhold: function(para) {
+        var ord = {};
+        ord.orderID = para;
+        this.logScreen.append("Unhold Order: " + ord);
+        return this.order.unhold(ord);
     },
 
     doGetPP0: function(para) {
@@ -202,6 +223,11 @@ Interpreter.prototype = {
     doDisableAutoAdv: function(para) {
         this.logScreen.append("Disable AutoAdv acc: " + para)
         return this.account.disableAutoAdv(para[0].trim());
+    },
+
+    doGetOrderStatus: function(para) {
+        this.logScreen.append("Get Order Status: " + para)
+        return this.order.getOrderStatus(para);
     },
 
     doResetAccounts: function() {

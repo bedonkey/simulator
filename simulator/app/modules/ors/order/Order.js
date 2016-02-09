@@ -220,4 +220,12 @@ Order.prototype = {
 		}
 	},
 
+	getOrderStatus: function(ordId) {
+		var order = this.orderStore.gerOrderById(ordId);
+		if (order != null) {
+			return order.status;
+		}
+		return null;
+	}
+
 }	

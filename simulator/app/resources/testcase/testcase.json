@@ -28,4 +28,8 @@
 	"name" : "Free Test Business"
 }, {
 	"name" : "Test Interpreter Functions"
+}, {
+  "name" : "Test Session"
+}, {
+  "name" : "Test Order Status"
 }]

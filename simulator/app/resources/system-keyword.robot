@@ -14,6 +14,9 @@
   "return": "result[status,msg]",
   "function": "Cancel(ordid)"
 }, {
+  "return": "",
+  "function": "Unhold(ordid)"
+}, {
   "return": "result[status,msg]",
   "function": "Replace(ordid, price, qty)"
 }, {
@@ -37,6 +40,9 @@
 }, {
   "return": "",
   "function": "DisableAutoAdv(accid)"
+}, {
+  "return": "status",
+  "function": "GetOrderStatus(ordid)"
 }, {
   "return": "",
   "function": "ResetAccounts()"
