@@ -1,4 +1,4 @@
-DockController = function($scope, order, dockService) {
+DockController = function($scope, ors, dockService) {
     $scope.init = function() {
         $scope.buttonColor = 'green_button';
         $scope.orderPlace = {
@@ -106,7 +106,7 @@ DockController = function($scope, order, dockService) {
 
     $scope.place = function() {
         var ord = Utils.clone($scope.orderPlace);
-        var result = order.place(ord);
+        var result = ors.place(ord);
         if (result.status == false) {
             alert(result.msg);
         } else {

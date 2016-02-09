@@ -1,6 +1,5 @@
-Interpreter = function(logScreen, order, account, ors, gateway, exchange) {
+Interpreter = function(logScreen, account, ors, gateway, exchange) {
 	this.logScreen = logScreen;
-    this.order = order;
     this.account = account;
     this.ors = ors;
     this.exchange = exchange;
@@ -173,7 +172,7 @@ Interpreter.prototype = {
         orderPlace.price = parseInt(para[3].trim());
         orderPlace.qty = parseInt(para[4].trim());
         this.logScreen.append("Place Order: " + JSON.stringify(orderPlace));
-        return this.order.place(orderPlace);
+        return this.ors.place(orderPlace);
     },
 
     doReplace: function(para) {
@@ -182,21 +181,21 @@ Interpreter.prototype = {
         orderReplace.price = parseInt(para[1].trim());
         orderReplace.qty = parseInt(para[2].trim());
         this.logScreen.append("Replace Order: " + JSON.stringify(orderReplace));
-        return this.order.replace(orderReplace);
+        return this.ors.replace(orderReplace);
     },
 
     doCancel: function(para) {
         var ord = {};
         ord.orderID = para;
         this.logScreen.append("Cancel Order: " + JSON.stringify(ord));
-        return this.order.cancel(ord);
+        return this.ors.cancel(ord);
     },
 
     doUnhold: function(para) {
         var ord = {};
         ord.orderID = para;
         this.logScreen.append("Unhold Order: " + ord);
-        return this.order.unhold(ord);
+        return this.ors.unhold(ord);
     },
 
     doGetPP0: function(para) {
@@ -237,7 +236,7 @@ Interpreter.prototype = {
 
     doGetOrderStatus: function(para) {
         this.logScreen.append("Get Order Status: " + para)
-        return this.order.getOrderStatus(para);
+        return this.ors.getOrderStatus(para);
     },
 
     doResetAccounts: function() {

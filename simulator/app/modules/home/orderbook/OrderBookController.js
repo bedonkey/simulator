@@ -1,4 +1,4 @@
-OrderBookController = function($scope, order, orderStore, dockSerice) {
+OrderBookController = function($scope, ors, orderStore, dockSerice) {
 
     $scope.init = function() {
         $scope.orders = orderStore.getAll();
@@ -21,7 +21,7 @@ OrderBookController = function($scope, order, orderStore, dockSerice) {
     }
 
     $scope.cancel = function(ord) {
-        var result = order.cancel(ord);
+        var result = ors.cancel(ord);
         if (result.status == false) {
             alert(result.msg);
         } else {
@@ -30,7 +30,7 @@ OrderBookController = function($scope, order, orderStore, dockSerice) {
     }
 
     $scope.unhold = function(ord) {
-        var result = order.unhold(ord);
+        var result = ors.unhold(ord);
         if (result.status == false) {
             alert(result.msg);
         } else {
@@ -40,13 +40,13 @@ OrderBookController = function($scope, order, orderStore, dockSerice) {
 
     $scope.unholdAll = function() {
         $scope.orders.forEach(function(ord) {
-            order.unhold(ord);
+            ors.unhold(ord);
             dockSerice.refreshAccount();
         });
     }
 
     $scope.replace = function() {
-        var result = order.replace($scope.orderReplace);
+        var result = ors.replace($scope.orderReplace);
         if (result.status == false) {
             alert(result.msg);
         } else {

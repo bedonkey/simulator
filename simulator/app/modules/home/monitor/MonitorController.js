@@ -1,4 +1,4 @@
-MonitorController = function($scope, order, ors, gateway, exchange) {
+MonitorController = function($scope, ors, gateway, exchange) {
     $scope.init = function() {
        $scope.exSession = exchange.getSession();
        $scope.gwSession = gateway.getSession();
