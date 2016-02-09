@@ -18,6 +18,11 @@ SessionManager.prototype = {
 		this.dockService.setSession(Session.ex.OPEN);
 	},
 
+	setExchangeSession: function(session) {
+		Session.ex.CUR = session;
+		this.dockService.setSession(session);
+	},
+
 	getGatewaySession: function() {
 		return Session.gw.CUR;
 	},

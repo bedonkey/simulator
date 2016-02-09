@@ -165,4 +165,12 @@ Exchange.prototype = {
     	}
     	this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
 	},
+
+	setSession: function(session) {
+		this.sessionManager.setExchangeSession(session);
+	},
+
+	getSession: function() {
+		return this.sessionManager.getExchangeSession();
+	}
 }	

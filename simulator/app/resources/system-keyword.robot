@@ -57,5 +57,14 @@
   "function": "OpenExchange()"
 }, {
   "return": "",
+  "function": "SetORSSesion(session)"
+}, {
+  "return": "",
+  "function": "SetGatewaySession(session)"
+}, {
+  "return": "",
+  "function": "SetExchangeSession(session)"
+}, {
+  "return": "",
   "function": "ClearExchange()"
 }]

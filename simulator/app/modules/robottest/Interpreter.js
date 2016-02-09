@@ -1,9 +1,10 @@
-Interpreter = function(logScreen, order, account, exchange, sessionManager) {
+Interpreter = function(logScreen, order, account, ors, gateway, exchange) {
 	this.logScreen = logScreen;
     this.order = order;
     this.account = account;
-    this.sessionManager = sessionManager;
+    this.ors = ors;
     this.exchange = exchange;
+    this.gateway = gateway;
 };
 
 Interpreter.prototype = {
@@ -124,6 +125,15 @@ Interpreter.prototype = {
             if (func == 'OpenORS') {
                 this.doOpenORS();
             }
+            if (func == 'SetExchangeSession') {
+                this.doSetExchangeSession(para);
+            }
+            if (func == 'SetGatewaySession') {
+                this.doSetGatewaySession(para);
+            }
+            if (func == 'SetORSSession') {
+                this.doSetORSSession(para);
+            }
             if (func == 'ClearExchange') {
                 this.doClearExchange();
             }
@@ -237,17 +247,32 @@ Interpreter.prototype = {
 
     doOpenGateway: function() {
         this.logScreen.append("Open Gateway")
-        this.sessionManager.setGatewaySession(Session.gw.OPEN);
+        this.gateway.setSession(Session.gw.OPEN);
     },
 
     doOpenExchange: function() {
         this.logScreen.append("Open Exchange")
-        this.sessionManager.openExchange();
+        this.exchange.setSession(Session.ex.OPEN);
     },
 
     doOpenORS: function() {
         this.logScreen.append("Open ORS")
-        this.sessionManager.setORSSession(Session.ors.OPEN);
+        this.ors.setSession(Session.ors.OPEN);
+    },
+
+    doSetGatewaySession: function(session) {
+        this.logScreen.append("Set Gateway Sesison to " + session)
+        this.gateway.setSession(session);
+    },
+
+    doSetExchangeSession: function(session) {
+        this.logScreen.append("Set Exchange Session " + session)
+        this.exchange.setSession(session);
+    },
+
+    doSetORSSession: function(session) {
+        this.logScreen.append("Set ORS session to " + session)
+        this.ors.setSession(session);
     },
 
     doClearExchange: function() {

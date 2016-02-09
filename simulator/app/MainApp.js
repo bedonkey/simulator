@@ -20,11 +20,12 @@ app.service('priceBoard', ['secinfo', PriceBoard]);
 app.service('orderStore', OrderStore);
 app.service('dockService', ['account', 'secinfo', DockService]);
 app.service('logScreen', LogScreen);
-app.service('interpreter', ['logScreen', 'order', 'account', 'exchange', 'sessionManager', Interpreter]);
+app.service('interpreter', ['logScreen', 'order', 'account', 'ors', 'gateway',  'exchange', Interpreter]);
 app.service('exchangeValidator', ['exSecinfo', ExchangeValidator]);
 app.service('gateway', ['orderStore', 'exchange', 'sessionManager', Gateway]);
 app.service('exchange', ['exchangeValidator', 'account', 'orderStore', 'priceBoard', 'sessionManager', Exchange]);
 app.service('sessionManager', ['dockService', SessionManager]);
+app.service('ors', ['order', 'sessionManager', ORS]);
 
 app.controller("TabsCtrl", ['$scope', '$window', TabController]);
 app.controller('GatewayController', ['$scope', 'orderStore', GatewayController]);
@@ -39,7 +40,7 @@ app.controller("PriceBoardController", ['$scope', 'priceBoard', PriceBoardContro
 app.controller("DockController", ['$scope', 'order', 'dockService', DockController]);
 app.controller("RobotController", ['$scope', '$http', 'logScreen', 'interpreter', RobotController]);
 app.controller("LearnController", ['$scope', '$http', LearnController]);
-app.controller("MonitorController", ['$scope','order', 'gateway', 'sessionManager', MonitorController]);
+app.controller("MonitorController", ['$scope','order', 'ors', 'gateway', 'exchange', MonitorController]);
 
 app.directive("orderDetail", function(){return {templateUrl:'app/modules/home/orderbook/detail.html'};});
 app.directive("orderReplace", function(){return {templateUrl:'app/modules/home/orderbook/replace.html'};});

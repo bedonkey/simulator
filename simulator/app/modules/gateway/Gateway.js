@@ -44,5 +44,17 @@ Gateway.prototype = {
 			this.sendToExchange(orderQueue[i].order, orderQueue[i].action);
 		}
 		this.orderStore.clearQueue();
+	},
+
+	setSession: function(session) {
+		if (session == Session.gw.OPEN) {
+            console.log("Push order to Exchange");
+            this.fireOrder();
+        }
+        this.sessionManager.setGatewaySession(session);
+	},
+
+	getSession: function() {
+		return this.sessionManager.getGatewaySession();
 	}
 }	

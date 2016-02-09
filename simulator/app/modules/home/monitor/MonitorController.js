@@ -1,36 +1,29 @@
-MonitorController = function($scope, order, gateway, sessionManager) {
+MonitorController = function($scope, order, ors, gateway, exchange) {
     $scope.init = function() {
-       $scope.exSession = sessionManager.getExchangeSession();
-       $scope.gwSession = sessionManager.getGatewaySession();
-       $scope.orsSession = sessionManager.getORSSession();
+       $scope.exSession = exchange.getSession();
+       $scope.gwSession = gateway.getSession();
+       $scope.orsSession = ors.getSession();
     }
 
     $scope.closeExchangeSession = function() {
-        sessionManager.closeExchange();
+        exchange.setSession(Session.ex.CLOSE);
         $scope.exSession = Session.ex.CLOSE;
     }
 
     $scope.openExchangeSession = function() {
-        sessionManager.openExchange();
+        exchange.setSession(Session.ex.OPEN);
         $scope.exSession = Session.ex.OPEN;
     }
 
     $scope.setORSSession = function(session) {
-        sessionManager.setORSSession(session);
-        if (session == Session.ors.OPEN) {
-            order.fireOrder();
-        }
+        ors.setSession(session);
         $scope.orsSession = session;
         $scope.mask = false;
         $scope.popupORS = false;
     }
 
     $scope.setGWSession = function(session) {
-        sessionManager.setGatewaySession(session);
-        if (session == Session.gw.OPEN) {
-            console.log("Push order to Exchange");
-            gateway.fireOrder();
-        }
+        gateway.setSession(session);
         $scope.gwSession = session;
         $scope.mask = false;
         $scope.popupGW = false;
