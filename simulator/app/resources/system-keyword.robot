@@ -44,6 +44,9 @@
   "return": "status",
   "function": "GetOrderStatus(ordid)"
 }, {
+  "return": "number",
+  "function": "CountOrderDetail(ordid)"
+}, {
   "return": "",
   "function": "ResetAccounts()"
 }, {

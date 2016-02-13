@@ -7,6 +7,8 @@ Assert(result.status, true)
 
 result1 = Cancel(result.msg)
 Assert(result1.status, true)
+count = CountOrderDetail(result.msg)
+Assert(count, 3)
 
 result2 = Cancel(result.msg)
 Assert(result2.msg, Order not found)

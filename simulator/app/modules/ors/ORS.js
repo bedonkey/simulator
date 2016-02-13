@@ -94,7 +94,7 @@ ORS.prototype = {
 		var oldOrd = this.orderStore.getNewOrder(ord.orderID);
 		var pendingReplace = Utils.clone(oldOrd);
 		pendingReplace.status = OrdStatus.PENDING_REPLACE;
-		this.orderStore.pushToMap(ord.originalID, pendingReplace);
+		this.orderStore.pushToMap(oldOrd.originalID, pendingReplace);
 		if (oldOrd != null) {
 			error = this.orderValidator.validateReplace(oldOrd, ord);
 		} else {
@@ -161,7 +161,7 @@ ORS.prototype = {
 		if (error == undefined) {
 			var pendingCancel = Utils.clone(order);
     		pendingCancel.status = OrdStatus.PENDING_CANCEL;
-			this.orderStore.pushToMap(ord.originalID, pendingCancel);
+			this.orderStore.pushToMap(order.originalID, pendingCancel);
 			if (this.sessionManager.getORSSession() == Session.ors.OPEN) {
 				var result = this.gateway.receive(order, 'cancel');
 	        	if (result.error != undefined) {
@@ -226,6 +226,14 @@ ORS.prototype = {
 			return order.status;
 		}
 		return null;
+	},
+
+	countOrderDetail: function(ordId) {
+		var orders = this.orderStore.getDetail(ordId);
+		if (orders != null) {
+			return orders.length;
+		}
+		return 0;
 	},
 
 	setSession: function(session) {

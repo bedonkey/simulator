@@ -22,8 +22,16 @@ Assert(result.msg, Don't enough trade)
 
 ord1 = Place(1, AAA, Buy, 2000, 100)
 Assert(ord1.status, true)
+status = GetOrderStatus(ord1.msg)
+Assert(status, New)
+count = CountOrderDetail(ord1.msg)
+Assert(count, 1)
 
 result = Cancel(ord1.msg)
 Assert(result.status, true)
+status = GetOrderStatus(ord1.msg)
+Assert(status, Canceled)
+count = CountOrderDetail(ord1.msg)
+Assert(count, 3)
 
 ResetAccounts()
