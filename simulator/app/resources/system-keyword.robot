@@ -44,6 +44,9 @@
   "return": "status",
   "function": "GetOrderStatus(ordid)"
 }, {
+  "return": "event",
+  "function": "GetOrderEvent(ordid)"
+}, {
   "return": "number",
   "function": "CountOrderDetail(ordid)"
 }, {

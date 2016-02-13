@@ -228,6 +228,19 @@ ORS.prototype = {
 		return null;
 	},
 
+	getOrderEvent: function(ordId) {
+		var ordEvent = "";
+		var split = " | ";
+		var ords = this.orderStore.getDetail(ordId);
+		for (var i = 0; i < ords.length; i++) {
+			if (i == ords.length - 1) {
+				split = "";
+			}
+			ordEvent = ordEvent + ords[i].status + split;
+		}
+		return ordEvent;
+	},
+
 	countOrderDetail: function(ordId) {
 		var orders = this.orderStore.getDetail(ordId);
 		if (orders != null) {

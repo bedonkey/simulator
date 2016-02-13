@@ -103,6 +103,13 @@ Interpreter.prototype = {
                     variables[vab] = retu;
                 }
             }
+            if (func == 'GetOrderEvent') {
+                para = this.getValuePara(para[0]);
+                var retu = this.doGetOrderEvent(para);
+                if (vab != '') {
+                    variables[vab] = retu;
+                }
+            }
             if (func == 'CountOrderDetail') {
                 para = this.getValuePara(para[0]);
                 var retu = this.doCountOrderDetail(para);
@@ -244,10 +251,15 @@ Interpreter.prototype = {
     doGetOrderStatus: function(para) {
         this.logScreen.append("Get Order Status: " + para)
         return this.ors.getOrderStatus(para);
-    }, 
+    },
+
+    doGetOrderEvent: function(para) {
+        this.logScreen.append("Get Order Event: " + para)
+        return this.ors.getOrderEvent(para);
+    },
 
     doCountOrderDetail: function(para) {
-        this.logScreen.append("Get Order Status: " + para)
+        this.logScreen.append("count Order Detail: " + para)
         return this.ors.countOrderDetail(para);
     },
 

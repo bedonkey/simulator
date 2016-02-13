@@ -3,50 +3,70 @@ SetExchangeSession(OPEN)
 SetGatewaySession(NEW)
 SetORSSession(NEW)
 
-result = Place(1, AAA, Buy, 2000, 100) # Place order with account 1, Symbol AAA, Price 2000 and Quantity 100
-Assert(result.status, true)
+ord1 = Place(1, AAA, Buy, 2000, 100) # Place order with account 1, Symbol AAA, Price 2000 and Quantity 100
+Assert(ord1.status, true)
 
-result1 = Place(1, AAA, Buy, 2000, 100) # Place order with account 1, Symbol AAA, Price 2000 and Quantity 100
-Assert(result1.status, true)
+ord2 = Place(1, AAA, Buy, 2000, 100) # Place order with account 1, Symbol AAA, Price 2000 and Quantity 100
+Assert(ord2.status, true)
 
-result2 = Place(2, AAA, Sell, 2000, 100) # Place order with account 2, Symbol AAA, Price 2000 and Quantity 100
-Assert(result1.status, true)
+ord3 = Place(2, AAA, Sell, 2000, 100) # Place order with account 2, Symbol AAA, Price 2000 and Quantity 100
+Assert(ord3.status, true)
 
-status = GetOrderStatus(result.msg)
+status = GetOrderStatus(ord1.msg)
 Assert(status, Pending New)
+count = CountOrderDetail(ord1.msg)
+Assert(count, 1)
 
-status = GetOrderStatus(result1.msg)
+status = GetOrderStatus(ord2.msg)
 Assert(status, Pending New)
+count = CountOrderDetail(ord2.msg)
+Assert(count, 1)
 
-status = GetOrderStatus(result2.msg)
+status = GetOrderStatus(ord3.msg)
 Assert(status, Pending New)
+count = CountOrderDetail(ord3.msg)
+Assert(count, 1)
 
 OpenORS() # Set sesison on ORS is Open
 
-status = GetOrderStatus(result.msg)
+status = GetOrderStatus(ord1.msg)
 Assert(status, Pending New)
+count = CountOrderDetail(ord1.msg)
+Assert(count, 1)
 
-status = GetOrderStatus(result1.msg)
+status = GetOrderStatus(ord2.msg)
 Assert(status, Pending New)
+count = CountOrderDetail(ord2.msg)
+Assert(count, 1)
 
-status = GetOrderStatus(result2.msg)
+status = GetOrderStatus(ord3.msg)
 Assert(status, Pending New)
+count = CountOrderDetail(ord3.msg)
+Assert(count, 1)
 
 OpenGateway() # Set session on Gateway is Open
 
-status = GetOrderStatus(result.msg)
+status = GetOrderStatus(ord1.msg)
 Assert(status, Filled)
+count = CountOrderDetail(ord1.msg)
+Assert(count, 2)
 
-status = GetOrderStatus(result1.msg)
+status = GetOrderStatus(ord2.msg)
 Assert(status, New)
+count = CountOrderDetail(ord2.msg)
+Assert(count, 1)
 
-status = GetOrderStatus(result2.msg)
+status = GetOrderStatus(ord3.msg)
 Assert(status, Filled)
+count = CountOrderDetail(ord3.msg)
+Assert(count, 2)
 
-result = Place(1, AAA, Buy, 2000, 100) # Place order with account 1, Symbol AAA, Price 2000 and Quantity 100
-Assert(result.status, true)
+ord4 = Place(1, AAA, Buy, 2000, 100) # Place order with account 1, Symbol AAA, Price 2000 and Quantity 100
+Assert(ord4.status, true)
 
-status = GetOrderStatus(result.msg)
+status = GetOrderStatus(ord4.msg)
 Assert(status, New)
+count = CountOrderDetail(ord4.msg)
+Assert(count, 1)
 
 ResetAccounts()
