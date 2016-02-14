@@ -60,6 +60,8 @@ status = GetOrderStatus(ord6.msg)
 Assert(status, Partial Filled)
 count = CountOrderDetail(ord1.msg)
 Assert(count, 4)
+event = GetOrderEvent(ord1.msg)
+Assert(event, New | Pending Replace | Replaced | Partial Filled)
 
 ord7 = Replace(ord6.msg, 2900, 600)
 Assert(ord6.status, true)

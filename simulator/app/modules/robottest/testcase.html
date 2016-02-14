@@ -1,7 +1,9 @@
 <div id="robottest" ng-controller="RobotController">
 	<div id="testcases">
 		<div class="testcase">
-			<div class="box-title">TestCase</div>
+			<div class="box-title">
+				TestCase <button type="button" class="btn btn-default" ng-click="runtest()"><span class="glyphicon glyphicon-play">RUN</span></button>
+			</div>
 			<div class="box-content">
 				<ul>
 					<li ng-class="{selected: test.name === selectedTest}" ng-repeat="test in testcases" ng-click="setSelected(test.name)">
@@ -17,7 +19,7 @@
 	<div id="testcase-editor" class="">
 		<div class="run">
 			<h4 ng-bind="testTitle"></h4>
-			<input class="btn btn-md grey_button" type="submit" value="Run Test" ng-click="runtest()"/>
+			<span class="glyphicon glyphicon-play" ng-show="isClickTest" ng-click="runThisTest()"></span>
 			<img class="save" alt="Save" src="assets/images/save.png" height="25px" ng-click="save()" ng-show="!isSave"/>
 		</div>
 		<div class="status-bar" ng-class="{'':testPass=='', 'green':testPass=='true', 'red':testPass=='false'}"></div>
@@ -26,6 +28,7 @@
 		 	<ul>
 		 		<li ng-repeat="line in lines track by $index" ng-class="$index == curLine ? 'lineActive' : ''">
 		 			<div class="col1">
+		 				<span class="glyphicon glyphicon-share-alt" ng-show="currentTest.index == $index + 1"></span>
 		 				{{line| split:'#':0}}
 		 			</div>
 		 			<div class="col2">

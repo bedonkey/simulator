@@ -14,12 +14,13 @@ Interpreter.prototype = {
             return;
         }
 
-    	var tests = testcases.split(/\n/);
+    	var tests = testcases.content.split(/\n/);
     	for (var i = 0; i < tests.length; i++) {
             var vab = '';
             if (tests[i] == '' || tests[i].indexOf('#') == 0) {
                 continue;
             }
+            testcases.index++;
             var testData = tests[i].split('#')[0];
             if (testData.indexOf('=') > 0) {
                 var vab = testData.substring(0, testData.indexOf('=')).trim();

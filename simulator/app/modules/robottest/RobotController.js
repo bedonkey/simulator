@@ -4,6 +4,7 @@ RobotController = function($scope, $http, logScreen, interpeter) {
 	$scope.testTitle = "None Testcase selected";
     $scope.testPass = '';
     $scope.logData = logScreen.getLogData();
+    $scope.currentTest = {};
 
     $scope.init = function() {
     	$http.get('app/resources/system-keyword.robot')
@@ -45,7 +46,7 @@ RobotController = function($scope, $http, logScreen, interpeter) {
 
     $scope.doTest = function(test) {
         logScreen.append("Start " + test.name);
-        var result = interpeter.runTest(test.content);
+        var result = interpeter.runTest(test);
         logScreen.append("End " + test.name);
         logScreen.append("========================");
         if (result == false) {
@@ -81,18 +82,24 @@ RobotController = function($scope, $http, logScreen, interpeter) {
                 this.test($scope.testcases[i], this.doTest);
                 count ++;
             }
-            
         };
         if (count == 0) {
             this.runalltest();
         }
     }
 
+    $scope.runThisTest = function() {
+        logScreen.init();
+        console.log($scope.selectedTest);
+        $scope.currentTest = {name: $scope.selectedTest, index: 0};
+        this.test($scope.currentTest, this.doTest);
+    }
+
     $scope.runalltest = function() {
         for (var i = 0; i < $scope.testcases.length; i++) {
             this.test($scope.testcases[i], this.doTest);
         };
-    }
+    },
 
     $scope.init();
 } 

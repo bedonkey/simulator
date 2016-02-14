@@ -70,14 +70,6 @@ ORS.prototype = {
         this.orderStore.pushToMap(ord.originalID, ord);
 	},
 
-	fireOrder: function () {
-		console.log('ORS Fire');
-		var orders = this.orderStore.getPendingNewOrder();
-		for (var i = 0; i < orders.length; i++) {
-			this.sendOrderToGateway(orders[i]);
-		}
-	},
-
 	sendOrderToGateway: function(ord) {
 		var result = this.gateway.receive(ord, 'place');
 		if (result.error != undefined) {
@@ -85,8 +77,11 @@ ORS.prototype = {
 			ord.text = result.error;
 			this.orderStore.pushToMap(ord.originalID, ord);
 		}
-		this.priceBoard.add(ord);
-		this.orderStore.pushToMap(ord.originalID, ord);
+		if (result.exec == '0') {
+			this.priceBoard.add(ord);
+			this.orderStore.pushToMap(ord.originalID, ord);
+		}
+		
 	},
 
 	replace: function(ord) {
@@ -251,10 +246,18 @@ ORS.prototype = {
 
 	setSession: function(session) {
 		if (session == Session.ors.OPEN) {
-            console.log("Push order to Exchange");
+            console.log("ORS Open");
             this.fireOrder();
         }
         this.sessionManager.setORSSession(session);
+	},
+
+	fireOrder: function () {
+		console.log('ORS Fire, send all order in queue to Gateway');
+		var orders = this.orderStore.getPendingNewOrder();
+		for (var i = 0; i < orders.length; i++) {
+			this.sendOrderToGateway(orders[i]);
+		}
 	},
 
 	getSession: function() {

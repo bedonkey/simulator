@@ -22,8 +22,14 @@ Exchange.prototype = {
 		if (this.sessionManager.getExchangeSession() == Session.ex.CLOSE) {
 			return ErrorCode.EX_05;
 		}
-		ord.status = OrdStatus.NEW;
 		this.addOrderMatch(ord);
+		if (ord.status == "Pending New") {
+			ord.status = OrdStatus.NEW;
+        	if (!this.matching(ord)) {
+        		this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
+        	}
+			return;
+		}
         this.matching(ord);
 	},
 
@@ -65,9 +71,9 @@ Exchange.prototype = {
 
 	matching: function(ord) {
 		if (ord.side == Side.SELL) {
-			this.matchingSell(ord);
+			return this.matchingSell(ord);
 		} else {
-			this.matchingBuy(ord);
+			return this.matchingBuy(ord);
 		}
 	},
 
@@ -79,9 +85,11 @@ Exchange.prototype = {
             if (this.matchOrdersSell[i].remain > 0 && this.matchOrdersSell[i].symbol == ord.symbol && this.matchOrdersSell[i].account != ord.account) {
         		if (ord.price >= this.matchOrdersSell[i].price) {
         			this.match(ord, this.matchOrdersSell[i], ord.price);
+        			return true;
         		}
             }
         }
+        return false;
 	},
 
 	matchingSell: function(ord) {
@@ -92,9 +100,11 @@ Exchange.prototype = {
             if (this.matchOrdersBuy[i].remain > 0 && this.matchOrdersBuy[i].symbol == ord.symbol && this.matchOrdersBuy[i].account != ord.account) {
         		if (ord.price <= this.matchOrdersBuy[i].price) {
         			this.match(ord, this.matchOrdersBuy[i], this.matchOrdersBuy[i].price);
+        			return true;
         		}
             }
         }
+        return false;
 	},
 
 	match: function(ord1, ord2, matchPx) {

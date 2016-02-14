@@ -840,6 +840,21 @@ td.action {
 	border: 1px solid #333;
 }
 
+#testcases .testcase .box-title button{
+	float: right;
+	padding: 4px;
+}
+
+#testcases .testcase .box-title button:hover{
+	opacity: 0.8;
+	color: black;
+}
+
+#testcases .testcase .box-title button:focus{
+	opacity: 0.8;
+	color: black;
+}
+
 #testcases .testcase img{
 	float: right;
 }
@@ -910,6 +925,11 @@ td.action {
 	border-right: 1px solid #333;
 	padding: 5px;
 }
+#testcase-editor .content .col1 span{
+	padding-right: 5px;
+	color: yellow;
+}
+
 #testcase-editor .content .col2 {
 	float: left;
 	width: 50%;
@@ -958,6 +978,7 @@ td.action {
 	padding: 5px;
 	font-weight: bold;
 	color: white;
+	line-height: 30px;
 }
 
 #robottest .box-content {
@@ -983,8 +1004,11 @@ td.action {
 	overflow: hidden;
 }
 
-#testcase-editor .run input{
-	float: right;
+#testcase-editor .run span{
+	font-size: 30px;
+    line-height: 35px;
+    float: right;
+    color: #00cc00;
 }
 
 .blink {
