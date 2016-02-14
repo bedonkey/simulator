@@ -89,6 +89,10 @@ RobotController = function($scope, $http, logScreen, interpeter) {
     }
 
     $scope.runThisTest = function() {
+        $scope.testPass = '';
+        for (var i = 0; i < $scope.testcases.length; i++) {
+            $scope.testcases[i].status = '';
+        }
         logScreen.init();
         console.log($scope.selectedTest);
         $scope.currentTest = {name: $scope.selectedTest, index: 0};
