@@ -841,18 +841,13 @@ td.action {
 }
 
 #testcases .testcase .box-title button{
-	float: right;
-	padding: 4px;
-}
-
-#testcases .testcase .box-title button:hover{
-	opacity: 0.8;
-	color: black;
-}
-
-#testcases .testcase .box-title button:focus{
-	opacity: 0.8;
-	color: black;
+	background: green none repeat scroll 0 0;
+    border: 0 none;
+    color: white;
+    float: right;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 2px 5px;
 }
 
 #testcases .testcase img{
@@ -927,7 +922,7 @@ td.action {
 }
 #testcase-editor .content .col1 span{
 	padding-right: 5px;
-	color: yellow;
+	color: red;
 }
 
 #testcase-editor .content .col2 {
@@ -1008,7 +1003,7 @@ td.action {
 	font-size: 30px;
     line-height: 35px;
     float: right;
-    color: #00cc00;
+    color: green;
 }
 
 .blink {

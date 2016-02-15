@@ -28,7 +28,7 @@
 		 	<ul>
 		 		<li ng-repeat="line in lines track by $index" ng-class="$index == curLine ? 'lineActive' : ''">
 		 			<div class="col1">
-		 				<span class="glyphicon glyphicon-share-alt" ng-show="currentTest.index == $index + 1"></span>
+		 				<span class="glyphicon glyphicon-share-alt" ng-show="currentTest.index == $index + 1 && testPass == 'false'"></span>
 		 				{{line| split:'#':0}}
 		 			</div>
 		 			<div class="col2">
