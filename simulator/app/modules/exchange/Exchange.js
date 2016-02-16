@@ -30,7 +30,7 @@ Exchange.prototype = {
         	}
 			return;
 		}
-        this.matching(ord);
+		this.matching(ord);
 	},
 
 	replace: function(ord) {
@@ -41,8 +41,11 @@ Exchange.prototype = {
 		if (this.sessionManager.getExchangeSession() == Session.ex.CLOSE) {
 			return ErrorCode.EX_05;
 		}
+		var replaceOrd = Utils.clone(ord);
+		replaceOrd.status = OrdStatus.REPLACED;
+		this.orderStore.pushToMap(ord.originalID, replaceOrd);
 		this.resort(ord);
-        this.matching(ord);
+		this.matching(ord);
 	},
 
 	cancel: function(ord) {
@@ -108,7 +111,7 @@ Exchange.prototype = {
 	},
 
 	match: function(ord1, ord2, matchPx) {
-		var ord1Session = ord1.status;
+		var orgOrderMatch = Utils.clone(ord1);
     	var matchQty;
     	if (ord2.remain == ord1.remain) {
     		matchQty = ord1.remain;
@@ -146,8 +149,11 @@ Exchange.prototype = {
     	matchOrd2.time = DateTime.getCurentDateTime();
 
         this.orderStore.pushToMap(ord2.originalID, matchOrd2);
-        if (ord1Session != undefined) {
+        if (orgOrderMatch.status != undefined) {
         	this.orderStore.pushToMap(ord1.originalID, matchOrd1);
+        } else {
+        	orgOrderMatch.status = "New";
+        	this.orderStore.pushToMap(ord1.originalID, orgOrderMatch);
         }
         this.priceBoard.addMatch(ord1.symbol, matchPx, matchQty);
         this.priceBoard.subtract(ord1.symbol, ord1.side, ord1.price, matchQty);

@@ -120,8 +120,6 @@ ORS.prototype = {
 	        		return {status: false, msg: result.error};
 				}
 			}
-			newOrder.status = OrdStatus.REPLACED;
-    		this.orderStore.pushToMap(newOrder.originalID, newOrder);
         	this.priceBoard.add(newOrder);
 
         	if(oldOrd.side == Side.BUY) {
