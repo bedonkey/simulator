@@ -18,44 +18,44 @@ PriceBoard.prototype = {
         };
 	},
 
-	add: function(ord) {
-		var row = board[ord.symbol];
-		if (ord.side == Side.SELL) {
+	add: function(sym, side, px, qty) {
+		var row = board[sym];
+		if (side == Side.SELL) {
 			for (var i = 0; i < row['sell'].length; i++) {
-	            if (ord.price == row['sell'][i].px) {
-	                row['sell'][i].qty += parseInt(ord.qty);
+	            if (px == row['sell'][i].px) {
+	                row['sell'][i].qty += parseInt(qty);
 	                return;
 	            }
 	        };
 			if (row['sell'].length == 0) {
-        		row['sell'].push({'px':ord.price,'qty': parseInt(ord.qty)});
+        		row['sell'].push({'px':px,'qty': parseInt(qty)});
         	} else {
 	        	for (var j = 0; j < row['sell'].length; j++) {
-	        		if(row['sell'][j].px < ord.price) {
-	        			row['sell'].splice(j, 0, {'px':ord.price,'qty':ord.qty});
+	        		if(row['sell'][j].px < px) {
+	        			row['sell'].splice(j, 0, {'px':px,'qty':qty});
 	        			return;
 	        		}
 	        	}
-	        	row['sell'].splice(row['sell'].length, 0, {'px':ord.price,'qty':ord.qty});
+	        	row['sell'].splice(row['sell'].length, 0, {'px':px,'qty':qty});
         	}
 			
 		} else {
 			for (var i = 0; i < row['buy'].length; i++) {
-	            if (ord.price == row['buy'][i].px) {
-	                row['buy'][i].qty += parseInt(ord.qty);
+	            if (px == row['buy'][i].px) {
+	                row['buy'][i].qty += parseInt(qty);
 	                return;
 	            }
 	        };
         	if (row['buy'].length == 0) {
-        		row['buy'].push({'px':ord.price,'qty': parseInt(ord.qty)});
+        		row['buy'].push({'px':px,'qty': parseInt(qty)});
         	} else {
 	        	for (var j = 0; j < row['buy'].length; j++) {
-	        		if(row['buy'][j].px < ord.price) {
-	        			row['buy'].splice(j, 0, {'px':ord.price,'qty':ord.qty});
+	        		if(row['buy'][j].px < px) {
+	        			row['buy'].splice(j, 0, {'px':px,'qty':qty});
 	        			return;
 	        		}
 	        	}
-	        	row['buy'].splice(row['buy'].length, 0, {'px':ord.price,'qty':ord.qty});
+	        	row['buy'].splice(row['buy'].length, 0, {'px':px,'qty':qty});
         	}
 		}
 	},
@@ -85,12 +85,12 @@ PriceBoard.prototype = {
 		}
 	},
 
-	remove: function(ord) {
-		var row = board[ord.symbol];
-		if (ord.side == Side.SELL) {
+	remove: function(sym, side, px, qty) {
+		var row = board[sym];
+		if (side == Side.SELL) {
 			for (var i = 0; i < row['sell'].length; i++) {
-	            if (ord.price == row['sell'][i].px) {
-	                row['sell'][i].qty -= parseInt(ord.qty);
+	            if (px == row['sell'][i].px) {
+	                row['sell'][i].qty -= parseInt(qty);
 	                if (row['sell'][i].qty == 0) {
 	                	row['sell'].splice(i, 1);
 	                }
@@ -99,8 +99,8 @@ PriceBoard.prototype = {
 	        };
 		} else {
 			for (var i = 0; i < row['buy'].length; i++) {
-	            if (ord.price == row['buy'][i].px) {
-	                row['buy'][i].qty -= parseInt(ord.qty);
+	            if (px == row['buy'][i].px) {
+	                row['buy'][i].qty -= parseInt(qty);
 	                if (row['buy'][i].qty == 0) {
 	                	row['buy'].splice(i, 1);
 	                }

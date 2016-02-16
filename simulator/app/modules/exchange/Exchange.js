@@ -28,8 +28,10 @@ Exchange.prototype = {
         	if (!this.matching(ord)) {
         		this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
         	}
+        	this.priceBoard.add(ord.symbol, ord.side, ord.price, ord.qty);
 			return;
 		}
+		this.priceBoard.add(ord.symbol, ord.side, ord.price, ord.qty);
 		this.matching(ord);
 	},
 
@@ -45,6 +47,9 @@ Exchange.prototype = {
 		replaceOrd.status = OrdStatus.REPLACED;
 		this.orderStore.pushToMap(ord.originalID, replaceOrd);
 		this.resort(ord);
+		var oldOrder = Utils.clone(ord);
+		this.priceBoard.remove(ord.symbol, ord.side, oldOrder.price - oldOrder.underlyingPrice, oldOrder.qty - oldOrder.underlyingQty);
+		this.priceBoard.add(ord.symbol, ord.side, ord.price, ord.qty);
 		this.matching(ord);
 	},
 
@@ -52,6 +57,7 @@ Exchange.prototype = {
 		if (this.sessionManager.getExchangeSession() == Session.ex.CLOSE) {
 			return ErrorCode.EX_05;
 		}
+		this.priceBoard.remove(ord.symbol, ord.side, ord.price, ord.qty);
 	},
 
 	resort: function(ord) {
@@ -165,7 +171,6 @@ Exchange.prototype = {
 			this.expired(this.matchOrdersBuy[i]);
 			this.matchOrdersBuy.splice(i, 1);
 		}
-
 		for (var i = 0; i < this.matchOrdersSell.length; i++) {
 			this.expired(this.matchOrdersSell[i]);
 			this.matchOrdersSell.splice(i, 1);

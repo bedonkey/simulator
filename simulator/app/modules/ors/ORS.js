@@ -1,8 +1,7 @@
-ORS = function(orderValidator, afType, orderStore, account, priceBoard, gateway, sessionManager) {
+ORS = function(orderValidator, afType, orderStore, account, gateway, sessionManager) {
 	this.orderValidator = orderValidator;
 	this.orderStore = orderStore;
 	this.account = account;
-	this.priceBoard = priceBoard;
 	this.gateway = gateway;
 	this.afType = afType;
 	this.sessionManager = sessionManager;
@@ -47,7 +46,6 @@ ORS.prototype = {
 						ord.status = OrdStatus.NEW;
 					}
 				}
-				this.priceBoard.add(ord);
 			}
 			this.orderStore.add(ord);
 	        this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
@@ -78,7 +76,6 @@ ORS.prototype = {
 			this.orderStore.pushToMap(ord.originalID, ord);
 		}
 		if (result.exec == '0') {
-			this.priceBoard.add(ord);
 			this.orderStore.pushToMap(ord.originalID, ord);
 		}
 		
@@ -102,7 +99,8 @@ ORS.prototype = {
 			} else {
 				this.account.unHoldTrade(oldOrd.account, oldOrd.symbol, oldOrd.qty);
 			}
-			this.priceBoard.remove(oldOrd);
+			oldOrd.underlyingQty = ord.qty - oldOrd.qty;
+			oldOrd.underlyingPrice = ord.price - oldOrd.price;
 			oldOrd.price = ord.price;
 			oldOrd.qty = ord.qty;
 			oldOrd.remain = ord.qty - oldOrd.avgQty;
@@ -120,7 +118,6 @@ ORS.prototype = {
 	        		return {status: false, msg: result.error};
 				}
 			}
-        	this.priceBoard.add(newOrder);
 
         	if(oldOrd.side == Side.BUY) {
 				this.account.hold(newOrder);
@@ -171,11 +168,9 @@ ORS.prototype = {
 			order.status = OrdStatus.CANCELED;
 			order.remain = 0;
 			order.time = DateTime.getCurentDateTime();
-			
 			var cancelOrder = Utils.clone(order);
 			cancelOrder.orderID = IdGenerator.getId();
 			this.orderStore.pushToMap(order.originalID, cancelOrder);
-			this.priceBoard.remove(order);
         	return {status: true, msg: ''};
 		} else {
 			var cancelOrder = Utils.clone(order);
@@ -206,7 +201,6 @@ ORS.prototype = {
 			var cancelOrder = Utils.clone(order);
 			cancelOrder.orderID = IdGenerator.getId();
 			this.orderStore.pushToMap(order.originalID, cancelOrder);
-			this.priceBoard.remove(order);
         	return {status: true, msg: ''};
 		} else {
         	return {status: false, msg: error};
