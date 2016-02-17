@@ -5,28 +5,25 @@ MonitorController = function($scope, ors, gateway, exchange) {
        $scope.orsSession = ors.getSession();
     }
 
-    $scope.closeExchangeSession = function() {
-        exchange.setSession(Session.ex.CLOSE);
-        $scope.exSession = Session.ex.CLOSE;
-    }
-
-    $scope.openExchangeSession = function() {
-        exchange.setSession(Session.ex.OPEN);
-        $scope.exSession = Session.ex.OPEN;
-    }
-
-    $scope.setORSSession = function(session) {
-        ors.setSession(session);
-        $scope.orsSession = session;
+    $scope.setORSSession = function(ex, session) {
+        ors.setSession(ex, session);
+        $scope.orsSession[ex] = session;
         $scope.mask = false;
         $scope.popupORS = false;
     }
 
-    $scope.setGWSession = function(session) {
-        gateway.setSession(session);
-        $scope.gwSession = session;
+    $scope.setGWSession = function(ex, session) {
+        gateway.setSession(ex, session);
+        $scope.gwSession[ex] = session;
         $scope.mask = false;
         $scope.popupGW = false;
+    }
+
+    $scope.setEXSession = function(ex, session) {
+        exchange.setSession(ex, session);
+        $scope.exSession[ex] = session;
+        $scope.mask = false;
+        $scope.popupEX = false;
     }
 
     $scope.openORS = function() {
@@ -37,6 +34,11 @@ MonitorController = function($scope, ors, gateway, exchange) {
     $scope.openGW = function() {
         $scope.mask = true;
         $scope.popupGW = true;
+    }
+
+    $scope.openEX = function() {
+        $scope.mask = true;
+        $scope.popupEX = true;
     }
 
     $scope.init();

@@ -17,6 +17,7 @@ OrderValidator.prototype = {
 	},
 
 	validatePlace: function(ord) {
+        var ex = "HNX"
         var accs = this.account.get(ord.account);
         if (accs.length == 0) return ErrorCode.ORS_12;
         var secs = this.secinfo.get(ord.symbol);
@@ -31,10 +32,11 @@ OrderValidator.prototype = {
             var trade = this.getTrade(accs[0], ord.symbol);
             if (ord.qty > trade) return ErrorCode.ORS_15;
         }
-        if (this.sessionManager.getORSSession() == Session.ors.CLOSE) return ErrorCode.ORS_01;
+        if (this.sessionManager.getORSSession()[ex] == Session.CLOSE) return ErrorCode.ORS_01;
 	},
 
     validateReplace: function(oldOrd, ord) {
+        var ex = "HNX"
         var accs = this.account.get(oldOrd.account);
         if (accs.length == 0) return ErrorCode.ORS_12;
         var secs = this.secinfo.get(oldOrd.symbol);
@@ -48,18 +50,20 @@ OrderValidator.prototype = {
             var trade = this.getTrade(accs[0], oldOrd.symbol);
             if (ord.qty > trade + parseInt(oldOrd.qty)) return ErrorCode.ORS_15;
         }
-        if (this.sessionManager.getORSSession() == Session.ors.CLOSE) return ErrorCode.ORS_01;
+        if (this.sessionManager.getORSSession()[ex] == Session.CLOSE) return ErrorCode.ORS_01;
         if (ord.qty <= oldOrd.avgQty) {
             return ErrorCode.ORS_03;
         }
     },
 
     validateUnhold: function() {
-        if (this.sessionManager.getExchangeSession() == Session.ex.CLOSE) return ErrorCode.EX_05;
+        var ex = "HNX"
+        if (this.sessionManager.getExchangeSession()[ex] == Session.CLOSE) return ErrorCode.EX_05;
     },
 
     validateCancel: function() {
-        if (this.sessionManager.getORSSession() == Session.ors.CLOSE) return ErrorCode.ORS_01;
+        var ex = "HNX"
+        if (this.sessionManager.getORSSession()[ex] == Session.CLOSE) return ErrorCode.ORS_01;
     },
 
     getTrade: function(acc, symbol) {

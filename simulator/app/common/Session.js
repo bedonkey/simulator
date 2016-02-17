@@ -1,23 +1,18 @@
 Session = {
+	NEW: "NEW",
+	OPEN: "OPEN",
+	INTER: "INTERMISSION",
+	CLOSE:"CLOSE",
 	ex : {
-		CUR: "OPEN",
-		OPEN: "OPEN",
-		INTER: "INTERMISSION",
-		CLOSE:"CLOSE"
+		HNX : "NEW",
+		HOSE : "NEW"
 	},
 	gw: {
-		CUR: "NEW",
-		NEW: "NEW",
-		OPEN: "OPEN",
-		INTER: "INTERMISSION",
-		CLOSE:"CLOSE"
+		HNX : "NEW",
+		HOSE : "NEW"
 	},
 	ors: {
-		CUR: "NEW",
-		NEW: "NEW",
-		OPEN: "OPEN",
-		INTER: "INTERMISSION",
-		CLOSE:"CLOSE"
+		HNX : "NEW",
+		HOSE : "NEW"
 	}
-	
 }

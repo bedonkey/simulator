@@ -10,7 +10,8 @@ Gateway.prototype = {
 	},
 
 	receive: function(ord, action) {
-		if (this.sessionManager.getGatewaySession() == Session.gw.NEW) {
+		var ex = "HNX";
+		if (this.sessionManager.getGatewaySession()[ex] == Session.NEW) {
 			if (action == "place") {
 				this.orderStore.putOrderToQueue({order:ord, action:action});
 				console.log('Push to gateway queue')
@@ -36,11 +37,11 @@ Gateway.prototype = {
 			
 		}
 
-		if (this.sessionManager.getGatewaySession() == Session.gw.OPEN) {
+		if (this.sessionManager.getGatewaySession()[ex] == Session.OPEN) {
 			return {exec: '0', error: this.sendToExchange(ord, action)};
 		}
 
-		if (this.sessionManager.getGatewaySession() == Session.gw.CLOSE) {
+		if (this.sessionManager.getGatewaySession()[ex] == Session.CLOSE) {
 			return {error:"Gateway is closed"};
 		}
 		
@@ -68,14 +69,15 @@ Gateway.prototype = {
 	},
 
 	setSession: function(session) {
-		if (session == Session.gw.OPEN) {
+		var ex = "HNX";
+		if (session == Session.OPEN) {
             console.log("Push order to Exchange");
             this.fireOrder();
         }
-        this.sessionManager.setGatewaySession(session);
+        this.sessionManager.setGatewaySession(ex, session);
 	},
 
-	getSession: function() {
-		return this.sessionManager.getGatewaySession();
+	getSession: function(ex) {
+		return this.sessionManager.getGatewaySession(ex);
 	}
 }	

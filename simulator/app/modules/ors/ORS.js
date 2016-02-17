@@ -9,6 +9,8 @@ ORS = function(orderValidator, afType, orderStore, account, gateway, sessionMana
 
 ORS.prototype = {
 	place: function(ord) {
+		var ex = "HNX";
+
 		ord.orderID = IdGenerator.getId();
         ord.originalID = ord.orderID;
         ord.time = DateTime.getCurentDateTime();
@@ -29,10 +31,10 @@ ORS.prototype = {
 		if (error == undefined) {
 	    	var acc = this.account.getByID(ord.account);
 	    	ord.priceMargin = this.afType.getPriceMargin(acc.afType, ord.symbol);
-	    	if (this.sessionManager.getORSSession() == Session.ors.NEW) {
+	    	if (this.sessionManager.getORSSession()[ex] == Session.NEW) {
 				ord.status = OrdStatus.PENDING_NEW;
 			}
-			if (this.sessionManager.getORSSession() == Session.ors.OPEN) {
+			if (this.sessionManager.getORSSession()[ex] == Session.OPEN) {
 				var result = this.gateway.receive(ord, 'place');
 				if (result.error != undefined) {
 					ord.status = OrdStatus.REJECTED;
@@ -80,6 +82,7 @@ ORS.prototype = {
 	},
 
 	replace: function(ord) {
+		var ex = "HNX"
 		var result = {};
 		var oldOrd = this.orderStore.getNewOrder(ord.orderID);
 		var pendingReplace = Utils.clone(oldOrd);
@@ -107,14 +110,14 @@ ORS.prototype = {
 			var acc = this.account.getByID(ord.account);
     		oldOrd.priceMargin = this.afType.getPriceMargin(acc.afType, oldOrd.symbol);
 			var newOrder = Utils.clone(oldOrd);
-			if (this.sessionManager.getORSSession() == Session.ors.NEW) {
+			if (this.sessionManager.getORSSession()[ex] == Session.NEW) {
 				oldOrd.underlyingPrice = 0;
 				oldOrd.underlyingQty = 0;
 				var replaceOrd = Utils.clone(oldOrd);
 				replaceOrd.status = OrdStatus.REPLACED;
 				this.orderStore.pushToMap(oldOrd.originalID, replaceOrd)
 			}
-			if (this.sessionManager.getORSSession() == Session.ors.OPEN) {
+			if (this.sessionManager.getORSSession()[ex] == Session.OPEN) {
 				var result = this.gateway.receive(oldOrd, 'replace');
 	        	if (result.error != undefined) {
 					newOrder.status = OrdStatus.REJECTED;
@@ -144,6 +147,7 @@ ORS.prototype = {
 	},
 
 	cancel: function(ord) {
+		var ex = "HNX"
 		var error = undefined;
 		var result = {};
 		var order = this.orderStore.getNewOrder(ord.orderID);
@@ -156,7 +160,7 @@ ORS.prototype = {
 			var pendingCancel = Utils.clone(order);
     		pendingCancel.status = OrdStatus.PENDING_CANCEL;
 			this.orderStore.pushToMap(order.originalID, pendingCancel);
-			if (this.sessionManager.getORSSession() == Session.ors.NEW) {
+			if (this.sessionManager.getORSSession()[ex] == Session.NEW) {
 				order.status = OrdStatus.CANCELED;
 				order.remain = 0;
 				order.time = DateTime.getCurentDateTime();
@@ -164,7 +168,7 @@ ORS.prototype = {
 				cancelOrder.orderID = IdGenerator.getId();
 				this.orderStore.pushToMap(order.originalID, cancelOrder);
 			}
-			if (this.sessionManager.getORSSession() == Session.ors.OPEN) {
+			if (this.sessionManager.getORSSession()[ex] == Session.OPEN) {
 				var result = this.gateway.receive(order, 'cancel');
 	        	if (result.error != undefined) {
 					order.status = OrdStatus.REJECTED;
@@ -243,11 +247,12 @@ ORS.prototype = {
 	},
 
 	setSession: function(session) {
-		if (session == Session.ors.OPEN) {
+		var ex = "HNX"
+		if (session == Session.OPEN) {
             console.log("ORS Open");
             this.fireOrder();
         }
-        this.sessionManager.setORSSession(session);
+        this.sessionManager.setORSSession(ex, session);
 	},
 
 	fireOrder: function () {
@@ -258,7 +263,7 @@ ORS.prototype = {
 		}
 	},
 
-	getSession: function() {
-		return this.sessionManager.getORSSession();
+	getSession: function(ex) {
+		return this.sessionManager.getORSSession(ex);
 	}
 }	

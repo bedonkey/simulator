@@ -5,38 +5,28 @@ SessionManager = function(dockService) {
 SessionManager.prototype = {
 
 	getExchangeSession: function() {
-		return Session.ex.CUR;
+		return Session.ex;
 	},
 
-	closeExchange: function() {
-		Session.ex.CUR = Session.ex.CLOSE;
-		this.dockService.setSession(Session.ex.CLOSE);
-	},
-
-	openExchange: function() {
-		Session.ex.CUR = Session.ex.OPEN;
-		this.dockService.setSession(Session.ex.OPEN);
-	},
-
-	setExchangeSession: function(session) {
-		Session.ex.CUR = session;
+	setExchangeSession: function(ex, session) {
+		Session.ex[ex] = session;
 		this.dockService.setSession(session);
 	},
 
 	getGatewaySession: function() {
-		return Session.gw.CUR;
+		return Session.gw;
 	},
 
-	setGatewaySession: function(session) {
-		Session.gw.CUR = session;
+	setGatewaySession: function(ex, session) {
+		Session.gw[ex] = session;
 	},
 
 	getORSSession: function() {
-		return Session.ors.CUR;
+		return Session.ors;
 	},
 
-	setORSSession: function(session) {
-		Session.ors.CUR = session;
+	setORSSession: function(ex, session) {
+		Session.ors[ex] = session;
 	},
 
 }	

@@ -15,11 +15,12 @@ Exchange.prototype = {
 	},
 
 	place: function(ord) {
+		var ex = "HNX";
 		var error = this.exchangeValidator.validateSecInfo(ord);
 		if (error != undefined) {
 			return error;
 		}
-		if (this.sessionManager.getExchangeSession() == Session.ex.CLOSE) {
+		if (this.sessionManager.getExchangeSession()[ex] == Session.CLOSE) {
 			return ErrorCode.EX_05;
 		}
 		this.addOrderMatch(ord);
@@ -35,11 +36,12 @@ Exchange.prototype = {
 	},
 
 	replace: function(ord) {
+		var ex = "HNX";
 		var error = this.exchangeValidator.validateSecInfo(ord);
 		if (error != undefined) {
 			return error;
 		}
-		if (this.sessionManager.getExchangeSession() == Session.ex.CLOSE) {
+		if (this.sessionManager.getExchangeSession()[ex] == Session.CLOSE) {
 			return ErrorCode.EX_05;
 		}
 		if (ord.remain == 0) {
@@ -58,7 +60,8 @@ Exchange.prototype = {
 	},
 
 	cancel: function(ord) {
-		if (this.sessionManager.getExchangeSession() == Session.ex.CLOSE) {
+		var ex = "HNX";
+		if (this.sessionManager.getExchangeSession()[ex] == Session.CLOSE) {
 			return ErrorCode.EX_05;
 		}
 		ord.status = OrdStatus.CANCELED;
@@ -200,10 +203,11 @@ Exchange.prototype = {
 	},
 
 	setSession: function(session) {
-		this.sessionManager.setExchangeSession(session);
+		var ex = "HNX";
+		this.sessionManager.setExchangeSession(ex, session);
 	},
 
-	getSession: function() {
-		return this.sessionManager.getExchangeSession();
+	getSession: function(ex) {
+		return this.sessionManager.getExchangeSession(ex);
 	}
 }	

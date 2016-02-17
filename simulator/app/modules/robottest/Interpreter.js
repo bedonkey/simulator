@@ -271,17 +271,17 @@ Interpreter.prototype = {
 
     doOpenGateway: function() {
         this.logScreen.append("Open Gateway")
-        this.gateway.setSession(Session.gw.OPEN);
+        this.gateway.setSession(Session.OPEN);
     },
 
     doOpenExchange: function() {
         this.logScreen.append("Open Exchange")
-        this.exchange.setSession(Session.ex.OPEN);
+        this.exchange.setSession(Session.OPEN);
     },
 
     doOpenORS: function() {
         this.logScreen.append("Open ORS")
-        this.ors.setSession(Session.ors.OPEN);
+        this.ors.setSession(Session.OPEN);
     },
 
     doSetGatewaySession: function(session) {

@@ -19,8 +19,10 @@
 		</div>
 		<div id="info">
 			<div class="exchange">
-				<span class="des">[EX]</span>
-				<span class="session" ng-class="dockInfo.session=='OPEN' ? 'exopen' : 'exclose'" ng-bind="dockInfo.session"></span>
+				<span class="des">[HNX]</span>
+				<span class="session new" ng-class="{CLOSE:'close', OPEN:'open'}[dockInfo.session.HNX]" ng-bind="dockInfo.session.HNX"></span>
+				<span class="des">[HOSE]</span>
+				<span class="session new" ng-class="{CLOSE:'close', OPEN:'open'}[dockInfo.session.HOSE]" ng-bind="dockInfo.session.HOSE"></span>
 			</div>
 			<div class="account">
 				<span class="des">[ACC]</span>

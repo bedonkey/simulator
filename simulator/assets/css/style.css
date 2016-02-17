@@ -445,15 +445,21 @@ td.time {
 	font-size: 10px;
 }
 
-#info .session.exclose {
+#info .session.close {
 	font-weight: bold;
-	color: red;
+	color: red !important;
 	font-size: 16px;
 }
 
-#info .session.exopen {
+#info .session.open {
 	font-weight: bold;
-	color: green;
+	color: green !important;
+	font-size: 16px;
+}
+
+#info .session.new {
+	font-weight: bold;
+	color: yellow;
 	font-size: 16px;
 }
 
@@ -1020,13 +1026,19 @@ td.action {
     padding: 20px 0;
     text-align: center;
     height: 70px;
-    width: 600px;
+    width: 500px;
+}
+
+#monitor .box-name {
+	color: white;
+	font-size: 30px;
+	padding-bottom: 20px;
 }
 
 #monitor .monitor-detail {
 	float: left;
 	color: white;
-	width: 325px;
+	width: 350px;
 	text-align: left;
 }
 
@@ -1043,7 +1055,7 @@ td.action {
 
 #monitor .module-name {
 	color: white;
-	width: 200px;
+	width: 100px;
 	line-height: 30px;
 	float: left;
 	text-align: left;
