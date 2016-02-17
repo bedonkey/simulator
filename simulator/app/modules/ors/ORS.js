@@ -14,6 +14,8 @@ ORS.prototype = {
         ord.time = DateTime.getCurentDateTime();
         ord.avgQty = 0;
         ord.avgPX = 0;
+        ord.underlyingQty = 0;
+        ord.underlyingPrice = 0;
         ord.remain = ord.qty;
 		var error = this.orderValidator.clientValidate(ord);
 		if (error == undefined) {
@@ -75,10 +77,6 @@ ORS.prototype = {
 			ord.text = result.error;
 			this.orderStore.pushToMap(ord.originalID, ord);
 		}
-		if (result.exec == '0') {
-			this.orderStore.pushToMap(ord.originalID, ord);
-		}
-		
 	},
 
 	replace: function(ord) {
@@ -104,12 +102,18 @@ ORS.prototype = {
 			oldOrd.price = ord.price;
 			oldOrd.qty = ord.qty;
 			oldOrd.remain = ord.qty - oldOrd.avgQty;
-
 			oldOrd.orderID = IdGenerator.getId();
 			oldOrd.time = DateTime.getCurentDateTime();
 			var acc = this.account.getByID(ord.account);
     		oldOrd.priceMargin = this.afType.getPriceMargin(acc.afType, oldOrd.symbol);
 			var newOrder = Utils.clone(oldOrd);
+			if (this.sessionManager.getORSSession() == Session.ors.NEW) {
+				oldOrd.underlyingPrice = 0;
+				oldOrd.underlyingQty = 0;
+				var replaceOrd = Utils.clone(oldOrd);
+				replaceOrd.status = OrdStatus.REPLACED;
+				this.orderStore.pushToMap(oldOrd.originalID, replaceOrd)
+			}
 			if (this.sessionManager.getORSSession() == Session.ors.OPEN) {
 				var result = this.gateway.receive(oldOrd, 'replace');
 	        	if (result.error != undefined) {
@@ -152,6 +156,14 @@ ORS.prototype = {
 			var pendingCancel = Utils.clone(order);
     		pendingCancel.status = OrdStatus.PENDING_CANCEL;
 			this.orderStore.pushToMap(order.originalID, pendingCancel);
+			if (this.sessionManager.getORSSession() == Session.ors.NEW) {
+				order.status = OrdStatus.CANCELED;
+				order.remain = 0;
+				order.time = DateTime.getCurentDateTime();
+				var cancelOrder = Utils.clone(order);
+				cancelOrder.orderID = IdGenerator.getId();
+				this.orderStore.pushToMap(order.originalID, cancelOrder);
+			}
 			if (this.sessionManager.getORSSession() == Session.ors.OPEN) {
 				var result = this.gateway.receive(order, 'cancel');
 	        	if (result.error != undefined) {
@@ -161,16 +173,10 @@ ORS.prototype = {
 				}
 			}
 			if(order.side == Side.BUY) {
-				this.account.unHold(order);
+				this.account.unHold(pendingCancel);
 			} else {
-				this.account.unHoldTrade(order.account, order.symbol, order.remain);
+				this.account.unHoldTrade(pendingCancel.account, pendingCancel.symbol, pendingCancel.remain);
 			}
-			order.status = OrdStatus.CANCELED;
-			order.remain = 0;
-			order.time = DateTime.getCurentDateTime();
-			var cancelOrder = Utils.clone(order);
-			cancelOrder.orderID = IdGenerator.getId();
-			this.orderStore.pushToMap(order.originalID, cancelOrder);
         	return {status: true, msg: ''};
 		} else {
 			var cancelOrder = Utils.clone(order);

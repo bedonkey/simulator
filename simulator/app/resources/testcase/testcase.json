@@ -5,12 +5,20 @@
 }, {
   	"name": "Test Replace Order"
 }, {
+    "name": "Test Replace ORS New Session"
+}, {
+    "name": "Test Replace Gateway New Session"
+}, {
   	"name": "Test Cancel Order"
+}, {
+    "name": "Test Cancel ORS New Session"
+}, {
+    "name": "Test Cancel Gateway New Session"
 }, {
     "name": "Test Match Order"
 }, {
   "name" : "Free Test Order"
-},  {
+}, {
   	"name": "Test Account AutoAdv"
 }, {
   	"name": "Test Account Margin"
@@ -31,7 +39,11 @@
 }, {
 	"name" : "Test Interpreter Functions"
 }, {
-  "name" : "Test Session"
+  "name" : "Test Session open ORS then open Gateway"
+}, {
+  "name" : "Test Session open Gateway then open ORS"
 }, {
   "name" : "Test Order Status"
+}, {
+  "name" : "Test Cancel Replace rejected by exchange when filled"
 }]

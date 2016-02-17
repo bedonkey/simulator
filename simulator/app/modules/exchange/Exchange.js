@@ -42,12 +42,18 @@ Exchange.prototype = {
 		if (this.sessionManager.getExchangeSession() == Session.ex.CLOSE) {
 			return ErrorCode.EX_05;
 		}
+		if (ord.remain == 0) {
+			console.log("Can not replace, order is Filled");
+			return "Can not replace, order is Filled";
+		}
 		var replaceOrd = Utils.clone(ord);
 		replaceOrd.status = OrdStatus.REPLACED;
 		this.orderStore.pushToMap(ord.originalID, replaceOrd);
 		this.resort(ord);
 		this.priceBoard.remove(ord.symbol, ord.side, ord.price - ord.underlyingPrice, ord.qty - ord.underlyingQty);
 		this.priceBoard.add(ord.symbol, ord.side, ord.price, ord.qty);
+		ord.underlyingPrice = 0;
+		ord.underlyingQty = 0;
 		this.matching(ord);
 	},
 
@@ -55,6 +61,12 @@ Exchange.prototype = {
 		if (this.sessionManager.getExchangeSession() == Session.ex.CLOSE) {
 			return ErrorCode.EX_05;
 		}
+		ord.status = OrdStatus.CANCELED;
+		ord.remain = 0;
+		ord.time = DateTime.getCurentDateTime();
+		var cancelOrder = Utils.clone(ord);
+		cancelOrder.orderID = IdGenerator.getId();
+		this.orderStore.pushToMap(ord.originalID, cancelOrder);
 		this.priceBoard.remove(ord.symbol, ord.side, ord.price, ord.qty);
 	},
 
@@ -117,23 +129,25 @@ Exchange.prototype = {
 	match: function(ord1, ord2, matchPx) {
 		var orgOrderMatch = Utils.clone(ord1);
     	var matchQty;
-    	if (ord2.remain == ord1.remain) {
-    		matchQty = ord1.remain;
+    	var remainOrd1 = ord1.remain - ord1.underlyingQty;
+    	var remainOrd2 = ord2.remain - ord2.underlyingQty;
+    	if (remainOrd2 == remainOrd1) {
+    		matchQty = remainOrd1;
 	    	ord1.status = OrdStatus.FILLED;
         	ord2.status = OrdStatus.FILLED;
         	ord1.remain = 0;
         	ord2.remain = 0;
-    	} else if (ord2.remain > ord1.remain) {
-    		matchQty = ord1.remain;
+    	} else if (remainOrd2 > remainOrd1) {
+    		matchQty = remainOrd1;
     		ord1.status = OrdStatus.FILLED;
         	ord2.status = OrdStatus.PARTIAL_FILLED;
-        	ord2.remain = ord2.remain - ord1.remain;
+        	ord2.remain = remainOrd2 - remainOrd1;
         	ord1.remain = 0;
-    	} else if (ord2.remain < ord1.remain) {
+    	} else if (remainOrd2 < remainOrd1) {
     		matchQty = ord2.remain;
     		ord1.status = OrdStatus.PARTIAL_FILLED;
         	ord2.status = OrdStatus.FILLED;
-        	ord1.remain = ord1.remain - ord2.remain;
+        	ord1.remain = remainOrd1 - remainOrd2;
         	ord2.remain = 0;
     	}
     	ord1.avgQty += parseInt(matchQty);

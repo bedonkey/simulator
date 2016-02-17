@@ -11,9 +11,29 @@ Gateway.prototype = {
 
 	receive: function(ord, action) {
 		if (this.sessionManager.getGatewaySession() == Session.gw.NEW) {
-			this.orderStore.putOrderToQueue({order:ord, action:action});
-			console.log('Push to gateway queue')
-			return {exec: 'A'};
+			if (action == "place") {
+				this.orderStore.putOrderToQueue({order:ord, action:action});
+				console.log('Push to gateway queue')
+				return {exec: 'A'};
+			}
+			if (action == "replace") {
+				ord.underlyingPrice = 0;
+				ord.underlyingQty = 0;
+				var replaceOrd = Utils.clone(ord);
+				replaceOrd.status = OrdStatus.REPLACED;
+				this.orderStore.pushToMap(ord.originalID, replaceOrd)
+				return {exec: 'A'};
+			}
+			if (action == "cancel") {
+				ord.status = OrdStatus.CANCELED;
+				ord.remain = 0;
+				ord.time = DateTime.getCurentDateTime();
+				var cancelOrder = Utils.clone(ord);
+				cancelOrder.orderID = IdGenerator.getId();
+				this.orderStore.pushToMap(ord.originalID, cancelOrder);
+				return {exec: 'A'};
+			}
+			
 		}
 
 		if (this.sessionManager.getGatewaySession() == Session.gw.OPEN) {
@@ -41,6 +61,7 @@ Gateway.prototype = {
 	fireOrder: function() {
 		orderQueue = this.orderStore.getAllOrderQueueOnGateway();
 		for (var i = 0; i < orderQueue.length; i++) {
+			console.log(orderQueue[i]);
 			this.sendToExchange(orderQueue[i].order, orderQueue[i].action);
 		}
 		this.orderStore.clearQueue();
