@@ -62,6 +62,8 @@ PriceBoard.prototype = {
 
 	subtract: function(sym, side, px, qty) {
 		var row = board[sym];
+		console.log(side)
+		console.log(row)
 		if (side == Side.SELL) {
 			for (var i = 0; i < row['sell'].length; i++) {
 	            if (px == row['sell'][i].px) {

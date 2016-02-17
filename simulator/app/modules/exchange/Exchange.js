@@ -23,15 +23,14 @@ Exchange.prototype = {
 			return ErrorCode.EX_05;
 		}
 		this.addOrderMatch(ord);
+		this.priceBoard.add(ord.symbol, ord.side, ord.price, ord.qty);
 		if (ord.status == "Pending New") {
 			ord.status = OrdStatus.NEW;
         	if (!this.matching(ord)) {
         		this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
         	}
-        	this.priceBoard.add(ord.symbol, ord.side, ord.price, ord.qty);
 			return;
 		}
-		this.priceBoard.add(ord.symbol, ord.side, ord.price, ord.qty);
 		this.matching(ord);
 	},
 
@@ -47,8 +46,7 @@ Exchange.prototype = {
 		replaceOrd.status = OrdStatus.REPLACED;
 		this.orderStore.pushToMap(ord.originalID, replaceOrd);
 		this.resort(ord);
-		var oldOrder = Utils.clone(ord);
-		this.priceBoard.remove(ord.symbol, ord.side, oldOrder.price - oldOrder.underlyingPrice, oldOrder.qty - oldOrder.underlyingQty);
+		this.priceBoard.remove(ord.symbol, ord.side, ord.price - ord.underlyingPrice, ord.qty - ord.underlyingQty);
 		this.priceBoard.add(ord.symbol, ord.side, ord.price, ord.qty);
 		this.matching(ord);
 	},

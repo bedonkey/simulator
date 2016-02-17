@@ -1,4 +1,6 @@
 [{
+  "name" : "Test"
+}, {
   	"name": "Test Place Order"
 }, {
   	"name": "Test Replace Order"
