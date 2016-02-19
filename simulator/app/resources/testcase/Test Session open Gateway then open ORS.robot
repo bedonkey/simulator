@@ -1,7 +1,7 @@
 ClearExchange() # Clear all order on Exchange
-SetExchangeSession(OPEN)
-SetGatewaySession(NEW)
-SetORSSession(NEW)
+SetExchangeSession(HNX, OPEN1)
+SetGatewaySession(HNX, NEW)
+SetORSSession(HNX, NEW)
 
 ord1 = Place(1, AAA, Buy, 2000, 100) # Place order with account 1, Symbol AAA, Price 2000 and Quantity 100
 Assert(ord1.status, true)
@@ -27,7 +27,7 @@ Assert(status, Pending New)
 count = CountOrderDetail(ord3.msg)
 Assert(count, 1)
 
-OpenGateway() # Set session on Gateway is Open
+SetGatewaySession(HNX, OPEN)
 
 status = GetOrderStatus(ord1.msg)
 Assert(status, Pending New)
@@ -44,7 +44,7 @@ Assert(status, Pending New)
 count = CountOrderDetail(ord3.msg)
 Assert(count, 1)
 
-OpenORS() # Set sesison on ORS is Open
+SetORSSession(HNX, OPEN)
 
 status = GetOrderStatus(ord2.msg)
 Assert(status, New)

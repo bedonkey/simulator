@@ -4,31 +4,21 @@ MonitorController = function($scope, ors, gateway, exchange) {
        $scope.exSession = exchange.getSession();
        $scope.gwSession = gateway.getSession();
        $scope.orsSession = ors.getSession();
-       $scope.module = "";
     }
 
-    $scope.setSession = function(ex, session) {
-        if ($scope.module == "ors") {
-            ors.setSession(ex, session);
-            $scope.orsSession[ex] = session;
-        }
-        if ($scope.module == "gateway") {
-            gateway.setSession(ex, session);
-            $scope.gwSession[ex] = session;
-        }
-        if ($scope.module == "exchange") {
-            exchange.setSession(ex, session);
-            $scope.exSession[ex] = session;
-        }
-        
-        $scope.mask = false;
-        $scope.popupSetSession = false;
+    $scope.setORSSession = function(ex, session) {
+        ors.setSession(ex, session);
+        $scope.orsSession[ex] = session;
     }
 
-    $scope.openPopup = function(module) {
-        $scope.module = module;
-        $scope.mask = true;
-        $scope.popupSetSession = true;
+    $scope.setGWSession = function(ex, session) {
+        gateway.setSession(ex, session);
+        $scope.gwSession[ex] = session;
+    }
+
+    $scope.setEXSession = function(ex, session) {
+        exchange.setSession(ex, session);
+        $scope.exSession[ex] = session;
     }
 
     $scope.init();

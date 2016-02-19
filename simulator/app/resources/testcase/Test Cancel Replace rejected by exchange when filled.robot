@@ -1,6 +1,6 @@
-SetExchangeSession(OPEN)
-SetGatewaySession(OPEN)
-SetORSSession(OPEN)
+SetExchangeSession(HNX, OPEN1)
+SetGatewaySession(HNX, OPEN1)
+SetORSSession(HNX, OPEN1)
 
 ord1 = Place(1, AAA, Buy, 2000, 100)
 

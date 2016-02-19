@@ -1,7 +1,7 @@
 # Case: check pp0, qmax; change aftype; check qmax
-OpenExchange()
-OpenGateway()
-OpenORS()
+SetExchangeSession(HNX, OPEN1)
+SetGatewaySession(HNX, OPEN1)
+SetORSSession(HNX, OPEN1)
 ClearExchange()
 ResetAccounts()
 

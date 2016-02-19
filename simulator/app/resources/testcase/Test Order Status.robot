@@ -1,6 +1,6 @@
-OpenExchange() # Set session on Exchange is Open
-OpenGateway() # Set session on Gateway is Open
-OpenORS() # Set sesison on ORS is Open
+SetExchangeSession(HNX, OPEN1) # Set session on Exchange is Open
+SetGatewaySession(HNX, OPEN1) # Set session on Gateway is Open
+SetORSSession(HNX, OPEN1) # Set sesison on ORS is Open
 ClearExchange() # Clear all order on Exchange
 
 ord1 = Place(1, AAA, Buy, 2000, 100) # Place order with account 1, Symbol AAA, Price 2000 and Quantity 100

@@ -1,6 +1,6 @@
-OpenExchange()
-OpenGateway()
-OpenORS()
+SetExchangeSession(HNX, OPEN1)
+SetGatewaySession(HNX, OPEN1)
+SetORSSession(HNX, OPEN1)
 ClearExchange()
 
 ord1 = Place(3, AAA, Buy, 2000, 100)

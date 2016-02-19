@@ -1,7 +1,7 @@
 # Case 0: change aftype, place, match partial filled, cancel
-OpenExchange()
-OpenGateway()
-OpenORS()
+SetExchangeSession(HNX, OPEN1)
+SetGatewaySession(HNX, OPEN1)
+SetORSSession(HNX, OPEN1)
 ClearExchange()
 SetAfType(1, 1000)
 

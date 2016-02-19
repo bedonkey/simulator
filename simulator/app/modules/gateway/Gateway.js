@@ -37,7 +37,7 @@ Gateway.prototype = {
 			
 		}
 
-		if (this.sessionManager.getGatewaySession()[ex] == Session.OPEN) {
+		if (this.sessionManager.getGatewaySession()[ex].indexOf(Session.OPEN) > -1) {
 			return {exec: '0', error: this.sendToExchange(ord, action)};
 		}
 
@@ -68,9 +68,8 @@ Gateway.prototype = {
 		this.orderStore.clearQueue();
 	},
 
-	setSession: function(session) {
-		var ex = "HNX";
-		if (session == Session.OPEN) {
+	setSession: function(ex, session) {
+		if (session.indexOf(Session.OPEN) > -1) {
             console.log("Push order to Exchange");
             this.fireOrder();
         }

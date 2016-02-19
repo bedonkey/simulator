@@ -1,7 +1,7 @@
 ClearExchange()
-SetExchangeSession(OPEN)
-SetGatewaySession(NEW)
-SetORSSession(OPEN)
+SetExchangeSession(HNX, OPEN1)
+SetGatewaySession(HNX, NEW)
+SetORSSession(HNX, OPEN1)
 
 ord0 = Place(1, AAA, Buy, 2000, 100)
 Assert(ord0.status, true)

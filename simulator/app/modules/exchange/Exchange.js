@@ -202,8 +202,7 @@ Exchange.prototype = {
     	this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
 	},
 
-	setSession: function(session) {
-		var ex = "HNX";
+	setSession: function(ex, session) {
 		this.sessionManager.setExchangeSession(ex, session);
 	},
 

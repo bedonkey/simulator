@@ -9,8 +9,8 @@ SessionManager.prototype = {
 	},
 
 	setExchangeSession: function(ex, session) {
+		console.log("Set exchange " + ex + " to session " + session)
 		Session.ex[ex] = session;
-		this.dockService.setSession(session);
 	},
 
 	getGatewaySession: function() {
@@ -27,6 +27,7 @@ SessionManager.prototype = {
 
 	setORSSession: function(ex, session) {
 		Session.ors[ex] = session;
+		this.dockService.setSession(Session.ors);
 	},
 
 }	

@@ -1,7 +1,7 @@
 # Case1: place, replace, change aftype, cancel
-OpenExchange()
-OpenGateway()
-OpenORS()
+SetExchangeSession(HNX, OPEN1)
+SetGatewaySession(HNX, OPEN1)
+SetORSSession(HNX, OPEN1)
 ClearExchange()
 result = GetPP0(1)
 Assert(result, 10000000)

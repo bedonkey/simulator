@@ -268,9 +268,17 @@ span.glyphicon:hover, .glyphicon:hover {
 	color: white;
 }
 
+.btn.green_button:hover {
+	color: white;
+}
+
 .grey_button {
 	background: #555;
 	border-radius: 5px;
+	color: white;
+}
+
+.btn.grey_button:hover {
 	color: white;
 }
 
@@ -281,6 +289,10 @@ span.glyphicon:hover, .glyphicon:hover {
 }
 
 .red_color {
+	color: #C00000;
+}
+
+.btn.red_color:hover {
 	color: #C00000;
 }
 
@@ -428,7 +440,6 @@ td.time {
 
 .btn:hover, .btn:focus{
 	opacity: 0.8;
-	color: white;
 }
 
 #info {
@@ -449,6 +460,10 @@ td.time {
 	font-weight: bold;
 	color: red !important;
 	font-size: 16px;
+	line-height: normal;
+    opacity: 1;
+    text-shadow: none;
+    float: none;
 }
 
 #info .session.open {
@@ -1023,16 +1038,40 @@ td.action {
 
 #monitor {
 	margin: auto;
-    padding: 20px 0;
     text-align: center;
     height: 70px;
-    width: 500px;
+    width: 1000px;
+}
+
+#monitor .btn-primary {
+	text-align: left;
 }
 
 #monitor .box-name {
 	color: white;
 	font-size: 30px;
-	padding-bottom: 20px;
+	padding-bottom: 10px;
+}
+
+#monitor .exchange-name {
+	font-weight: bold;
+	font-size: 30px;
+	color: #777;
+	padding-bottom: 10px;
+}
+
+#monitor button {
+	border-radius: 0;
+}
+
+#monitor .hnx {
+	width: 500px;
+	float: left;
+}
+
+#monitor .hose {
+	width: 500px;
+	float: right;
 }
 
 #monitor .monitor-detail {

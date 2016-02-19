@@ -1,6 +1,8 @@
 Session = {
 	NEW: "NEW",
 	OPEN: "OPEN",
+	OPEN1: "OPEN1",
+	OPEN2: "OPEN2",
 	INTER: "INTERMISSION",
 	CLOSE:"CLOSE",
 	ex : {

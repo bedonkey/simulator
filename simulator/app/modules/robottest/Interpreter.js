@@ -130,15 +130,6 @@ Interpreter.prototype = {
             if (func == 'ResetAccounts') {
                 this.doResetAccounts();
             }
-            if (func == 'OpenExchange') {
-                this.doOpenExchange();
-            }
-            if (func == 'OpenGateway') {
-                this.doOpenGateway();
-            }
-            if (func == 'OpenORS') {
-                this.doOpenORS();
-            }
             if (func == 'SetExchangeSession') {
                 this.doSetExchangeSession(para);
             }
@@ -269,34 +260,19 @@ Interpreter.prototype = {
         this.account.init();
     },
 
-    doOpenGateway: function() {
-        this.logScreen.append("Open Gateway")
-        this.gateway.setSession(Session.OPEN);
+    doSetGatewaySession: function(para) {
+        this.logScreen.append("Set Gateway Sesison " + para[0] + " to " + para[1])
+        this.gateway.setSession(para[0].trim(), para[1].trim());
     },
 
-    doOpenExchange: function() {
-        this.logScreen.append("Open Exchange")
-        this.exchange.setSession(Session.OPEN);
+    doSetExchangeSession: function(para) {
+        this.logScreen.append("Set Exchange Session " + para[0] + " to " + para[1])
+        this.exchange.setSession(para[0].trim(), para[1].trim());
     },
 
-    doOpenORS: function() {
-        this.logScreen.append("Open ORS")
-        this.ors.setSession(Session.OPEN);
-    },
-
-    doSetGatewaySession: function(session) {
-        this.logScreen.append("Set Gateway Sesison to " + session)
-        this.gateway.setSession(session);
-    },
-
-    doSetExchangeSession: function(session) {
-        this.logScreen.append("Set Exchange Session " + session)
-        this.exchange.setSession(session);
-    },
-
-    doSetORSSession: function(session) {
-        this.logScreen.append("Set ORS session to " + session)
-        this.ors.setSession(session);
+    doSetORSSession: function(para) {
+        this.logScreen.append("Set ORS session to " + para[0] + " to " + para[1])
+        this.ors.setSession(para[0].trim(), para[1].trim());
     },
 
     doClearExchange: function() {
