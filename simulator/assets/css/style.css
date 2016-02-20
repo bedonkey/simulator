@@ -853,14 +853,15 @@ td.action {
 	bottom: 0;
 	padding-top: 100px;
 	width: 25%;
+	padding-left: 5px;
 }
 
 #testcases .testcase {
-	height: 100%;
-	border: 1px solid #333;
+	height: 90%;
+	border-right: 1px solid #333;
 }
 
-#testcases .testcase .box-title button{
+#testcases .box-title button{
 	background: green none repeat scroll 0 0;
     border: 0 none;
     color: white;

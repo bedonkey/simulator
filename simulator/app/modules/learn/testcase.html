@@ -1,7 +1,7 @@
 <div id="learn" ng-controller="LearnController">
 	<div id="testcases">
+		<div class="box-title">TestCase</div>
 		<div class="testcase">
-			<div class="box-title">TestCase</div>
 			<div class="box-content">
 				<ul>
 					<li ng-class="{selected: test.name === selectedTest}" ng-repeat="test in testcases" ng-click="setSelected(test.name)">

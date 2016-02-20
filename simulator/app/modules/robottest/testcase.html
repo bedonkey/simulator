@@ -1,14 +1,14 @@
 <div id="robottest" ng-controller="RobotController">
 	<div id="testcases">
+		<div class="box-title">
+			TestCase <button type="button" class="btn btn-default" ng-click="runtest()"><span class="glyphicon glyphicon-play">RUN</span></button>
+		</div>
 		<div class="testcase">
-			<div class="box-title">
-				TestCase <button type="button" class="btn btn-default" ng-click="runtest()"><span class="glyphicon glyphicon-play">RUN</span></button>
-			</div>
 			<div class="box-content">
 				<ul>
 					<li ng-class="{selected: test.name === selectedTest}" ng-repeat="test in testcases" ng-click="setSelected(test.name)">
 						<input type="checkbox" ng-model="test.chose" ng-true-value="true" ng-false-value="false">
-						{{ test.name | limitTo: 35 }}{{test.name.length > 35 ? '...' : ''}}
+						{{ test.name | limitTo: 33 }}{{test.name.length > 33 ? '...' : ''}}
 						<img alt="Selected" ng-src="assets/images/circle-{{test.status}}.png" height="16px" ng-show="test.status != undefined && test.status != ''"/>
 					</li>
 				</ul>

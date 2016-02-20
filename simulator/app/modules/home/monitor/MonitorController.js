@@ -21,5 +21,14 @@ MonitorController = function($scope, ors, gateway, exchange) {
         $scope.exSession[ex] = session;
     }
 
+    $scope.setSession = function(ex, session) {
+        exchange.setSession(ex, session);
+        gateway.setSession(ex, session);
+        ors.setSession(ex, session);
+        $scope.exSession[ex] = session;
+        $scope.gwSession[ex] = session;
+        $scope.orsSession[ex] = session;
+    }
+
     $scope.init();
 } 
