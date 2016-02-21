@@ -49,18 +49,19 @@ Exchange.prototype = {
 		if (this.sessionManager.getExchangeSession()[ex] == Session.CLOSE) {
 			return {error: ErrorCode.EX_05};
 		}
-		if (ord.remain == 0) {
-			console.log("Can not replace, order is Filled");
-			return {error: "Can not replace, order is Filled"};
+		if (ord.queue != undefined && ord.queue == "gateway") {
+			if (ord.remain == 0) {
+				var rejectOrder = Utils.clone(ord);
+				rejectOrder.status = OrdStatus.REJECTED;
+				rejectOrder.text = "Can not replace, order is Filled";
+				this.orderStore.pushToMap(ord.originalID, rejectOrder);
+				return {exec: "R"};
+			}
+			ord.status = ord.currentStatus;
 		}
 		var replaceOrd = Utils.clone(ord);
 		replaceOrd.status = OrdStatus.REPLACED;
 		this.orderStore.pushToMap(ord.originalID, replaceOrd);
-
-		if (ord.queue != undefined && ord.queue == "gateway") {
-			ord.status = ord.currentStatus;
-		}
-
 		this.resort(ord);
 		this.priceBoard.remove(ord.symbol, ord.side, ord.price - ord.underlyingPrice, ord.qty - ord.underlyingQty);
 		this.priceBoard.add(ord.symbol, ord.side, ord.price, ord.qty);

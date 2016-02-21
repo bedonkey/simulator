@@ -1,3 +1,4 @@
+ClearExchange()
 SetExchangeSession(HNX, OPEN1)
 SetGatewaySession(HNX, OPEN1)
 SetORSSession(HNX, OPEN1)
@@ -9,7 +10,7 @@ Assert(status, New)
 count = CountOrderDetail(ord1.msg)
 Assert(count, 1)
 
-SetGatewaySession(HNX, NEW)
+SetGatewaySession(HNX, INTERMISSION)
 
 status = GetOrderStatus(ord1.msg)
 Assert(status, New)
@@ -30,5 +31,15 @@ count = CountOrderDetail(ord1.msg)
 Assert(count, 2)
 
 SetGatewaySession(HNX, OPEN)
+
+status = GetOrderStatus(ord3.msg)
+Assert(status, Filled)
+count = CountOrderDetail(ord3.msg)
+Assert(count, 2)
+
+event = GetOrderEvent(ord1.msg)
+Assert(event, New | Pending Replace | Filled | Rejected)
+count = CountOrderDetail(ord1.msg)
+Assert(count, 4)
 
 ResetAccounts()
