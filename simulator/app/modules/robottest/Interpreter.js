@@ -17,7 +17,7 @@ Interpreter.prototype = {
     	var tests = testcases.content.split(/\n/);
     	for (var i = 0; i < tests.length; i++) {
             var vab = '';
-            if (tests[i] == '' || tests[i].indexOf('#') == 0) {
+            if (tests[i].trim() == '' || tests[i].indexOf('#') == 0) {
                 continue;
             }
             testcases.index++;

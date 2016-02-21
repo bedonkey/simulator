@@ -91,7 +91,7 @@ ORS.prototype = {
         	return {status: false, msg: error};
 		}
 		if (error == undefined) {
-			var currentStatus = oldOrd.status;
+			oldOrd.currentStatus = oldOrd.status;
 			var pendingReplace = Utils.clone(oldOrd);
 			oldOrd.status = OrdStatus.PENDING_REPLACE;
 			pendingReplace.status = OrdStatus.PENDING_REPLACE;
@@ -112,7 +112,7 @@ ORS.prototype = {
     		oldOrd.priceMargin = this.afType.getPriceMargin(acc.afType, oldOrd.symbol);
 			var newOrder = Utils.clone(oldOrd);
 			if (this.sessionManager.getORSSession()[ex] == Session.NEW) {
-				oldOrd.status = currentStatus;
+				oldOrd.status = oldOrd.currentStatus;
 				oldOrd.underlyingPrice = 0;
 				oldOrd.underlyingQty = 0;
 				var replaceOrd = Utils.clone(oldOrd);
@@ -129,7 +129,7 @@ ORS.prototype = {
 				if (result.exec == 'A') {
 					oldOrd.status = OrdStatus.PENDING_NEW;
 				} if (result.exec == '0') {
-					oldOrd.status = currentStatus;
+					oldOrd.status = oldOrd.currentStatus;
 				}
 			}
 

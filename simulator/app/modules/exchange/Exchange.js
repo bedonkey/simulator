@@ -56,6 +56,11 @@ Exchange.prototype = {
 		var replaceOrd = Utils.clone(ord);
 		replaceOrd.status = OrdStatus.REPLACED;
 		this.orderStore.pushToMap(ord.originalID, replaceOrd);
+
+		if (ord.queue != undefined && ord.queue == "gateway") {
+			ord.status = ord.currentStatus;
+		}
+
 		this.resort(ord);
 		this.priceBoard.remove(ord.symbol, ord.side, ord.price - ord.underlyingPrice, ord.qty - ord.underlyingQty);
 		this.priceBoard.add(ord.symbol, ord.side, ord.price, ord.qty);

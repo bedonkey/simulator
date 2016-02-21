@@ -56,12 +56,17 @@ Gateway.prototype = {
 				return {};
 			}
 			if (action == "replace") {
-				ord.underlyingPrice = 0;
-				ord.underlyingQty = 0;
-				var replaceOrd = Utils.clone(ord);
-				replaceOrd.status = OrdStatus.REPLACED;
-				this.orderStore.pushToMap(ord.originalID, replaceOrd)
-				return {exec: 'A'};
+				if (this.orderStore.checkOrderInGWQueue(ord.orderID)) {
+					ord.underlyingPrice = 0;
+					ord.underlyingQty = 0;
+					var replaceOrd = Utils.clone(ord);
+					replaceOrd.status = OrdStatus.REPLACED;
+					this.orderStore.pushToMap(ord.originalID, replaceOrd)
+					return {exec: 'A'};
+				} else {
+					this.orderStore.putOrderToGWQueue({order:ord, action:action});
+					return {};
+				}
 			}
 		}
 
@@ -90,6 +95,7 @@ Gateway.prototype = {
 	fireOrder: function() {
 		orderQueue = this.orderStore.getAllOrderQueueOnGateway();
 		for (var i = 0; i < orderQueue.length; i++) {
+			orderQueue[i].order.queue = "gateway";
 			this.sendToExchange(orderQueue[i].order, orderQueue[i].action);
 		}
 		this.orderStore.clearGWQueue();
