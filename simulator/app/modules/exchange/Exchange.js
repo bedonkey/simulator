@@ -18,35 +18,40 @@ Exchange.prototype = {
 		var ex = "HNX";
 		var error = this.exchangeValidator.validateSecInfo(ord);
 		if (error != undefined) {
-			return error;
+			return {error: error};
 		}
 		if (this.sessionManager.getExchangeSession()[ex] == Session.CLOSE) {
-			return ErrorCode.EX_05;
+			return {error: ErrorCode.EX_05};
 		}
 		this.addOrderMatch(ord);
 		this.priceBoard.add(ord.symbol, ord.side, ord.price, ord.qty);
 		if (ord.status == "Pending New") {
 			ord.status = OrdStatus.NEW;
-        	if (!this.matching(ord)) {
+			var isMatched = this.matching(ord);
+        	if (!isMatched) {
         		this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
         	}
-			return;
+		} else {
+			var isMatched = this.matching(ord);
 		}
-		this.matching(ord);
+		if (isMatched) {
+			return {exec: "F"};
+		}
+		return {exec: "0"};
 	},
 
 	replace: function(ord) {
 		var ex = "HNX";
 		var error = this.exchangeValidator.validateSecInfo(ord);
 		if (error != undefined) {
-			return error;
+			return {error: error};
 		}
 		if (this.sessionManager.getExchangeSession()[ex] == Session.CLOSE) {
-			return ErrorCode.EX_05;
+			return {error: ErrorCode.EX_05};
 		}
 		if (ord.remain == 0) {
 			console.log("Can not replace, order is Filled");
-			return "Can not replace, order is Filled";
+			return {error: "Can not replace, order is Filled"};
 		}
 		var replaceOrd = Utils.clone(ord);
 		replaceOrd.status = OrdStatus.REPLACED;
@@ -56,13 +61,17 @@ Exchange.prototype = {
 		this.priceBoard.add(ord.symbol, ord.side, ord.price, ord.qty);
 		ord.underlyingPrice = 0;
 		ord.underlyingQty = 0;
-		this.matching(ord);
+		var isMatched = this.matching(ord);
+		if (isMatched) {
+			return {exec: "F"};
+		}
+		return {exec: "0"};
 	},
 
 	cancel: function(ord) {
 		var ex = "HNX";
 		if (this.sessionManager.getExchangeSession()[ex] == Session.CLOSE) {
-			return ErrorCode.EX_05;
+			return {error: ErrorCode.EX_05};
 		}
 		ord.status = OrdStatus.CANCELED;
 		ord.remain = 0;
@@ -71,6 +80,7 @@ Exchange.prototype = {
 		cancelOrder.orderID = IdGenerator.getId();
 		this.orderStore.pushToMap(ord.originalID, cancelOrder);
 		this.priceBoard.remove(ord.symbol, ord.side, ord.price, ord.qty);
+		return {exec: "0"};
 	},
 
 	resort: function(ord) {

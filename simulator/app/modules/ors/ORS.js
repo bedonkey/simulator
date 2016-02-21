@@ -10,7 +10,6 @@ ORS = function(orderValidator, afType, orderStore, account, gateway, sessionMana
 ORS.prototype = {
 	place: function(ord) {
 		var ex = "HNX";
-
 		ord.orderID = IdGenerator.getId();
         ord.originalID = ord.orderID;
         ord.time = DateTime.getCurentDateTime();
@@ -34,7 +33,7 @@ ORS.prototype = {
 	    	if (this.sessionManager.getORSSession()[ex] == Session.NEW) {
 				ord.status = OrdStatus.PENDING_NEW;
 			}
-			if (this.sessionManager.getORSSession()[ex].indexOf(Session.OPEN) > -1) {
+			if (this.sessionManager.getORSSession()[ex].indexOf(Session.OPEN) > -1 || this.sessionManager.getORSSession()[ex] == Session.INTERMISSION) {
 				var result = this.gateway.receive(ord, 'place');
 				if (result.error != undefined) {
 					ord.status = OrdStatus.REJECTED;
@@ -85,9 +84,6 @@ ORS.prototype = {
 		var ex = "HNX"
 		var result = {};
 		var oldOrd = this.orderStore.getNewOrder(ord.orderID);
-		var pendingReplace = Utils.clone(oldOrd);
-		pendingReplace.status = OrdStatus.PENDING_REPLACE;
-		this.orderStore.pushToMap(oldOrd.originalID, pendingReplace);
 		if (oldOrd != null) {
 			error = this.orderValidator.validateReplace(oldOrd, ord);
 		} else {
@@ -95,6 +91,11 @@ ORS.prototype = {
         	return {status: false, msg: error};
 		}
 		if (error == undefined) {
+			var currentStatus = oldOrd.status;
+			var pendingReplace = Utils.clone(oldOrd);
+			oldOrd.status = OrdStatus.PENDING_REPLACE;
+			pendingReplace.status = OrdStatus.PENDING_REPLACE;
+			this.orderStore.pushToMap(oldOrd.originalID, pendingReplace);
 			if(oldOrd.side == Side.BUY) {
 				this.account.unHold(oldOrd);
 			} else {
@@ -111,18 +112,24 @@ ORS.prototype = {
     		oldOrd.priceMargin = this.afType.getPriceMargin(acc.afType, oldOrd.symbol);
 			var newOrder = Utils.clone(oldOrd);
 			if (this.sessionManager.getORSSession()[ex] == Session.NEW) {
+				oldOrd.status = currentStatus;
 				oldOrd.underlyingPrice = 0;
 				oldOrd.underlyingQty = 0;
 				var replaceOrd = Utils.clone(oldOrd);
 				replaceOrd.status = OrdStatus.REPLACED;
 				this.orderStore.pushToMap(oldOrd.originalID, replaceOrd)
 			}
-			if (this.sessionManager.getORSSession()[ex].indexOf(Session.OPEN) > -1) {
+			if (this.sessionManager.getORSSession()[ex].indexOf(Session.OPEN) > -1 || this.sessionManager.getORSSession()[ex] == Session.INTERMISSION) {
 				var result = this.gateway.receive(oldOrd, 'replace');
 	        	if (result.error != undefined) {
 					newOrder.status = OrdStatus.REJECTED;
 					this.orderStore.pushToMap(ord.originalID, newOrder);
 	        		return {status: false, msg: result.error};
+				}
+				if (result.exec == 'A') {
+					oldOrd.status = OrdStatus.PENDING_NEW;
+				} if (result.exec == '0') {
+					oldOrd.status = currentStatus;
 				}
 			}
 
@@ -158,6 +165,7 @@ ORS.prototype = {
 		if (error == undefined) error = this.orderValidator.validateCancel();
 		if (error == undefined) {
 			var pendingCancel = Utils.clone(order);
+			order.status = OrdStatus.PENDING_CANCEL;
     		pendingCancel.status = OrdStatus.PENDING_CANCEL;
 			this.orderStore.pushToMap(order.originalID, pendingCancel);
 			if (this.sessionManager.getORSSession()[ex] == Session.NEW) {
@@ -168,7 +176,7 @@ ORS.prototype = {
 				cancelOrder.orderID = IdGenerator.getId();
 				this.orderStore.pushToMap(order.originalID, cancelOrder);
 			}
-			if (this.sessionManager.getORSSession()[ex].indexOf(Session.OPEN) > -1) {
+			if (this.sessionManager.getORSSession()[ex].indexOf(Session.OPEN) > -1 || this.sessionManager.getORSSession()[ex] == Session.INTERMISSION) {
 				var result = this.gateway.receive(order, 'cancel');
 	        	if (result.error != undefined) {
 					order.status = OrdStatus.REJECTED;

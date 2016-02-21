@@ -3,17 +3,23 @@
 }, {
   	"name": "Test Place Order"
 }, {
+    "name": "Test Place Order Intermission Session"
+}, {
   	"name": "Test Replace Order"
 }, {
     "name": "Test Replace ORS New Session"
 }, {
     "name": "Test Replace Gateway New Session"
 }, {
+    "name": "Test Replace Order Intermission Session"
+}, {
   	"name": "Test Cancel Order"
 }, {
     "name": "Test Cancel ORS New Session"
 }, {
     "name": "Test Cancel Gateway New Session"
+}, {
+    "name": "Test Cancel Order Intermission Session"
 }, {
     "name": "Test Match Order"
 }, {

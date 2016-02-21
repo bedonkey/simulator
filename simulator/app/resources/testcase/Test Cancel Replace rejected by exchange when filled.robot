@@ -9,7 +9,7 @@ Assert(status, New)
 count = CountOrderDetail(ord1.msg)
 Assert(count, 1)
 
-SetGatewaySession(NEW)
+SetGatewaySession(HNX, NEW)
 
 status = GetOrderStatus(ord1.msg)
 Assert(status, New)
@@ -29,6 +29,6 @@ Assert(event, New | Pending Replace)
 count = CountOrderDetail(ord1.msg)
 Assert(count, 2)
 
-SetGatewaySession(OPEN)
+SetGatewaySession(HNX, OPEN)
 
 ResetAccounts()

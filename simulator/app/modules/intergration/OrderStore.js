@@ -1,5 +1,5 @@
 OrderStore = function() {
-	this.orderQueue = [];
+	this.gwQueue = [];
 	this.orders = [];
 	this.matchOrdersSell = [];
 	this.matchOrdersBuy = [];
@@ -10,7 +10,7 @@ OrderStore.prototype = {
 
 	init: function() {
 		this.orders.length = 0;
-		this.orderQueue.length = 0;
+		this.gwQueue.length = 0;
 		this.matchOrdersSell.length = 0;
 		this.matchOrdersBuy.length = 0;
 	},
@@ -29,15 +29,24 @@ OrderStore.prototype = {
 	},
 
 	getAllOrderQueueOnGateway: function() {
-		return this.orderQueue;
+		return this.gwQueue;
 	},
 
-	putOrderToQueue: function(obj) {
-		this.orderQueue.push(obj);
+	putOrderToGWQueue: function(obj) {
+		this.gwQueue.push(obj);
 	},
 
-	clearQueue: function() {
-		this.orderQueue.length = 0;
+	checkOrderInGWQueue: function(ordID) {
+		for (var i = 0; i < this.gwQueue.length; i++) {
+            if (this.gwQueue[i].order.orderID == ordID) {
+                return true;
+            }
+        };
+		return false;
+	},
+
+	clearGWQueue: function() {
+		this.gwQueue.length = 0;
 	},
 
 	getAllOrderBuy: function() {

@@ -292,8 +292,8 @@ span.glyphicon:hover, .glyphicon:hover {
 	color: #C00000;
 }
 
-.btn.red_color:hover {
-	color: #C00000;
+.btn.red_button:hover {
+	color: white;
 }
 
 .search-box {
