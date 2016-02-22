@@ -12,7 +12,8 @@ Exchange = function(exchangeValidator, account, secinfo, orderStore, priceBoard,
 Exchange.prototype = {
 
 	init: function() {
-		this.orderStore.init();
+		this.matchOrdersSell.length = 0;
+		this.matchOrdersBuy.length = 0;
 	},
 
 	place: function(ord) {

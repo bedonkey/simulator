@@ -1,7 +1,10 @@
+ClearExchange()
+ResetAccounts()
+
 SetExchangeSession(HOSE, OPEN1) # Set session on Exchange is Open
 SetGatewaySession(HOSE, OPEN1) # Set session on Gateway is Open
 SetORSSession(HOSE, OPEN1) # Set sesison on ORS is Open
-ClearExchange() # Clear all order on Exchange
+
 result = Place(0001000001, SSI, Buy, 50000, 100) # Place order with account 1, Symbol AAA, Price 50000 and Quantity 100
 Assert(result.msg, Price must lower than ceil price) # This order should be reject because price is 50000 and ceil price is 16000
 
@@ -42,5 +45,3 @@ SetExchangeSession(HOSE, CLOSE)
 
 result = Place(0001000001, SSI, Buy, 20000, 100)
 Assert(result.msg, Exchange is close)
-
-ResetAccounts()

@@ -1,8 +1,11 @@
+ClearExchange()
+ResetAccounts()
+
 # Case: change aftype none margin; set autoAdv, place match, cancel remain, check PP0
 SetExchangeSession(HNX, OPEN1)
 SetGatewaySession(HNX, OPEN1)
 SetORSSession(HNX, OPEN1)
-ClearExchange()
+
 SetAfType(0001000001, 100)
 result = GetAfType(0001000001)
 Assert(result, 100)
@@ -24,5 +27,3 @@ Assert(result, 8420000)
 
 result = GetPP0(0001000002)
 Assert(result, 11580000)
-
-ResetAccounts()

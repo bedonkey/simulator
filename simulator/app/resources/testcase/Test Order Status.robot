@@ -1,7 +1,9 @@
+ClearExchange()
+ResetAccounts()
+
 SetExchangeSession(HNX, OPEN1) # Set session on Exchange is Open
 SetGatewaySession(HNX, OPEN1) # Set session on Gateway is Open
 SetORSSession(HNX, OPEN1) # Set sesison on ORS is Open
-ClearExchange() # Clear all order on Exchange
 
 ord1 = Place(0001000001, AAA, Buy, 15000, 100) # Place order with account 1, Symbol AAA, Price 2000 and Quantity 100
 Assert(ord1.status, true)
@@ -39,5 +41,3 @@ status = GetOrderStatus(ord4.msg)
 Assert(status, Done For Day)
 count = CountOrderDetail(ord4.msg)
 Assert(count, 2)
-
-ResetAccounts()

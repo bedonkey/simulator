@@ -1,7 +1,10 @@
+ClearExchange()
+ResetAccounts()
+
 SetExchangeSession(HNX, OPEN1)
 SetGatewaySession(HNX, OPEN1)
 SetORSSession(HNX, OPEN1)
-ClearExchange()
+
 ord1 = Place(0001000001, AAA, Buy, 15000, 100)
 Assert(ord1.status, true)
 
@@ -47,5 +50,3 @@ Assert(result.status, true)
 
 result = Place(0001000004, VND, Buy, 11500, 100)
 Assert(result.status, true)
-
-ResetAccounts()

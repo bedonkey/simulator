@@ -1,7 +1,10 @@
+ClearExchange()
+ResetAccounts()
+
 SetExchangeSession(HNX, OPEN1)
 SetGatewaySession(HNX, OPEN1)
 SetORSSession(HNX, OPEN1)
-ClearExchange()
+
 result = GetPP0(0001000001)
 Assert(result, 10000000)
 
@@ -56,5 +59,3 @@ Assert(result.status, true)
 
 cancelOrder = Cancel(ord1.msg)
 Assert(cancelOrder.status, true)
-
-ResetAccounts()

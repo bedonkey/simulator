@@ -1,4 +1,6 @@
-ClearExchange() # Clear all order on Exchange
+ClearExchange()
+ResetAccounts()
+
 SetExchangeSession(HNX, OPEN1)
 SetGatewaySession(HNX, NEW)
 SetORSSession(HNX, NEW)
@@ -72,5 +74,3 @@ count = CountOrderDetail(ord4.msg)
 Assert(count, 1)
 event = GetOrderEvent(ord4.msg)
 Assert(event, New)
-
-ResetAccounts()

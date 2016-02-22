@@ -7,6 +7,7 @@ Gateway = function(orderStore, exchange, sessionManager) {
 Gateway.prototype = {
 
 	init: function() {
+		this.orderStore.clearGWQueue();
 	},
 
 	receive: function(ex, ord, action) {

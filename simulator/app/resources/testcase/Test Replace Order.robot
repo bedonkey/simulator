@@ -1,3 +1,6 @@
+ClearExchange()
+ResetAccounts()
+
 SetExchangeSession(HNX, OPEN1)
 SetGatewaySession(HNX, OPEN1)
 SetORSSession(HNX, OPEN1)
@@ -46,5 +49,3 @@ Assert(result.msg, Don't enough trade)
 
 result = Cancel(ord2.msg)
 Assert(result.status, true)
-
-ResetAccounts()

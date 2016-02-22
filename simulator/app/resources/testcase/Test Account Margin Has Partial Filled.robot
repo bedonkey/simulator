@@ -1,8 +1,11 @@
+ClearExchange()
+ResetAccounts()
+
 # Case 0: change aftype, place, match partial filled, cancel
 SetExchangeSession(HNX, OPEN1)
 SetGatewaySession(HNX, OPEN1)
 SetORSSession(HNX, OPEN1)
-ClearExchange()
+
 SetAfType(0001000001, 1000)
 
 result = GetAfType(0001000001)
@@ -109,5 +112,3 @@ Assert(result, 22550000)
 
 result = GetQmax(0001000001, AAA, 15000)
 Assert(result, 2505)
-
-ResetAccounts()

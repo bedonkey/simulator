@@ -1,9 +1,10 @@
+ClearExchange()
+ResetAccounts()
+
 # Case: check pp0, Qmax; change aftype 1000, check PP0, Qmax; change aftype 2000; check PP0, Qmax
 SetExchangeSession(HNX, OPEN1)
 SetGatewaySession(HNX, OPEN1)
 SetORSSession(HNX, OPEN1)
-ClearExchange()
-ResetAccounts()
 
 result = GetPP0(0001000001)
 Assert(result, 10000000)
@@ -30,5 +31,3 @@ Assert(result, 57000000)
 
 result = GetQmax(0001000001, AAA, 15000)
 Assert(result, 7125)
-
-ResetAccounts()

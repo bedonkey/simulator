@@ -1,4 +1,6 @@
 ClearExchange()
+ResetAccounts()
+
 SetExchangeSession(HNX, OPEN1)
 SetGatewaySession(HNX, NEW)
 SetORSSession(HNX, NEW)
@@ -22,5 +24,3 @@ result = Cancel(ord2.msg)
 Assert(result.status, true)
 count = CountOrderDetail(ord0.msg)
 Assert(count, 7)
-
-ResetAccounts()

@@ -1,8 +1,11 @@
+ClearExchange()
+ResetAccounts()
+
 # Case: place match; set autoAdv; check PP0, Qmax; place; check Qmax; disable autoAdv; check PP0; cancel; check PP0
 SetExchangeSession(HNX, OPEN1)
 SetGatewaySession(HNX, OPEN1)
 SetORSSession(HNX, OPEN1)
-ClearExchange()
+
 result = GetPP0(0001000001)
 Assert(result, 10000000)
 
@@ -45,5 +48,3 @@ Assert(result.status, true)
 
 result = GetPP0(0001000001)
 Assert(result, 10000000)
-
-ResetAccounts()
