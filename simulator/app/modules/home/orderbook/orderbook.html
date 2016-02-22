@@ -71,7 +71,7 @@
 					<td ng-bind="order.remain"></td>
 					<td class="status" ng-bind="order.status"></td>
 					<td class="action">
-						<span class="glyphicon glyphicon-pencil" ng-click="openReplaceBox(order);$event.stopPropagation();"></span>
+						<span class="glyphicon glyphicon-pencil" ng-click="openReplaceBox(order);$event.stopPropagation();" ng-show="isHNXOrder(order.symbol)"></span>
 						<span class="glyphicon glyphicon-remove" ng-click="cancel(order);$event.stopPropagation();"></span>
 						<span class="glyphicon glyphicon-off" ng-click="unhold(order);$event.stopPropagation();"></span>
 					</td>

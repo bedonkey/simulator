@@ -395,7 +395,7 @@ td.time {
 }
 
 #orderBook .action {
-	text-align: center;
+	text-align: right;
 }
 
 #orderBook .status{

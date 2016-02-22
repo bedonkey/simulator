@@ -54,6 +54,10 @@ OrderBookController = function($scope, ors, orderStore, dockSerice) {
         }
         $scope.replaceBoxShow = false;
         $scope.mask = false;
+    },
+
+    $scope.isHNXOrder = function(sym) {
+        return ("HNX" == ors.getExchangeFromSymbol(sym));
     }
 
     $scope.init();

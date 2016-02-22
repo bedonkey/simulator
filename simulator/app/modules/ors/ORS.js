@@ -274,5 +274,9 @@ ORS.prototype = {
 
 	getSession: function(ex) {
 		return this.sessionManager.getORSSession(ex);
+	},
+	
+	getExchangeFromSymbol: function(sym) {
+		return this.secinfo.getExchange(sym);
 	}
 }	
