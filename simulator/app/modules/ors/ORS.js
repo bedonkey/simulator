@@ -1,15 +1,16 @@
-ORS = function(orderValidator, afType, orderStore, account, gateway, sessionManager) {
+ORS = function(orderValidator, afType, orderStore, account, secinfo, gateway, sessionManager) {
 	this.orderValidator = orderValidator;
 	this.orderStore = orderStore;
 	this.account = account;
 	this.gateway = gateway;
 	this.afType = afType;
+	this.secinfo = secinfo;
 	this.sessionManager = sessionManager;
 };
 
 ORS.prototype = {
 	place: function(ord) {
-		var ex = "HNX";
+		var ex = this.secinfo.getExchange(ord.symbol);
 		ord.orderID = IdGenerator.getId();
         ord.originalID = ord.orderID;
         ord.time = DateTime.getCurentDateTime();
@@ -34,7 +35,7 @@ ORS.prototype = {
 				ord.status = OrdStatus.PENDING_NEW;
 			}
 			if (this.sessionManager.getORSSession()[ex].indexOf(Session.OPEN) > -1 || this.sessionManager.getORSSession()[ex] == Session.INTERMISSION) {
-				var result = this.gateway.receive(ord, 'place');
+				var result = this.gateway.receive(ex, ord, 'place');
 				if (result.error != undefined) {
 					ord.status = OrdStatus.REJECTED;
 					ord.text = result.error;
@@ -71,17 +72,7 @@ ORS.prototype = {
         this.orderStore.pushToMap(ord.originalID, ord);
 	},
 
-	sendOrderToGateway: function(ord) {
-		var result = this.gateway.receive(ord, 'place');
-		if (result.error != undefined) {
-			ord.status = OrdStatus.REJECTED;
-			ord.text = result.error;
-			this.orderStore.pushToMap(ord.originalID, ord);
-		}
-	},
-
 	replace: function(ord) {
-		var ex = "HNX"
 		var result = {};
 		var oldOrd = this.orderStore.getNewOrder(ord.orderID);
 		if (oldOrd != null) {
@@ -90,6 +81,7 @@ ORS.prototype = {
 			error = ErrorCode.ORS_02;
         	return {status: false, msg: error};
 		}
+		var ex = this.secinfo.getExchange(oldOrd.symbol);
 		if (error == undefined) {
 			oldOrd.currentStatus = oldOrd.status;
 			var pendingReplace = Utils.clone(oldOrd);
@@ -120,7 +112,7 @@ ORS.prototype = {
 				this.orderStore.pushToMap(oldOrd.originalID, replaceOrd)
 			}
 			if (this.sessionManager.getORSSession()[ex].indexOf(Session.OPEN) > -1 || this.sessionManager.getORSSession()[ex] == Session.INTERMISSION) {
-				var result = this.gateway.receive(oldOrd, 'replace');
+				var result = this.gateway.receive(ex, oldOrd, 'replace');
 	        	if (result.error != undefined) {
 					newOrder.status = OrdStatus.REJECTED;
 					this.orderStore.pushToMap(ord.originalID, newOrder);
@@ -154,7 +146,6 @@ ORS.prototype = {
 	},
 
 	cancel: function(ord) {
-		var ex = "HNX"
 		var error = undefined;
 		var result = {};
 		var order = this.orderStore.getNewOrder(ord.orderID);
@@ -162,6 +153,7 @@ ORS.prototype = {
         	error = ErrorCode.ORS_02;
         	return {status: false, msg: error};
 		}
+		var ex = this.secinfo.getExchange(order.symbol);
 		if (error == undefined) error = this.orderValidator.validateCancel();
 		if (error == undefined) {
 			var pendingCancel = Utils.clone(order);
@@ -177,7 +169,7 @@ ORS.prototype = {
 				this.orderStore.pushToMap(order.originalID, cancelOrder);
 			}
 			if (this.sessionManager.getORSSession()[ex].indexOf(Session.OPEN) > -1 || this.sessionManager.getORSSession()[ex] == Session.INTERMISSION) {
-				var result = this.gateway.receive(order, 'cancel');
+				var result = this.gateway.receive(ex, order, 'cancel');
 	        	if (result.error != undefined) {
 					order.status = OrdStatus.REJECTED;
 					this.orderStore.pushToMap(ord.originalID, order);
@@ -263,10 +255,20 @@ ORS.prototype = {
 	},
 
 	fireOrder: function () {
+		var ex = "HNX";
 		console.log('ORS Fire, send all order in queue to Gateway');
 		var orders = this.orderStore.getPendingNewOrder();
 		for (var i = 0; i < orders.length; i++) {
-			this.sendOrderToGateway(orders[i]);
+			this.sendOrderToGateway(this.secinfo.getExchange(orders[i].symbol), orders[i]);
+		}
+	},
+
+	sendOrderToGateway: function(ex, ord) {
+		var result = this.gateway.receive(ex, ord, 'place');
+		if (result.error != undefined) {
+			ord.status = OrdStatus.REJECTED;
+			ord.text = result.error;
+			this.orderStore.pushToMap(ord.originalID, ord);
 		}
 	},
 

@@ -9,8 +9,7 @@ Gateway.prototype = {
 	init: function() {
 	},
 
-	receive: function(ord, action) {
-		var ex = "HNX";
+	receive: function(ex, ord, action) {
 		if (this.sessionManager.getGatewaySession()[ex] == Session.NEW) {
 			if (action == "place") {
 				this.orderStore.putOrderToGWQueue({order:ord, action:action});

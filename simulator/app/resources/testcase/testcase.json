@@ -5,6 +5,10 @@
 }, {
     "name": "Test Place Order Intermission Session"
 }, {
+    "name": "Test HOSE Place Order"
+}, {
+    "name": "Test HOSE Place Order Intermission Session"
+}, {
   	"name": "Test Replace Order"
 }, {
     "name": "Test Replace ORS New Session"
@@ -20,6 +24,14 @@
     "name": "Test Cancel Gateway New Session"
 }, {
     "name": "Test Cancel Order Intermission Session"
+}, {
+    "name": "Test HOSE Cancel Order"
+}, {
+    "name": "Test HOSE Cancel ORS New Session"
+}, {
+    "name": "Test HOSE Cancel Gateway New Session"
+}, {
+    "name": "Test HOSE Cancel Order Intermission Session"
 }, {
     "name": "Test Match Order"
 }, {

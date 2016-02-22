@@ -12,7 +12,7 @@ app.service('account', ['accountValidator', 'aftype', Account]);
 app.service('aftype', ['basket', AfType]);
 app.service('basket', Basket);
 app.service('orderValidator', ['account', 'secinfo', 'aftype', 'sessionManager', OrderValidator]);
-app.service('ors', ['orderValidator', 'aftype', 'orderStore', 'account', 'gateway', 'sessionManager', ORS]);
+app.service('ors', ['orderValidator', 'aftype', 'orderStore', 'account', 'secinfo', 'gateway', 'sessionManager', ORS]);
 app.service('secInfoValidator', SecInfoValidator);
 app.service('secinfo', ['secInfoValidator', SecInfo]);
 app.service('exSecinfo', ExSecInfo);
@@ -23,7 +23,7 @@ app.service('logScreen', LogScreen);
 app.service('interpreter', ['logScreen', 'account', 'ors', 'gateway',  'exchange', Interpreter]);
 app.service('exchangeValidator', ['exSecinfo', ExchangeValidator]);
 app.service('gateway', ['orderStore', 'exchange', 'sessionManager', Gateway]);
-app.service('exchange', ['exchangeValidator', 'account', 'orderStore', 'priceBoard', 'sessionManager', Exchange]);
+app.service('exchange', ['exchangeValidator', 'account', 'secinfo', 'orderStore', 'priceBoard', 'sessionManager', Exchange]);
 app.service('sessionManager', ['dockService', SessionManager]);
 
 app.controller("TabsCtrl", ['$scope', '$window', TabController]);

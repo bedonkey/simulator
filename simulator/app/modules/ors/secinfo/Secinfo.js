@@ -9,6 +9,14 @@ SecInfo.prototype = {
 		return this.secs;
 	},
 
+	getExchange: function(sym) {
+		for (var i = 0; i < this.secs.length; i++) {
+            if (this.secs[i].symbol == sym) {
+                return this.secs[i].exchange;
+            }
+        };
+	},
+
 	add: function(sec) {
 		var error = this.secInfoValidator.clientValidate(sec);
 		if (error != '' &&  this.checkExist(sec.symbol)) {

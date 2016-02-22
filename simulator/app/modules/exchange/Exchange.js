@@ -1,6 +1,7 @@
-Exchange = function(exchangeValidator, account, orderStore, priceBoard, sessionManager) {
+Exchange = function(exchangeValidator, account, secinfo, orderStore, priceBoard, sessionManager) {
 	this.exchangeValidator = exchangeValidator;
 	this.account = account;
+	this.secinfo = secinfo;
 	this.orderStore = orderStore;
 	this.priceBoard = priceBoard;
 	this.sessionManager = sessionManager;
@@ -15,7 +16,7 @@ Exchange.prototype = {
 	},
 
 	place: function(ord) {
-		var ex = "HNX";
+		var ex = this.secinfo.getExchange(ord.symbol);
 		var error = this.exchangeValidator.validateSecInfo(ord);
 		if (error != undefined) {
 			return {error: error};
@@ -41,7 +42,7 @@ Exchange.prototype = {
 	},
 
 	replace: function(ord) {
-		var ex = "HNX";
+		var ex = this.secinfo.getExchange(ord.symbol);
 		var error = this.exchangeValidator.validateSecInfo(ord);
 		if (error != undefined) {
 			return {error: error};
@@ -75,7 +76,7 @@ Exchange.prototype = {
 	},
 
 	cancel: function(ord) {
-		var ex = "HNX";
+		var ex = this.secinfo.getExchange(ord.symbol);
 		if (this.sessionManager.getExchangeSession()[ex] == Session.CLOSE) {
 			return {error: ErrorCode.EX_05};
 		}
