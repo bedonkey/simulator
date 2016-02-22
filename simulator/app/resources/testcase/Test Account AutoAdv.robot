@@ -3,26 +3,26 @@ SetExchangeSession(HNX, OPEN1)
 SetGatewaySession(HNX, OPEN1)
 SetORSSession(HNX, OPEN1)
 ClearExchange()
-SetAfType(1, 100)
-result = GetAfType(1)
+SetAfType(0001000001, 100)
+result = GetAfType(0001000001)
 Assert(result, 100)
 
-SetAutoAdv(2)
-result = GetAutoAdv(2)
+SetAutoAdv(0001000002)
+result = GetAutoAdv(0001000002)
 Assert(result, true)
 
-ord1 = Place(1, AAA, Buy, 2800, 150)
+ord1 = Place(0001000001, AAA, Buy, 15800, 150)
 Assert(ord1.status, true)
 
-Place(2, AAA, Sell, 2200, 100)
+Place(0001000002, AAA, Sell, 15200, 100)
 
 cancelOrder = Cancel(ord1.msg)
 Assert(cancelOrder.status, true)
 
-result = GetPP0(1)
-Assert(result, 9720000)
+result = GetPP0(0001000001)
+Assert(result, 8420000)
 
-result = GetPP0(2)
-Assert(result, 10280000 )
+result = GetPP0(0001000002)
+Assert(result, 11580000)
 
 ResetAccounts()

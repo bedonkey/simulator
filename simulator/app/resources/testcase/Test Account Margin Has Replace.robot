@@ -3,76 +3,76 @@ SetExchangeSession(HNX, OPEN1)
 SetGatewaySession(HNX, OPEN1)
 SetORSSession(HNX, OPEN1)
 ClearExchange()
-result = GetPP0(1)
+result = GetPP0(0001000001)
 Assert(result, 10000000)
 
-result = GetQmax(1, AAA, 2000)
-Assert(result, 5000)
+result = GetQmax(0001000001, AAA, 15000)
+Assert(result, 666)
 
-ord1 = Place(1, AAA, Buy, 2000, 100)
+ord1 = Place(0001000001, AAA, Buy, 15000, 100)
 Assert(ord1.status, true)
 
-ord2 = Replace(ord1.msg, 2500, 200)
+ord2 = Replace(ord1.msg, 15500, 200)
 Assert(ord2.status, true)
 
-SetAfType(1, 1000)
-result = GetAfType(1)
+SetAfType(0001000001, 1000)
+result = GetAfType(0001000001)
 Assert(result, 1000)
 
-result = GetPP0(1)
-Assert(result, 11000000)
+result = GetPP0(0001000001)
+Assert(result, 19900000)
 
-result = GetQmax(1, AAA, 2000)
-Assert(result, 7333)
+result = GetQmax(0001000001, AAA, 15000)
+Assert(result, 2211)
 
 result = Cancel(ord2.msg)
 Assert(result.status, true)
 
-result = GetPP0(1)
-Assert(result, 11500000)
+result = GetPP0(0001000001)
+Assert(result, 23000000)
 
-result = GetQmax(1, AAA, 2000)
-Assert(result, 7666)
+result = GetQmax(0001000001, AAA, 15000)
+Assert(result, 2555)
 
 ResetAccounts()
 
 # Case2: place, change aftype, replace, cancel
-result = GetPP0(1)
+result = GetPP0(0001000001)
 Assert(result, 10000000)
 
-result = GetQmax(1, AAA, 2000)
-Assert(result, 5000)
+result = GetQmax(0001000001, AAA, 15000)
+Assert(result, 666)
 
-ord1 = Place(1, AAA, Buy, 2000, 100)
+ord1 = Place(0001000001, AAA, Buy, 15000, 100)
 Assert(ord1.status, true)
 
-SetAfType(1, 1000)
+SetAfType(0001000001, 1000)
 
-result = GetAfType(1)
+result = GetAfType(0001000001)
 Assert(result, 1000)
 
-result = GetPP0(1)
-Assert(result, 11300000)
+result = GetPP0(0001000001)
+Assert(result, 21500000)
 
-result = GetQmax(1, AAA, 2000)
-Assert(result, 7533)
+result = GetQmax(0001000001, AAA, 15000)
+Assert(result, 2388)
 
-ord2 = Replace(ord1.msg, 2500, 200)
+ord2 = Replace(ord1.msg, 15500, 200)
 Assert(ord2.status, true)
 
-result = GetPP0(1)
-Assert(result, 11100000)
+result = GetPP0(0001000001)
+Assert(result, 21100000)
 
-result = GetQmax(1, AAA, 2000)
-Assert(result, 7400)
+result = GetQmax(0001000001, AAA, 15000)
+Assert(result, 2344)
 
 result = Cancel(ord2.msg)
 Assert(result.status, true)
 
-result = GetPP0(1)
-Assert(result, 11500000)
+result = GetPP0(0001000001)
+Assert(result, 23000000)
 
-result = GetQmax(1, AAA, 2000)
-Assert(result, 7666)
+result = GetQmax(0001000001, AAA, 15000)
+Assert(result, 2555)
 
 ResetAccounts()

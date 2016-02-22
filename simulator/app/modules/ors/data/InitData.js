@@ -1,7 +1,7 @@
 InitData = {
 	accounts: function() {
 		return [{
-		    id:1,
+		    id:"0001000001",
 		    balance: 10000000,
 		    hold: 0,
 		    t0: 0,
@@ -53,7 +53,7 @@ InitData = {
 
 		},
 		{
-		    id:2,
+		    id:"0001000002",
 		    balance: 10000000,
 		    hold: 0,
 		    t0: 0,
@@ -104,7 +104,7 @@ InitData = {
 		    autoAdv: true
 		},
 		{
-		    id:3,
+		    id:"0001000003",
 		    balance: 10000000,
 		    hold: 0,
 		    t0: 0,
@@ -194,7 +194,7 @@ InitData = {
 		    autoAdv: false
 		},
 		{
-		    id:4,
+		    id:"0001000004",
 		    balance: 10000000,
 		    hold: 0,
 		    t0: 0,
@@ -244,7 +244,7 @@ InitData = {
 		    autoAdv: false
 		},
 		{
-		    id:5,
+		    id:"0001000005",
 		    balance: 10000000,
 		    hold: 0,
 		    t0: 0,

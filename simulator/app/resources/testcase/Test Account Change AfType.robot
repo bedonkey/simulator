@@ -5,30 +5,30 @@ SetORSSession(HNX, OPEN1)
 ClearExchange()
 ResetAccounts()
 
-result = GetPP0(1)
+result = GetPP0(0001000001)
 Assert(result, 10000000)
 
-result = GetQmax(1, AAA, 2000)
-Assert(result, 5000)
+result = GetQmax(0001000001, AAA, 15000)
+Assert(result, 666)
 
-SetAfType(1, 1000)
-result = GetAfType(1)
+SetAfType(0001000001, 1000)
+result = GetAfType(0001000001)
 Assert(result, 1000)
 
-result = GetPP0(1)
-Assert(result, 11500000)
+result = GetPP0(0001000001)
+Assert(result, 23000000)
 
-result = GetQmax(1, AAA, 2000)
-Assert(result, 7666)
+result = GetQmax(0001000001, AAA, 15000)
+Assert(result, 2555)
 
-SetAfType(1, 2000)
-result = GetAfType(1)
+SetAfType(0001000001, 2000)
+result = GetAfType(0001000001)
 Assert(result, 2000)
 
-result = GetPP0(1)
-Assert(result, 13500000)
+result = GetPP0(0001000001)
+Assert(result, 57000000)
 
-result = GetQmax(1, AAA, 2000)
-Assert(result, 9000)
+result = GetQmax(0001000001, AAA, 15000)
+Assert(result, 7125)
 
 ResetAccounts()

@@ -3,7 +3,7 @@ SetGatewaySession(HNX, INTERMISSION) # Set session on Gateway is Intermission
 SetORSSession(HNX, INTERMISSION) # Set sesison on ORS is Intermission
 ClearExchange() # Clear all order on Exchange
 
-ord1 = Place(1, AAA, Buy, 2000, 100)
+ord1 = Place(0001000001, AAA, Buy, 15000, 100)
 Assert(ord1.status, true)
 status = GetOrderStatus(ord1.msg)
 Assert(status, Pending New)

@@ -17,10 +17,13 @@ Interpreter.prototype = {
     	var tests = testcases.content.split(/\n/);
     	for (var i = 0; i < tests.length; i++) {
             var vab = '';
-            if (tests[i].trim() == '' || tests[i].indexOf('#') == 0) {
+            if (tests[i].trim() == '') {
                 continue;
             }
             testcases.index++;
+            if (tests[i].indexOf('#') == 0) {
+                continue;
+            }
             var testData = tests[i].split('#')[0];
             if (testData.indexOf('=') > 0) {
                 var vab = testData.substring(0, testData.indexOf('=')).trim();

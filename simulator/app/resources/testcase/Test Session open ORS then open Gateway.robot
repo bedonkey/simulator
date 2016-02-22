@@ -3,13 +3,13 @@ SetExchangeSession(HNX, OPEN1)
 SetGatewaySession(HNX, NEW)
 SetORSSession(HNX, NEW)
 
-ord1 = Place(1, AAA, Buy, 2000, 100) # Place order with account 1, Symbol AAA, Price 2000 and Quantity 100
+ord1 = Place(0001000001, AAA, Buy, 15000, 100) # Place order with account 1, Symbol AAA, Price 2000 and Quantity 100
 Assert(ord1.status, true)
 
-ord2 = Place(1, AAA, Buy, 2000, 100) # Place order with account 1, Symbol AAA, Price 2000 and Quantity 100
+ord2 = Place(0001000001, AAA, Buy, 15000, 100) # Place order with account 1, Symbol AAA, Price 2000 and Quantity 100
 Assert(ord2.status, true)
 
-ord3 = Place(2, AAA, Sell, 2000, 100) # Place order with account 2, Symbol AAA, Price 2000 and Quantity 100
+ord3 = Place(0001000002, AAA, Sell, 15000, 100) # Place order with account 2, Symbol AAA, Price 2000 and Quantity 100
 Assert(ord3.status, true)
 
 status = GetOrderStatus(ord1.msg)
@@ -63,7 +63,7 @@ Assert(status, Filled)
 count = CountOrderDetail(ord3.msg)
 Assert(count, 2)
 
-ord4 = Place(1, AAA, Buy, 2000, 100) # Place order with account 1, Symbol AAA, Price 2000 and Quantity 100
+ord4 = Place(0001000001, AAA, Buy, 15000, 100) # Place order with account 1, Symbol AAA, Price 2000 and Quantity 100
 Assert(ord4.status, true)
 
 status = GetOrderStatus(ord4.msg)

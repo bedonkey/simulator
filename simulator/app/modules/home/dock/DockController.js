@@ -2,7 +2,7 @@ DockController = function($scope, ors, dockService) {
     $scope.init = function() {
         $scope.buttonColor = 'green_button';
         $scope.orderPlace = {
-            account : '1',
+            account : '0001000001',
             symbol : 'VND',
             sec: {},
             acc: {},
@@ -11,17 +11,16 @@ DockController = function($scope, ors, dockService) {
             qty: 100
         };
         $scope.dockInfo = dockService.initDock();
-        dockService.setCurrentAcc('1');
-        dockService.setCurrentSym('AAA');
+        dockService.setCurrentAcc('0001000001');
+        dockService.setCurrentSym('VND');
         dockService.setCurrentSide('Buy');
-        dockService.setCurrentPrice(2000);
+        dockService.setCurrentPrice(11000);
         $scope.command = {
             key : ''
         };
     }
 
     $scope.commandPress = function() {
-        console.log($scope.command.key);
         if ($scope.command.key != '' && $scope.command.key != undefined) {
             if ($scope.command.key == 'A') {
                 $scope.accountFocus = true;
