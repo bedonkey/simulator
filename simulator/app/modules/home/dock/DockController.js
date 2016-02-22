@@ -3,11 +3,11 @@ DockController = function($scope, ors, dockService) {
         $scope.buttonColor = 'green_button';
         $scope.orderPlace = {
             account : '1',
-            symbol : 'AAA',
+            symbol : 'VND',
             sec: {},
             acc: {},
             side: Side.BUY,
-            price: 2000,
+            price: 11000,
             qty: 100
         };
         $scope.dockInfo = dockService.initDock();
