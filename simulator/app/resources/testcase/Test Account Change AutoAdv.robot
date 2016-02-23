@@ -1,6 +1,6 @@
+UnholdAllOrders()
 ClearExchange()
 ResetAccounts()
-UnholdAllOrders()
 
 # Case: place match; set autoAdv; check PP0, Qmax; place; check Qmax; disable autoAdv; check PP0; cancel; check PP0
 SetExchangeSession(HNX, OPEN1)

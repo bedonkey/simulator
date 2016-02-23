@@ -1,3 +1,4 @@
+UnholdAllOrders()
 ClearExchange()
 ResetAccounts()
 

@@ -220,7 +220,7 @@ ORS.prototype = {
 	unholdAll: function() {
 		var allOrders = this.orderStore.getAll();
 		for (var i = 0; i < allOrders.length; i++) {
-			unhold(allOrders[i]);
+			this.unhold(allOrders[i]);
 		};
 	},
 

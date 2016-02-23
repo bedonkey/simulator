@@ -1,37 +1,50 @@
-RobotController = function($scope, $http, logScreen, interpeter) {
-	$scope.isSave = true;
-	$scope.isClickTest = false;
-	$scope.testTitle = "None Testcase selected";
-    $scope.testPass = '';
-    $scope.logData = logScreen.getLogData();
-    $scope.currentTest = {};
+robottestData = {};
 
+RobotController = function($scope, $http, logScreen, interpeter) {
+	
     $scope.init = function() {
-    	$http.get('app/resources/system-keyword.robot')
+        $scope.isSave = true;
+        $scope.logData = logScreen.getLogData();
+        $scope.currentTest = {};
+        $scope.testTitle = robottestData.testTitle;
+        $scope.testPass = robottestData.testPass;
+        $scope.currentTest = robottestData.currentTest;
+        
+        if (robottestData.lines != undefined) {
+            $scope.lines = robottestData.lines;
+            $("#testcase-editor .content").niceScroll({cursorborder:"", cursorcolor:"#ddd", boxzoom:false});
+        }
+
+        $http.get('app/resources/system-keyword.robot')
         .success(function(data, status, headers, config) {
             if (data && status === 200) {
                 $scope.keywords = data;
             }
         });
 
-        $http.get('app/resources/testcase/testcase.json')
-        .success(function(data, status, headers, config) {
-            if (data && status === 200) {
-                $scope.testcases = data;
-                $("#testcases .testcase").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
-            }
-        });
+        if (robottestData.testcases == undefined) {
+            $http.get('app/resources/testcase/testcase.json')
+            .success(function(data, status, headers, config) {
+                if (data && status === 200) {
+                    $scope.testcases = data;
+                    robottestData.testcases = data;
+                }
+            });
+        } else {
+            $scope.testcases = robottestData.testcases;
+        }
+        $("#testcases .testcase").niceScroll({cursorborder:"", cursorcolor:"#ddd", boxzoom:false});
     }
 
 	$scope.setSelected = function (selectedTest) {
-	   $scope.isClickTest = true;
-	   $scope.selectedTest = selectedTest;
 	   $scope.testTitle = selectedTest;
+       robottestData.testTitle = selectedTest;
 	   $http.get('app/resources/testcase/' + selectedTest + '.robot')
         .success(function(data, status, headers, config) {
             if (data && status === 200) {
                 $scope.lines = data.match(/[^\r\n]+/g);
-                $("#testcase-editor .content").niceScroll({cursorborder:"",cursorcolor:"#ddd",boxzoom:false});
+                robottestData.lines = $scope.lines;
+                $("#testcase-editor .content").niceScroll({cursorborder:"", cursorcolor:"#ddd", boxzoom:false});
             }
         });
 	};
@@ -53,14 +66,15 @@ RobotController = function($scope, $http, logScreen, interpeter) {
             $scope.testPass = 'false';
             test.status = 'red';
         } else if (result == true) {
-            if ($scope.testPass == '') {
+            if ($scope.testPass == undefined) {
                 $scope.testPass = 'true';
             }
             test.status = 'green';
         } else {
-            $scope.testPass = '';
+            $scope.testPass = undefined;
             test.status = '';
         }
+        robottestData.testPass = $scope.testPass;
     }
 
     $scope.test = function(test, doTest) {
@@ -89,13 +103,13 @@ RobotController = function($scope, $http, logScreen, interpeter) {
     }
 
     $scope.runThisTest = function() {
-        $scope.testPass = '';
+        $scope.testPass = undefined;
         for (var i = 0; i < $scope.testcases.length; i++) {
             $scope.testcases[i].status = '';
         }
         logScreen.init();
-        console.log($scope.selectedTest);
-        $scope.currentTest = {name: $scope.selectedTest, index: 0};
+        $scope.currentTest = {name: $scope.testTitle, index: 0};
+        robottestData.currentTest = $scope.currentTest;
         this.test($scope.currentTest, this.doTest);
     }
 
@@ -103,7 +117,7 @@ RobotController = function($scope, $http, logScreen, interpeter) {
         for (var i = 0; i < $scope.testcases.length; i++) {
             this.test($scope.testcases[i], this.doTest);
         };
-    },
+    }
 
     $scope.init();
 } 

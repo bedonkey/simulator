@@ -6,7 +6,7 @@
 		<div class="testcase">
 			<div class="box-content">
 				<ul>
-					<li ng-class="{selected: test.name === selectedTest}" ng-repeat="test in testcases" ng-click="setSelected(test.name)">
+					<li ng-class="{selected: test.name === testTitle}" ng-repeat="test in testcases" ng-click="setSelected(test.name)">
 						<input type="checkbox" ng-model="test.chose" ng-true-value="true" ng-false-value="false">
 						{{ test.name | limitTo: 33 }}{{test.name.length > 33 ? '...' : ''}}
 						<img alt="Selected" ng-src="assets/images/circle-{{test.status}}.png" height="16px" ng-show="test.status != undefined && test.status != ''"/>
@@ -19,10 +19,10 @@
 	<div id="testcase-editor" class="">
 		<div class="run">
 			<h4 ng-bind="testTitle"></h4>
-			<span class="glyphicon glyphicon-play" ng-show="isClickTest" ng-click="runThisTest()"></span>
+			<span class="glyphicon glyphicon-play" ng-show="testTitle" ng-click="runThisTest()"></span>
 			<img class="save" alt="Save" src="assets/images/save.png" height="25px" ng-click="save()" ng-show="!isSave"/>
 		</div>
-		<div class="status-bar" ng-class="{'':testPass=='', 'green':testPass=='true', 'red':testPass=='false'}"></div>
+		<div class="status-bar" ng-class="{'green':testPass=='true', 'red':testPass=='false'}"></div>
 		
 		<div class="content">
 		 	<ul>
