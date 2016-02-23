@@ -1,9 +1,11 @@
 Session = {
 	NEW: "NEW",
+	ATO: "ATO",
 	OPEN: "OPEN",
 	OPEN1: "OPEN1",
 	OPEN2: "OPEN2",
 	INTERMISSION: "INTERMISSION",
+	ATC: "ATC",
 	CLOSE:"CLOSE",
 	ex : {
 		HNX : "NEW",

@@ -280,8 +280,8 @@ Interpreter.prototype = {
 
     doClearExchange: function() {
         this.logScreen.append("Clear Exchange")
-        this.exchange.init();
         this.exchange.expiredOrders();
+        this.exchange.init();
         this.gateway.init();
     },
 

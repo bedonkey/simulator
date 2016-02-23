@@ -1041,7 +1041,7 @@ td.action {
 	margin: auto;
     text-align: center;
     height: 70px;
-    width: 1000px;
+    width: 1200px;
 }
 
 #monitor .btn-primary {
@@ -1066,12 +1066,12 @@ td.action {
 }
 
 #monitor .hnx {
-	width: 500px;
+	width: 600px;
 	float: left;
 }
 
 #monitor .hose {
-	width: 500px;
+	width: 600px;
 	float: right;
 }
 

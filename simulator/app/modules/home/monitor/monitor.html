@@ -8,6 +8,7 @@
 		  	<button type="button" class="btn btn-default" ng-class="{OPEN1:'btn-success'}[orsSession.HNX]" ng-click="setORSSession('HNX', 'OPEN1')">Open1</button>
 		  	<button type="button" class="btn btn-default" ng-class="{INTERMISSION:'btn-warning'}[orsSession.HNX]" ng-click="setORSSession('HNX', 'INTERMISSION')">Intermission</button>
 		  	<button type="button" class="btn btn-default" ng-class="{OPEN2:'btn-success'}[orsSession.HNX]" ng-click="setORSSession('HNX', 'OPEN2')">Open2</button>
+		  	<button type="button" class="btn btn-default" ng-class="{ATC:'btn-warning'}[orsSession.HNX]" ng-click="setORSSession('HNX', 'ATC')">ATC</button>
 		  	<button type="button" class="btn btn-default" ng-class="{CLOSE:'btn-danger'}[orsSession.HNX]" ng-click="setORSSession('HNX', 'CLOSE')">Close</button>
 		</div>
 		<div class="btn-group">
@@ -16,6 +17,7 @@
 		  	<button type="button" class="btn btn-default" ng-class="{OPEN1:'btn-success'}[gwSession.HNX]" ng-click="setGWSession('HNX', 'OPEN1')">Open1</button>
 		  	<button type="button" class="btn btn-default" ng-class="{INTERMISSION:'btn-warning'}[gwSession.HNX]" ng-click="setGWSession('HNX', 'INTERMISSION')">Intermission</button>
 		  	<button type="button" class="btn btn-default" ng-class="{OPEN2:'btn-success'}[gwSession.HNX]" ng-click="setGWSession('HNX', 'OPEN2')">Open2</button>
+		  	<button type="button" class="btn btn-default" ng-class="{ATC:'btn-warning'}[gwSession.HNX]" ng-click="setGWSession('HNX', 'ATC')">ATC</button>
 		  	<button type="button" class="btn btn-default" ng-class="{CLOSE:'btn-danger'}[gwSession.HNX]" ng-click="setGWSession('HNX', 'CLOSE')">Close</button>
 		</div>
 		<div class="btn-group">
@@ -24,6 +26,7 @@
 		  	<button type="button" class="btn btn-default" ng-class="{OPEN1:'btn-success'}[exSession.HNX]" ng-click="setEXSession('HNX', 'OPEN1')">Open1</button>
 		  	<button type="button" class="btn btn-default" ng-class="{INTERMISSION:'btn-warning'}[exSession.HNX]" ng-click="setEXSession('HNX', 'INTERMISSION')">Intermission</button>
 		  	<button type="button" class="btn btn-default" ng-class="{OPEN2:'btn-success'}[exSession.HNX]" ng-click="setEXSession('HNX', 'OPEN2')">Open2</button>
+		  	<button type="button" class="btn btn-default" ng-class="{ATC:'btn-warning'}[exSession.HNX]" ng-click="setEXSession('HNX', 'ATC')">ATC</button>
 		  	<button type="button" class="btn btn-default" ng-class="{CLOSE:'btn-danger'}[exSession.HNX]" ng-click="setEXSession('HNX', 'CLOSE')">Close</button>
 		</div>
 		<div class="btn-group">
@@ -32,6 +35,7 @@
 		  	<button type="button" class="btn btn-default" ng-class="{'true':'btn-success'}[orsSession.HNX == 'OPEN1' && gwSession.HNX == 'OPEN1' && exSession.HNX == 'OPEN1']" ng-click="setSession('HNX','OPEN1')">Open1</button>
 		  	<button type="button" class="btn btn-default" ng-class="{'true':'btn-warning'}[orsSession.HNX == 'INTERMISSION' && gwSession.HNX == 'INTERMISSION' && exSession.HNX == 'INTERMISSION']" ng-click="setSession('HNX','INTERMISSION')">Intermission</button>
 		  	<button type="button" class="btn btn-default" ng-class="{'true':'btn-success'}[orsSession.HNX == 'OPEN2' && gwSession.HNX == 'OPEN2' && exSession.HNX == 'OPEN2']" ng-click="setSession('HNX','OPEN2')">Open2</button>
+		  	<button type="button" class="btn btn-default" ng-class="{'true':'btn-warning'}[orsSession.HNX == 'ATC' && gwSession.HNX == 'ATC' && exSession.HNX == 'ATC']" ng-click="setSession('HNX', 'ATC')">ATC</button>
 		  	<button type="button" class="btn btn-default" ng-class="{'true':'btn-danger'}[orsSession.HNX == 'CLOSE' && gwSession.HNX == 'CLOSE' && exSession.HNX == 'CLOSE']" ng-click="setSession('HNX','CLOSE')">Close</button>
 		</div>
 	</div>
@@ -40,33 +44,41 @@
 		<div class="btn-group">
 		  	<button type="button" class="btn btn-primary" style="width: 100px">ORS</button>
 		  	<button type="button" class="btn btn-default" ng-class="{NEW:'btn-warning'}[orsSession.HOSE]" ng-click="setORSSession('HOSE', 'NEW')">New</button>
+		  	<button type="button" class="btn btn-default" ng-class="{ATO:'btn-warning'}[orsSession.HOSE]" ng-click="setORSSession('HOSE', 'ATO')">ATO</button>
 		  	<button type="button" class="btn btn-default" ng-class="{OPEN1:'btn-success'}[orsSession.HOSE]" ng-click="setORSSession('HOSE', 'OPEN1')">Open1</button>
 		  	<button type="button" class="btn btn-default" ng-class="{INTERMISSION:'btn-warning'}[orsSession.HOSE]" ng-click="setORSSession('HOSE', 'INTERMISSION')">Intermission</button>
 		  	<button type="button" class="btn btn-default" ng-class="{OPEN2:'btn-success'}[orsSession.HOSE]" ng-click="setORSSession('HOSE', 'OPEN2')">Open2</button>
+		  	<button type="button" class="btn btn-default" ng-class="{ATC:'btn-warning'}[orsSession.HOSE]" ng-click="setORSSession('HOSE', 'ATC')">ATC</button>
 		  	<button type="button" class="btn btn-default" ng-class="{CLOSE:'btn-danger'}[orsSession.HOSE]" ng-click="setORSSession('HOSE', 'CLOSE')">Close</button>
 		</div>
 		<div class="btn-group">
 		  	<button type="button" class="btn btn-primary" style="width: 100px">Gateway</button>
 		  	<button type="button" class="btn btn-default" ng-class="{NEW:'btn-warning'}[gwSession.HOSE]" ng-click="setGWSession('HOSE', 'NEW')">New</button>
+		  	<button type="button" class="btn btn-default" ng-class="{ATO:'btn-warning'}[gwSession.HOSE]" ng-click="setGWSession('HOSE', 'ATO')">ATO</button>
 		  	<button type="button" class="btn btn-default" ng-class="{OPEN1:'btn-success'}[gwSession.HOSE]" ng-click="setGWSession('HOSE', 'OPEN1')">Open1</button>
 		  	<button type="button" class="btn btn-default" ng-class="{INTERMISSION:'btn-warning'}[gwSession.HOSE]" ng-click="setGWSession('HOSE', 'INTERMISSION')">Intermission</button>
 		  	<button type="button" class="btn btn-default" ng-class="{OPEN2:'btn-success'}[gwSession.HOSE]" ng-click="setGWSession('HOSE', 'OPEN2')">Open2</button>
+		  	<button type="button" class="btn btn-default" ng-class="{ATC:'btn-warning'}[gwSession.HOSE]" ng-click="setGWSession('HOSE', 'ATC')">ATC</button>
 		  	<button type="button" class="btn btn-default" ng-class="{CLOSE:'btn-danger'}[gwSession.HOSE]" ng-click="setGWSession('HOSE', 'CLOSE')">Close</button>
 		</div>
 		<div class="btn-group">
 		  	<button type="button" class="btn btn-primary" style="width: 100px">Exchange</button>
 		  	<button type="button" class="btn btn-default" ng-class="{NEW:'btn-warning'}[exSession.HOSE]" ng-click="setEXSession('HOSE', 'NEW')">New</button>
+		  	<button type="button" class="btn btn-default" ng-class="{ATO:'btn-warning'}[exSession.HOSE]" ng-click="setEXSession('HOSE', 'ATO')">ATO</button>
 		  	<button type="button" class="btn btn-default" ng-class="{OPEN1:'btn-success'}[exSession.HOSE]" ng-click="setEXSession('HOSE', 'OPEN1')">Open1</button>
 		  	<button type="button" class="btn btn-default" ng-class="{INTERMISSION:'btn-warning'}[exSession.HOSE]" ng-click="setEXSession('HOSE', 'INTERMISSION')">Intermission</button>
 		  	<button type="button" class="btn btn-default" ng-class="{OPEN2:'btn-success'}[exSession.HOSE]" ng-click="setEXSession('HOSE', 'OPEN2')">Open2</button>
+		  	<button type="button" class="btn btn-default" ng-class="{ATC:'btn-warning'}[exSession.HOSE]" ng-click="setEXSession('HOSE', 'ATC')">ATC</button>
 		  	<button type="button" class="btn btn-default" ng-class="{CLOSE:'btn-danger'}[exSession.HOSE]" ng-click="setEXSession('HOSE', 'CLOSE')">Close</button>
 		</div>
 		<div class="btn-group">
 		  	<button type="button" class="btn btn-primary" style="width: 100px">All</button>
 		  	<button type="button" class="btn btn-default" ng-class="{'true':'btn-warning'}[orsSession.HOSE == 'NEW' && gwSession.HOSE == 'NEW' && exSession.HOSE == 'NEW']" ng-click="setSession('HOSE','NEW')">New</button>
+		  	<button type="button" class="btn btn-default" ng-class="{'true':'btn-warning'}[orsSession.HOSE == 'ATO' && gwSession.HOSE == 'ATO' && exSession.HOSE == 'ATO']" ng-click="setSession('HOSE','ATO')">ATO</button>
 		  	<button type="button" class="btn btn-default" ng-class="{'true':'btn-success'}[orsSession.HOSE == 'OPEN1' && gwSession.HOSE == 'OPEN1' && exSession.HOSE == 'OPEN1']" ng-click="setSession('HOSE','OPEN1')">Open1</button>
 		  	<button type="button" class="btn btn-default" ng-class="{'true':'btn-warning'}[orsSession.HOSE == 'INTERMISSION' && gwSession.HOSE == 'INTERMISSION' && exSession.HOSE == 'INTERMISSION']" ng-click="setSession('HOSE','INTERMISSION')">Intermission</button>
 		  	<button type="button" class="btn btn-default" ng-class="{'true':'btn-success'}[orsSession.HOSE == 'OPEN2' && gwSession.HOSE == 'OPEN2' && exSession.HOSE == 'OPEN2']" ng-click="setSession('HOSE','OPEN2')">Open2</button>
+		  	<button type="button" class="btn btn-default" ng-class="{'true':'btn-warning'}[orsSession.HOSE == 'ATC' && gwSession.HOSE == 'ATC' && exSession.HOSE == 'ATC']" ng-click="setSession('HOSE','ATC')">ATC</button>
 		  	<button type="button" class="btn btn-default" ng-class="{'true':'btn-danger'}[orsSession.HOSE == 'CLOSE' && gwSession.HOSE == 'CLOSE' && exSession.HOSE == 'CLOSE']" ng-click="setSession('HOSE','CLOSE')">Close</button>
 		</div>
 	</div>
