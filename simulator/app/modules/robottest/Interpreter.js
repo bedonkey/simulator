@@ -145,6 +145,10 @@ Interpreter.prototype = {
             if (func == 'ClearExchange') {
                 this.doClearExchange();
             }
+            
+            if (func == 'UnholdAllOrders') {
+                this.doUnholdAllOrders();
+            }
     	};
     	return result;
     },
@@ -283,6 +287,11 @@ Interpreter.prototype = {
         this.exchange.expiredOrders();
         this.exchange.init();
         this.gateway.init();
+    },
+
+    doUnholdAllOrders: function() {
+        this.logScreen.append("Unhold All Orders")
+        this.ors.unholdAll();
     },
 
     getValuePara: function(para) {

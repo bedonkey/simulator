@@ -54,14 +54,17 @@
   "function": "ResetAccounts()"
 }, {
   "return": "",
-  "function": "SetORSSesion(session)"
+  "function": "SetORSSesion(ex, session)"
 }, {
   "return": "",
-  "function": "SetGatewaySession(session)"
+  "function": "SetGatewaySession(ex, session)"
 }, {
   "return": "",
-  "function": "SetExchangeSession(session)"
+  "function": "SetExchangeSession(ex, session)"
 }, {
   "return": "",
   "function": "ClearExchange()"
+}, {
+  "return" : "",
+  "function": "UnholdAllOrders()"
 }]
