@@ -6,14 +6,22 @@ PriceBoardController = function($scope, priceBoard) {
         setTimeout(function(){ $scope.dataLoaded = true }, 500);
     }
 
-    $scope.updateColor = function(price, ref) {
+    $scope.updateColor = function(price, row) {
         if(price != undefined) {
-            if(price < ref) {
+            if (price == row.floor) {
+                return 'floor';
+            }
+            if(row.floor < price && price < row.ref) {
                 return 'red';
-            } else if(price > ref) {
-                return 'green';
-            } else {
+            }
+            if (price == row.ref) {
                 return 'yellow';
+            }
+            if(row.ref < price && price < row.ceil) {
+                return 'green';
+            }
+            if (price == row.ceil) {
+                return 'ceil';
             }
         }
     }

@@ -64,17 +64,22 @@ DockService.prototype = {
         dockInfo.trade = '';
         var acc = this.account.get(dockInfo.acc);
         if(acc.length != 0) {
-            var secs = acc[0].secs;
-            for (var i = 0; i < secs.length; i++) {
-                if(secs[i]['symbol'] == dockInfo.sym) {
-                    if (currentSide == Side.SELL) {
+            if (currentSide == Side.SELL) {
+                var secs = acc[0].secs;
+                for (var i = 0; i < secs.length; i++) {
+                    if(secs[i]['symbol'] == dockInfo.sym) {
                         var trade = parseInt(secs[i]['qty']) - parseInt(secs[i]['hold']);
                         dockInfo.trade = ' Trade: ' + trade;
-                    } else {
+                    }
+                }
+            }
+            if (currentSide == Side.BUY) {
+                var allSecs = this.secinfo.getAll();
+                for (var i = 0; i < allSecs.length; i++) {
+                    if(allSecs[i]['symbol'] == dockInfo.sym) {
                         if (currentPrice != '' && currentPrice != undefined) {
                             dockInfo.trade = ' Qmax: ' + this.account.getQmax(acc[0], dockInfo.sym, currentPrice);
                         }
-                        
                     }
                 }
             }

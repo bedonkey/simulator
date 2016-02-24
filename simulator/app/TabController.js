@@ -15,11 +15,10 @@ TabController = function($scope, $window) {
     tabUrl["robot-testcase"] = "app/modules/robottest/testcase.html";
     tabUrl["learn-testcase"] = "app/modules/learn/testcase.html";
 
-    $scope.isShowDock = false;
-    $scope.currentTab = tabUrl["learn-testcase"];
+    $scope.isShowDock = true;
+    $scope.currentTab = tabUrl["orderbook"];
 
     $scope.onClickTab = function (tab) {
-        $scope.isShowDock = false;
         var curTab;
         var homeTab = angular.element(tab + " li");
         angular.forEach(homeTab, function(e) {
@@ -32,6 +31,11 @@ TabController = function($scope, $window) {
             var firstTab = angular.element(tab + " li").first();
             curTab = tabUrl[firstTab.find('a').attr('href')];
             firstTab.addClass('active');
+        }
+        if (curTab.indexOf("orderbook") > -1) {
+            $scope.isShowDock = true;
+        } else {
+            $scope.isShowDock = false;
         }
         $scope.currentTab = curTab;
     }
@@ -46,7 +50,7 @@ TabController = function($scope, $window) {
     }
 
     $scope.onClickTabPriceBoard = function () {
-        $scope.isShowDock = true;
+        $scope.isShowDock = false;
         $scope.currentTab = tabUrl["priceboard"];
     }
 

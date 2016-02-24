@@ -36,20 +36,20 @@
 					<td class="ceil" ng-bind="row.ceil"></td>
 					<td class="floor" ng-bind="row.floor"></td>
 					<td ng-bind="row.total"></td>
-					<td data="{{row.buy[2].qty + row.buy[2].px}}" blink><span ng-class="updateColor(row.buy[2].px, row.ref)" ng-if="row.buy[2].px > 0 && row.buy[2].qty > 0" ng-bind="row.buy[2].px"></span></td>
-					<td data="{{row.buy[2].qty + row.buy[2].px}}" blink><span ng-class="updateColor(row.buy[2].px, row.ref)" ng-if="row.buy[2].px > 0 && row.buy[2].qty > 0" ng-bind="row.buy[2].qty"></span></td>
-					<td data="{{row.buy[1].qty + row.buy[1].px}}" blink><span ng-class="updateColor(row.buy[1].px, row.ref)" ng-if="row.buy[1].px > 0 && row.buy[1].qty > 0" ng-bind="row.buy[1].px"></span></td>
-					<td data="{{row.buy[1].qty + row.buy[1].px}}" blink><span ng-class="updateColor(row.buy[1].px, row.ref)" ng-if="row.buy[1].px > 0 && row.buy[1].qty > 0" ng-bind="row.buy[1].qty"></span></td>
-					<td data="{{row.buy[0].qty + row.buy[0].px}}" blink><span ng-class="updateColor(row.buy[0].px, row.ref)" ng-if="row.buy[0].px > 0 && row.buy[0].qty > 0" ng-bind="row.buy[0].px"></span></td>
-					<td data="{{row.buy[0].qty + row.buy[0].px}}" blink><span ng-class="updateColor(row.buy[0].px, row.ref)" ng-if="row.buy[0].px > 0 && row.buy[0].qty > 0" ng-bind="row.buy[0].qty"></span></td>
-					<td data="{{row.matchQty + row.matchPx}}" blink class="row-focus"><span ng-class="updateColor(row.matchPx, row.ref)" ng-if="row.matchPx > 0" ng-bind="row.matchPx"></span></td>
-					<td data="{{row.matchQty + row.matchPx}}" blink class="row-focus"><span ng-class="updateColor(row.matchPx, row.ref)" ng-if="row.matchQty > 0" ng-bind="row.matchQty"></span></td>
-					<td data="{{row.sell[0].qty + row.sell[0].px}}" blink><span ng-class="updateColor(row.sell[0].px, row.ref)" ng-if="row.sell[0].px > 0 && row.sell[0].qty > 0" ng-bind="row.sell[0].px"></span></td>
-					<td data="{{row.sell[0].qty + row.sell[0].px}}" blink><span ng-class="updateColor(row.sell[0].px, row.ref)" ng-if="row.sell[0].px > 0 && row.sell[0].qty > 0" ng-bind="row.sell[0].qty"></span></td>
-					<td data="{{row.sell[1].qty + row.sell[1].px}}" blink><span ng-class="updateColor(row.sell[1].px, row.ref)" ng-if="row.sell[1].px > 0 && row.sell[1].qty > 0" ng-bind="row.sell[1].px"></span></td>
-					<td data="{{row.sell[1].qty + row.sell[1].px}}" blink><span ng-class="updateColor(row.sell[1].px, row.ref)" ng-if="row.sell[1].px > 0 && row.sell[1].qty > 0" ng-bind="row.sell[1].qty"></span></td>
-					<td data="{{row.sell[2].qty + row.sell[2].px}}" blink><span ng-class="updateColor(row.sell[2].px, row.ref)" ng-if="row.sell[2].px > 0 && row.sell[2].qty > 0" ng-bind="row.sell[2].px"></span></td>
-					<td data="{{row.sell[2].qty + row.sell[2].px}}" blink><span ng-class="updateColor(row.sell[2].px, row.ref)" ng-if="row.sell[2].px > 0 && row.sell[2].qty > 0" ng-bind="row.sell[2].qty"></span></td>
+					<td data="{{row.buy[2].qty + row.buy[2].px}}" blink><span ng-class="updateColor(row.buy[2].px, row)" ng-if="row.buy[2].px > 0 && row.buy[2].qty > 0" ng-bind="row.buy[2].px"></span></td>
+					<td data="{{row.buy[2].qty + row.buy[2].px}}" blink><span ng-class="updateColor(row.buy[2].px, row)" ng-if="row.buy[2].px > 0 && row.buy[2].qty > 0" ng-bind="row.buy[2].qty"></span></td>
+					<td data="{{row.buy[1].qty + row.buy[1].px}}" blink><span ng-class="updateColor(row.buy[1].px, row)" ng-if="row.buy[1].px > 0 && row.buy[1].qty > 0" ng-bind="row.buy[1].px"></span></td>
+					<td data="{{row.buy[1].qty + row.buy[1].px}}" blink><span ng-class="updateColor(row.buy[1].px, row)" ng-if="row.buy[1].px > 0 && row.buy[1].qty > 0" ng-bind="row.buy[1].qty"></span></td>
+					<td data="{{row.buy[0].qty + row.buy[0].px}}" blink><span ng-class="updateColor(row.buy[0].px, row)" ng-if="row.buy[0].px > 0 && row.buy[0].qty > 0" ng-bind="row.buy[0].px"></span></td>
+					<td data="{{row.buy[0].qty + row.buy[0].px}}" blink><span ng-class="updateColor(row.buy[0].px, row)" ng-if="row.buy[0].px > 0 && row.buy[0].qty > 0" ng-bind="row.buy[0].qty"></span></td>
+					<td data="{{row.matchQty + row.matchPx}}" blink class="row-focus"><span ng-class="updateColor(row.matchPx, row)" ng-if="row.matchPx > 0" ng-bind="row.matchPx"></span></td>
+					<td data="{{row.matchQty + row.matchPx}}" blink class="row-focus"><span ng-class="updateColor(row.matchPx, row)" ng-if="row.matchQty > 0" ng-bind="row.matchQty"></span></td>
+					<td data="{{row.sell[0].qty + row.sell[0].px}}" blink><span ng-class="updateColor(row.sell[0].px, row)" ng-if="row.sell[0].px > 0 && row.sell[0].qty > 0" ng-bind="row.sell[0].px"></span></td>
+					<td data="{{row.sell[0].qty + row.sell[0].px}}" blink><span ng-class="updateColor(row.sell[0].px, row)" ng-if="row.sell[0].px > 0 && row.sell[0].qty > 0" ng-bind="row.sell[0].qty"></span></td>
+					<td data="{{row.sell[1].qty + row.sell[1].px}}" blink><span ng-class="updateColor(row.sell[1].px, row)" ng-if="row.sell[1].px > 0 && row.sell[1].qty > 0" ng-bind="row.sell[1].px"></span></td>
+					<td data="{{row.sell[1].qty + row.sell[1].px}}" blink><span ng-class="updateColor(row.sell[1].px, row)" ng-if="row.sell[1].px > 0 && row.sell[1].qty > 0" ng-bind="row.sell[1].qty"></span></td>
+					<td data="{{row.sell[2].qty + row.sell[2].px}}" blink><span ng-class="updateColor(row.sell[2].px, row)" ng-if="row.sell[2].px > 0 && row.sell[2].qty > 0" ng-bind="row.sell[2].px"></span></td>
+					<td data="{{row.sell[2].qty + row.sell[2].px}}" blink><span ng-class="updateColor(row.sell[2].px, row)" ng-if="row.sell[2].px > 0 && row.sell[2].qty > 0" ng-bind="row.sell[2].qty"></span></td>
 				</tr>
 			</tbody>
 		</table>
