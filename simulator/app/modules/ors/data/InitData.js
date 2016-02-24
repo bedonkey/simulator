@@ -7,6 +7,7 @@ InitData = {
 		    t0: 0,
 	        t1: 0,
 	        t2: 0,
+	        debt: 0,
 		    secs:[
 		    {
 		        symbol: "AAA",
@@ -59,6 +60,7 @@ InitData = {
 		    t0: 0,
 	        t1: 0,
 	        t2: 0,
+	        debt: 0,
 		    secs:[
 		   {
 		        symbol: "AAA",
@@ -110,6 +112,7 @@ InitData = {
 		    t0: 0,
 	        t1: 0,
 	        t2: 0,
+	        debt: 0,
 		    secs:[
 		    {
 		        symbol: "AAA",
@@ -200,6 +203,7 @@ InitData = {
 		    t0: 0,
 	        t1: 0,
 	        t2: 0,
+	        debt: 0,
 		   	secs:[
 		   	{
 		        symbol: "FPT",
@@ -250,6 +254,7 @@ InitData = {
 		    t0: 0,
 	        t1: 0,
 	        t2: 0,
+	        debt: 0,
 		    secs:[
 		   	{
 		        symbol: "FPT",

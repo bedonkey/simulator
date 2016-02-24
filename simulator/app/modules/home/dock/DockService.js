@@ -55,6 +55,7 @@ DockService.prototype = {
                 dockInfo.trade = '';
             } else {
                 this.updateTrade();
+                this.account.refresh(acc[0]);
                 dockInfo.pp0 = 'pp0: ' + acc[0].pp0;
             }
         }

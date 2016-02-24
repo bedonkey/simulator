@@ -69,7 +69,7 @@ Account.prototype = {
 	},
 
 	getQmax: function(acc, sym, price) {
-		if (acc.afType != '100') {
+		if (this.afType.checkExist(acc.afType) && acc.afType != '100') {
 			var priceMargin = this.afType.getPriceMargin(acc.afType, sym);
 			return Math.floor(parseInt(acc.pp0) / (parseInt(price) - priceMargin));
 		} else {
@@ -80,7 +80,7 @@ Account.prototype = {
 	hold: function(ord) {
 		var acc = this.get(ord.account)[0];
 		if (acc != undefined) {
-			if (acc.afType != '100') {
+			if (this.afType.checkExist(acc.afType) && acc.afType != '100') {
 				acc.hold += (parseInt(ord.price) - parseInt(ord.priceMargin)) * parseInt(ord.remain);
 			} else {
 				acc.hold += parseInt(ord.price) * parseInt(ord.remain);
@@ -92,7 +92,7 @@ Account.prototype = {
 	unHold: function(ord) {
 		var acc = this.get(ord.account)[0];
 		if (acc != undefined) {
-			if (acc.afType != '100') {
+			if (this.afType.checkExist(acc.afType) && acc.afType != '100') {
 				acc.hold -= (parseInt(ord.price) - parseInt(ord.priceMargin)) * parseInt(ord.remain);
 			} else {
 				acc.hold -= parseInt(ord.price) * parseInt(ord.remain);
@@ -183,18 +183,18 @@ Account.prototype = {
 	},
 
 	refresh: function(acc) {
-		if (acc.afType != '100') {
+		if (this.afType.checkExist(acc.afType) && acc.afType != '100') {
 			var asset = 0;
 			var secs = acc.secs;
 			for (var i = 0; i < secs.length; i++) {
 				var priceMargin = this.afType.getPriceMargin(acc.afType, secs[i].symbol);
 				asset += (secs[i].qty + secs[i].t0) * priceMargin;
 			}
-			acc.pp0 = acc.balance + acc.t0 + asset - acc.hold;
+			acc.pp0 = acc.balance + acc.t0 + asset - acc.hold - acc.debt;
 		} else if (acc.autoAdv == true){
-			acc.pp0 = acc.balance + acc.t0 - acc.hold;
+			acc.pp0 = acc.balance + acc.t0 - acc.hold - acc.debt;
 		} else {
-			acc.pp0 = acc.balance - acc.hold;
+			acc.pp0 = acc.balance - acc.hold - acc.debt;
 		}
 	}
 }	
