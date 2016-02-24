@@ -1,5 +1,5 @@
 learnData = {};
-LearnController = function($scope, $http) {
+LearnController = function($scope, $http, interprester) {
 	$scope.isSave = true;
 	$scope.isClickTest = false;
 	$scope.testTitle = learnData.testTitle == undefined ? "None Testcase selected" : learnData.testTitle;
@@ -50,6 +50,7 @@ LearnController = function($scope, $http) {
 
     $scope.nextStep = function () {
         if ($scope.curLine < $scope.lines.length) {
+            interprester.runLine($scope.lines[$scope.curLine].split('#')[0]);
             $scope.curLine++;
             $scope.explain = $scope.lines[$scope.curLine].split('#')[1];
             learnData.curLine = $scope.curLine;

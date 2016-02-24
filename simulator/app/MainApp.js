@@ -38,7 +38,7 @@ app.controller("OrderBookController", ['$scope', 'ors', 'orderStore', 'dockServi
 app.controller("PriceBoardController", ['$scope', 'priceBoard', PriceBoardController]);
 app.controller("DockController", ['$scope', 'ors', 'dockService', DockController]);
 app.controller("RobotController", ['$scope', '$http', 'logScreen', 'interpreter', RobotController]);
-app.controller("LearnController", ['$scope', '$http', LearnController]);
+app.controller("LearnController", ['$scope', '$http', 'interpreter', LearnController]);
 app.controller("MonitorController", ['$scope', 'ors', 'gateway', 'exchange', MonitorController]);
 
 app.directive("orderDetail", function(){return {templateUrl:'app/modules/home/orderbook/detail.html'};});
