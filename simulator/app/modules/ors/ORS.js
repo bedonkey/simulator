@@ -26,7 +26,7 @@ ORS.prototype = {
 			}
 		}
 		if (error == undefined) {
-			error = this.orderValidator.validatePlace(ord);
+			error = this.orderValidator.validatePlace(ex, ord);
 		}
 		if (error == undefined) {
 	    	var acc = this.account.getByID(ord.account);
@@ -76,12 +76,12 @@ ORS.prototype = {
 		var result = {};
 		var oldOrd = this.orderStore.getNewOrder(ord.orderID);
 		if (oldOrd != null) {
-			error = this.orderValidator.validateReplace(oldOrd, ord);
+			var ex = this.secinfo.getExchange(oldOrd.symbol);
+			error = this.orderValidator.validateReplace(ex, oldOrd, ord);
 		} else {
 			error = ErrorCode.ORS_02;
         	return {status: false, msg: error};
 		}
-		var ex = this.secinfo.getExchange(oldOrd.symbol);
 		if (error == undefined) {
 			oldOrd.currentStatus = oldOrd.status;
 			var pendingReplace = Utils.clone(oldOrd);
@@ -154,7 +154,7 @@ ORS.prototype = {
         	return {status: false, msg: error};
 		}
 		var ex = this.secinfo.getExchange(order.symbol);
-		if (error == undefined) error = this.orderValidator.validateCancel();
+		if (error == undefined) error = this.orderValidator.validateCancel(ex);
 		if (error == undefined) {
 			var pendingCancel = Utils.clone(order);
 			order.status = OrdStatus.PENDING_CANCEL;
@@ -194,11 +194,12 @@ ORS.prototype = {
 	},
 
 	unhold: function(ord) {
+		var ex = this.secinfo.getExchange(ord.symbol);
 		var error = undefined;
 		var result = {};
 		var order = this.orderStore.getNewOrder(ord.orderID);
 		if (order == null) error = ErrorCode.ORS_02;
-		if (error == undefined) error = this.orderValidator.validateUnhold();
+		if (error == undefined) error = this.orderValidator.validateUnhold(ex);
 		if (error == undefined) {
 			if(order.side == Side.BUY) {
 				this.account.unHold(order);

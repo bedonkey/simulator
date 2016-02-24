@@ -23,4 +23,5 @@ ErrorCode = {
 	ORS_16: "Symbol is halt",
 	ORS_17: "Price must larger than floor price",
 	ORS_18: "Price must lower than ceil price",
+	ORS_19: "Invalid price spread",
 }
