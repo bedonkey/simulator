@@ -25,6 +25,9 @@ Exchange.prototype = {
 		if (this.sessionManager.getExchangeSession()[ex] == Session.CLOSE) {
 			return {error: ErrorCode.EX_05};
 		}
+		if (this.sessionManager.getExchangeSession()[ex] == Session.NEW || this.sessionManager.getExchangeSession()[ex] == Session.INTERMISSION) {
+			return {error: ErrorCode.EX_06};
+		}
 		this.addOrderMatch(ord);
 		this.priceBoard.add(ord.symbol, ord.side, ord.price, ord.qty);
 		if (ord.status == "Pending New") {
@@ -50,6 +53,9 @@ Exchange.prototype = {
 		}
 		if (this.sessionManager.getExchangeSession()[ex] == Session.CLOSE) {
 			return {error: ErrorCode.EX_05};
+		}
+		if (this.sessionManager.getExchangeSession()[ex] == Session.NEW || this.sessionManager.getExchangeSession()[ex] == Session.INTERMISSION) {
+			return {error: ErrorCode.EX_06};
 		}
 		if (ord.queue != undefined && ord.queue == "gateway") {
 			if (ord.remain == 0) {
@@ -80,6 +86,9 @@ Exchange.prototype = {
 		var ex = this.secinfo.getExchange(ord.symbol);
 		if (this.sessionManager.getExchangeSession()[ex] == Session.CLOSE) {
 			return {error: ErrorCode.EX_05};
+		}
+		if (this.sessionManager.getExchangeSession()[ex] == Session.NEW || this.sessionManager.getExchangeSession()[ex] == Session.INTERMISSION) {
+			return {error: ErrorCode.EX_06};
 		}
 		ord.status = OrdStatus.CANCELED;
 		ord.remain = 0;

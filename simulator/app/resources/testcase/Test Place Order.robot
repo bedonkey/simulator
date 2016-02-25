@@ -2,9 +2,19 @@ UnholdAllOrders()
 ClearExchange()
 ResetAccounts()
 
-SetExchangeSession(HNX, OPEN1) # Set session on Exchange is Open
+SetExchangeSession(HNX, NEW) # Set session on Exchange is Open
 SetGatewaySession(HNX, OPEN1) # Set session on Gateway is Open
 SetORSSession(HNX, OPEN1) # Set sesison on ORS is Open
+
+result = Place(0001000001, AAA, Buy, 15000, 100)
+Assert(result.msg, Exchange is waiting order session)
+
+SetExchangeSession(HNX, INTERMISSION) # Set session on Exchange is Open
+
+result = Place(0001000001, AAA, Buy, 15000, 100)
+Assert(result.msg, Exchange is waiting order session)
+
+SetExchangeSession(HNX, OPEN1) # Set session on Exchange is Open
 
 result = Place(0001000001, AAA, Buy, 50000, 100) # Place order with account 1, Symbol AAA, Price 50000 and Quantity 100
 Assert(result.msg, Price must lower than ceil price) # This order should be reject because price is 50000 and ceil price is 16000

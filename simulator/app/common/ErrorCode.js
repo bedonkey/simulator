@@ -4,6 +4,7 @@ ErrorCode = {
 	EX_03: "Price must lower than ceil price",
 	EX_04: "Symbol is halt",
 	EX_05: "Exchange is close",
+	EX_06: "Exchange is waiting order session",
 
 	ORS_01: "ORS session is close",
 	ORS_02: "Order not found",
