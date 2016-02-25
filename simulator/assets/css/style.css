@@ -278,6 +278,14 @@ span.glyphicon:hover, .glyphicon:hover {
 	color: white;
 }
 
+.place_button {
+	background: #ccc;
+	border-radius: 5px;
+	color: black;
+	border-radius: 3px 3px 0 0 !important;
+	font-weight: bold;
+}
+
 .btn.grey_button:hover {
 	color: white;
 }
@@ -1220,4 +1228,60 @@ td.action {
 
 .session-edit select {
 	width: 120px !important;
+}
+
+#trade-menu {
+	background: #fff;
+    position: fixed;
+    right: 0;
+    top: 138px;
+    width: 350px;
+    padding: 20px 10px;
+    height: 100%;
+}
+
+#trade-menu .placeOrderForm{
+	border-radius: 4px;
+    float: left;
+    margin: 0 0 10px;
+    width: 100%;
+    background: #eee;
+    overflow: hidden;
+}
+
+#trade-menu .button-place {
+	padding: 10px;
+	text-align: center;
+}
+
+#trade-menu .order-buy-sell-switch {
+	padding: 10px;
+	text-align: center;
+}
+
+#trade-menu .order-buy-sell-switch span{
+	color: black;
+	font-weight: bold;
+	line-height: 15px;
+	padding: 5px;
+}
+
+#trade-menu .body {
+	padding: 10px;
+	height: 150px;
+	background: #ddd;
+}
+
+#trade-menu .form-field {
+	float: left;
+	width: 50%;
+	padding: 2px;
+}
+
+#trade-menu .form-field input{
+	width: 100%;
+}
+
+#trade-menu .form-field label{
+	font-weight: normal;
 }

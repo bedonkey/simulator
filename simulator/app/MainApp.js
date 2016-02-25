@@ -26,7 +26,7 @@ app.service('gateway', ['orderStore', 'exchange', 'sessionManager', Gateway]);
 app.service('exchange', ['exchangeValidator', 'account', 'secinfo', 'orderStore', 'priceBoard', 'sessionManager', Exchange]);
 app.service('sessionManager', ['dockService', SessionManager]);
 
-app.controller("TabsCtrl", ['$scope', '$window', TabController]);
+app.controller("TabsCtrl", ['$scope', TabController]);
 app.controller('GatewayController', ['$scope', 'orderStore', GatewayController]);
 app.controller('ExchangeController', ['$scope', 'orderStore', ExchangeController]);
 app.controller("SecInfoController", ['$scope', 'secinfo', SecInfoController]);
@@ -35,7 +35,7 @@ app.controller("AccountController", ['$scope', 'account', 'aftype', AccountContr
 app.controller("AfTypeController", ['$scope', 'aftype', 'basket', AfTypeController]);
 app.controller("BasketController", ['$scope', 'basket', BasketController]);
 app.controller("OrderBookController", ['$scope', 'ors', 'orderStore', 'dockService', OrderBookController]);
-app.controller("PriceBoardController", ['$scope', 'priceBoard', PriceBoardController]);
+app.controller("PriceBoardController", ['$scope', 'priceBoard', 'ors', 'dockService', PriceBoardController]);
 app.controller("DockController", ['$scope', 'ors', 'dockService', DockController]);
 app.controller("RobotController", ['$scope', '$http', 'logScreen', 'interpreter', RobotController]);
 app.controller("LearnController", ['$scope', '$http', 'interpreter', LearnController]);

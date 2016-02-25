@@ -1,4 +1,5 @@
 <div id="price-board" ng-controller="PriceBoardController">
+	<input class="btn place_button right" type="submit" value="Place Order" ng-click="openTradeMenu();"/>
 	<div class="col-sm-12">
 		<table class="table table-bordered">
 	        <thead>
@@ -53,5 +54,34 @@
 				</tr>
 			</tbody>
 		</table>
+	</div>
+	<div id="trade-menu" ng-show="placeBoxShow" ng-init="placeBoxShow = true">
+		<div class="placeOrderForm form-inline">
+			<div class="order-buy-sell-switch">
+				<a href="#" ng-click="sellClick()"><span class="glyphicon" ng-class="sellIcon">Sell</span></a>
+				<a href="#" ng-click="buyClick()"><span class="glyphicon" ng-class="buyIcon">Buy</span></a>
+			</div>
+			<div class="body" ng-class="formColor">
+				<div class="form-field">
+					<label>Account</label>
+					<input class="form-control" type="text" name="account" ng-model="orderPlace.account"/>
+				</div>
+				<div class="form-field">
+					<label>Symbol</label>
+					<input class="form-control" type="text" name="symbol" ng-model="orderPlace.symbol" uppercased/>
+				</div>
+				<div class="form-field">
+					<label>Quantity</label>
+					<input class="form-control" type="text" name="quantity" ng-model="orderPlace.qty"/>
+				</div>
+				<div class="form-field">
+					<label>Price</label>
+					<input class="form-control" type="text" name="price" ng-model="orderPlace.price"/>
+				</div>
+			</div>
+			<div class="button-place">
+				<input type="button" class="btn btn-md {{buttonColor}}" type="submit" value="Place Order" ng-click="place()"/>
+			</div>
+		</div>
 	</div>
 </div>
