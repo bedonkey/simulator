@@ -875,7 +875,7 @@ td.action {
 #price-board .place_button input{
 	margin-top: 16px;
 	border-radius: 3px 3px 0 0;
-	
+	background: #ccc;
 }
 
 #price-board .fix-header {

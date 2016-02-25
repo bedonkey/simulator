@@ -49,12 +49,14 @@ PriceBoardController = function($scope, priceBoard, ors, dockService) {
         $scope.sellIcon = 'glyphicon-ok-circle';
         $scope.buyIcon = 'glyphicon-unchecked';
         $scope.buttonColor = 'red_button';
+        $scope.orderPlace.side = Side.SELL;
     }
 
     $scope.buyClick = function() {
         $scope.sellIcon = 'glyphicon-unchecked';
         $scope.buyIcon = 'glyphicon-ok-circle';
         $scope.buttonColor = 'green_button';
+        $scope.orderPlace.side = Side.BUY;
     }
 
     $scope.place = function() {
