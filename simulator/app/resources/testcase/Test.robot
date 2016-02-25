@@ -1,9 +1,12 @@
-SetExchangeSession(HNX, INTERMISSION) # Set session on Exchange is Open
-SetGatewaySession(HNX, INTERMISSION) # Set session on Gateway is Open
-SetORSSession(HNX, INTERMISSION) # Set sesison on ORS is Open
+SetExchangeSession(HNX, OPEN1) # Set session on Exchange is Open
+SetGatewaySession(HNX, OPEN1) # Set session on Gateway is Open
+SetORSSession(HNX, OPEN1) # Set sesison on ORS is Open
 ClearExchange() # Clear all order on Exchange
 
-ord1 = Place(1, AAA, Buy, 2000, 100)
+ord1 = Place(0001000001, VND, Buy, 12000, 100)
 
-ord2 = Replace(ord1.msg, 2500, 200)
-ResetAccounts()
+ord2 = Place(0001000002, VND, Sell, 10000, 100)
+
+ord1 = Place(0001000001, VND, Sell, 10000, 100)
+
+ord2 = Place(0001000002, VND, Buy, 12000, 100)

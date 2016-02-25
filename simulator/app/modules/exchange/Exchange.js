@@ -133,7 +133,7 @@ Exchange.prototype = {
             }
             if (this.matchOrdersSell[i].remain > 0 && this.matchOrdersSell[i].symbol == ord.symbol && this.matchOrdersSell[i].account != ord.account) {
         		if (ord.price >= this.matchOrdersSell[i].price) {
-        			this.match(ord, this.matchOrdersSell[i], ord.price);
+        			this.match(ord, this.matchOrdersSell[i], this.matchOrdersSell[i].price);
         			return true;
         		}
             }
