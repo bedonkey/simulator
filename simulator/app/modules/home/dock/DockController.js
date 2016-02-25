@@ -7,6 +7,7 @@ DockController = function($scope, ors, dockService) {
             sec: {},
             acc: {},
             side: Side.BUY,
+            type: 'LO',
             price: 11000,
             qty: 100
         };

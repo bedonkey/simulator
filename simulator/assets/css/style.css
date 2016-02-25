@@ -27,6 +27,13 @@ span.glyphicon:hover, .glyphicon:hover {
 	opacity: 0.6;
 }
 
+.navbar {
+	left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
 .welcome {
 	font-size: 200px;
 	text-align: center;
@@ -234,6 +241,7 @@ span.glyphicon:hover, .glyphicon:hover {
 #main-content {
 	width: 100%;
 	margin: auto;
+	padding-top: 100px;
 }
 
 .right {
@@ -399,7 +407,7 @@ td.time {
 }
 
 #orderBook {
-	padding: 0;
+	padding: 0 0 50px;
 }
 
 #orderBook .action {
@@ -428,8 +436,10 @@ td.time {
 	bottom: 0;
 	right: 0;
 	height: 50px;
-	font-size: 18px;
+	font-size: 16px;
 	background: #222;
+	padding: 0;
+	width: 8%;
 }
 
 #placeOrderButton input.btn:hover {
@@ -849,8 +859,28 @@ td.action {
 }
 
 #price-board table td.row-focus {
-	width: 100px;
 	background:#2A2A2A;
+}
+
+#price-board .place_button {
+	background: #333 none repeat scroll 0 0;
+    height: 50px;
+    position: fixed;
+    right: 0;
+    top: 82px;
+    width: 100%;
+    z-index: 99999;
+}
+
+#price-board .place_button input{
+	margin-top: 16px;
+	border-radius: 3px 3px 0 0;
+	
+}
+
+#price-board .fix-header {
+	position: fixed;
+	top: 132px;
 }
 
 #testcases {
@@ -1027,6 +1057,7 @@ td.action {
 #testcase-editor .run {
 	padding-bottom: 5px;
 	overflow: hidden;
+	height: 30px;
 }
 
 #testcase-editor .run span{
@@ -1234,9 +1265,9 @@ td.action {
 	background: #fff;
     position: fixed;
     right: 0;
-    top: 138px;
+    top: 134px;
     width: 350px;
-    padding: 20px 10px;
+    padding-top: 20px;
     height: 100%;
 }
 
@@ -1250,7 +1281,7 @@ td.action {
 }
 
 #trade-menu .button-place {
-	padding: 10px;
+	padding: 20px 10px;
 	text-align: center;
 }
 
@@ -1264,24 +1295,25 @@ td.action {
 	font-weight: bold;
 	line-height: 15px;
 	padding: 5px;
+	font-size: 18px;
 }
 
 #trade-menu .body {
 	padding: 10px;
-	height: 150px;
+	height: 205px;
 	background: #ddd;
 }
 
 #trade-menu .form-field {
 	float: left;
 	width: 50%;
-	padding: 2px;
+	padding: 3px;
 }
 
-#trade-menu .form-field input{
+#trade-menu input, #trade-menu select{
 	width: 100%;
 }
 
-#trade-menu .form-field label{
+#trade-menu label{
 	font-weight: normal;
 }

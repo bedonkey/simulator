@@ -1,8 +1,82 @@
 <div id="price-board" ng-controller="PriceBoardController">
-	<input class="btn place_button right" type="submit" value="Place Order" ng-click="openTradeMenu();"/>
-	<div class="col-sm-12">
-		<table class="table table-bordered">
+	<div class="place_button">
+		<input class="btn right" type="submit" value="Place Order" ng-click="openTradeMenu();"/>
+	</div>
+	<div class="col-sm-12" style="padding-top: 30px;">
+		<table class="table table-bordered fix-header">
+			<colgroup>
+	            <col width="6%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="7%" />
+	            <col width="7%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	        </colgroup>
 	        <thead>
+				<tr>
+					<th rowspan="2" class="vertical">Sym</th>
+					<th rowspan="2" class="vertical">Ref</th>
+					<th rowspan="2" class="vertical">Ceil</th>
+					<th rowspan="2" class="vertical">Floor</th>
+					<th rowspan="2" class="vertical">Total</th>
+					<th colspan="6">Buy</th>
+					<th colspan="2">Match</th>
+					<th colspan="6">Sell</th>
+				</tr>
+				<tr>
+					<th>PX 3</th>
+					<th>Qty 3</th>
+					<th>PX 2</th>
+					<th>Qty 2</th>
+					<th>PX 1</th>
+					<th>Qty 1</th>
+					<th>Match PX</th>
+					<th>Match Qty</th>
+					<th>PX 1</th>
+					<th>Qty 1</th>
+					<th>PX 2</th>
+					<th>Qty 2</th>
+					<th>PX 3</th>
+					<th>Qty 3</th>
+				</tr>
+			</thead>
+		</table>
+		<table class="table table-bordered">
+			<colgroup>
+	            <col width="6%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="7%" />
+	            <col width="7%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	            <col width="5%" />
+	        </colgroup>
+			<thead>
 				<tr>
 					<th rowspan="2" class="vertical">Sym</th>
 					<th rowspan="2" class="vertical">Ref</th>
@@ -62,7 +136,7 @@
 				<a href="#" ng-click="buyClick()"><span class="glyphicon" ng-class="buyIcon">Buy</span></a>
 			</div>
 			<div class="body" ng-class="formColor">
-				<div class="form-field">
+				<div>
 					<label>Account</label>
 					<input class="form-control" type="text" name="account" ng-model="orderPlace.account"/>
 				</div>
@@ -75,12 +149,24 @@
 					<input class="form-control" type="text" name="quantity" ng-model="orderPlace.qty"/>
 				</div>
 				<div class="form-field">
+					<label>Quantity</label>
+					<select class="form-control" ng-model="orderPlace.type" ng-change="onTypeChange()">
+							<option value="LO">LO</option>
+							<option value="ATO">ATO</option>
+							<option value="ATC">ATC</option>
+							<option value="MOK">MOK</option>
+							<option value="MAK">MAK</option>
+							<option value="MTL">MTL</option>
+							<option value="MP">MP</option>
+					</select>
+				</div>
+				<div class="form-field">
 					<label>Price</label>
 					<input class="form-control" type="text" name="price" ng-model="orderPlace.price"/>
 				</div>
 			</div>
 			<div class="button-place">
-				<input type="button" class="btn btn-md {{buttonColor}}" type="submit" value="Place Order" ng-click="place()"/>
+				<input type="button" class="btn btn-lg {{buttonColor}}" type="submit" value="Place Order" ng-click="place()"/>
 			</div>
 		</div>
 	</div>

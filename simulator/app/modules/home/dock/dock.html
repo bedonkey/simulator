@@ -11,6 +11,16 @@
 					<option value="Sell">Sell</option>
 					<option value="Buy">Buy</option>
 			</select>
+			<span>Type</span>
+			<select class="form-control" ng-model="orderPlace.type" ng-change="onTypeChange()">
+					<option value="LO">LO</option>
+					<option value="ATO">ATO</option>
+					<option value="ATC">ATC</option>
+					<option value="MOK">MOK</option>
+					<option value="MAK">MAK</option>
+					<option value="MTL">MTL</option>
+					<option value="MP">MP</option>
+			</select>
 			<span>Quantity</span>
 			<input class="form-control" type="text" focus-me="{{quantityFocus}}" ng-enter="quantityInput()" name="quantity" ng-model="orderPlace.qty"/>
 			<span>Price</span>

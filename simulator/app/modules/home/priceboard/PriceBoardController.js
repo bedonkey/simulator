@@ -7,7 +7,9 @@ PriceBoardController = function($scope, priceBoard, ors, dockService) {
         account: '0001000001',
         symbol: 'VND',
         price: '11000',
-        qty: 100
+        qty: 100,
+        side: Side.BUY,
+        type: 'LO'
     }
 
     $scope.init = function() {
