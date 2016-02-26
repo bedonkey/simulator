@@ -13,13 +13,6 @@ LearnController = function($scope, $http, interprester) {
             $("#learn-box .content").niceScroll({cursorborder:"", cursorcolor:"#ddd", boxzoom:false});
         }
 
-    	$http.get('app/resources/system-keyword.robot')
-        .success(function(data, status, headers, config) {
-            if (data && status === 200) {
-                $scope.keywords = data;
-            }
-        });
-
         $http.get('app/resources/testcase/testcase.json')
         .success(function(data, status, headers, config) {
             if (data && status === 200) {

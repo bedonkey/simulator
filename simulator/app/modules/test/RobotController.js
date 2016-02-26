@@ -15,13 +15,6 @@ RobotController = function($scope, $http, logScreen, interpeter) {
             $("#testcase-editor .content").niceScroll({cursorborder:"", cursorcolor:"#ddd", boxzoom:false});
         }
 
-        $http.get('app/resources/system-keyword.robot')
-        .success(function(data, status, headers, config) {
-            if (data && status === 200) {
-                $scope.keywords = data;
-            }
-        });
-
         if (robottestData.testcases == undefined) {
             $http.get('app/resources/testcase/testcase.json')
             .success(function(data, status, headers, config) {

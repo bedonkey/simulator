@@ -11,9 +11,8 @@ TabController = function($scope) {
     tabUrl["ors-basket"] = "app/modules/ors/basket/basket.html";
     tabUrl["mo-config"] = "app/modules/mo/config.html";
     tabUrl["gw-orderqueue"] = "app/modules/gateway/orderqueue.html";
-    tabUrl["robot-keyword"] = "app/modules/robottest/keyword.html";
-    tabUrl["robot-testcase"] = "app/modules/robottest/testcase.html";
-    tabUrl["learn-testcase"] = "app/modules/learn/testcase.html";
+    tabUrl["test-robot"] = "app/modules/test/robot.html";
+    tabUrl["test-manual"] = "app/modules/test/manual.html";
 
     $scope.isShowDock = false;
     $scope.currentTab = tabUrl["priceboard"];
@@ -79,11 +78,11 @@ TabController = function($scope) {
         $scope.currentTab = tabUrl["ors-account"];
     }
 
-    $scope.onClickTabRobotKeywords = function () {
-        $scope.currentTab = tabUrl["robot-keyword"];
+    $scope.onClickTabTestRobot = function () {
+        $scope.currentTab = tabUrl["test-robot"];
     }
 
-    $scope.onClickTabRobotTestcases = function () {
-        $scope.currentTab = tabUrl["robot-testcase"];
+    $scope.onClickTabTestManual = function () {
+        $scope.currentTab = tabUrl["test-manual"];
     }
 } 
