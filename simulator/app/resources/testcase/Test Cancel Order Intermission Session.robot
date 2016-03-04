@@ -1,11 +1,9 @@
 ClearExchange()
 ResetAccounts()
 
-SetExchangeSession(HNX, OPEN1) # Set session on Exchange is Open
-SetGatewaySession(HNX, OPEN1) # Set session on Gateway is Open
-SetORSSession(HNX, OPEN1) # Set sesison on ORS is Open
+SetSession(HNX, OPEN1) # Set sesison on ORS, Gateway, Exchange is Open
 
-ord0 = Place(0001000001, AAA, Buy, 15000, 100)
+ord0 = Place(0001000001, AAA, Buy, LO, 15000, 100)
 Assert(ord0.status, true)
 
 status = GetOrderStatus(ord0.msg)
@@ -15,11 +13,9 @@ Assert(event, New)
 count = CountOrderDetail(ord0.msg)
 Assert(count, 1)
 
-SetExchangeSession(HNX, INTERMISSION) # Set session on Exchange is Open
-SetGatewaySession(HNX, INTERMISSION) # Set session on Gateway is Open
-SetORSSession(HNX, INTERMISSION) # Set sesison on ORS is Open
+SetSession(HNX, INTERMISSION) # Set sesison on ORS, Gateway, Exchange is Open
 
-ord1 = Place(0001000001, VND, Buy, 11000, 100)
+ord1 = Place(0001000001, VND, Buy, LO, 11000, 100)
 Assert(ord1.status, true)
 
 status = GetOrderStatus(ord1.msg)
@@ -49,9 +45,7 @@ Assert(event, New | Pending Cancel)
 count = CountOrderDetail(ord0.msg)
 Assert(count, 2)
 
-SetExchangeSession(HNX, OPEN2) # Set session on Exchange is Open
-SetGatewaySession(HNX, OPEN2) # Set session on Gateway is Open
-SetORSSession(HNX, OPEN2) # Set sesison on ORS is Open
+SetSession(HNX, OPEN2) # Set sesison on ORS, Gateway, Exchange is Open
 
 status = GetOrderStatus(ord0.msg)
 Assert(status, Canceled)

@@ -35,6 +35,7 @@ OrderValidator.prototype = {
             if (ord.qty > trade) return ErrorCode.ORS_15;
         }
         if (this.sessionManager.getORSSession()[ex] == Session.CLOSE) return ErrorCode.ORS_01;
+        if (ex == "HNX" && ord.type == "ATO") return ErrorCode.ORS_20;
 	},
 
     validateReplace: function(ex, oldOrd, ord) {

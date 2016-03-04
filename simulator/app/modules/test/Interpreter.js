@@ -135,6 +135,9 @@ Interpreter.prototype = {
             case 'ResetAccounts':
                 this.doResetAccounts();
                 break;
+            case 'SetSession':
+                this.doSetSession(para);
+                break;
             case 'SetExchangeSession':
                 this.doSetExchangeSession(para);
                 break;
@@ -182,8 +185,9 @@ Interpreter.prototype = {
         orderPlace.account = para[0].trim();
         orderPlace.symbol = para[1].trim();
         orderPlace.side = para[2].trim();
-        orderPlace.price = parseInt(para[3].trim());
-        orderPlace.qty = parseInt(para[4].trim());
+        orderPlace.type = para[3].trim();
+        orderPlace.price = parseInt(para[4].trim());
+        orderPlace.qty = parseInt(para[5].trim());
         this.logScreen.append("Place Order: " + JSON.stringify(orderPlace));
         return this.ors.place(orderPlace);
     },
@@ -270,6 +274,15 @@ Interpreter.prototype = {
     doSetGatewaySession: function(para) {
         this.logScreen.append("Set Gateway Sesison " + para[0] + " to " + para[1])
         this.gateway.setSession(para[0].trim(), para[1].trim());
+    },
+
+    doSetSession: function(para) {
+        this.logScreen.append("Set Exchange Session " + para[0] + " to " + para[1])
+        this.exchange.setSession(para[0].trim(), para[1].trim());
+        this.logScreen.append("Set Gateway Sesison " + para[0] + " to " + para[1])
+        this.gateway.setSession(para[0].trim(), para[1].trim());
+        this.logScreen.append("Set ORS session to " + para[0] + " to " + para[1])
+        this.ors.setSession(para[0].trim(), para[1].trim());
     },
 
     doSetExchangeSession: function(para) {

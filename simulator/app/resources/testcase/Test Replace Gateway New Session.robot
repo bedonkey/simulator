@@ -5,7 +5,7 @@ SetExchangeSession(HNX, OPEN1)
 SetGatewaySession(HNX, NEW)
 SetORSSession(HNX, OPEN1)
 
-ord0 = Place(0001000001, AAA, Buy, 15000, 100)
+ord0 = Place(0001000001, AAA, Buy, LO, 15000, 100)
 Assert(ord0.status, true)
 count = CountOrderDetail(ord0.msg)
 Assert(count, 1)

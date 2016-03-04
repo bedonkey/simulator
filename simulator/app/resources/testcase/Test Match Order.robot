@@ -1,14 +1,12 @@
 ClearExchange()
 ResetAccounts()
 
-SetExchangeSession(HNX, OPEN1)
-SetGatewaySession(HNX, OPEN1)
-SetORSSession(HNX, OPEN1)
+SetSession(HNX, OPEN1)
 
-ord1 = Place(0001000003, AAA, Buy, 15000, 100)
+ord1 = Place(0001000003, AAA, Buy, LO, 15000, 100)
 Assert(ord1.status, true)
 
-ord2 = Place(0001000001, AAA, Buy, 15800, 150)
+ord2 = Place(0001000001, AAA, Buy, LO, 15800, 150)
 Assert(ord2.status, true)
 
 status = GetOrderStatus(ord1.msg)
@@ -21,7 +19,7 @@ Assert(status, New)
 count = CountOrderDetail(ord2.msg)
 Assert(count, 1)
 
-ord3 = Place(0001000002, AAA, Sell, 15200, 100)
+ord3 = Place(0001000002, AAA, Sell, LO, 15200, 100)
 Assert(ord3.status, true)
 
 status = GetOrderStatus(ord2.msg)
@@ -36,7 +34,7 @@ Assert(count, 2)
 event = GetOrderEvent(ord3.msg)
 Assert(event, New | Filled)
 
-ord4 = Place(0001000002, AAA, Sell, 16000, 100)
+ord4 = Place(0001000002, AAA, Sell, LO, 16000, 100)
 Assert(ord4.status, true)
 
 status = GetOrderStatus(ord4.msg)
@@ -75,22 +73,22 @@ Assert(status, Partial Filled)
 count = CountOrderDetail(ord1.msg)
 Assert(count, 6)
 
-result = Place(0001000002, AAA, Sell, 15300, 100)
+result = Place(0001000002, AAA, Sell, LO, 15300, 100)
 Assert(result.status, true)
 
-result = Place(0001000002, AAA, Sell, 15200, 70)
+result = Place(0001000002, AAA, Sell, LO, 15200, 70)
 Assert(result.status, true)
 
-result = Place(0001000002, AAA, Sell, 15500, 100)
+result = Place(0001000002, AAA, Sell, LO, 15500, 100)
 Assert(result.status, true)
 
-result = Place(0001000002, AAA, Sell, 15200, 100)
+result = Place(0001000002, AAA, Sell, LO, 15200, 100)
 Assert(result.status, true)
 
-result = Place(0001000002, AAA, Sell, 15300, 100)
+result = Place(0001000002, AAA, Sell, LO, 15300, 100)
 Assert(result.status, true)
 
-ord8 = Place(0001000002, AAA, Sell, 15200, 100)
+ord8 = Place(0001000002, AAA, Sell, LO, 15200, 100)
 Assert(ord8.status, true)
 
 status = GetOrderStatus(ord7.msg)
@@ -103,7 +101,7 @@ Assert(status, Partial Filled)
 count = CountOrderDetail(ord8.msg)
 Assert(count, 2)
 
-ord9 = Place(0001000001, AAA, Buy, 15800, 20)
+ord9 = Place(0001000001, AAA, Buy, LO, 15800, 20)
 Assert(ord9.status, true)
 
 status = GetOrderStatus(ord8.msg)

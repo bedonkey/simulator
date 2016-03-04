@@ -1,11 +1,9 @@
 ClearExchange()
 ResetAccounts()
 
-SetExchangeSession(HNX, INTERMISSION) # Set session on Exchange is Intermission
-SetGatewaySession(HNX, INTERMISSION) # Set session on Gateway is Intermission
-SetORSSession(HNX, INTERMISSION) # Set sesison on ORS is Intermission
+SetSession(HNX, INTERMISSION) # Set sesison on ORS, GW, EX is Intermission
 
-ord1 = Place(0001000001, AAA, Buy, 15000, 100)
+ord1 = Place(0001000001, AAA, Buy, LO, 15000, 100)
 Assert(ord1.status, true)
 status = GetOrderStatus(ord1.msg)
 Assert(status, Pending New)
@@ -14,9 +12,7 @@ Assert(event, Pending New)
 count = CountOrderDetail(ord1.msg)
 Assert(count, 1)
 
-SetExchangeSession(HNX, OPEN2) # Set session on Exchange is Open
-SetGatewaySession(HNX, OPEN2) # Set session on Gateway is Open
-SetORSSession(HNX, OPEN2) # Set sesison on ORS is Open
+SetSession(HNX, OPEN2) # Set sesison on ORS, GW, EX is Open
 
 status = GetOrderStatus(ord1.msg)
 Assert(status, New)

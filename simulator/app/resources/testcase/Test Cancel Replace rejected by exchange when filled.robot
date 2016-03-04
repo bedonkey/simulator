@@ -1,11 +1,9 @@
 ClearExchange()
 ResetAccounts()
 
-SetExchangeSession(HNX, OPEN1)
-SetGatewaySession(HNX, OPEN1)
-SetORSSession(HNX, OPEN1)
+SetSession(HNX, OPEN1)
 
-ord1 = Place(0001000001, AAA, Buy, 15000, 100)
+ord1 = Place(0001000001, AAA, Buy, LO, 15000, 100)
 
 status = GetOrderStatus(ord1.msg)
 Assert(status, New)
@@ -19,7 +17,7 @@ Assert(status, New)
 count = CountOrderDetail(ord1.msg)
 Assert(count, 1)
 
-ord3 = Place(0001000002, AAA, Sell, 15000, 100)
+ord3 = Place(0001000002, AAA, Sell, LO, 15000, 100)
 ord2 = Replace(ord1.msg, 15000, 200)
 
 status = GetOrderStatus(ord3.msg)

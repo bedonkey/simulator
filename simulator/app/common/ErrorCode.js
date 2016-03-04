@@ -25,4 +25,5 @@ ErrorCode = {
 	ORS_17: "Price must larger than floor price",
 	ORS_18: "Price must lower than ceil price",
 	ORS_19: "Invalid price spread",
+	ORS_20: "HNX don't support ATO order",
 }
