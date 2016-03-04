@@ -9,29 +9,25 @@ Interpreter = function(logScreen, account, ors, gateway, exchange) {
 
 Interpreter.prototype = {
     runTest: function(testcases) {
-        var result = true;
         if (testcases == undefined) {
             return;
         }
-
     	var tests = testcases.content.split(/\n/);
     	for (var i = 0; i < tests.length; i++) {
+            if (tests[i].trim() == '' || tests[i].indexOf('#') == 0) {
+                continue;
+            }
+            testcases.index++;
             if (this.runLine(tests[i]) == false) {
-                break;
+                return false; 
             }
     	};
-    	return result;
+    	return true;
     },
 
     runLine: function(line) {
         var vab = '';
-        if (line.trim() == '') {
-            return;
-        }
-        testcases.index++;
-        if (line.indexOf('#') == 0) {
-            return;
-        }
+        
         var testData = line.split('#')[0];
         if (testData.indexOf('=') > 0) {
             var vab = testData.substring(0, testData.indexOf('=')).trim();
@@ -41,120 +37,119 @@ Interpreter.prototype = {
         }
         var func = testfunc.substring(0, testfunc.indexOf('('));
         var para = testfunc.substring(testfunc.indexOf('(') + 1, testfunc.indexOf(')')).split(',');
-        if (func == 'Log') {
-            if (para in variables) {
-                para = variables[para];
-            }
-            this.doLog(para);
-        }
-        if (func == 'Compare') {
-            this.doCompare(para);
-        }
-        if (func == 'Assert') {
-            if (this.doAssert(para) == false) {
-                return false;
-            } else {
-                
-            }
-        }
-        if (func == 'Place') {
-            var retu = this.doPlace(para);
-            if (vab != '') {
-                variables[vab] = retu;
-            }
-        }
-        if (func == 'Cancel') {
-            para = this.getValuePara(para[0]);
-            var retu = this.doCancel(para);
-            if (vab != '') {
-                variables[vab] = retu;
-            }
-        }
-        if (func == 'Unhold') {
-            para = this.getValuePara(para[0]);
-            var retu = this.doUnhold(para);
-            if (vab != '') {
-                variables[vab] = retu;
-            }
-        }
-        if (func == 'Replace') {
-            var retu = this.doReplace(para);
-            if (vab != '') {
-                variables[vab] = retu;
-            }
-        }
-        if (func == 'GetPP0') {
-            var retu = this.doGetPP0(para);
-            if (vab != '') {
-                variables[vab] = retu;
-            }
-        }
-        if (func == 'GetQmax') {
-            var retu = this.doGetQmax(para);
-            if (vab != '') {
-                variables[vab] = retu;
-            }
-        }
-        if (func == 'GetAfType') {
-            var retu = this.doGetAfType(para);
-            if (vab != '') {
-                variables[vab] = retu;
-            }
-        }
-        if (func == 'GetAutoAdv') {
-            var retu = this.doGetAutoAdv(para);
-            if (vab != '') {
-                variables[vab] = retu;
-            }
-        }
-        if (func == 'GetOrderStatus') {
-            para = this.getValuePara(para[0]);
-            var retu = this.doGetOrderStatus(para);
-            if (vab != '') {
-                variables[vab] = retu;
-            }
-        }
-        if (func == 'GetOrderEvent') {
-            para = this.getValuePara(para[0]);
-            var retu = this.doGetOrderEvent(para);
-            if (vab != '') {
-                variables[vab] = retu;
-            }
-        }
-        if (func == 'CountOrderDetail') {
-            para = this.getValuePara(para[0]);
-            var retu = this.doCountOrderDetail(para);
-            if (vab != '') {
-                variables[vab] = retu;
-            }
-        }
-        if (func == 'SetAfType') {
-            this.doSetAfType(para);
-        }
-        if (func == 'SetAutoAdv') {
-            this.doSetAutoAdv(para);
-        }
-        if (func == 'DisableAutoAdv') {
-            this.doDisableAutoAdv(para);
-        }
-        if (func == 'ResetAccounts') {
-            this.doResetAccounts();
-        }
-        if (func == 'SetExchangeSession') {
-            this.doSetExchangeSession(para);
-        }
-        if (func == 'SetGatewaySession') {
-            this.doSetGatewaySession(para);
-        }
-        if (func == 'SetORSSession') {
-            this.doSetORSSession(para);
-        }
-        if (func == 'ClearExchange') {
-            this.doClearExchange();
-        }
-        
-        if (func == 'UnholdAllOrders') {
-            this.doUnholdAllOrders();
+        switch(func) {
+            case 'Log':
+                if (para in variables) {
+                    para = variables[para];
+                }
+                this.doLog(para);
+                break;
+            case 'Compare':
+                this.doCompare(para);
+                break;
+            case 'Assert':
+                if (this.doAssert(para) == false) {
+                    return false;
+                }
+                break;
+            case 'Place':
+                var retu = this.doPlace(para);
+                if (vab != '') {
+                    variables[vab] = retu;
+                }
+                break;
+            case 'Cancel':
+                para = this.getValuePara(para[0]);
+                var retu = this.doCancel(para);
+                if (vab != '') {
+                    variables[vab] = retu;
+                }
+                break;
+            case 'Unhold':
+                para = this.getValuePara(para[0]);
+                var retu = this.doUnhold(para);
+                if (vab != '') {
+                    variables[vab] = retu;
+                }
+                break;
+            case 'Replace':
+                var retu = this.doReplace(para);
+                if (vab != '') {
+                    variables[vab] = retu;
+                }
+                break;
+            case 'GetPP0':
+                var retu = this.doGetPP0(para);
+                if (vab != '') {
+                    variables[vab] = retu;
+                }
+                break;
+            case 'GetQmax':
+                var retu = this.doGetQmax(para);
+                if (vab != '') {
+                    variables[vab] = retu;
+                }
+                break;
+            case 'GetAfType':
+                var retu = this.doGetAfType(para);
+                if (vab != '') {
+                    variables[vab] = retu;
+                }
+                break;
+            case 'GetAutoAdv':
+                var retu = this.doGetAutoAdv(para);
+                if (vab != '') {
+                    variables[vab] = retu;
+                }
+                break;
+            case 'GetOrderStatus':
+                para = this.getValuePara(para[0]);
+                var retu = this.doGetOrderStatus(para);
+                if (vab != '') {
+                    variables[vab] = retu;
+                }
+                break;
+            case 'GetOrderEvent':
+                para = this.getValuePara(para[0]);
+                var retu = this.doGetOrderEvent(para);
+                if (vab != '') {
+                    variables[vab] = retu;
+                }
+                break;
+            case 'CountOrderDetail':
+                para = this.getValuePara(para[0]);
+                var retu = this.doCountOrderDetail(para);
+                if (vab != '') {
+                    variables[vab] = retu;
+                }
+                break;
+            case 'SetAfType':
+                this.doSetAfType(para);
+                break;
+            case 'SetAutoAdv':
+                this.doSetAutoAdv(para);
+                break;
+            case 'DisableAutoAdv':
+                this.doDisableAutoAdv(para);
+                break;
+            case 'ResetAccounts':
+                this.doResetAccounts();
+                break;
+            case 'SetExchangeSession':
+                this.doSetExchangeSession(para);
+                break;
+            case 'SetGatewaySession':
+                this.doSetGatewaySession(para);
+                break;
+            case 'SetORSSession':
+                this.doSetORSSession(para);
+                break;
+            case 'ClearExchange':
+                this.doClearExchange();
+                break;
+            case 'UnholdAllOrders':
+                this.doUnholdAllOrders();
+                break;
         }
     },
 

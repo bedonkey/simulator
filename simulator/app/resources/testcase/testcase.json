@@ -27,6 +27,12 @@
 }, {
   "name": "Test Cancel Order Intermission Session"
 }, {
+  "name": "Test Place Order ATO Session"
+}, {
+  "name": "Test Order Matching ATO Session"
+}, {
+  "name": "Free Test ATO Session"
+}, {
   "name": "Test HOSE Cancel Order"
 }, {
   "name": "Test HOSE Cancel ORS New Session"
