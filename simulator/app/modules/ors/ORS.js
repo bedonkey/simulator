@@ -33,8 +33,7 @@ ORS.prototype = {
 	    	ord.priceMargin = this.afType.getPriceMargin(acc.afType, ord.symbol);
 	    	if (this.sessionManager.getORSSession()[ex] == Session.NEW) {
 				ord.status = OrdStatus.PENDING_NEW;
-			}
-			if (this.sessionManager.getORSSession()[ex].indexOf(Session.OPEN) > -1 || this.sessionManager.getORSSession()[ex] == Session.INTERMISSION) {
+			} else {
 				var result = this.gateway.receive(ex, ord, 'place');
 				if (result.error != undefined) {
 					ord.status = OrdStatus.REJECTED;
@@ -110,8 +109,7 @@ ORS.prototype = {
 				var replaceOrd = Utils.clone(oldOrd);
 				replaceOrd.status = OrdStatus.REPLACED;
 				this.orderStore.pushToMap(oldOrd.originalID, replaceOrd)
-			}
-			if (this.sessionManager.getORSSession()[ex].indexOf(Session.OPEN) > -1 || this.sessionManager.getORSSession()[ex] == Session.INTERMISSION) {
+			} else {
 				var result = this.gateway.receive(ex, oldOrd, 'replace');
 	        	if (result.error != undefined) {
 					newOrder.status = OrdStatus.REJECTED;
@@ -167,8 +165,7 @@ ORS.prototype = {
 				var cancelOrder = Utils.clone(order);
 				cancelOrder.orderID = IdGenerator.getId();
 				this.orderStore.pushToMap(order.originalID, cancelOrder);
-			}
-			if (this.sessionManager.getORSSession()[ex].indexOf(Session.OPEN) > -1 || this.sessionManager.getORSSession()[ex] == Session.INTERMISSION) {
+			} else {
 				var result = this.gateway.receive(ex, order, 'cancel');
 	        	if (result.error != undefined) {
 					order.status = OrdStatus.REJECTED;
@@ -257,17 +254,19 @@ ORS.prototype = {
 	setSession: function(ex, session) {
 		if (session.indexOf(Session.OPEN) > -1) {
             console.log("ORS Open");
-            this.fireOrder();
+            this.fireOrder(ex);
         }
         this.sessionManager.setORSSession(ex, session);
 	},
 
-	fireOrder: function () {
-		var ex = "HNX";
+	fireOrder: function (ex) {
 		console.log('ORS Fire, send all order in queue to Gateway');
 		var orders = this.orderStore.getPendingNewOrder();
 		for (var i = 0; i < orders.length; i++) {
-			this.sendOrderToGateway(this.secinfo.getExchange(orders[i].symbol), orders[i]);
+			var ordEx = this.secinfo.getExchange(orders[i].symbol);
+			if (ex == ordEx) {
+				this.sendOrderToGateway(ordEx, orders[i]);
+			}
 		}
 	},
 

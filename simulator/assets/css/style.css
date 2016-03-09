@@ -1061,10 +1061,9 @@ td.action {
 }
 
 #testcase-editor .run span{
-	font-size: 30px;
+	font-size: 25px;
     line-height: 25px;
-    float: right;
-    color: green;
+    color: #7BBF6A;
 }
 
 .blink {

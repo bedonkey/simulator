@@ -70,7 +70,7 @@ Gateway.prototype = {
 			}
 		}
 
-		if (this.sessionManager.getGatewaySession()[ex].indexOf(Session.OPEN) > -1) {
+		if (this.sessionManager.getGatewaySession()[ex] == Session.ATO || this.sessionManager.getGatewaySession()[ex].indexOf(Session.OPEN) > -1) {
 			return this.sendToExchange(ord, action);
 		}
 

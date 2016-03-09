@@ -67,6 +67,10 @@
 }, {
   "name": "Test Session open Gateway then open ORS"
 }, {
+  "name": "Test ORS Open Queue"
+}, {
+  "name": "Test Gateway Open Queue"
+}, {
   "name": "Test Order Status"
 }, {
   "name": "Free Test Business"

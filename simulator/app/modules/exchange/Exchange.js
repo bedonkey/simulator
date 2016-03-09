@@ -28,21 +28,26 @@ Exchange.prototype = {
 		if (this.sessionManager.getExchangeSession()[ex] == Session.NEW || this.sessionManager.getExchangeSession()[ex] == Session.INTERMISSION) {
 			return {error: ErrorCode.EX_06};
 		}
-		this.addOrderMatch(ord);
-		this.priceBoard.add(ord.symbol, ord.side, ord.price, ord.qty);
-		if (ord.status == "Pending New") {
-			ord.status = OrdStatus.NEW;
-			var isMatched = this.matching(ord);
-        	if (!isMatched) {
-        		this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
-        	}
+		if (this.sessionManager.getExchangeSession()[ex] == Session.ATO) {
+			console.log("Place ATO session");
+			return {exec: "0"};
 		} else {
-			var isMatched = this.matching(ord);
+			this.addOrderMatch(ord);
+			this.priceBoard.add(ord.symbol, ord.side, ord.price, ord.qty);
+			if (ord.status == "Pending New") {
+				ord.status = OrdStatus.NEW;
+				var isMatched = this.matching(ord);
+	        	if (!isMatched) {
+	        		this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
+	        	}
+			} else {
+				var isMatched = this.matching(ord);
+			}
+			if (isMatched) {
+				return {exec: "F"};
+			}
+			return {exec: "0"};
 		}
-		if (isMatched) {
-			return {exec: "F"};
-		}
-		return {exec: "0"};
 	},
 
 	replace: function(ord) {
