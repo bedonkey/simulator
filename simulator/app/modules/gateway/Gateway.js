@@ -92,19 +92,21 @@ Gateway.prototype = {
 		}
 	},
 
-	fireOrder: function() {
+	fireOrder: function(ex) {
 		orderQueue = this.orderStore.getAllOrderQueueOnGateway();
 		for (var i = 0; i < orderQueue.length; i++) {
 			orderQueue[i].order.queue = "gateway";
-			this.sendToExchange(orderQueue[i].order, orderQueue[i].action);
+			if (ex == orderQueue[i].order.ex) {
+				this.sendToExchange(orderQueue[i].order, orderQueue[i].action);
+			}
 		}
-		this.orderStore.clearGWQueue();
+		this.orderStore.clearGWQueue(ex);
 	},
 
 	setSession: function(ex, session) {
 		if (session.indexOf(Session.OPEN) > -1) {
             console.log("Push order to Exchange");
-            this.fireOrder();
+            this.fireOrder(ex);
         }
         this.sessionManager.setGatewaySession(ex, session);
 	},

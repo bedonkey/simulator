@@ -19,6 +19,7 @@ ORS.prototype = {
         ord.underlyingQty = 0;
         ord.underlyingPrice = 0;
         ord.remain = ord.qty;
+        ord.ex = ex;
 		var error = this.orderValidator.clientValidate(ord);
 		if (error == undefined) {
 			if (this.orderStore.getOppositeOrder(ord) != null) {

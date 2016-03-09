@@ -1,7 +1,7 @@
 ClearExchange()
 ResetAccounts()
 
-SetSession(HNX, OPEN2) # Set sesison on ORS, GW, Ex is Open
+SetSession(HNX, OPEN1) # Set sesison on ORS, GW, Ex is Open
 
 ord0 = Place(0001000001, AAA, Buy, LO, 15000, 100)
 Assert(ord0.status, true)

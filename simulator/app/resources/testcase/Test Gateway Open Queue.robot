@@ -35,7 +35,6 @@ Assert(event, Pending New | New)
 count = CountOrderDetail(ord1.msg)
 Assert(count, 2)
 
-ord2 = Place(0001000001, SSI, Buy, LO, 21000, 100)
 Assert(ord2.status, true)
 status = GetOrderStatus(ord2.msg)
 Assert(status, Pending New)

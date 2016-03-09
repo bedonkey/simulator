@@ -45,8 +45,12 @@ OrderStore.prototype = {
 		return false;
 	},
 
-	clearGWQueue: function() {
-		this.gwQueue.length = 0;
+	clearGWQueue: function(ex) {
+		for (var i = this.gwQueue.length-1 ; i >= 0; i--) {
+			if (this.gwQueue[i].order.ex == ex) {
+				this.gwQueue.splice(i, 1);
+			}
+		}
 	},
 
 	getAllOrderBuy: function() {

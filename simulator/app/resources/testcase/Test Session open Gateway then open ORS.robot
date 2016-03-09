@@ -29,7 +29,7 @@ Assert(status, Pending New)
 count = CountOrderDetail(ord3.msg)
 Assert(count, 1)
 
-SetGatewaySession(HNX, OPEN)
+SetGatewaySession(HNX, OPEN1)
 
 status = GetOrderStatus(ord1.msg)
 Assert(status, Pending New)
@@ -46,7 +46,7 @@ Assert(status, Pending New)
 count = CountOrderDetail(ord3.msg)
 Assert(count, 1)
 
-SetORSSession(HNX, OPEN)
+SetORSSession(HNX, OPEN1)
 
 status = GetOrderStatus(ord2.msg)
 Assert(status, New)
