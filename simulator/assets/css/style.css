@@ -897,6 +897,7 @@ td.action {
 #testcases .testcase {
 	height: 90%;
 	border-right: 1px solid #333;
+	width: 100%;
 }
 
 #testcases .box-title button{
@@ -908,7 +909,11 @@ td.action {
     font-weight: bold;
     padding: 2px 5px;
 }
-
+#testcases .box-title input{
+	color: white;
+	background: #222;
+	float: left;
+}
 #testcases .testcase img{
 	float: right;
 }
@@ -1034,6 +1039,7 @@ td.action {
 	font-weight: bold;
 	color: white;
 	line-height: 30px;
+	overflow: hidden;
 }
 
 #robottest .box-content {

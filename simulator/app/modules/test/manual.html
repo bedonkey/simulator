@@ -1,10 +1,12 @@
 <div id="learn" ng-controller="LearnController">
 	<div id="testcases">
-		<div class="box-title">TestCase</div>
+		<div class="box-title">
+			<input class="form-control" type="text" style="width:100%;" ng-model="search.title" ng-enter="search()" placeholder="TestCase"/>
+		</div>
 		<div class="testcase">
 			<div class="box-content">
 				<ul>
-					<li ng-class="{selected: test.name === selectedTest}" ng-repeat="test in testcases" ng-click="setSelected(test.name)">
+					<li ng-class="{selected: test.name === selectedTest}" ng-repeat="test in testcases | filter: {name: search.title}" ng-click="setSelected(test.name)">
 						{{ test.name | limitTo: 40 }}{{test.name.length > 40 ? '...' : ''}}
 					</li>
 				</ul>
