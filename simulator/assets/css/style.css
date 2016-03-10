@@ -364,6 +364,15 @@ span.glyphicon:hover, .glyphicon:hover {
 	border-top: 2px solid green;
 }
 
+#orderBuy {
+	padding-left: 0;
+	padding-right: 5px;
+}
+#orderSell {
+	padding-right: 0;
+	padding-left: 5px;
+}
+
 #orderBook .table-bordered thead, #price-board .table-bordered thead{
 	border-top: 2px solid #ccc;
 }
@@ -907,12 +916,16 @@ td.action {
     float: right;
     font-size: 18px;
     font-weight: bold;
-    padding: 2px 5px;
+    padding: 2px 8px;
+    position: absolute;
+    right: 0;
+    height: 35px;
 }
 #testcases .box-title input{
 	color: white;
 	background: #222;
 	float: left;
+	border-color: #777;
 }
 #testcases .testcase img{
 	float: right;
