@@ -1,7 +1,7 @@
 ClearExchange()
 ResetAccounts()
 
-SetSession(HNX, ATO)
+SetSession(HOSE, ATO)
 
 ord1= Place(0001000003, SSI, Buy, ATO, 0, 100)
 ord2= Place(0001000004, SSI, Buy, LO, 21000, 20)
@@ -9,7 +9,7 @@ ord2= Place(0001000004, SSI, Buy, LO, 21000, 20)
 ord3= Place(0001000001, SSI, Sell, LO, 21000, 10)
 ord4= Place(0001000002, SSI, Sell, ATO, 0, 20)
 
-SetSession(HNX, OPEN)
+SetSession(HOSE, OPEN1)
 
 count = CountOrderDetail(ord1.msg)
 Assert(count, 4)

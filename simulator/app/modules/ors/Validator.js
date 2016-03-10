@@ -7,11 +7,11 @@ OrderValidator = function(account, secinfo, afType, sessionManager) {
 
 OrderValidator.prototype = {
 	clientValidate: function(ord) {
-		if (ord.account == '') return ErrorCode.ORS_05;
-        if (ord.symbol == '') return ErrorCode.ORS_06;
-        if (ord.price == '') return ErrorCode.ORS_07;
+		if (ord.account === '') return ErrorCode.ORS_05;
+        if (ord.symbol === '') return ErrorCode.ORS_06;
+        if (ord.price === '') return ErrorCode.ORS_07;
         if (isNaN(ord.price)) return ErrorCode.ORS_08;
-        if (ord.qty == '') return ErrorCode.ORS_09;
+        if (ord.qty === '') return ErrorCode.ORS_09;
         if (isNaN(ord.qty)) return ErrorCode.ORS_10;
         if (ord.qty <= 0) return ErrorCode.ORS_11;
 	},
@@ -21,8 +21,9 @@ OrderValidator.prototype = {
         if (accs.length == 0) return ErrorCode.ORS_12;
         var secs = this.secinfo.get(ord.symbol);
         if (secs.length == 0) return ErrorCode.ORS_13;
-        if (ord.price < secs[0].floor) return ErrorCode.ORS_17;
-        if (ord.price > secs[0].ceil) return ErrorCode.ORS_18;
+        if (ex == "HNX" && ord.type == Session.ATO) return ErrorCode.ORS_20;
+        if (ord.price < secs[0].floor && ord.type != Session.ATO) return ErrorCode.ORS_17;
+        if (ord.price > secs[0].ceil && ord.type != Session.ATO) return ErrorCode.ORS_18;
         if (!this.valiatePriceSpread(ex, ord.price)) {
             return ErrorCode.ORS_19;
         }
@@ -35,7 +36,6 @@ OrderValidator.prototype = {
             if (ord.qty > trade) return ErrorCode.ORS_15;
         }
         if (this.sessionManager.getORSSession()[ex] == Session.CLOSE) return ErrorCode.ORS_01;
-        if (ex == "HNX" && ord.type == "ATO") return ErrorCode.ORS_20;
 	},
 
     validateReplace: function(ex, oldOrd, ord) {
@@ -43,8 +43,8 @@ OrderValidator.prototype = {
         if (accs.length == 0) return ErrorCode.ORS_12;
         var secs = this.secinfo.get(oldOrd.symbol);
         if (secs.length == 0) return ErrorCode.ORS_13;
-        if (ord.price < secs[0].floor) return ErrorCode.ORS_17;
-        if (ord.price > secs[0].ceil) return ErrorCode.ORS_18;
+        if (ord.price < secs[0].floor && ord.type != Session.ATO) return ErrorCode.ORS_17;
+        if (ord.price > secs[0].ceil && ord.type != Session.ATO) return ErrorCode.ORS_18;
         if (!this.valiatePriceSpread(ex, ord.price)) {
             return ErrorCode.ORS_19;
         }
