@@ -3,10 +3,10 @@ ResetAccounts()
 
 SetSession(HOSE, ATO)
 
-ord1= Place(0001000003, SSI, Buy, ATO, 0, 100)
+ord1= Place(0001000001, SSI, Buy, ATO, 0, 100)
 ord2= Place(0001000004, SSI, Buy, LO, 21000, 20)
 
-ord3= Place(0001000001, SSI, Sell, LO, 21000, 10)
+ord3= Place(0001000003, SSI, Sell, LO, 21000, 10)
 ord4= Place(0001000002, SSI, Sell, ATO, 0, 20)
 
 SetSession(HOSE, OPEN1)

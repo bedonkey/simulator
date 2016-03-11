@@ -43,6 +43,8 @@
 }, {
   "name": "Test Match Order"
 }, {
+  "name": "Test Partial Filled Match Order"
+}, {
   "name": "Test Cancel Replace rejected by exchange when filled"
 }, {
   "name": "Test Account AutoAdv"

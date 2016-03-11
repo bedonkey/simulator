@@ -142,6 +142,7 @@ Exchange.prototype = {
 	},
 
 	matchingBuy: function(ord) {
+		var isMatch = false;
 		for (var i = 0; i < this.matchOrdersSell.length; i++) {
 			if (ord.remain == 0) {
             	break;
@@ -149,14 +150,15 @@ Exchange.prototype = {
             if (this.matchOrdersSell[i].remain > 0 && this.matchOrdersSell[i].symbol == ord.symbol && this.matchOrdersSell[i].account != ord.account) {
         		if (ord.price >= this.matchOrdersSell[i].price) {
         			this.match(ord, this.matchOrdersSell[i], this.matchOrdersSell[i].price);
-        			return true;
+        			isMatch = true;
         		}
             }
         }
-        return false;
+        return isMatch;
 	},
 
 	matchingSell: function(ord) {
+		var isMatch = false;
 		for (var i = 0; i < this.matchOrdersBuy.length; i++) {
 			if (ord.remain == 0) {
             	break;
@@ -164,17 +166,36 @@ Exchange.prototype = {
             if (this.matchOrdersBuy[i].remain > 0 && this.matchOrdersBuy[i].symbol == ord.symbol && this.matchOrdersBuy[i].account != ord.account) {
         		if (ord.price <= this.matchOrdersBuy[i].price) {
         			this.match(ord, this.matchOrdersBuy[i], this.matchOrdersBuy[i].price);
-        			return true;
+        			isMatch = true;
         		}
             }
         }
-        return false;
+        return isMatch;
 	},
 
 	match: function(ord1, ord2, matchPx) {
 		var orgOrderMatch = Utils.clone(ord1);
-    	var matchQty;
-    	var remainOrd1 = ord1.remain - ord1.underlyingQty;
+    	var matchQty = this.calcMatchQty(ord1, ord2);
+    	ord1.avgQty += parseInt(matchQty);
+    	ord1.avgPX = matchPx;
+    	ord2.avgQty += parseInt(matchQty);
+    	ord2.avgPX = matchPx;
+    	this.updateStatusOrders(orgOrderMatch, Utils.clone(ord1), Utils.clone(ord2));
+    	if (ord1.side == Side.SELL) {
+    		this.account.unHoldT0(ord1.account, ord1.symbol, matchPx * matchQty);
+    		this.account.unHoldTradeT0(ord2.account, ord2.symbol, matchQty);
+    	} else {
+    		this.account.unHoldTradeT0(ord1.account, ord1.symbol, matchQty);
+    		this.account.unHoldT0(ord2.account, ord2.symbol, matchPx * matchQty);
+    	}
+        this.priceBoard.addMatch(ord1.symbol, matchPx, matchQty);
+        this.priceBoard.subtract(ord1.symbol, ord1.side, ord1.price, matchQty);
+        this.priceBoard.subtract(ord2.symbol, ord2.side, ord2.price, matchQty);
+	},
+
+	calcMatchQty: function(ord1, ord2) {
+		var matchQty;
+		var remainOrd1 = ord1.remain - ord1.underlyingQty;
     	var remainOrd2 = ord2.remain - ord2.underlyingQty;
     	if (remainOrd2 == remainOrd1) {
     		matchQty = remainOrd1;
@@ -195,32 +216,23 @@ Exchange.prototype = {
         	ord1.remain = remainOrd1 - remainOrd2;
         	ord2.remain = 0;
     	}
-    	ord1.avgQty += parseInt(matchQty);
-    	ord1.avgPX = matchPx;
-    	ord2.avgQty += parseInt(matchQty);
-    	ord2.avgPX = matchPx;
-    	if (ord1.side == Side.SELL) {
-    		this.account.unHoldT0(ord1.account, ord1.symbol, matchPx * matchQty);
-    		this.account.unHoldTradeT0(ord2.account, ord2.symbol, matchQty);
-    	} else {
-    		this.account.unHoldTradeT0(ord1.account, ord1.symbol, matchQty);
-    		this.account.unHoldT0(ord2.account, ord2.symbol, matchPx * matchQty);
-    	}
-    	var matchOrd1 = Utils.clone(ord1);
-    	var matchOrd2 = Utils.clone(ord2);
-    	matchOrd1.time = DateTime.getCurentDateTime();
-    	matchOrd2.time = DateTime.getCurentDateTime();
+    	return matchQty;
+	},
 
-        this.orderStore.pushToMap(ord2.originalID, matchOrd2);
+	updateStatusOrders: function(orgOrderMatch, matchOrd1, matchOrd2) {
+		matchOrd1.time = DateTime.getCurentDateTime();
+    	matchOrd2.time = DateTime.getCurentDateTime();
+        this.orderStore.pushToMap(matchOrd2.originalID, matchOrd2);
         if (orgOrderMatch.status != undefined) {
-        	this.orderStore.pushToMap(ord1.originalID, matchOrd1);
+        	if (orgOrderMatch.status == OrdStatus.PARTIAL_FILLED) {
+	        	this.orderStore.pushToMap(orgOrderMatch.originalID, orgOrderMatch);
+	        } else {
+        		this.orderStore.pushToMap(matchOrd1.originalID, matchOrd1);
+	        }
         } else {
         	orgOrderMatch.status = OrdStatus.NEW;
-        	this.orderStore.pushToMap(ord1.originalID, orgOrderMatch);
+        	this.orderStore.pushToMap(orgOrderMatch.originalID, orgOrderMatch);
         }
-        this.priceBoard.addMatch(ord1.symbol, matchPx, matchQty);
-        this.priceBoard.subtract(ord1.symbol, ord1.side, ord1.price, matchQty);
-        this.priceBoard.subtract(ord2.symbol, ord2.side, ord2.price, matchQty);
 	},
 
 	expiredOrders: function() {
@@ -236,6 +248,11 @@ Exchange.prototype = {
 
 	matchATO: function() {
 		console.log("Match ATO orders");
+
+		this.expireAllATOOrders();
+	},
+
+	expireAllATOOrders: function() {
 		for (var i = this.matchATOOrders.length -1; i >= 0; i--) {
 			this.expired(this.matchATOOrders[i]);
 			this.matchATOOrders.splice(i, 1);
