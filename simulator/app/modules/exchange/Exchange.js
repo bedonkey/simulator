@@ -235,20 +235,23 @@ Exchange.prototype = {
         }
 	},
 
-	expiredOrders: function() {
-		for (var i = 0; i < this.matchOrdersBuy.length; i++) {
-			this.expired(this.matchOrdersBuy[i]);
-			this.matchOrdersBuy.splice(i, 1);
+	expiredOrders: function(ex) {
+		for (var i = this.matchOrdersBuy.length -1; i >= 0; i--) {
+			if (ex == this.matchOrdersBuy[i].ex) {
+				this.expired(this.matchOrdersBuy[i]);
+				this.matchOrdersBuy.splice(i, 1);
+			}
 		}
-		for (var i = 0; i < this.matchOrdersSell.length; i++) {
-			this.expired(this.matchOrdersSell[i]);
-			this.matchOrdersSell.splice(i, 1);
+		for (var i = this.matchOrdersSell.length -1; i >= 0; i--) {
+			if (ex == this.matchOrdersSell[i].ex) {
+				this.expired(this.matchOrdersSell[i]);
+				this.matchOrdersSell.splice(i, 1);
+			}
 		}
 	},
 
 	matchATO: function() {
 		console.log("Match ATO orders");
-
 		this.expireAllATOOrders();
 	},
 
@@ -272,6 +275,9 @@ Exchange.prototype = {
 	setSession: function(ex, session) {
 		if (ex == "HOSE" && session == Session.OPEN1 && this.sessionManager.getExchangeSession()[ex] == Session.ATO) {
 			this.matchATO();
+		}
+		if (session == Session.CLOSE) {
+			this.expiredOrders(ex);
 		}
 		this.sessionManager.setExchangeSession(ex, session);
 		
