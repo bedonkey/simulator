@@ -1,6 +1,6 @@
 
-<div id="order-popup" class="popup" ng-show="detailBoxShow">
-	<img src="assets/images/close.png" class="btn_close" title="Close Window" alt="Close" ng-click="mask=false;detailBoxShow=false;closeDetailBox()"/>
+<div id="order-popup" class="popup" ng-if="detailBoxShow" ng-cloak>
+	<img src="assets/images/close.png" class="btn_close" title="Close Window" alt="Close" ng-click="closeDetailBox()"/>
 	<table class="table">
 		 <colgroup>
             <col width="8%" />

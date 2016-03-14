@@ -17,7 +17,14 @@ OrderBookController = function($scope, ors, orderStore, dockSerice) {
     }
 
     $scope.closeDetailBox = function() {
+        $scope.mask=false;
+        $scope.detailBoxShow=false;
         $scope.ordersDetail = [];
+    }
+
+    $scope.closeReplaceBox = function() {
+        $scope.mask=false;
+        $scope.replaceBoxShow=false;
     }
 
     $scope.cancel = function(ord) {

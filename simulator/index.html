@@ -78,7 +78,7 @@
 			<div class="welcome" ng-show="currentTab==''">Simulator</div>
 			<div ng-include="currentTab"></div>
 		</div>
-		<div ng-include="'app/modules/home/dock/dock.html'" ng-controller="DockController" ng-show="isShowDock"></div>
+		<div ng-include="'app/modules/home/dock/dock.html'" ng-controller="DockController" ng-show="isShowDock" ng-cloak></div>
 	</div>
 </body>
 </html>

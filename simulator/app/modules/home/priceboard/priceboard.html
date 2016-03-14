@@ -129,7 +129,7 @@
 			</tbody>
 		</table>
 	</div>
-	<div id="trade-menu" ng-show="placeBoxShow" ng-init="placeBoxShow = false">
+	<div id="trade-menu" ng-if="placeBoxShow" ng-init="placeBoxShow = false" ng-cloak>
 		<div class="placeOrderForm form-inline">
 			<div class="order-buy-sell-switch">
 				<a href="#" ng-click="sellClick()"><span class="glyphicon" ng-class="sellIcon">Sell</span></a>

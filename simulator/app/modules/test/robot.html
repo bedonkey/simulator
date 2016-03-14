@@ -20,8 +20,7 @@
 	<div id="testcase-editor" class="">
 		<div class="run">
 			<h4 ng-bind="testTitle"></h4>
-			<span class="glyphicon glyphicon-play" ng-show="testTitle" ng-click="runThisTest()"></span>
-			<img class="save" alt="Save" src="assets/images/save.png" height="25px" ng-click="save()" ng-show="!isSave"/>
+			<span class="glyphicon glyphicon-play" ng-if="testTitle" ng-click="runThisTest()" ng-cloak></span>
 		</div>
 		<div class="status-bar" ng-class="{'green':testPass=='true', 'red':testPass=='false'}"></div>
 		
