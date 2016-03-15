@@ -5,6 +5,10 @@ OrderBookController = function($scope, ors, orderStore, dockSerice) {
     }
 
     $scope.openReplaceBox = function(ord) {
+        if (ord.status != OrdStatus.PENDING_NEW && ord.status != OrdStatus.NEW && ord.status != OrdStatus.PARTIAL_FILLED) {
+            alert("Can not replace order in status " + ord.status);
+            return;
+        }
         $scope.mask=true;
         $scope.replaceBoxShow=true;
         $scope.orderReplace = Utils.clone(ord);

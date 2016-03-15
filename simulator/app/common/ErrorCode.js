@@ -26,4 +26,5 @@ ErrorCode = {
 	ORS_18: "Price must lower than ceil price",
 	ORS_19: "Invalid price spread",
 	ORS_20: "HNX don't support ATO order",
+	ORS_21: "Can not cancel order Pending New in Open session",
 }

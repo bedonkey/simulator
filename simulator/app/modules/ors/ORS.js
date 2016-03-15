@@ -154,10 +154,11 @@ ORS.prototype = {
 		}
 		var ex = this.secinfo.getExchange(order.symbol);
 		if (error == undefined) error = this.orderValidator.validateCancel(ex);
+		var currentStatus = order.status;
 		if (error == undefined) {
 			var pendingCancel = Utils.clone(order);
-			order.status = OrdStatus.PENDING_CANCEL;
     		pendingCancel.status = OrdStatus.PENDING_CANCEL;
+    		order.status = OrdStatus.PENDING_CANCEL;
 			this.orderStore.pushToMap(order.originalID, pendingCancel);
 			if (this.sessionManager.getORSSession()[ex] == Session.NEW) {
 				order.status = OrdStatus.CANCELED;
@@ -167,6 +168,14 @@ ORS.prototype = {
 				cancelOrder.orderID = IdGenerator.getId();
 				this.orderStore.pushToMap(order.originalID, cancelOrder);
 			} else {
+				if (this.sessionManager.getORSSession()[ex].indexOf(Session.OPEN) > -1 && currentStatus == OrdStatus.PENDING_NEW) {
+					var cancelOrder = Utils.clone(order);
+					cancelOrder.orderID = IdGenerator.getId();
+					cancelOrder.status = OrdStatus.REJECTED;
+					this.orderStore.pushToMap(order.originalID, cancelOrder);
+					order.status = currentStatus;
+					return {status: false, msg: ErrorCode.ORS_21};
+				}
 				var result = this.gateway.receive(ex, order, 'cancel');
 	        	if (result.error != undefined) {
 					order.status = OrdStatus.REJECTED;
