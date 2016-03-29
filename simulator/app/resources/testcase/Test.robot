@@ -1,10 +1,10 @@
 ClearExchange()
 ResetAccounts()
 
-SetSession(HOSE, ATO)
+SetSession(HNX, OPEN1)
 
-ord1= Place(0001000001, SSI, Buy, ATO, 0, 100)
+result = Place(0001000002, AAA, Sell, LO, 15300, 100)
+Assert(result.status, true)
 
-ord3= Place(0001000003, SSI, Sell, LO, 21000, 100)
-
-SetSession(HOSE, OPEN1)
+ord1 = Place(0001000003, AAA, Buy, LO, 15500, 100)
+Assert(ord1.status, true)

@@ -7,7 +7,6 @@ Exchange = function(exchangeValidator, account, secinfo, orderStore, priceBoard,
 	this.sessionManager = sessionManager;
 	this.matchOrdersBuy = this.orderStore.getAllOrderBuy();
 	this.matchOrdersSell = this.orderStore.getAllOrderSell();
-	this.matchATOOrders = this.orderStore.getAllATOOrder();
 };
 
 Exchange.prototype = {
@@ -15,7 +14,6 @@ Exchange.prototype = {
 	init: function() {
 		this.matchOrdersSell.length = 0;
 		this.matchOrdersBuy.length = 0;
-		this.matchATOOrders.length = 0;
 	},
 
 	place: function(ord) {
@@ -31,7 +29,7 @@ Exchange.prototype = {
 			return {error: ErrorCode.EX_06};
 		}
 		if (ex == "HOSE" && this.sessionManager.getExchangeSession()[ex] == Session.ATO) {
-			this.addATOOrderMatch(ord);
+			this.addOrderMatch(ord);
 			this.priceBoard.add(ord.symbol, ord.side, ord.price, ord.qty);
 			return {exec: "0"};
 		} else {
@@ -98,8 +96,10 @@ Exchange.prototype = {
 		if (this.sessionManager.getExchangeSession()[ex] == Session.NEW || this.sessionManager.getExchangeSession()[ex] == Session.INTERMISSION) {
 			return {error: ErrorCode.EX_06};
 		}
-		if (this.sessionManager.getExchangeSession()[ex] == Session.ATO) {
-			this.orderStore.removeATOOrdersMatch(ord);
+		if (ord.side == Side.SELL) {
+			this.orderStore.removeOrderSellMatch(ord);
+		} else {
+			this.orderStore.removeOrderBuyMatch(ord);
 		}
 		ord.status = OrdStatus.CANCELED;
 		ord.remain = 0;
@@ -129,10 +129,6 @@ Exchange.prototype = {
 		}
 	},
 
-	addATOOrderMatch: function(ord) {
-		this.orderStore.addATOOrderMatch(ord);
-	},
-
 	matching: function(ord) {
 		if (ord.side == Side.SELL) {
 			return this.matchingSell(ord);
@@ -149,7 +145,7 @@ Exchange.prototype = {
             }
             if (this.matchOrdersSell[i].remain > 0 && this.matchOrdersSell[i].symbol == ord.symbol && this.matchOrdersSell[i].account != ord.account) {
         		if (ord.price >= this.matchOrdersSell[i].price) {
-        			this.match(ord, this.matchOrdersSell[i], this.matchOrdersSell[i].price);
+        			this.match(Side.BUY, ord, this.matchOrdersSell[i], this.matchOrdersSell[i].price);
         			isMatch = true;
         		}
             }
@@ -165,7 +161,7 @@ Exchange.prototype = {
             }
             if (this.matchOrdersBuy[i].remain > 0 && this.matchOrdersBuy[i].symbol == ord.symbol && this.matchOrdersBuy[i].account != ord.account) {
         		if (ord.price <= this.matchOrdersBuy[i].price) {
-        			this.match(ord, this.matchOrdersBuy[i], this.matchOrdersBuy[i].price);
+        			this.match(Side.SELL, this.matchOrdersBuy[i], ord, this.matchOrdersBuy[i].price);
         			isMatch = true;
         		}
             }
@@ -173,66 +169,81 @@ Exchange.prototype = {
         return isMatch;
 	},
 
-	match: function(ord1, ord2, matchPx) {
-		var orgOrderMatch = Utils.clone(ord1);
-    	var matchQty = this.calcMatchQty(ord1, ord2);
-    	ord1.avgQty += parseInt(matchQty);
-    	ord1.avgPX = matchPx;
-    	ord2.avgQty += parseInt(matchQty);
-    	ord2.avgPX = matchPx;
-    	this.updateStatusOrders(orgOrderMatch, Utils.clone(ord1), Utils.clone(ord2));
-    	if (ord1.side == Side.SELL) {
-    		this.account.unHoldT0(ord1.account, ord1.symbol, matchPx * matchQty);
-    		this.account.unHoldTradeT0(ord2.account, ord2.symbol, matchQty);
+	match: function(side, ordBuy, ordSell, matchPx) {
+		ordBuy.time = DateTime.getCurentDateTime();
+		ordBuy.statusBeforeMatch = ordBuy.status;
+    	ordSell.time = DateTime.getCurentDateTime();
+		ordSell.statusBeforeMatch = ordSell.status;
+    	var matchQty = this.calcMatchQty(ordBuy, ordSell);
+    	this.pushToStore(side, Utils.clone(ordBuy), Utils.clone(ordSell));
+    	ordBuy.avgQty += parseInt(matchQty);
+    	ordBuy.avgPX = matchPx;
+    	ordSell.avgQty += parseInt(matchQty);
+    	ordSell.avgPX = matchPx;
+    	
+    	if (ordBuy.side == Side.SELL) {
+    		this.account.unHoldT0(ordBuy.account, ordBuy.symbol, matchPx * matchQty);
+    		this.account.unHoldTradeT0(ordSell.account, ordSell.symbol, matchQty);
     	} else {
-    		this.account.unHoldTradeT0(ord1.account, ord1.symbol, matchQty);
-    		this.account.unHoldT0(ord2.account, ord2.symbol, matchPx * matchQty);
+    		this.account.unHoldTradeT0(ordBuy.account, ordBuy.symbol, matchQty);
+    		this.account.unHoldT0(ordSell.account, ordSell.symbol, matchPx * matchQty);
     	}
-        this.priceBoard.addMatch(ord1.symbol, matchPx, matchQty);
-        this.priceBoard.subtract(ord1.symbol, ord1.side, ord1.price, matchQty);
-        this.priceBoard.subtract(ord2.symbol, ord2.side, ord2.price, matchQty);
+        this.priceBoard.addMatch(ordBuy.symbol, matchPx, matchQty);
+        this.priceBoard.subtract(ordBuy.symbol, ordBuy.side, ordBuy.price, matchQty);
+        this.priceBoard.subtract(ordSell.symbol, ordSell.side, ordSell.price, matchQty);
 	},
 
-	calcMatchQty: function(ord1, ord2) {
+	calcMatchQty: function(ordBuy, ordSell) {
 		var matchQty;
-		var remainOrd1 = ord1.remain - ord1.underlyingQty;
-    	var remainOrd2 = ord2.remain - ord2.underlyingQty;
-    	if (remainOrd2 == remainOrd1) {
-    		matchQty = remainOrd1;
-	    	ord1.status = OrdStatus.FILLED;
-        	ord2.status = OrdStatus.FILLED;
-        	ord1.remain = 0;
-        	ord2.remain = 0;
-    	} else if (remainOrd2 > remainOrd1) {
-    		matchQty = remainOrd1;
-    		ord1.status = OrdStatus.FILLED;
-        	ord2.status = OrdStatus.PARTIAL_FILLED;
-        	ord2.remain = remainOrd2 - remainOrd1;
-        	ord1.remain = 0;
-    	} else if (remainOrd2 < remainOrd1) {
-    		matchQty = ord2.remain;
-    		ord1.status = OrdStatus.PARTIAL_FILLED;
-        	ord2.status = OrdStatus.FILLED;
-        	ord1.remain = remainOrd1 - remainOrd2;
-        	ord2.remain = 0;
+		var remainBuy = ordBuy.remain - ordBuy.underlyingQty;
+    	var remainSell = ordSell.remain - ordSell.underlyingQty;
+    	if (remainSell == remainBuy) {
+    		matchQty = remainBuy;
+	    	ordBuy.status = OrdStatus.FILLED;
+        	ordSell.status = OrdStatus.FILLED;
+        	ordBuy.remain = 0;
+        	ordSell.remain = 0;
+    	} else if (remainSell > remainBuy) {
+    		matchQty = remainBuy;
+    		ordBuy.status = OrdStatus.FILLED;
+        	ordSell.status = OrdStatus.PARTIAL_FILLED;
+        	ordSell.remain = remainSell - remainBuy;
+        	ordBuy.remain = 0;
+    	} else if (remainSell < remainBuy) {
+    		matchQty = ordSell.remain;
+    		ordBuy.status = OrdStatus.PARTIAL_FILLED;
+        	ordSell.status = OrdStatus.FILLED;
+        	ordBuy.remain = remainBuy - remainSell;
+        	ordSell.remain = 0;
     	}
     	return matchQty;
 	},
 
-	updateStatusOrders: function(orgOrderMatch, matchOrd1, matchOrd2) {
-		matchOrd1.time = DateTime.getCurentDateTime();
-    	matchOrd2.time = DateTime.getCurentDateTime();
-        this.orderStore.pushToMap(matchOrd2.originalID, matchOrd2);
-        if (orgOrderMatch.status != undefined) {
-        	if (orgOrderMatch.status == OrdStatus.PARTIAL_FILLED) {
-	        	this.orderStore.pushToMap(orgOrderMatch.originalID, orgOrderMatch);
-	        } else {
-        		this.orderStore.pushToMap(matchOrd1.originalID, matchOrd1);
-	        }
-        } else {
-        	orgOrderMatch.status = OrdStatus.NEW;
-        	this.orderStore.pushToMap(orgOrderMatch.originalID, orgOrderMatch);
-        }
+	pushToStore: function(side, ordBuy, ordSell) {
+    	if (side == Side.BUY) {
+    		this.orderStore.pushToMap(ordSell.originalID, ordSell);
+    		this.pushOther(ordBuy);
+    	} else {
+    		this.orderStore.pushToMap(ordBuy.originalID, ordBuy);
+    		this.pushOther(ordSell);
+    	}
+ 
+	},
+
+	pushOther: function(ord) {
+		if (ord.statusBeforeMatch != undefined) {
+    		if (ord.statusBeforeMatch == OrdStatus.PARTIAL_FILLED) {
+    			var partilaFilledOrder = Utils.clone(ord);
+		 		partilaFilledOrder.status = OrdStatus.PARTIAL_FILLED;
+		 		this.orderStore.pushToMap(ord.originalID, partilaFilledOrder);
+    		} else {
+    			this.orderStore.pushToMap(ord.originalID, ord);
+    		}
+    	} else {
+    		var newOrder = Utils.clone(ord);
+		 	newOrder.status = OrdStatus.NEW;
+         	this.orderStore.pushToMap(ord.originalID, newOrder);
+    	}
 	},
 
 	expiredOrders: function(ex) {
@@ -252,13 +263,45 @@ Exchange.prototype = {
 
 	matchATO: function() {
 		console.log("Match ATO orders");
+		var matchPx = this.findBestMatchPrice();
+		console.log("Best Price Match ATO session: " + matchPx);
+		if (matchPx > 0) {
+			for (var i = 0; i < this.matchOrdersBuy.length; i++) {
+				for (var j = 0; j < this.matchOrdersSell.length; j++) {
+					this.match(Side.BUY, this.matchOrdersSell[i], this.matchOrdersBuy[i], matchPx);
+				}
+			}
+		}
 		this.expireAllATOOrders();
 	},
 
+	findBestMatchPrice: function() {
+		var listPrice = [];
+		for (var i = this.matchOrdersBuy.length -1; i >= 0; i--) {
+			if (this.matchOrdersBuy[i].price > 0) {
+				listPrice.push(this.matchOrdersBuy[i].price);
+			}
+		}
+		for (var i = this.matchOrdersSell.length -1; i >= 0; i--) {
+			if (this.matchOrdersSell[i].price > 0) {
+				listPrice.push(this.matchOrdersBuy[i].price);
+			}
+		}
+		return listPrice[0];
+	},
+
 	expireAllATOOrders: function() {
-		for (var i = this.matchATOOrders.length -1; i >= 0; i--) {
-			this.expired(this.matchATOOrders[i]);
-			this.matchATOOrders.splice(i, 1);
+		for (var i = this.matchOrdersBuy.length -1; i >= 0; i--) {
+			if (this.matchOrdersBuy[i].type == Session.ATO) {
+				this.expired(this.matchOrdersBuy[i]);
+				this.matchOrdersBuy.splice(i, 1);
+			}
+		}
+		for (var i = this.matchOrdersSell.length -1; i >= 0; i--) {
+			if (this.matchOrdersSell[i].type == Session.ATO) {
+				this.expired(this.matchOrdersSell[i]);
+				this.matchOrdersSell.splice(i, 1);
+			}
 		}
 	},
 

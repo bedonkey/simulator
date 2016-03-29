@@ -3,7 +3,6 @@ OrderStore = function() {
 	this.orders = [];
 	this.matchOrdersSell = [];
 	this.matchOrdersBuy = [];
-	this.matchATOOrders = [];
 	this.orderMap = {};
 };
 
@@ -14,7 +13,6 @@ OrderStore.prototype = {
 		this.gwQueue.length = 0;
 		this.matchOrdersSell.length = 0;
 		this.matchOrdersBuy.length = 0;
-		this.matchATOOrders.length = 0;
 	},
 
 	getAll: function() {
@@ -63,14 +61,6 @@ OrderStore.prototype = {
 		return this.matchOrdersSell;
 	},
 
-	getAllATOOrder: function() {
-		return this.matchATOOrders;
-	},
-
-	addATOOrderMatch: function(ord) {
-		this.matchATOOrders.push(ord);
-	},
-
 	addOrderSellMatch: function(ord) {
 		for (var i = 0; i < this.matchOrdersSell.length; i++) {
 			if (ord.price < this.matchOrdersSell[i].price) {
@@ -104,15 +94,6 @@ OrderStore.prototype = {
 		for (var i = 0; i < this.matchOrdersSell.length; i++) {
 			if (ord.orderID == this.matchOrdersSell[i].orderID) {
 				this.matchOrdersSell.splice(i, 1);
-				return;
-			}
-		}
-	},
-
-	removeATOOrdersMatch: function(ord) {
-		for (var i = 0; i < this.matchATOOrders.length; i++) {
-			if (ord.orderID == this.matchATOOrders[i].orderID) {
-				this.matchATOOrders.splice(i, 1);
 				return;
 			}
 		}
