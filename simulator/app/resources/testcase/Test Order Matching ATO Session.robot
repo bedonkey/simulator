@@ -11,11 +11,6 @@ ord4= Place(0001000002, SSI, Sell, ATO, 0, 20)
 
 SetSession(HOSE, OPEN1)
 
-count = CountOrderDetail(ord1.msg)
-Assert(count, 4)
-status = GetOrderStatus(ord2.msg)
-Assert(status, Expired)
-
 count = CountOrderDetail(ord2.msg)
 Assert(count, 1)
 status = GetOrderStatus(ord2.msg)
@@ -30,3 +25,8 @@ count = CountOrderDetail(ord4.msg)
 Assert(count, 2)
 status = GetOrderStatus(ord4.msg)
 Assert(status, Filled)
+
+count = CountOrderDetail(ord1.msg)
+Assert(count, 4)
+status = GetOrderStatus(ord1.msg)
+Assert(status, Expired)

@@ -63,7 +63,7 @@ OrderStore.prototype = {
 
 	addOrderSellMatch: function(ord) {
 		for (var i = 0; i < this.matchOrdersSell.length; i++) {
-			if (ord.price < this.matchOrdersSell[i].price) {
+			if (ord.price < this.matchOrdersSell[i].price || this.matchOrdersSell[i].price == 0) {
 				this.matchOrdersSell.splice(i, 0, ord);
 				return;
 			}
@@ -73,30 +73,16 @@ OrderStore.prototype = {
 
 	addOrderBuyMatch: function(ord) {
 		for (var i = 0; i < this.matchOrdersBuy.length; i++) {
-			if (ord.price > this.matchOrdersBuy[i].price) {
+			if (this.matchOrdersBuy[i].price == 0) {
+				this.matchOrdersBuy.splice(0, 0, ord);
+				return;
+			}
+			if (ord.price > this.matchOrdersBuy[i].price ) {
 				this.matchOrdersBuy.splice(i, 0, ord);
 				return;
 			}
 		}
-		this.matchOrdersBuy.push(ord);
-	},
-
-	removeOrderBuyMatch: function(ord) {
-		for (var i = 0; i < this.matchOrdersBuy.length; i++) {
-			if (ord.orderID == this.matchOrdersBuy[i].orderID) {
-				this.matchOrdersBuy.splice(i, 1);
-				return;
-			}
-		}
-	},
-
-	removeOrderSellMatch: function(ord) {
-		for (var i = 0; i < this.matchOrdersSell.length; i++) {
-			if (ord.orderID == this.matchOrdersSell[i].orderID) {
-				this.matchOrdersSell.splice(i, 1);
-				return;
-			}
-		}
+		this.matchOrdersBuy.push(0, 0, ord);
 	},
 
 	add: function(ord) {

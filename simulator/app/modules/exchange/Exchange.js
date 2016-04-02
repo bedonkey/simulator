@@ -34,6 +34,8 @@ Exchange.prototype = {
 			return {exec: "0"};
 		} else {
 			this.addOrderMatch(ord);
+			console.log('Add order: ')
+			console.log(ord)
 			this.priceBoard.add(ord.symbol, ord.side, ord.price, ord.qty);
 			if (ord.status == "Pending New") {
 				ord.status = OrdStatus.NEW;
@@ -96,11 +98,6 @@ Exchange.prototype = {
 		if (this.sessionManager.getExchangeSession()[ex] == Session.NEW || this.sessionManager.getExchangeSession()[ex] == Session.INTERMISSION) {
 			return {error: ErrorCode.EX_06};
 		}
-		if (ord.side == Side.SELL) {
-			this.orderStore.removeOrderSellMatch(ord);
-		} else {
-			this.orderStore.removeOrderBuyMatch(ord);
-		}
 		ord.status = OrdStatus.CANCELED;
 		ord.remain = 0;
 		ord.time = DateTime.getCurentDateTime();
@@ -113,10 +110,8 @@ Exchange.prototype = {
 
 	resort: function(ord) {
 		if (ord.side == Side.SELL) {
-			this.orderStore.removeOrderSellMatch(ord);
 			this.orderStore.addOrderSellMatch(ord);
 		} else {
-			this.orderStore.removeOrderBuyMatch(ord);
 			this.orderStore.addOrderBuyMatch(ord);
 		}
 	},
@@ -265,10 +260,17 @@ Exchange.prototype = {
 		console.log("Match ATO orders");
 		var matchPx = this.findBestMatchPrice();
 		console.log("Best Price Match ATO session: " + matchPx);
+		console.log(this.matchOrdersBuy)
+		console.log(this.matchOrdersSell)
 		if (matchPx > 0) {
-			for (var i = 0; i < this.matchOrdersBuy.length; i++) {
+			for (var i = this.matchOrdersBuy.length -1; i >= 0 ; i--) {
+				if (this.matchOrdersBuy[i].remain == 0) {
+					continue;
+				}
 				for (var j = 0; j < this.matchOrdersSell.length; j++) {
-					this.match(Side.BUY, this.matchOrdersSell[i], this.matchOrdersBuy[i], matchPx);
+					if (this.matchOrdersSell[j].remain > 0&& this.matchOrdersBuy[i].symbol == this.matchOrdersSell[j].symbol && this.matchOrdersBuy[i].account != this.matchOrdersSell[j].account) {
+						this.match(Side.BUY, this.matchOrdersBuy[i], this.matchOrdersSell[j], matchPx);
+					}
 				}
 			}
 		}
@@ -292,13 +294,13 @@ Exchange.prototype = {
 
 	expireAllATOOrders: function() {
 		for (var i = this.matchOrdersBuy.length -1; i >= 0; i--) {
-			if (this.matchOrdersBuy[i].type == Session.ATO) {
+			if (this.matchOrdersBuy[i].type == Session.ATO && this.matchOrdersBuy[i].remain != 0) {
 				this.expired(this.matchOrdersBuy[i]);
 				this.matchOrdersBuy.splice(i, 1);
 			}
 		}
 		for (var i = this.matchOrdersSell.length -1; i >= 0; i--) {
-			if (this.matchOrdersSell[i].type == Session.ATO) {
+			if (this.matchOrdersSell[i].type == Session.ATO && this.matchOrdersSell[i].remain != 0) {
 				this.expired(this.matchOrdersSell[i]);
 				this.matchOrdersSell.splice(i, 1);
 			}
@@ -316,14 +318,14 @@ Exchange.prototype = {
 	},
 
 	setSession: function(ex, session) {
-		if (ex == "HOSE" && session == Session.OPEN1 && this.sessionManager.getExchangeSession()[ex] == Session.ATO) {
-			this.matchATO();
-		}
 		if (session == Session.CLOSE) {
 			this.expiredOrders(ex);
 		}
+		var currentSession = this.sessionManager.getExchangeSession()[ex];
 		this.sessionManager.setExchangeSession(ex, session);
-		
+		if (ex == "HOSE" && session == Session.OPEN1 && currentSession == Session.ATO) {
+			this.matchATO();
+		}
 	},
 
 	getSession: function(ex) {

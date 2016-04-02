@@ -29,7 +29,7 @@ Assert(count, 5)
 status = GetOrderStatus(ord1.msg)
 Assert(status, Canceled)
 
-ord2= Place(0001000001, SSI, Buy, ATO, 0, 100)
+ord2= Place(0001000001, HAG, Buy, ATO, 0, 100)
 Assert(ord2.status, true)
 count = CountOrderDetail(ord2.msg)
 Assert(count, 1)
