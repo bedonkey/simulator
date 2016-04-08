@@ -9,7 +9,6 @@ SessionManager.prototype = {
 	},
 
 	setExchangeSession: function(ex, session) {
-		console.log("Set exchange " + ex + " to session " + session)
 		Session.ex[ex] = session;
 	},
 

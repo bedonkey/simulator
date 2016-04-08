@@ -1,7 +1,8 @@
-Gateway = function(orderStore, exchange, sessionManager) {
+Gateway = function(broadcastService, orderStore, exchange, sessionManager) {
 	this.orderStore = orderStore;
 	this.exchange = exchange;
 	this.sessionManager = sessionManager;
+	this.broadcastService = broadcastService;
 };
 
 Gateway.prototype = {
@@ -71,6 +72,7 @@ Gateway.prototype = {
 		}
 
 		if (this.sessionManager.getGatewaySession()[ex] == Session.ATO || this.sessionManager.getGatewaySession()[ex].indexOf(Session.OPEN) > -1) {
+			this.broadcastService.send("executionReport", ord);
 			return this.sendToExchange(ord, action);
 		}
 

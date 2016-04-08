@@ -1,4 +1,4 @@
-ORS = function(orderValidator, afType, orderStore, account, secinfo, gateway, sessionManager) {
+ORS = function(broadcastService, orderValidator, afType, orderStore, account, secinfo, gateway, sessionManager) {
 	this.orderValidator = orderValidator;
 	this.orderStore = orderStore;
 	this.account = account;
@@ -6,6 +6,8 @@ ORS = function(orderValidator, afType, orderStore, account, secinfo, gateway, se
 	this.afType = afType;
 	this.secinfo = secinfo;
 	this.sessionManager = sessionManager;
+	this.broadcastService = broadcastService;
+	this.onGatewayHandle();
 };
 
 ORS.prototype = {
@@ -63,6 +65,15 @@ ORS.prototype = {
 	    	this.processORSReject(ord, error);
         	return {status: false, msg: error};
         }
+	},
+
+	onGatewayHandle: function() {
+		console.log("Listen message from gateway")
+		this.broadcastService.receive('executionReport', this.processMessageFromGW);
+	},
+
+	processMessageFromGW: function(event, msg) {
+		console.log(msg)
 	},
 
 	processORSReject: function(ord, error) {

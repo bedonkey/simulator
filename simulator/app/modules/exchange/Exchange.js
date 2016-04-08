@@ -1,4 +1,4 @@
-Exchange = function(exchangeValidator, account, secinfo, orderStore, priceBoard, sessionManager) {
+Exchange = function(broadcastService, exchangeValidator, account, secinfo, orderStore, priceBoard, sessionManager) {
 	this.exchangeValidator = exchangeValidator;
 	this.account = account;
 	this.secinfo = secinfo;
@@ -7,6 +7,7 @@ Exchange = function(exchangeValidator, account, secinfo, orderStore, priceBoard,
 	this.sessionManager = sessionManager;
 	this.matchOrdersBuy = this.orderStore.getAllOrderBuy();
 	this.matchOrdersSell = this.orderStore.getAllOrderSell();
+	this.broadcastService = broadcastService;
 };
 
 Exchange.prototype = {
@@ -34,8 +35,6 @@ Exchange.prototype = {
 			return {exec: "0"};
 		} else {
 			this.addOrderMatch(ord);
-			console.log('Add order: ')
-			console.log(ord)
 			this.priceBoard.add(ord.symbol, ord.side, ord.price, ord.qty);
 			if (ord.status == "Pending New") {
 				ord.status = OrdStatus.NEW;
@@ -257,11 +256,8 @@ Exchange.prototype = {
 	},
 
 	matchATO: function() {
-		console.log("Match ATO orders");
 		var matchPx = this.findBestMatchPrice();
 		console.log("Best Price Match ATO session: " + matchPx);
-		console.log(this.matchOrdersBuy)
-		console.log(this.matchOrdersSell)
 		if (matchPx > 0) {
 			for (var i = this.matchOrdersBuy.length -1; i >= 0 ; i--) {
 				if (this.matchOrdersBuy[i].remain == 0) {
@@ -277,19 +273,56 @@ Exchange.prototype = {
 		this.expireAllATOOrders();
 	},
 
+	calcMatchQtyForATO: function(ordBuy, ordSell) {
+		var remainBuy = ordBuy.remain - ordBuy.underlyingQty;
+    	var remainSell = ordSell.remain - ordSell.underlyingQty;
+    	if (remainSell => remainBuy) {
+    		return remainBuy;
+    	} else if (remainSell < remainBuy) {
+    		return remainSell;
+    	}
+	},
+
+	calcTotalMatchQtyWithPrice: function(price) {
+		var totalMatchQty = 0;
+		for (var i = this.matchOrdersBuy.length -1; i >= 0 ; i--) {
+			if (this.matchOrdersBuy[i].remain == 0) {
+				continue;
+			}
+			for (var j = 0; j < this.matchOrdersSell.length; j++) {
+				if (this.matchOrdersSell[j].remain > 0&& this.matchOrdersBuy[i].symbol == this.matchOrdersSell[j].symbol && this.matchOrdersBuy[i].account != this.matchOrdersSell[j].account) {
+					totalMatchQty += this.calcMatchQtyForATO(this.matchOrdersBuy[i], this.matchOrdersSell[j], price);
+				}
+			}
+		}
+		return totalMatchQty;
+	},
+
 	findBestMatchPrice: function() {
 		var listPrice = [];
+		var listQty = [];
 		for (var i = this.matchOrdersBuy.length -1; i >= 0; i--) {
-			if (this.matchOrdersBuy[i].price > 0) {
+			if (this.matchOrdersBuy[i].price > 0 && listPrice.indexOf(this.matchOrdersBuy[i].price) == -1) {
 				listPrice.push(this.matchOrdersBuy[i].price);
 			}
 		}
 		for (var i = this.matchOrdersSell.length -1; i >= 0; i--) {
-			if (this.matchOrdersSell[i].price > 0) {
-				listPrice.push(this.matchOrdersBuy[i].price);
+			if (this.matchOrdersSell[i].price > 0 && listPrice.indexOf(this.matchOrdersSell[i].price) == -1) {
+				listPrice.push(this.matchOrdersSell[i].price);
 			}
 		}
-		return listPrice[0];
+		for (var i = listPrice.length - 1; i >= 0; i--) {
+			listQty[i] = this.calcTotalMatchQtyWithPrice(listPrice[i]);
+		}
+		var x = 0;
+		var qty = 0;
+		for (var i = listQty.length - 1; i >= 0; i--) {
+			if(listQty[i] > qty) {
+				qty = listQty[i];
+				x = i;
+			}
+		};
+		return listPrice[x];
 	},
 
 	expireAllATOOrders: function() {

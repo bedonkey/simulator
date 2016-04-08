@@ -7,12 +7,13 @@ app.directive('focusMe', FocusMeDirective);
 app.directive('autofocus', AutoFocusDirective);
 app.directive('blink', BlinkDirective);
 
+app.service('broadcastService', ['$rootScope', BroadcastService]);
 app.service('accountValidator', AccountValidator);
 app.service('account', ['accountValidator', 'aftype', Account]);
 app.service('aftype', ['basket', AfType]);
 app.service('basket', Basket);
 app.service('orderValidator', ['account', 'secinfo', 'aftype', 'sessionManager', OrderValidator]);
-app.service('ors', ['orderValidator', 'aftype', 'orderStore', 'account', 'secinfo', 'gateway', 'sessionManager', ORS]);
+app.service('ors', ['broadcastService', 'orderValidator', 'aftype', 'orderStore', 'account', 'secinfo', 'gateway', 'sessionManager', ORS]);
 app.service('secInfoValidator', SecInfoValidator);
 app.service('secinfo', ['secInfoValidator', SecInfo]);
 app.service('exSecinfo', ExSecInfo);
@@ -22,8 +23,8 @@ app.service('dockService', ['account', 'secinfo', DockService]);
 app.service('logScreen', LogScreen);
 app.service('interpreter', ['logScreen', 'account', 'ors', 'gateway',  'exchange', Interpreter]);
 app.service('exchangeValidator', ['exSecinfo', ExchangeValidator]);
-app.service('gateway', ['orderStore', 'exchange', 'sessionManager', Gateway]);
-app.service('exchange', ['exchangeValidator', 'account', 'secinfo', 'orderStore', 'priceBoard', 'sessionManager', Exchange]);
+app.service('gateway', ['broadcastService', 'orderStore', 'exchange', 'sessionManager', Gateway]);
+app.service('exchange', ['broadcastService', 'exchangeValidator', 'account', 'secinfo', 'orderStore', 'priceBoard', 'sessionManager', Exchange]);
 app.service('sessionManager', ['dockService', SessionManager]);
 
 app.controller("TabsCtrl", ['$scope', TabController]);
