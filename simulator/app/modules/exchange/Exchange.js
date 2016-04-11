@@ -36,6 +36,7 @@ Exchange.prototype = {
 		} else {
 			this.addOrderMatch(ord);
 			this.priceBoard.add(ord.symbol, ord.side, ord.price, ord.qty);
+
 			if (ord.status == "Pending New") {
 				ord.status = OrdStatus.NEW;
 				var isMatched = this.matching(ord);
@@ -132,6 +133,7 @@ Exchange.prototype = {
 	},
 
 	matchingBuy: function(ord) {
+		console.log("Match order buy")
 		var isMatch = false;
 		for (var i = 0; i < this.matchOrdersSell.length; i++) {
 			if (ord.remain == 0) {
@@ -169,11 +171,11 @@ Exchange.prototype = {
     	ordSell.time = DateTime.getCurentDateTime();
 		ordSell.statusBeforeMatch = ordSell.status;
     	var matchQty = this.calcMatchQty(ordBuy, ordSell);
-    	this.pushToStore(side, Utils.clone(ordBuy), Utils.clone(ordSell));
     	ordBuy.avgQty += parseInt(matchQty);
     	ordBuy.avgPX = matchPx;
     	ordSell.avgQty += parseInt(matchQty);
     	ordSell.avgPX = matchPx;
+    	this.pushToStore(side, Utils.clone(ordBuy), Utils.clone(ordSell));
     	
     	if (ordBuy.side == Side.SELL) {
     		this.account.unHoldT0(ordBuy.account, ordBuy.symbol, matchPx * matchQty);
@@ -189,6 +191,7 @@ Exchange.prototype = {
 
 	calcMatchQty: function(ordBuy, ordSell) {
 		var matchQty;
+		
 		var remainBuy = ordBuy.remain - ordBuy.underlyingQty;
     	var remainSell = ordSell.remain - ordSell.underlyingQty;
     	if (remainSell == remainBuy) {
@@ -221,14 +224,21 @@ Exchange.prototype = {
     		this.orderStore.pushToMap(ordBuy.originalID, ordBuy);
     		this.pushOther(ordSell);
     	}
- 
 	},
 
 	pushOther: function(ord) {
 		if (ord.statusBeforeMatch != undefined) {
+			console.log("Add paritial filled")
+			console.log(ord.remain)
     		if (ord.statusBeforeMatch == OrdStatus.PARTIAL_FILLED) {
     			var partilaFilledOrder = Utils.clone(ord);
-		 		partilaFilledOrder.status = OrdStatus.PARTIAL_FILLED;
+    			if (ord.remain == 0) {
+    				partilaFilledOrder.status = OrdStatus.FILLED;
+    			} else {
+    				partilaFilledOrder.status = OrdStatus.PARTIAL_FILLED;
+    			}
+		 		partilaFilledOrder.remain = ord.remain;
+		 		partilaFilledOrder.avgQty = ord.avgQty;
 		 		this.orderStore.pushToMap(ord.originalID, partilaFilledOrder);
     		} else {
     			this.orderStore.pushToMap(ord.originalID, ord);
@@ -236,7 +246,22 @@ Exchange.prototype = {
     	} else {
     		var newOrder = Utils.clone(ord);
 		 	newOrder.status = OrdStatus.NEW;
+		 	newOrder.remain = ord.qty;
+		 	newOrder.avgQty = 0;
          	this.orderStore.pushToMap(ord.originalID, newOrder);
+         	if (ord.remain == 0) {
+         		var filledOrder = Utils.clone(ord);
+         		filledOrder.remain = ord.remain;
+		 		filledOrder.avgQty = ord.avgQty;
+		 		filledOrder.status = OrdStatus.FILLED;
+		 		this.orderStore.pushToMap(ord.originalID, filledOrder);
+         	} else {
+         		var partilaFilledOrder = Utils.clone(ord);
+         		partilaFilledOrder.remain = ord.remain;
+		 		partilaFilledOrder.avgQty = ord.avgQty;
+		 		partilaFilledOrder.status = OrdStatus.PARTIAL_FILLED;
+		 		this.orderStore.pushToMap(ord.originalID, partilaFilledOrder);
+         	}
     	}
 	},
 
@@ -257,14 +282,13 @@ Exchange.prototype = {
 
 	matchATO: function() {
 		var matchPx = this.findBestMatchPrice();
-		console.log("Best Price Match ATO session: " + matchPx);
 		if (matchPx > 0) {
 			for (var i = this.matchOrdersBuy.length -1; i >= 0 ; i--) {
-				if (this.matchOrdersBuy[i].remain == 0) {
-					continue;
-				}
 				for (var j = 0; j < this.matchOrdersSell.length; j++) {
-					if (this.matchOrdersSell[j].remain > 0&& this.matchOrdersBuy[i].symbol == this.matchOrdersSell[j].symbol && this.matchOrdersBuy[i].account != this.matchOrdersSell[j].account) {
+					if (this.matchOrdersSell[j].remain > 0 && this.matchOrdersBuy[i].symbol == this.matchOrdersSell[j].symbol && this.matchOrdersBuy[i].account != this.matchOrdersSell[j].account) {
+						if (this.matchOrdersBuy[i].remain == 0) {
+							continue;
+						}
 						this.match(Side.BUY, this.matchOrdersBuy[i], this.matchOrdersSell[j], matchPx);
 					}
 				}
@@ -347,6 +371,7 @@ Exchange.prototype = {
     	} else {
     		this.account.unHold(ord);
     	}
+    	ord.remain = 0;
     	this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
 	},
 

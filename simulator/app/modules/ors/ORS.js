@@ -54,7 +54,10 @@ ORS.prototype = {
 				}
 			}
 			this.orderStore.add(ord);
-	        this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
+			if (result == undefined || result.exec != 'F') {
+	        	this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
+			}
+			
 			if(ord.side == Side.BUY) {
 				this.account.hold(ord);
 			} else {
@@ -73,12 +76,13 @@ ORS.prototype = {
 	},
 
 	processMessageFromGW: function(event, msg) {
-		console.log(msg)
+		console.log("Receive message from GW")
 	},
 
 	processORSReject: function(ord, error) {
     	ord.status = OrdStatus.ORS_REJECTED;
     	ord.text = error;
+    	ord.remain = 0;
     	this.orderStore.add(ord);
         this.orderStore.pushToMap(ord.originalID, ord);
 	},

@@ -16,12 +16,14 @@ ord8= Place(0001000002, SSI, Sell, ATO, 0, 40)
 SetSession(HOSE, OPEN1)
 
 count = CountOrderDetail(ord1.msg)
-Assert(count, 4)
+Assert(count, 3)
 status = GetOrderStatus(ord1.msg)
 Assert(status, Filled)
+event = GetOrderEvent(ord1.msg)
+Assert(event, New | Partial Filled | Filled)
 
 count = CountOrderDetail(ord2.msg)
-Assert(count, 4)
+Assert(count, 3)
 status = GetOrderStatus(ord2.msg)
 Assert(status, Filled)
 
@@ -36,12 +38,12 @@ status = GetOrderStatus(ord4.msg)
 Assert(status, New)
 
 count = CountOrderDetail(ord5.msg)
-Assert(count, 4)
+Assert(count, 2)
 status = GetOrderStatus(ord5.msg)
 Assert(status, Filled)
 
 count = CountOrderDetail(ord6.msg)
-Assert(count, 4)
+Assert(count, 3)
 status = GetOrderStatus(ord6.msg)
 Assert(status, Filled)
 
@@ -54,5 +56,7 @@ count = CountOrderDetail(ord8.msg)
 Assert(count, 2)
 status = GetOrderStatus(ord8.msg)
 Assert(status, Filled)
+event = GetOrderEvent(ord8.msg)
+Assert(event, New | Filled)
 
 
