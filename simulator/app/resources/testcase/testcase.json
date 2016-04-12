@@ -33,6 +33,10 @@
 }, {
   "name": "Test Order Matching ATO Session Best Quantity"
 }, {
+  "name": "Test Hold Unhold in ATO Session"
+}, {
+  "name": "Test Hold Unhold when Matching in ATO Session"
+}, {
   "name": "Free Test ATO Session"
 }, {
   "name": "Test HOSE Cancel Order"

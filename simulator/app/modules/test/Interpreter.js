@@ -90,6 +90,12 @@ Interpreter.prototype = {
                     variables[vab] = retu;
                 }
                 break;
+            case 'GetTrade':
+                var retu = this.doGetTrade(para);
+                if (vab != '') {
+                    variables[vab] = retu;
+                }
+                break;
             case 'GetAfType':
                 var retu = this.doGetAfType(para);
                 if (vab != '') {
@@ -224,6 +230,19 @@ Interpreter.prototype = {
         this.logScreen.append("Get Qmax acc: " + para[0])
         var acc = this.account.getByID(para[0]);
         return this.account.getQmax(acc, para[1].trim(), para[2].trim());
+    },
+
+    doGetTrade: function(para) {
+        this.logScreen.append("Get Trade acc: " + para[0])
+        var acc = this.account.getByID(para[0]);
+        console.log(para)
+        console.log(acc)
+        for (var i = acc.secs.length - 1; i >= 0; i--) {
+            if (acc.secs[i].symbol == para[1].trim()){
+                return acc.secs[i].qty;
+            }
+        };
+        return 0;
     },
 
     doGetAfType: function(para) {
