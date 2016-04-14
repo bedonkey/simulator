@@ -1,87 +1,87 @@
 [{
   "name": "Test"
 }, {
-  "name": "Test Validate Price Spread"
+  "name": "[Order] Test Validate Price Spread"
 }, {
-  "name": "Test Place Order"
+  "name": "[Order] Test Place"
 }, {
-  "name": "Test Place Order Intermission Session"
+  "name": "[Order] Free Test"
 }, {
-  "name": "Test HOSE Place Order"
+  "name": "[Order] Test HOSE Cancel"
 }, {
-  "name": "Test HOSE Place Order Intermission Session"
+  "name": "[Order] Test Match"
 }, {
-  "name": "Test Replace Order"
+  "name": "[Order] Test Partial Filled Match"
 }, {
-  "name": "Test Replace ORS New Session"
+  "name": "[Order] Test Cancel Replace rejected by exchange when filled"
 }, {
-  "name": "Test Replace Gateway New Session"
+  "name": "[Order] Test Cancel"
 }, {
-  "name": "Test Replace Order Intermission Session"
+  "name": "[Order] Test HOSE Place"
 }, {
-  "name": "Test Cancel Order"
+  "name": "[Order] Test Replace"
 }, {
-  "name": "Test Cancel ORS New Session"
+  "name": "[Order] Test Order Status"
 }, {
-  "name": "Test Cancel Gateway New Session"
+  "name": "[Intermission] Test Place Order"
 }, {
-  "name": "Test Cancel Order Intermission Session"
+  "name": "[Intermission] Test HOSE Place Order"
 }, {
-  "name": "Test Place Order ATO Session"
+  "name": "[Intermission] Test Replace Order"
 }, {
-  "name": "Test Order Matching ATO Session"
+  "name": "[Intermission] Test Cancel Order"
 }, {
-  "name": "Test Order Matching ATO Session Best Quantity"
+  "name": "[Intermission] Test HOSE Cancel Order"
 }, {
-  "name": "Test Hold Unhold in ATO Session"
+  "name": "[Gateway New] Test Replace"
 }, {
-  "name": "Test Hold Unhold when Matching in ATO Session"
+  "name": "[Gateway New] Test Cancel"
 }, {
-  "name": "Free Test ATO Session"
+  "name": "[Gateway New] Test HOSE Cancel"
 }, {
-  "name": "Test HOSE Cancel Order"
+  "name": "[ORS New] Test Replace"
 }, {
-  "name": "Test HOSE Cancel ORS New Session"
+  "name": "[ORS New] Test Cancel"
 }, {
-  "name": "Test HOSE Cancel Gateway New Session"
+  "name": "[ORS New] Test HOSE Cancel"
 }, {
-  "name": "Test HOSE Cancel Order Intermission Session"
+  "name": "[ATO] Test Place Order"
 }, {
-  "name": "Test Match Order"
+  "name": "[ATO] Test Order Matching"
 }, {
-  "name": "Test Partial Filled Match Order"
+  "name": "[ATO] Test Order Matching Best Quantity"
 }, {
-  "name": "Test Cancel Replace rejected by exchange when filled"
+  "name": "[ATO] Test Hold Unhold"
 }, {
-  "name": "Test Account AutoAdv"
+  "name": "[ATO] Test Hold Unhold when Matching"
 }, {
-  "name": "Test Account Margin"
+  "name": "[ATO] Free Test"
 }, {
-  "name": "Test Account Margin Has Replace"
+  "name": "[Margin] Test Account AutoAdv"
 }, {
-  "name": "Test Account Margin Has Filled"
+  "name": "[Margin] Test Account Margin"
 }, {
-  "name": "Test Account Margin Has Partial Filled"
+  "name": "[Margin] Test Account Margin Has Replace"
 }, {
-  "name": "Test Account None Margin None AutoAdv"
+  "name": "[Margin] Test Account Margin Has Filled"
 }, {
-  "name": "Test Account Change AutoAdv"
+  "name": "[Margin] Test Account Margin Has Partial Filled"
 }, {
-  "name": "Test Account Change AfType"
+  "name": "[Margin] Test Account None Margin None AutoAdv"
 }, {
-	"name": "Test Interpreter Functions"
+  "name": "[Margin] Test Account Change AutoAdv"
 }, {
-  "name": "Test Session open ORS then open Gateway"
+  "name": "[Margin] Test Account Change AfType"
 }, {
-  "name": "Test Session open Gateway then open ORS"
+  "name": "[Margin] Free Test"
 }, {
-  "name": "Test ORS Open Queue"
+  "name": "[Session] Test Session open ORS then open Gateway"
 }, {
-  "name": "Test Gateway Open Queue"
+  "name": "[Session] Test Session open Gateway then open ORS"
 }, {
-  "name": "Test Order Status"
+  "name": "[Queue] Test ORS Open Queue"
 }, {
-  "name": "Free Test Business"
+  "name": "[Queue] Test Gateway Open Queue"
 }, {
-  "name": "Free Test Order"
+  "name": "Test Interpreter Functions"
 }]
