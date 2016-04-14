@@ -13,7 +13,7 @@ LearnController = function($scope, $http, interprester) {
             $("#learn-box .content").niceScroll({cursorborder:"", cursorcolor:"#ddd", boxzoom:false});
         }
 
-        $http.get('app/resources/testcase/testcase.json')
+        $http.get('app/resources/testcase.json')
         .success(function(data, status, headers, config) {
             if (data && status === 200) {
                 $scope.testcases = data;

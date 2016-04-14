@@ -16,7 +16,7 @@ RobotController = function($scope, $http, logScreen, interpeter) {
         }
 
         if (robottestData.testcases == undefined) {
-            $http.get('app/resources/testcase/testcase.json')
+            $http.get('app/resources/testcase.json')
             .success(function(data, status, headers, config) {
                 if (data && status === 200) {
                     $scope.testcases = data;
