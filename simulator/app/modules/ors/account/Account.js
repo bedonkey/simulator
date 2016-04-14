@@ -81,9 +81,9 @@ Account.prototype = {
 		var acc = this.get(ord.account)[0];
 		if (acc != undefined) {
 			if (this.afType.checkExist(acc.afType) && acc.afType != '100') {
-				acc.hold += (parseInt(ord.price) - parseInt(ord.priceMargin)) * parseInt(ord.remain);
+				acc.hold += (parseInt(ord.holdPrice) - parseInt(ord.priceMargin)) * parseInt(ord.remain);
 			} else {
-				acc.hold += parseInt(ord.price) * parseInt(ord.remain);
+				acc.hold += parseInt(ord.holdPrice) * parseInt(ord.remain);
 			}
 			this.refresh(acc);
 		}
@@ -93,13 +93,19 @@ Account.prototype = {
 		var acc = this.get(ord.account)[0];
 		if (acc != undefined) {
 			if (this.afType.checkExist(acc.afType) && acc.afType != '100') {
-				acc.hold -= (parseInt(ord.price) - parseInt(ord.priceMargin)) * parseInt(ord.remain);
+				acc.hold -= (parseInt(ord.holdPrice) - parseInt(ord.priceMargin)) * parseInt(ord.remain);
 			} else {
-				acc.hold -= parseInt(ord.price) * parseInt(ord.remain);
+				acc.hold -= parseInt(ord.holdPrice) * parseInt(ord.remain);
 			}
 			
 			this.refresh(acc);
 		}
+	},
+
+	unHoldWidthPriceAndQty: function(accNo, price, qty) {
+		var acc = this.get(accNo)[0];
+		acc.hold -= parseInt(price) * parseInt(qty);
+		this.refresh(acc);
 	},
 
 	holdTrade: function(accountID, symbol, amount) {

@@ -183,6 +183,10 @@ Exchange.prototype = {
     	} else {
     		this.account.unHoldTradeT0(ordBuy.account, ordBuy.symbol, matchQty);
     		this.account.unHoldT0(ordSell.account, ordSell.symbol, matchPx * matchQty);
+    		
+    	}
+    	if (ordBuy.price == 0) {
+    		this.account.unHoldWidthPriceAndQty(ordBuy.account, ordBuy.holdPrice - matchPx, matchQty);
     	}
         this.priceBoard.addMatch(ordBuy.symbol, matchPx, matchQty);
         this.priceBoard.subtract(ordBuy.symbol, ordBuy.side, ordBuy.price, matchQty);

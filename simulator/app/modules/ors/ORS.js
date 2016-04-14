@@ -59,6 +59,11 @@ ORS.prototype = {
 			}
 			
 			if(ord.side == Side.BUY) {
+				if (ord.price == 0) {
+					ord.holdPrice = this.secinfo.get(ord.symbol)[0].ceil;
+				} else {
+					ord.holdPrice = ord.price;
+				}
 				this.account.hold(ord);
 			} else {
 				this.account.holdTrade(ord.account, ord.symbol, ord.qty);
@@ -111,6 +116,7 @@ ORS.prototype = {
 			oldOrd.underlyingQty = ord.qty - oldOrd.qty;
 			oldOrd.underlyingPrice = ord.price - oldOrd.price;
 			oldOrd.price = ord.price;
+			oldOrd.holdPrice = ord.price;
 			oldOrd.qty = ord.qty;
 			oldOrd.remain = ord.qty - oldOrd.avgQty;
 			oldOrd.orderID = IdGenerator.getId();

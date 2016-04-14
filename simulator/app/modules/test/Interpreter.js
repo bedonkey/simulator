@@ -235,11 +235,9 @@ Interpreter.prototype = {
     doGetTrade: function(para) {
         this.logScreen.append("Get Trade acc: " + para[0])
         var acc = this.account.getByID(para[0]);
-        console.log(para)
-        console.log(acc)
         for (var i = acc.secs.length - 1; i >= 0; i--) {
             if (acc.secs[i].symbol == para[1].trim()){
-                return acc.secs[i].qty;
+                return acc.secs[i].qty - acc.secs[i].hold;
             }
         };
         return 0;
