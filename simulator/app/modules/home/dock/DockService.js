@@ -87,6 +87,16 @@ DockService.prototype = {
         }
     },
 
+    getRefPrice: function() {
+        if (currentSym.length == 3) {
+            var sec = this.secinfo.get(currentSym);
+            if(sec.length > 0) {
+                return sec[0].ref;
+            }
+        }
+        return 0;
+    },
+
     refeshSymbol: function() {
         dockInfo.sym = currentSym;
         if (currentSym.length == 3) {
@@ -94,7 +104,8 @@ DockService.prototype = {
             if(sec.length > 0) {
                 this.updateTrade();
                 dockInfo.floor = 'Floor: ' + sec[0].floor; 
-                dockInfo.ceil = 'Ceil: ' + sec[0].ceil; 
+                dockInfo.ceil = 'Ceil: ' + sec[0].ceil;
+                currentPrice = sec[0].ref;
             }
         } else {
             dockInfo.floor = ''; 

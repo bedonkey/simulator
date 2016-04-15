@@ -23,7 +23,7 @@ OrderValidator.prototype = {
         var secs = this.secinfo.get(ord.symbol);
         if (secs.length == 0) return ErrorCode.ORS_13;
         if (ex == "HNX" && ord.type == Session.ATO) return ErrorCode.ORS_20;
-        if (ord.type == Session.ATO && (orsSession != Session.New || orsSession != Session.ATO)) return ErrorCode.ORS_22;
+        if (ord.type == Session.ATO && orsSession != Session.NEW && orsSession != Session.ATO) return ErrorCode.ORS_22;
         if (ord.price < secs[0].floor && ord.type != Session.ATO) return ErrorCode.ORS_17;
         if (ord.price > secs[0].ceil && ord.type != Session.ATO) return ErrorCode.ORS_18;
         if (!this.valiatePriceSpread(ex, ord.price)) {

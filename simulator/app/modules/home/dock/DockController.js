@@ -94,8 +94,16 @@ DockController = function($scope, ors, dockService) {
         dockService.updateTrade();
     }
 
+    $scope.onTypeChange = function() {
+        var types = ["ATO", "ATC", "MP", "MTL", "MOK", "MAK"]
+        if (types.indexOf($scope.orderPlace.type) > -1) {
+            $scope.orderPlace.price = 0;
+        }
+    }
+
     $scope.refeshSymbol = function() {
         dockService.setCurrentSym($scope.orderPlace.symbol);
+        $scope.orderPlace.price = dockService.getRefPrice();
         dockService.refeshSymbol();
     }
 
@@ -105,6 +113,10 @@ DockController = function($scope, ors, dockService) {
     }
 
     $scope.place = function() {
+        var types = ["ATO", "ATC", "MP", "MTL", "MOK", "MAK"]
+        if (types.indexOf($scope.orderPlace.type) > -1) {
+            $scope.orderPlace.price = 0;
+        }
         var ord = Utils.clone($scope.orderPlace);
         var result = ors.place(ord);
         if (result.status == false) {
