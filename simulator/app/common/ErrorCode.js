@@ -27,4 +27,5 @@ ErrorCode = {
 	ORS_19: "Invalid price spread",
 	ORS_20: "HNX don't support ATO order",
 	ORS_21: "Can not cancel order Pending New in Open session",
+	ORS_22: "Can not place ATO order, only place in New or ATO session",
 }
