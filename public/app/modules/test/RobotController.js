@@ -1,26 +1,29 @@
 robottestData = {};
 
 RobotController = function($scope, $http, logScreen, interpeter) {
+    $scope.isSave = true;
+    $scope.logData = logScreen.getLogData();
+    $scope.currentTest = {};
+    $scope.testTitle = robottestData.testTitle;
+    $scope.testPass = robottestData.testPass;
+    $scope.currentTest = robottestData.currentTest;
+    $scope.testcases = [];
+    robottestData.testcases = [];
 	
     $scope.init = function() {
-        $scope.isSave = true;
-        $scope.logData = logScreen.getLogData();
-        $scope.currentTest = {};
-        $scope.testTitle = robottestData.testTitle;
-        $scope.testPass = robottestData.testPass;
-        $scope.currentTest = robottestData.currentTest;
-        
         if (robottestData.lines != undefined) {
             $scope.lines = robottestData.lines;
             $("#testcase-editor .content").niceScroll({cursorborder:"", cursorcolor:"#ddd", boxzoom:false});
         }
 
-        if (robottestData.testcases == undefined) {
-            $http.get('app/resources/testcase.json')
+        if (robottestData.testcases.length == 0) {
+            $http.get('api/testcases')
             .success(function(data, status, headers, config) {
                 if (data && status === 200) {
-                    $scope.testcases = data;
-                    robottestData.testcases = data;
+                    for (var i = data.length - 1; i >= 0; i--) {
+                        $scope.testcases.push({"name": data[i].replace('.robot','')});
+                        robottestData.testcases.push({"name": data[i].replace('.robot','')});
+                    };
                 }
             });
         } else {
@@ -32,7 +35,8 @@ RobotController = function($scope, $http, logScreen, interpeter) {
 	$scope.setSelected = function (selectedTest) {
 	   $scope.testTitle = selectedTest;
        robottestData.testTitle = selectedTest;
-	   $http.get('app/resources/testcase/' + selectedTest + '.robot')
+       console.log(selectedTest.replace(/ /g,'-'))
+	   $http.get('api/testcase?name=' + selectedTest.replace(/ /g,'-'))
         .success(function(data, status, headers, config) {
             if (data && status === 200) {
                 $scope.lines = data.match(/[^\r\n]+/g);

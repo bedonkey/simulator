@@ -15,7 +15,7 @@ TabController = function($scope) {
     tabUrl["test-manual"] = "app/modules/test/manual.html";
 
     $scope.isShowDock = true;
-    $scope.currentTab = tabUrl["orderbook"];
+    $scope.currentTab = tabUrl["test-robot"];
 
     $scope.onClickTab = function (tab) {
         var curTab;

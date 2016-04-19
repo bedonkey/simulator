@@ -6,6 +6,8 @@ LearnController = function($scope, $http, interprester) {
     $scope.testPass = '';
     $scope.curLine = learnData.curLine == undefined ? 0 : learnData.curLine;
     $scope.lines = {};
+    $scope.testcases = [];
+    learnData.testcases = [];
 
     $scope.init = function() {
         if (learnData.lines != undefined) {
@@ -13,10 +15,13 @@ LearnController = function($scope, $http, interprester) {
             $("#learn-box .content").niceScroll({cursorborder:"", cursorcolor:"#ddd", boxzoom:false});
         }
 
-        $http.get('app/resources/testcase.json')
-        .success(function(data, status, headers, config) {
+        $http.get('api/testcases')
+        .success(function(data, status) {
             if (data && status === 200) {
-                $scope.testcases = data;
+                for (var i = data.length - 1; i >= 0; i--) {
+                    $scope.testcases.push({"name": data[i].replace('.robot','')});
+                    learnData.testcases.push({"name": data[i].replace('.robot','')});
+                };
                 $("#testcases .testcase").niceScroll({cursorborder:"", cursorcolor:"#ddd", boxzoom:false});
             }
         });
@@ -29,8 +34,8 @@ LearnController = function($scope, $http, interprester) {
         $scope.selectedTest = selectedTest;
         $scope.testTitle = selectedTest;
         learnData.testTitle = selectedTest;
-        $http.get('app/resources/testcase/' + selectedTest + '.robot')
-        .success(function(data, status, headers, config) {
+        $http.get('api/testcase?name=' + selectedTest.replace(/ /g,'-'))
+        .success(function(data, status) {
             if (data && status === 200) {
                 $scope.lines = data.match(/[^\r\n]+/g);
                 learnData.lines = $scope.lines;
