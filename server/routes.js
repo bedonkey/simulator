@@ -2,7 +2,7 @@ var fs = require('fs');
 var path = require("path");
 
 function getTestcases(res) {
-	fs.readdir(path.join(__dirname, '../public/app/testcase'), function(err, files) {
+	fs.readdir(path.join(__dirname, '../testcase'), function(err, files) {
 		if (err) {
 			res.status(500).send(err);
 		}
@@ -16,7 +16,7 @@ function getTestcases(res) {
 };
 
 function readTestcase(res, name) {
-	fs.readFile(path.join(__dirname, '../public/app/testcase/' + name + '.robot'), 'utf8', function(err, data) {
+	fs.readFile(path.join(__dirname, '../testcase/' + name + '.robot'), 'utf8', function(err, data) {
 		if (err) {
 			res.status(500).send(err);
 		}
