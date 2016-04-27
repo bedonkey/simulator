@@ -6,6 +6,7 @@ Session = {
 	OPEN2: "OPEN2",
 	INTERMISSION: "INTERMISSION",
 	ATC: "ATC",
+	PT: "PT",
 	CLOSE:"CLOSE",
 	ex : {
 		HNX : "NEW",

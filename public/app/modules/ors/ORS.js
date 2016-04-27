@@ -134,8 +134,11 @@ ORS.prototype = {
 			} else {
 				var result = this.gateway.receive(ex, oldOrd, 'replace');
 	        	if (result.error != undefined) {
+	        		oldOrd.status = oldOrd.currentStatus;
+	        		oldOrd.orderID = pendingReplace.orderID;
 					newOrder.status = OrdStatus.REJECTED;
-					this.orderStore.pushToMap(ord.originalID, newOrder);
+					newOrder.orderID = pendingReplace.orderID;
+					this.orderStore.pushToMap(newOrder.originalID, newOrder);
 	        		return {status: false, msg: result.error};
 				}
 				if (result.exec == 'A') {
@@ -177,6 +180,7 @@ ORS.prototype = {
 		if (error == undefined) error = this.orderValidator.validateCancel(ex);
 		var currentStatus = order.status;
 		if (error == undefined) {
+			var origStatus = order.status;
 			var pendingCancel = Utils.clone(order);
     		pendingCancel.status = OrdStatus.PENDING_CANCEL;
     		order.status = OrdStatus.PENDING_CANCEL;
@@ -198,9 +202,12 @@ ORS.prototype = {
 					return {status: false, msg: ErrorCode.ORS_21};
 				}
 				var result = this.gateway.receive(ex, order, 'cancel');
+				
 	        	if (result.error != undefined) {
-					order.status = OrdStatus.REJECTED;
-					this.orderStore.pushToMap(ord.originalID, order);
+	        		order.status = origStatus;
+	        		var newOrder = Utils.clone(order);
+					newOrder.status = OrdStatus.REJECTED;
+					this.orderStore.pushToMap(order.originalID, newOrder);
 	        		return {status: false, msg: result.error};
 				}
 			}

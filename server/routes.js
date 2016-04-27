@@ -30,7 +30,6 @@ module.exports = function (app) {
     });
 
     app.get('/api/testcase', function (req, res) {
-    	console.log(req.query.name.replace(/-/g,' '));
         readTestcase(res, req.query.name.replace(/-/g,' '));
     });
 

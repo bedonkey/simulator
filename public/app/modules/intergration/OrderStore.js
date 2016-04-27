@@ -47,7 +47,15 @@ OrderStore.prototype = {
 
 	clearGWQueue: function(ex) {
 		for (var i = this.gwQueue.length-1 ; i >= 0; i--) {
-			if (this.gwQueue[i].order.ex == ex) {
+			if (this.gwQueue[i].order.ex == ex && this.gwQueue[i].order.type != 'ATC') {
+				this.gwQueue.splice(i, 1);
+			}
+		}
+	},
+
+	clearGWATCQueue: function(ex) {
+		for (var i = this.gwQueue.length-1 ; i >= 0; i--) {
+			if (this.gwQueue[i].order.ex == ex && this.gwQueue[i].order.type == 'ATC') {
 				this.gwQueue.splice(i, 1);
 			}
 		}

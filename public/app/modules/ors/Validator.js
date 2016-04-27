@@ -24,9 +24,9 @@ OrderValidator.prototype = {
         if (secs.length == 0) return ErrorCode.ORS_13;
         if (ex == "HNX" && ord.type == Session.ATO) return ErrorCode.ORS_20;
         if (ord.type == Session.ATO && orsSession != Session.NEW && orsSession != Session.ATO) return ErrorCode.ORS_22;
-        if (ord.price < secs[0].floor && ord.type != Session.ATO) return ErrorCode.ORS_17;
-        if (ord.price > secs[0].ceil && ord.type != Session.ATO) return ErrorCode.ORS_18;
-        if (!this.valiatePriceSpread(ex, ord.price)) {
+        if (ord.price > 0 && ord.price < secs[0].floor) return ErrorCode.ORS_17;
+        if (ord.price > 0 && ord.price > secs[0].ceil) return ErrorCode.ORS_18;
+        if (ord.price > 0 && !this.valiatePriceSpread(ex, ord.price)) {
             return ErrorCode.ORS_19;
         }
         if (secs[0].status == 'H') return ErrorCode.ORS_16;

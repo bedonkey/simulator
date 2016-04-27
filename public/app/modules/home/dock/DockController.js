@@ -98,6 +98,8 @@ DockController = function($scope, ors, dockService) {
         var types = ["ATO", "ATC", "MP", "MTL", "MOK", "MAK"]
         if (types.indexOf($scope.orderPlace.type) > -1) {
             $scope.orderPlace.price = 0;
+        } else {
+            $scope.orderPlace.price = dockService.getRefPrice();
         }
     }
 

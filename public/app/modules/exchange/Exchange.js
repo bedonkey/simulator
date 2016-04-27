@@ -98,6 +98,9 @@ Exchange.prototype = {
 		if (this.sessionManager.getExchangeSession()[ex] == Session.NEW || this.sessionManager.getExchangeSession()[ex] == Session.INTERMISSION) {
 			return {error: ErrorCode.EX_06};
 		}
+		if (this.sessionManager.getExchangeSession()[ex] == Session.ATC) {
+			return {error: ErrorCode.EX_07};
+		}
 		ord.status = OrdStatus.CANCELED;
 		ord.remain = 0;
 		ord.time = DateTime.getCurentDateTime();
@@ -270,14 +273,15 @@ Exchange.prototype = {
 	},
 
 	expiredOrders: function(ex) {
+		console.log("Expire all orders");
 		for (var i = this.matchOrdersBuy.length -1; i >= 0; i--) {
-			if (ex == this.matchOrdersBuy[i].ex) {
+			if (ex == this.matchOrdersBuy[i].ex && this.matchOrdersBuy[i].remain > 0) {
 				this.expired(this.matchOrdersBuy[i]);
 				this.matchOrdersBuy.splice(i, 1);
 			}
 		}
 		for (var i = this.matchOrdersSell.length -1; i >= 0; i--) {
-			if (ex == this.matchOrdersSell[i].ex) {
+			if (ex == this.matchOrdersSell[i].ex && this.matchOrdersSell[i].remain > 0) {
 				this.expired(this.matchOrdersSell[i]);
 				this.matchOrdersSell.splice(i, 1);
 			}
@@ -380,7 +384,7 @@ Exchange.prototype = {
 	},
 
 	setSession: function(ex, session) {
-		if (session == Session.CLOSE) {
+		if (session == Session.PT) {
 			this.expiredOrders(ex);
 		}
 		var currentSession = this.sessionManager.getExchangeSession()[ex];

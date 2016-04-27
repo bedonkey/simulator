@@ -12,6 +12,7 @@ Gateway.prototype = {
 	},
 
 	receive: function(ex, ord, action) {
+		
 		if (this.sessionManager.getGatewaySession()[ex] == Session.NEW) {
 			if (action == "place") {
 				this.orderStore.putOrderToGWQueue({order:ord, action:action});
@@ -71,8 +72,17 @@ Gateway.prototype = {
 			}
 		}
 
-		if (this.sessionManager.getGatewaySession()[ex] == Session.ATO || this.sessionManager.getGatewaySession()[ex].indexOf(Session.OPEN) > -1) {
+		if (this.sessionManager.getGatewaySession()[ex] == Session.ATC) {
+			return this.sendToExchange(ord, action);
+		}
+
+		if (this.sessionManager.getGatewaySession()[ex] == Session.ATO || this.sessionManager.getGatewaySession()[ex] == Session.ATC || this.sessionManager.getGatewaySession()[ex].indexOf(Session.OPEN) > -1) {
 			this.broadcastService.send("executionReport", ord);
+			if (ord.type == Session.ATC && action == "place") {
+				this.orderStore.putOrderToGWQueue({order:ord, action:action});
+				console.log('Push to gateway ATC queue')
+				return {exec: 'A'};
+			}
 			return this.sendToExchange(ord, action);
 		}
 
@@ -98,17 +108,37 @@ Gateway.prototype = {
 		orderQueue = this.orderStore.getAllOrderQueueOnGateway();
 		for (var i = 0; i < orderQueue.length; i++) {
 			orderQueue[i].order.queue = "gateway";
-			if (ex == orderQueue[i].order.ex) {
-				this.sendToExchange(orderQueue[i].order, orderQueue[i].action);
+			console.log(orderQueue[i].order.type)
+			if (ex == orderQueue[i].order.ex && orderQueue[i].order.type != 'ATC') {
+				var result = this.sendToExchange(orderQueue[i].order, orderQueue[i].action);
+				if (result.error) {
+					orderQueue[i].order.status = OrdStatus.REJECTED;
+					orderQueue[i].order.text = result.error;
+					this.orderStore.pushToMap(orderQueue[i].order.originalID, orderQueue[i].order);
+				}
 			}
 		}
 		this.orderStore.clearGWQueue(ex);
 	},
 
+	fireATCOrder: function(ex) {
+		orderQueue = this.orderStore.getAllOrderQueueOnGateway();
+		for (var i = 0; i < orderQueue.length; i++) {
+			orderQueue[i].order.queue = "gateway";
+			if (ex == orderQueue[i].order.ex && orderQueue[i].order.type == 'ATC') {
+				result = this.sendToExchange(orderQueue[i].order, orderQueue[i].action);
+			}
+		}
+		this.orderStore.clearGWATCQueue(ex);
+	},
+
 	setSession: function(ex, session) {
-		if (session.indexOf(Session.OPEN) > -1) {
+		if (session == Session.ATO || session.indexOf(Session.OPEN) > -1) {
             console.log("Push order to Exchange");
             this.fireOrder(ex);
+        } else if (session == Session.ATC) {
+        	console.log("Push ATC order to Exchange");
+            this.fireATCOrder(ex);
         }
         this.sessionManager.setGatewaySession(ex, session);
 	},

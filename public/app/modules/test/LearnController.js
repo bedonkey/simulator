@@ -18,7 +18,7 @@ LearnController = function($scope, $http, interprester) {
         $http.get('api/testcases')
         .success(function(data, status) {
             if (data && status === 200) {
-                for (var i = data.length - 1; i >= 0; i--) {
+                for (var i = 0; i < data.length; i++) {
                     $scope.testcases.push({"name": data[i].replace('.robot','')});
                     learnData.testcases.push({"name": data[i].replace('.robot','')});
                 };

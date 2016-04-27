@@ -5,6 +5,7 @@ ErrorCode = {
 	EX_04: "Symbol is halt",
 	EX_05: "Exchange is close",
 	EX_06: "Exchange is waiting order session",
+	EX_07: "Can not cancel ATC order in ATC session",
 
 	ORS_01: "ORS session is close",
 	ORS_02: "Order not found",
