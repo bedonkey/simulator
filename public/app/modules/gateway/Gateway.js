@@ -126,6 +126,7 @@ Gateway.prototype = {
 		for (var i = 0; i < orderQueue.length; i++) {
 			orderQueue[i].order.queue = "gateway";
 			if (ex == orderQueue[i].order.ex && orderQueue[i].order.type == 'ATC') {
+				console.log("=======> Push ATC")
 				result = this.sendToExchange(orderQueue[i].order, orderQueue[i].action);
 			}
 		}

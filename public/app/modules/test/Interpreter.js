@@ -314,7 +314,7 @@ Interpreter.prototype = {
 
     doClearExchange: function() {
         this.logScreen.append("Clear Exchange")
-        this.exchange.expiredOrders();
+        this.exchange.expireOrders();
         this.exchange.init();
         this.gateway.init();
     },

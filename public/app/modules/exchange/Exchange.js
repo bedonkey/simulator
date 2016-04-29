@@ -33,6 +33,14 @@ Exchange.prototype = {
 			this.addOrderMatch(ord);
 			this.priceBoard.add(ord.symbol, ord.side, ord.price, ord.qty);
 			return {exec: "0"};
+		} else if (this.sessionManager.getExchangeSession()[ex] == Session.ATC) {
+			this.addOrderMatch(ord);
+			this.priceBoard.add(ord.symbol, ord.side, ord.price, ord.qty);
+			if (ord.status == "Pending New") {
+				ord.status = OrdStatus.NEW;
+				this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
+			}
+			return {exec: "0"};
 		} else {
 			this.addOrderMatch(ord);
 			this.priceBoard.add(ord.symbol, ord.side, ord.price, ord.qty);
@@ -136,7 +144,6 @@ Exchange.prototype = {
 	},
 
 	matchingBuy: function(ord) {
-		console.log("Match order buy")
 		var isMatch = false;
 		for (var i = 0; i < this.matchOrdersSell.length; i++) {
 			if (ord.remain == 0) {
@@ -235,8 +242,6 @@ Exchange.prototype = {
 
 	pushOther: function(ord) {
 		if (ord.statusBeforeMatch != undefined) {
-			console.log("Add paritial filled")
-			console.log(ord.remain)
     		if (ord.statusBeforeMatch == OrdStatus.PARTIAL_FILLED) {
     			var partilaFilledOrder = Utils.clone(ord);
     			if (ord.remain == 0) {
@@ -272,7 +277,7 @@ Exchange.prototype = {
     	}
 	},
 
-	expiredOrders: function(ex) {
+	expireOrders: function(ex) {
 		console.log("Expire all orders");
 		for (var i = this.matchOrdersBuy.length -1; i >= 0; i--) {
 			if (ex == this.matchOrdersBuy[i].ex && this.matchOrdersBuy[i].remain > 0) {
@@ -303,6 +308,23 @@ Exchange.prototype = {
 			}
 		}
 		this.expireAllATOOrders();
+	},
+
+	matchATC: function(ex) {
+		var matchPx = this.findBestMatchPrice();
+		if (matchPx > 0) {
+			for (var i = this.matchOrdersBuy.length -1; i >= 0 ; i--) {
+				for (var j = 0; j < this.matchOrdersSell.length; j++) {
+					if (this.matchOrdersSell[j].remain > 0 && this.matchOrdersBuy[i].symbol == this.matchOrdersSell[j].symbol && this.matchOrdersBuy[i].account != this.matchOrdersSell[j].account) {
+						if (this.matchOrdersBuy[i].remain == 0) {
+							continue;
+						}
+						this.match(Side.BUY, this.matchOrdersBuy[i], this.matchOrdersSell[j], matchPx);
+					}
+				}
+			}
+		}
+		this.expireOrders();
 	},
 
 	calcMatchQtyForATO: function(ordBuy, ordSell) {
@@ -384,13 +406,18 @@ Exchange.prototype = {
 	},
 
 	setSession: function(ex, session) {
-		if (session == Session.PT) {
-			this.expiredOrders(ex);
-		}
+		
 		var currentSession = this.sessionManager.getExchangeSession()[ex];
 		this.sessionManager.setExchangeSession(ex, session);
 		if (ex == "HOSE" && session == Session.OPEN1 && currentSession == Session.ATO) {
 			this.matchATO();
+		}
+
+		if (session == Session.PT) {
+			if (currentSession == Session.ATC) {
+				this.matchATC(ex);
+			}
+			this.expireOrders(ex);
 		}
 	},
 

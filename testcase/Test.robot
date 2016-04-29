@@ -1,14 +1,12 @@
 ClearExchange()
 ResetAccounts()
-SetSession(HNX, OPEN1)
+SetSession(HOSE, OPEN1)
 
-ord0 = Place(0001000001, AAA, Buy, LO, 15000, 100)
-Assert(ord0.status, true)
+ord1= Place(0001000001, SSI, Buy, ATC, 0, 100)
+ord2= Place(0001000004, SSI, Buy, LO, 21000, 20)
 
-ord1 = Place(0001000001, AAA, Buy, LO, 15000, 100)
-Assert(ord0.status, true)
+ord3= Place(0001000003, SSI, Sell, LO, 21000, 10)
+ord4= Place(0001000002, SSI, Sell, ATC, 0, 20)
 
-SetExchangeSession(HNX, CLOSE)
-
-result = Cancel(ord0.msg)
-ord2 = Replace(ord1.msg, 15500, 200)
+SetSession(HOSE, ATC)
+SetSession(HOSE, PT)
