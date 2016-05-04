@@ -44,8 +44,7 @@ Exchange.prototype = {
 		} else {
 			this.addOrderMatch(ord);
 			this.priceBoard.add(ord.symbol, ord.side, ord.price, ord.qty);
-
-			if (ord.status == "Pending New") {
+			if (ord.status == OrdStatus.PENDING_NEW) {
 				ord.status = OrdStatus.NEW;
 				var isMatched = this.matching(ord);
 	        	if (!isMatched) {
@@ -53,6 +52,11 @@ Exchange.prototype = {
 	        	}
 			} else {
 				var isMatched = this.matching(ord);
+				if (!isMatched) {
+	        		if (ord.type == OrdType.MP) {
+	        			this.expired(ord);
+	        		}
+	        	}
 			}
 			if (isMatched) {
 				return {exec: "F"};
@@ -402,7 +406,9 @@ Exchange.prototype = {
     		this.account.unHold(ord);
     	}
     	ord.remain = 0;
-    	this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
+    	if (ord.type != OrdType.MP) {
+    		this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
+    	}
 	},
 
 	setSession: function(ex, session) {

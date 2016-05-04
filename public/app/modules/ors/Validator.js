@@ -22,8 +22,17 @@ OrderValidator.prototype = {
         if (accs.length == 0) return ErrorCode.ORS_12;
         var secs = this.secinfo.get(ord.symbol);
         if (secs.length == 0) return ErrorCode.ORS_13;
-        if (ex == "HNX" && ord.type == Session.ATO) return ErrorCode.ORS_20;
+        if (ex == "HNX" && ord.type == OrdType.ATO) return ErrorCode.ORS_20;
+        if (ex == "HNX" && ord.type == OrdType.MP) return ErrorCode.ORS_26;
+        if (ex == "HOSE" && ord.type == OrdType.MTL) return ErrorCode.ORS_27;
+        if (ex == "HOSE" && ord.type == OrdType.MOK) return ErrorCode.ORS_28;
+        if (ex == "HOSE" && ord.type == OrdType.MAK) return ErrorCode.ORS_29;
         if (ord.type == Session.ATO && orsSession != Session.NEW && orsSession != Session.ATO) return ErrorCode.ORS_22;
+
+        if (ex == "HOSE" && ord.type == OrdType.MP && orsSession == Session.NEW) return ErrorCode.ORS_23;
+        if (ex == "HOSE" && ord.type == OrdType.MP && orsSession == Session.ATO) return ErrorCode.ORS_24;
+        if (ex == "HOSE" && ord.type == OrdType.MP && orsSession == Session.ATC) return ErrorCode.ORS_25;
+
         if (ord.price > 0 && ord.price < secs[0].floor) return ErrorCode.ORS_17;
         if (ord.price > 0 && ord.price > secs[0].ceil) return ErrorCode.ORS_18;
         if (ord.price > 0 && !this.valiatePriceSpread(ex, ord.price)) {

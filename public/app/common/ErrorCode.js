@@ -29,4 +29,11 @@ ErrorCode = {
 	ORS_20: "HNX don't support ATO order",
 	ORS_21: "Can not cancel order Pending New in Open session",
 	ORS_22: "Can not place ATO order, only place in New or ATO session",
+	ORS_23: "Can not place MP order in NEW session",
+	ORS_24: "Can not place MP order in ATO session",
+	ORS_25: "Can not place MP order in ATC session",
+	ORS_26: "Can not place MP order in HNX",
+	ORS_27: "Can not place MTL order in HOSE",
+	ORS_28: "Can not place MOK order in HOSE",
+	ORS_29: "Can not place MAK order in HOSE",
 }
