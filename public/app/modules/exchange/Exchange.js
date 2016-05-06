@@ -56,6 +56,15 @@ Exchange.prototype = {
 	        		if (ord.type == OrdType.MP) {
 	        			this.expired(ord);
 	        		}
+	        		if (ord.type == OrdType.MTL) {
+	        			this.expired(ord);
+	        		}
+	        		if (ord.type == OrdType.MOK) {
+	        			this.expired(ord);
+	        		}
+	        		if (ord.type == OrdType.MAK) {
+	        			this.expired(ord);
+	        		}
 	        	}
 			}
 			if (isMatched) {
@@ -406,7 +415,7 @@ Exchange.prototype = {
     		this.account.unHold(ord);
     	}
     	ord.remain = 0;
-    	if (ord.type != OrdType.MP) {
+    	if (ord.price != 0 || ord.type == OrdType.ATO || ord.type == OrdType.ATC) {
     		this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
     	}
 	},

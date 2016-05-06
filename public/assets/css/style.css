@@ -109,7 +109,7 @@ span.glyphicon:hover, .glyphicon:hover {
 }
 
 .form-control:focus {
-	background: #eee;
+	background: #666;
 }
 
 .form-control {

@@ -36,4 +36,13 @@ ErrorCode = {
 	ORS_27: "Can not place MTL order in HOSE",
 	ORS_28: "Can not place MOK order in HOSE",
 	ORS_29: "Can not place MAK order in HOSE",
+	ORS_30: "Can not place MTL order in NEW session",
+	ORS_31: "Can not place MTL order in ATO session",
+	ORS_32: "Can not place MTL order in ATC session",
+	ORS_33: "Can not place MOK order in NEW session",
+	ORS_34: "Can not place MOK order in ATO session",
+	ORS_35: "Can not place MOK order in ATC session",
+	ORS_36: "Can not place MAK order in NEW session",
+	ORS_37: "Can not place MAK order in ATO session",
+	ORS_38: "Can not place MAK order in ATC session",
 }
