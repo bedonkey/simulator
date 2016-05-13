@@ -34,6 +34,16 @@ ORS.prototype = {
 		if (error == undefined) {
 	    	var acc = this.account.getByID(ord.account);
 	    	ord.priceMargin = this.afType.getPriceMargin(acc.afType, ord.symbol);
+	    	if(ord.side == Side.BUY) {
+				if (ord.price == 0) {
+					ord.holdPrice = this.secinfo.get(ord.symbol)[0].ceil;
+				} else {
+					ord.holdPrice = ord.price;
+				}
+				this.account.hold(ord);
+			} else {
+				this.account.holdTrade(ord.account, ord.symbol, ord.qty);
+			}
 	    	if (this.sessionManager.getORSSession()[ex] == Session.NEW) {
 				ord.status = OrdStatus.PENDING_NEW;
 			} else {
@@ -58,16 +68,7 @@ ORS.prototype = {
 	        	this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
 			}
 			
-			if(ord.side == Side.BUY) {
-				if (ord.price == 0) {
-					ord.holdPrice = this.secinfo.get(ord.symbol)[0].ceil;
-				} else {
-					ord.holdPrice = ord.price;
-				}
-				this.account.hold(ord);
-			} else {
-				this.account.holdTrade(ord.account, ord.symbol, ord.qty);
-			}
+			
         	return {status: true, msg: ord.orderID};
         } else {
 	    	this.processORSReject(ord, error);

@@ -65,6 +65,11 @@ Exchange.prototype = {
 	        		if (ord.type == OrdType.MAK) {
 	        			this.expired(ord);
 	        		}
+	        	} else {
+	        		if (ord.remain > 0 && (ord.type == OrdType.MAK || ord.type == OrdType.MOK)) {
+	        			this.expired(ord);
+	        			this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
+	        		}
 	        	}
 			}
 			if (isMatched) {
@@ -163,7 +168,7 @@ Exchange.prototype = {
             	break;
             }
             if (this.matchOrdersSell[i].remain > 0 && this.matchOrdersSell[i].symbol == ord.symbol && this.matchOrdersSell[i].account != ord.account) {
-        		if (ord.price >= this.matchOrdersSell[i].price) {
+        		if (ord.price == 0 || ord.price >= this.matchOrdersSell[i].price) {
         			this.match(Side.BUY, ord, this.matchOrdersSell[i], this.matchOrdersSell[i].price);
         			isMatch = true;
         		}
@@ -193,7 +198,10 @@ Exchange.prototype = {
 		ordBuy.statusBeforeMatch = ordBuy.status;
     	ordSell.time = DateTime.getCurentDateTime();
 		ordSell.statusBeforeMatch = ordSell.status;
-    	var matchQty = this.calcMatchQty(ordBuy, ordSell);
+    	var matchQty = this.calcMatchQty(side, ordBuy, ordSell);
+    	if (matchQty == 0 || matchQty == undefined) {
+    		return;
+    	}
     	ordBuy.avgQty += parseInt(matchQty);
     	ordBuy.avgPX = matchPx;
     	ordSell.avgQty += parseInt(matchQty);
@@ -216,7 +224,7 @@ Exchange.prototype = {
         this.priceBoard.subtract(ordSell.symbol, ordSell.side, ordSell.price, matchQty);
 	},
 
-	calcMatchQty: function(ordBuy, ordSell) {
+	calcMatchQty: function(side, ordBuy, ordSell) {
 		var matchQty;
 		
 		var remainBuy = ordBuy.remain - ordBuy.underlyingQty;
@@ -227,6 +235,8 @@ Exchange.prototype = {
         	ordSell.status = OrdStatus.FILLED;
         	ordBuy.remain = 0;
         	ordSell.remain = 0;
+    	} else if ((side == Side.SELL && ordSell.type == OrdType.MOK) || (side == Side.BUY && ordBuy.type == OrdType.MOK)) {
+    		return 0;
     	} else if (remainSell > remainBuy) {
     		matchQty = remainBuy;
     		ordBuy.status = OrdStatus.FILLED;

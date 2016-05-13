@@ -97,7 +97,6 @@ Account.prototype = {
 			} else {
 				acc.hold -= parseInt(ord.holdPrice) * parseInt(ord.remain);
 			}
-			
 			this.refresh(acc);
 		}
 	},
