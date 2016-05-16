@@ -70,6 +70,14 @@ Exchange.prototype = {
 	        			this.expired(ord);
 	        			this.orderStore.pushToMap(ord.originalID, Utils.clone(ord));
 	        		}
+	        		if (ord.remain > 0 && (ord.type == OrdType.MP || ord.type == OrdType.MTL)) {
+	        			ord.status = OrdStatus.NEW;
+	        			ord.price = ord.avgPX;
+	        			ord.orderID = IdGenerator.getId();
+	        			var newLO = Utils.clone(ord);
+	        			newLO.status = OrdStatus.NEW_LO;
+	        			this.orderStore.pushToMap(ord.originalID, newLO);
+	        		}
 	        	}
 			}
 			if (isMatched) {

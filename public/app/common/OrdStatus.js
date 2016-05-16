@@ -10,5 +10,6 @@ OrdStatus = {
 	DONE_FOR_DAY:"Done For Day",
 	PARTIAL_FILLED:"Partial Filled",
 	FILLED:"Filled",
-	EXPIRED:"Expired"
+	EXPIRED:"Expired",
+	NEW_LO:"New LO"
 }
