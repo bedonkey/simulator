@@ -77,6 +77,10 @@ Exchange.prototype = {
 	        			var newLO = Utils.clone(ord);
 	        			newLO.status = OrdStatus.NEW_LO;
 	        			this.orderStore.pushToMap(ord.originalID, newLO);
+	        			console.log('Unhold ' )
+	        			console.log(ord.holdPrice - ord.price)
+	        			console.log(ord.remain)
+	        			this.account.unHoldWidthPriceAndQty(ord.account, ord.holdPrice - ord.price, ord.remain);
 	        		}
 	        	}
 			}
