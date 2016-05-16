@@ -2,7 +2,7 @@
 var express = require('express');
 var favicon = require('serve-favicon');
 var app = express(); 						// create our app w/ express
-var port = process.env.PORT || 9000; 				// set the port
+var port = process.env.PORT || 80; 				// set the port
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var methodOverride = require('method-override');
