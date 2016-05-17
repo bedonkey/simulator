@@ -1,3 +1,4 @@
 node_modules/*
 dist
-simulator/bower_components/*
+public/bower_components/*
+simulator.log

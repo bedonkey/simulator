@@ -2,14 +2,16 @@
 var express = require('express');
 var favicon = require('serve-favicon');
 var app = express(); 						// create our app w/ express
-var port = process.env.PORT || 80; 				// set the port
+var port = process.env.PORT || 9000; 				// set the port
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var methodOverride = require('method-override');
+var fs = require('fs');
+var accessLogStream = fs.createWriteStream(__dirname + '/simulator.log', {flags: 'a'})
 
 // configuration ===============================================================
 app.use(express.static(__dirname + '/public')); 		// set the static files location /public/img will be /img for users
-app.use(morgan('dev')); // log every request to the console
+app.use(morgan('tiny', {stream: accessLogStream})); // log every request to the file
 app.use(bodyParser.urlencoded({'extended': 'true'})); // parse application/x-www-form-urlencoded
 app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.json({type: 'application/vnd.api+json'})); // parse application/vnd.api+json as json
