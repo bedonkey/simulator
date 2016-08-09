@@ -8,10 +8,8 @@
     		<li ng-click="onClickTab('#orstab')"><a href="#orstab" data-toggle="tab">ORS</a></li>
     		<li ng-click="onClickTab('#gateway')"><a href="#gateway" data-toggle="tab">Gateway</a></li>
     		<li ng-click="onClickTab('#exchange')"><a href="#exchange" data-toggle="tab">Exchange</a></li>
-    		<li ng-click="onClickTab('#test')"><a href="#test" data-toggle="tab">Test</a></li>
-    		
       	</ul>
-		<div class='account'>
+		<div class='account' style="display:none;">
 			<span class='username'>Guest</span>
 			<span class="glyphicon glyphicon-user"></span>
 		</div>		
@@ -37,12 +35,6 @@
             		<li ng-click="onClickTabExchangeSecInfo()"><a href="ex-secinfo" data-toggle="tab">SecInfo</a></li>
 	            </ul>
 	  		</li>
-	  		<li class="tab-pane" id="test">
-	  			<ul class="nav navbar-nav">
-            		<li ng-click="onClickTabTestManual()"><a href="test-manual" data-toggle="tab">Manual</a></li>
-            		<li ng-click="onClickTabTestRobot()"><a href="test-robot" data-toggle="tab">RobotTest</a></li>
-	            </ul>
-	  		</li>
 	        <li class="tab-pane" id="orstab">
 	            <ul class="nav navbar-nav">
             		<li ng-click="onClickTabORSAccount()"><a href="ors-account" data-toggle="tab">Account</a></li>
@@ -53,4 +45,8 @@
 	        </li>
     	</ul>
     </div>
+    <div class='lessons'>
+		<span>Lessons</span>
+		<span class="glyphicon glyphicon-plus"></span>
+	</div>
 </nav>

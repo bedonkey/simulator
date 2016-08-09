@@ -6,11 +6,6 @@ function getTestcases(res) {
 		if (err) {
 			res.status(500).send(err);
 		}
-		for (var i = files.length - 1; i >= 0; i--) {
-			if (files[i].startsWith('.')) {
-				files.splice(i, 1);
-			}
-		};
 		res.json(files);
 	})
 };
