@@ -16,6 +16,7 @@ TabController = function($scope) {
 
     $scope.isShowDock = false;
     $scope.currentTab = '';
+    $scope.showLessons = true;
 
     $scope.onClickTab = function (tab) {
         var curTab;
@@ -84,5 +85,9 @@ TabController = function($scope) {
 
     $scope.onClickTabTestManual = function () {
         $scope.currentTab = tabUrl["test-manual"];
+    }
+
+    $scope.showHideLesson = function() {
+        $scope.showLessons ? $scope.showLessons = false : $scope.showLessons=true;
     }
 } 

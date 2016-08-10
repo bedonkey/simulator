@@ -1,0 +1,41 @@
+<div id="lesson" ng-controller="LessonController">
+	<div id="testcases">
+		<div class="box-title">
+			<input class="form-control" type="text" style="width:100%;" ng-model="search.title" ng-enter="search()" placeholder="TestCase"/>
+		</div>
+		<div class="testcase">
+			<div class="box-content">
+				<ul>
+					<li ng-class="{selected: test.name === selectedTest}" ng-repeat="test in testcases | filter: {name: search.title}" ng-click="setSelected(test.name)">
+						{{ test.name | limitTo: 40 }}{{test.name.length > 40 ? '...' : ''}}
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div id="learn-box" class="">
+		<h4 ng-bind="testTitle"></h4>
+		 <div class="content">
+		 	<ul>
+		 		<li ng-repeat="line in lines track by $index" ng-class="$index == curLine ? 'lineActive' : ''">
+		 			{{line| split:'#':0}}
+		 		</li>
+		 	</ul>
+		 	
+		</div> 
+	</div>
+
+	<div id="learn-bar">
+		<div class="prevButton" style="display:none;">
+			<span class="glyphicon glyphicon-circle-arrow-left" ng-click="prevStep()"></span>
+		</div>
+		<div class="mainInfo">
+			{{explain}}
+		</div>
+		<div class="nextButton">
+			<span class="glyphicon glyphicon-circle-arrow-right" ng-click="nextStep()"></span>
+		</div>
+	</div>
+
+</div>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html ng-app="mainapp">
 <head>
-	<title>Simulator</title>
+	<title>DSchools</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css" />
@@ -27,6 +27,7 @@
 	<script type="text/javascript" src="app/directive/AutoFocus.js"></script>
 	<script type="text/javascript" src="app/directive/CellChange.js"></script>
 	<script type="text/javascript" src="app/directive/Blink.js"></script>
+	<script type="text/javascript" src="app/directive/DarthFader.js"></script>
 
 	<script type="text/javascript" src="app/modules/intergration/BroadcastService.js"></script>
 	<script type="text/javascript" src="app/modules/intergration/SessionManager.js"></script>
@@ -69,6 +70,8 @@
 	<script type="text/javascript" src="app/modules/test/RobotController.js"></script>
 	<script type="text/javascript" src="app/modules/test/LearnController.js"></script>
 
+	<script type="text/javascript" src="app/modules/lesson/LessonController.js"></script>
+
 	<script type="text/javascript" src="app/TabController.js"></script>
 	<script type="text/javascript" src="app/MainApp.js"></script>
 </head>
@@ -76,9 +79,15 @@
 	<div id="wrap" class="container" ng-controller="TabsCtrl">
 		<div ng-include="'app/shared/nav.html'"></div>
 		<div id="main-content">
-			<div class="welcome" ng-show="currentTab==''">Simulator</div>
+			<div class="welcome" ng-show="currentTab==''">DSchools</div>
 			<div ng-include="currentTab"></div>
 		</div>
+		<div class='lessons-btn' ng-click="showHideLesson()">
+			<span ng-if="!showLessons">Lessons</span>
+			<span ng-if="showLessons">Practice</span>
+			<span class="glyphicon glyphicon-transfer"></span>
+		</div>
+		<div ng-include="'app/modules/lesson/lesson.html'" ng-if="showLessons"></div>
 		<div ng-include="'app/modules/home/dock/dock.html'" ng-controller="DockController" ng-if="isShowDock" ng-cloak></div>
 	</div>
 </body>
