@@ -19,8 +19,8 @@ function readTestcase(res, name) {
 	})
 };
 
-function getLessons(res) {
-	fs.readdir(path.join(__dirname, '../lesson'), function(err, files) {
+function getLessons(res, type, level) {
+	fs.readdir(path.join(__dirname, '../lesson/' + type + '/' + level ), function(err, files) {
 		if (err) {
 			res.status(500).send(err);
 		}
@@ -28,8 +28,8 @@ function getLessons(res) {
 	})
 };
 
-function readLesson(res, name) {
-	fs.readFile(path.join(__dirname, '../lesson/' + name), 'utf8', function(err, data) {
+function readLesson(res, name, type, level) {
+	fs.readFile(path.join(__dirname, '../lesson/' + type + '/' + level + '/' + name ), 'utf8', function(err, data) {
 		if (err) {
 			res.status(500).send(err);
 		}
@@ -47,14 +47,17 @@ module.exports = function (app) {
     });
 
     app.get('/api/lessons', function (req, res) {
-    	if (req.query.level) {
-    		console.log(req.query.level)
+    	var level = req.query.level;
+		var type = req.query.type;
+    	if (level && type) {
+			getLessons(res, type, level);
     	}
-        getLessons(res);
     });
 
     app.get('/api/lesson', function (req, res) {
-        readLesson(res, req.query.name.replace(/-/g,' '));
+		var level = req.query.level;
+		var type = req.query.type;
+        readLesson(res, req.query.name.replace(/-/g,' '), type, level);
     });
 
     app.get('*', function (req, res) {

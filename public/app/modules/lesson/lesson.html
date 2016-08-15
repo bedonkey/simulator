@@ -7,8 +7,8 @@
 			    </div>
 			    <div id="tabs" class="container-fluid">
 			      	<ul class="nav navbar-nav">
-			    		<li ng-click="showLessonOrder()"><a href="#" data-toggle="tab">Lệnh</a></li>
-			    		<li ng-click=""><a href="#" data-toggle="tab">SPTC</a></li>
+			    		<li ng-click="showLessonOrder()"><a href="order" data-toggle="tab">Lệnh</a></li>
+			    		<li ng-click="showLessonFinance()"><a href="sptc" data-toggle="tab">SPTC</a></li>
 			      	</ul>
 			     </div>
 		  	</nav>
@@ -17,25 +17,58 @@
 			<input class="form-control" type="text" style="width:100%;" ng-model="search.title" ng-enter="search()" placeholder="Tên bài học"/>
 		</div>
 
-		<div ng-show="showLesson">
-			<div class="lessonLevel" ng-click="getLesson('basic')">
+		<div ng-show="isShowOrder">
+			<div class="lessonLevel" ng-click="clearLesson('basic');getLesson('basic','orders')">
 				Basic
 			</div>
 			<div class="testcase">
 				<div class="box-content">
 					<ul>
-						<li ng-class="{selected: test.name === selectedTest}" ng-repeat="test in testcases | filter: {name: search.title}" ng-click="setSelected(test.name)">
-							{{ test.name | limitTo: 40 }}{{test.name.length > 40 ? '...' : ''}}
+						<li ng-class="{selected: test.name === selectedTest}" ng-repeat="lesson in lessonBasic | filter: {name: search.title}" ng-click="setSelected(lesson.name,'basic')">
+							{{ lesson.name | limitTo: 40 }}{{lesson.name.length > 40 ? '...' : ''}}
 						</li>
 					</ul>
 				</div>
 			</div>
-			<div class="lessonLevel" ng-click="getLesson('advance')">
+			<div class="lessonLevel" ng-click="clearLesson('advance');getLesson('advance','orders')">
 				Advance
 			</div>
+			<div class="testcase">
+				<div class="box-content">
+					<ul>
+						<li ng-class="{selected: test.name === selectedTest}" ng-repeat="lesson in lessonAdvance | filter: {name: search.title}" ng-click="setSelected(lesson.name,'advance')">
+							{{ lesson.name | limitTo: 40 }}{{lesson.name.length > 40 ? '...' : ''}}
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
-
-		
+		<div ng-show="isShowFinance">
+			<div class="lessonLevel" ng-click="clearLesson('basic');getLesson('basic','finance')">
+				Basic
+			</div>
+			<div class="testcase">
+				<div class="box-content">
+					<ul>
+						<li ng-class="{selected: test.name === selectedTest}" ng-repeat="lesson in lessonBasic | filter: {name: search.title}" ng-click="setSelected(lesson.name,'basic')">
+							{{ lesson.name | limitTo: 40 }}{{lesson.name.length > 40 ? '...' : ''}}
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="lessonLevel" ng-click="clearLesson('advance');getLesson('advance','orders')">
+				Advance
+			</div>
+			<div class="testcase">
+				<div class="box-content">
+					<ul>
+						<li ng-class="{selected: test.name === selectedTest}" ng-repeat="lesson in lessonAdvance | filter: {name: search.title}" ng-click="setSelected(lesson.name,'advance')">
+							{{ lesson.name | limitTo: 40 }}{{lesson.name.length > 40 ? '...' : ''}}
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<div id="learn-box" class="">
