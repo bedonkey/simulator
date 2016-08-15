@@ -9,6 +9,8 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
     $scope.testcases = [];
     learnData.testcases = [];
     $scope.dockInfo = dockService.initDock();
+    $scope.showLesson = false;
+    $scope.lessonType = 'order';
 
     $scope.init = function() {
         $scope.orders = orderStore.getAll();
@@ -19,13 +21,7 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
 
         $http.get('api/lessons')
         .success(function(data, status) {
-            if (data && status === 200) {
-                for (var i = 0; i < data.length; i++) {
-                    $scope.testcases.push({"name": data[i].replace('.robot','')});
-                    learnData.testcases.push({"name": data[i].replace('.robot','')});
-                };
-                $("#testcases .testcase").niceScroll({cursorborder:"", cursorcolor:"#ddd", boxzoom:false});
-            }
+            
         });
     }
 
@@ -57,12 +53,35 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
         }
     }
 
-    $scope.prevStep = function () {
-        if ($scope.curLine != 0) {
-            $scope.curLine--;
-            $scope.explain = $scope.lines[$scope.curLine].split('#')[1];
-            learnData.curLine = $scope.curLine;
-        }
+    $scope.showLessonOrder = function () {
+        $scope.lessonType = 'order';
+        $scope.showLesson = true;
+    }
+
+    $scope.getLesson = function (level) {
+        console.log(level)
+        // $http.get('api/lesson?level=' + level)
+        // .success(function(data) {
+        //     console.log(data)
+        //     if (data && status === 200) {
+        //         for (var i = 0; i < data.length; i++) {
+        //             $scope.testcases.push({"name": data[i].replace('.robot','')});
+        //             learnData.testcases.push({"name": data[i].replace('.robot','')});
+        //         };
+        //         $("#testcases .testcase").niceScroll({cursorborder:"", cursorcolor:"#ddd", boxzoom:false});
+        //     }
+        // });
+
+$http.get('api/lessons?level=123')
+        .success(function(data, status) {
+            if (data && status === 200) {
+                for (var i = 0; i < data.length; i++) {
+                    $scope.testcases.push({"name": data[i].replace('.robot','')});
+                    learnData.testcases.push({"name": data[i].replace('.robot','')});
+                };
+                $("#testcases .testcase").niceScroll({cursorborder:"", cursorcolor:"#ddd", boxzoom:false});
+            }
+        });
     }
 
     $scope.init();

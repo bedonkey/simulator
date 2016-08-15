@@ -47,6 +47,9 @@ module.exports = function (app) {
     });
 
     app.get('/api/lessons', function (req, res) {
+    	if (req.query.level) {
+    		console.log(req.query.level)
+    	}
         getLessons(res);
     });
 
