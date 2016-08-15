@@ -3,25 +3,25 @@
 	<div style="overflow:hidden;">
 		<div class="cash">
 			<div ng-show="isAddBox">
-				<div class="text">AccountID</div>
+				<div class="text">Tài Khoản</div>
 				<div>
 					<input class="input" type="text" name="id" ng-model="accountDetail.id"/>
 				</div>
 			</div>
 			<div>
-				<div class="text">Balance</div>
+				<div class="text">Tiền Mặt</div>
 				<div>
 					<input class="input" type="text" name="balance" ng-model="accountDetail.balance"/>
 				</div>
 			</div>
 			<div>
-				<div class="text">Hold</div>
+				<div class="text">Ký Quỹ</div>
 				<div>
 					<input class="input" type="text" name="hold" ng-model="accountDetail.hold"/>
 				</div>
 			</div>
 			<div>
-				<div class="text">TotalDebt</div>
+				<div class="text">Tổng Nợ</div>
 				<div>
 					<input class="input" type="text" name="tobaldebt" />
 				</div>
@@ -53,7 +53,7 @@
 				</div>
 			</div>
 			<div>
-				<div class="text">AutoAdv</div>
+				<div class="text">Ứng Trước Tiền Bán</div>
 				<div style="line-height: 30px;">
 					<input type="checkbox" ng-model="accountDetail.autoAdv" ng-click="onChangeAfType(accountDetail)">
 				</div>
@@ -74,10 +74,10 @@
 		        </colgroup>
 		        <thead>
 					<tr>
-						<th>Symbol</th>
-						<th>Balance</th>
+						<th>Mã</th>
+						<th>Tiền Mặt</th>
 						<th>Mortgage</th>
-						<th>Hold</th>
+						<th>Ký Quỹ</th>
 						<th>T0</th>
 						<th>T1</th>
 						<th>T2</th>
@@ -106,7 +106,7 @@
 		</div>
 		<div class="action" ng-show="isAddBox">
 			<span class="error" ng-bind="accAddError"></span>
-			<input class="btn btn-md grey_button" type="submit" value="Add Account" ng-click="add()"/>
+			<input class="btn btn-md grey_button" type="submit" value="Thêm Tài Khoản" ng-click="add()"/>
 		</div>
 	</div>
 </div>

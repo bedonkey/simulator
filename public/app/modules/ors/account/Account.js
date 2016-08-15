@@ -17,6 +17,7 @@ Account.prototype = {
 	},
 
 	add: function(acc) {
+		console.log(acc);
         var error = this.accountValidator.clientValidate(acc);
         if (error != '' && this.checkExist(acc.id)) {
 	        error = "Account Exist";

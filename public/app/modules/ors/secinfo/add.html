@@ -1,30 +1,30 @@
 <div id="secinfo_edit" class="popup" ng-show="popupOpen">
 	<img src="assets/images/close.png" class="btn_close" title="Close Window" alt="Close" ng-click="mask=false;popupOpen=false;closeEditBox()"/>
 	 <div class="form-inline" ng-show="isAddBox">
-        <label for="inputKey">Symbol</label>
+        <label for="inputKey">Mã</label>
         <input type="text" class="form-control" id="symbol" ng-model="secDetail.symbol">
     </div>
     <div class="form-inline">
-        <label for="inputKey">Floor Price</label>
+        <label for="inputKey">Giá Sàn</label>
         <input type="text" class="form-control" id="floor" ng-model="secDetail.floor">
     </div>
     <div class="form-inline">
-        <label for="inputValue">Ref Price</label>
-        <input type="text" class="form-control" id="ceil" ng-model="secDetail.ref">
+        <label for="inputValue">Giá Tham Chiếu</label>
+        <input type="text" class="form-control" id="ref" ng-model="secDetail.ref">
     </div>
     <div class="form-inline">
-        <label for="inputValue">Ceil Price</label>
+        <label for="inputValue">Giá Trần</label>
         <input type="text" class="form-control" id="ceil" ng-model="secDetail.ceil">
     </div>
     <div class="form-inline">
-        <label for="inputValue">Status</label>
+        <label for="inputValue">Trạng Thái</label>
         <select class="form-control" ng-model="secDetail.status">
-            <option value="A">Active</option>
-            <option value="H">Halt</option>
+            <option value="A">Hoạt Động</option>
+            <option value="H">Ngừng Giao Dịch</option>
         </select>
     </div>
 	<div id="editButton" ng-show="isAddBox">
 		<span class="error" ng-bind="secAddError"></span>
-		<input class="btn btn-md grey_button" type="submit" value="Add" ng-click="add()"/>
+		<input class="btn btn-md grey_button" type="submit" value="Thêm" ng-click="add()"/>
 	</div>
 </div>

@@ -11,10 +11,10 @@ Basket.prototype = {
 	add: function(bak) {
 		var error = "";
 		if (bak.id == undefined || bak.id == "") {
-	        error = "BasketID not empty";
+	        error = "ID Rổ phải nhập.";
 	    }
 		if (this.checkExist(bak.id)) {
-	        error = "Basket exist";
+	        error = "Rổ đã tồn tại.";
 	    }
 		if (error == "") {
 	        this.baskets.push(bak);

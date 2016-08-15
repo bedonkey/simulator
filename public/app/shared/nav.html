@@ -4,10 +4,10 @@
     </div>
   	<div id="tabs" class="container-fluid">
       	<ul class="nav navbar-nav">
-    		<li ng-click="onClickTab('#home')"><a href="#home" data-toggle="tab">Home</a></li>
-    		<li ng-click="onClickTab('#orstab')"><a href="#orstab" data-toggle="tab">ORS</a></li>
+    		<li ng-click="onClickTab('#home')"><a href="#home" data-toggle="tab">Trang Chủ</a></li>
+    		<li ng-click="onClickTab('#orstab')"><a href="#orstab" data-toggle="tab">Thông Tin Hệ Thống</a></li>
     		<li ng-click="onClickTab('#gateway')"><a href="#gateway" data-toggle="tab">Gateway</a></li>
-    		<li ng-click="onClickTab('#exchange')"><a href="#exchange" data-toggle="tab">Exchange</a></li>
+    		<li ng-click="onClickTab('#exchange')"><a href="#exchange" data-toggle="tab">Sàn Chứng Khoán</a></li>
       	</ul>
 		<div class='account' style="display:none;">
 			<span class='username'>Guest</span>
@@ -19,28 +19,28 @@
 	  	<ul class="tab-content">
 	  		<li class="tab-pane" id="home">
 	  			<ul class="nav navbar-nav">
-	  				<li ng-click="onClickTabHomeMonitor()"><a href="home-monitor" data-toggle="tab">Monitor</a></li>
-	  				<li ng-click="onClickTabOrderBook()"><a href="orderbook" data-toggle="tab">Order Book</a></li>
-            		<li ng-click="onClickTabPriceBoard()"><a href="priceboard" data-toggle="tab">Price Board</a></li>
+	  				<li ng-click="onClickTabHomeMonitor()"><a href="home-monitor" data-toggle="tab">Quản Lý Phiên</a></li>
+	  				<li ng-click="onClickTabOrderBook()"><a href="orderbook" data-toggle="tab">Sổ Lệnh</a></li>
+            		<li ng-click="onClickTabPriceBoard()"><a href="priceboard" data-toggle="tab">Bảng Giá</a></li>
 	  			</ul>
 	  		</li>
 	  		<li class="tab-pane" id="gateway">
 	  			<ul class="nav navbar-nav">
-            		<li ng-click=""><a href="gw-orderqueue" data-toggle="tab">Order Queue</a></li>
+            		<li ng-click=""><a href="gw-orderqueue" data-toggle="tab">Quản Lý Lệnh</a></li>
 	            </ul>
 	  		</li>
 	  		<li class="tab-pane" id="exchange">
 	  			<ul class="nav navbar-nav">
-            		<li ng-click="onClickTabExchangeOrders()"><a href="ex-orders" data-toggle="tab">Orders</a></li>
-            		<li ng-click="onClickTabExchangeSecInfo()"><a href="ex-secinfo" data-toggle="tab">SecInfo</a></li>
+            		<li ng-click="onClickTabExchangeOrders()"><a href="ex-orders" data-toggle="tab">Quản Lý Lệnh</a></li>
+            		<li ng-click="onClickTabExchangeSecInfo()"><a href="ex-secinfo" data-toggle="tab">Quản Lý Chứng Khoán</a></li>
 	            </ul>
 	  		</li>
 	        <li class="tab-pane" id="orstab">
 	            <ul class="nav navbar-nav">
-            		<li ng-click="onClickTabORSAccount()"><a href="ors-account" data-toggle="tab">Account</a></li>
-            		<li ng-click="onClickTabORSSecInfo()"><a href="ors-secinfo" data-toggle="tab">SecInfo</a></li>
-            		<li ng-click="onClickTabORSAfType()"><a href="ors-aftype" data-toggle="tab">AfType</a></li>
-            		<li ng-click="onClickTabORSBasket()"><a href="ors-basket" data-toggle="tab">Basket</a></li>
+            		<li ng-click="onClickTabORSAccount()"><a href="ors-account" data-toggle="tab">Quản Lý Tài Khoản</a></li>
+						<li ng-click="onClickTabORSSecInfo()"><a href="ors-secinfo" data-toggle="tab">Thông Tin Mã</a></li>
+            		<li ng-click="onClickTabORSAfType()"><a href="ors-aftype" data-toggle="tab">Quản Lý Loại Hình</a></li>
+            		<li ng-click="onClickTabORSBasket()"><a href="ors-basket" data-toggle="tab">Quản Lý Rổ</a></li>
 	            </ul>
 	        </li>
     	</ul>
