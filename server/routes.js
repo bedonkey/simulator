@@ -19,6 +19,24 @@ function readTestcase(res, name) {
 	})
 };
 
+function getLessons(res) {
+	fs.readdir(path.join(__dirname, '../lesson'), function(err, files) {
+		if (err) {
+			res.status(500).send(err);
+		}
+		res.json(files);
+	})
+};
+
+function readLesson(res, name) {
+	fs.readFile(path.join(__dirname, '../lesson/' + name), 'utf8', function(err, data) {
+		if (err) {
+			res.status(500).send(err);
+		}
+		res.status(200).send(data);
+	})
+};
+
 module.exports = function (app) {
     app.get('/api/testcases', function (req, res) {
         getTestcases(res);
@@ -26,6 +44,14 @@ module.exports = function (app) {
 
     app.get('/api/testcase', function (req, res) {
         readTestcase(res, req.query.name.replace(/-/g,' '));
+    });
+
+    app.get('/api/lessons', function (req, res) {
+        getLessons(res);
+    });
+
+    app.get('/api/lesson', function (req, res) {
+        readLesson(res, req.query.name.replace(/-/g,' '));
     });
 
     app.get('*', function (req, res) {

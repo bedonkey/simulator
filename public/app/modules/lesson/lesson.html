@@ -1,7 +1,20 @@
 <div id="lesson" ng-controller="LessonController">
 	<div id="testcases">
-		<div class="box-title">
-			<input class="form-control" type="text" style="width:100%;" ng-model="search.title" ng-enter="search()" placeholder="TestCase"/>
+		<div class="header">
+			<nav class="navbar navbar-default" style="height: 50px;z-index:0;">
+				<div id="logo" class="navbar-header">
+			      	<a class="navbar-brand"><span class="d">D</span>Schools</a>
+			    </div>
+			    <div id="tabs" class="container-fluid">
+			      	<ul class="nav navbar-nav">
+			    		<li ng-click=""><a href="#home" data-toggle="tab">Lệnh</a></li>
+			    		<li ng-click=""><a href="#orstab" data-toggle="tab">SPTC</a></li>
+			      	</ul>
+			     </div>
+		  	</nav>
+		</div>
+		<div class="box-search">
+			<input class="form-control" type="text" style="width:100%;" ng-model="search.title" ng-enter="search()" placeholder="Lessons"/>
 		</div>
 		<div class="testcase">
 			<div class="box-content">
@@ -27,9 +40,6 @@
 	</div>
 
 	<div id="learn-bar">
-		<div class="prevButton" style="display:none;">
-			<span class="glyphicon glyphicon-circle-arrow-left" ng-click="prevStep()"></span>
-		</div>
 		<div class="mainInfo">
 			{{explain}}
 		</div>
@@ -37,5 +47,62 @@
 			<span class="glyphicon glyphicon-circle-arrow-right" ng-click="nextStep()"></span>
 		</div>
 	</div>
-
+	<div id="orderbook">
+		<table class="table table-striped table-bordered">
+			 <colgroup>
+	            <col width="10%" />
+	            <col width="10%" />
+	            <col width="10%" />
+	            <col width="10%" />
+	            <col width="10%" />
+	            <col width="10%" />
+	            <col width="10%" />
+	            <col width="10%" />
+	            <col width="10%" />
+	            <col width="10%" />
+	        </colgroup>
+			<thead>
+			<tr>
+				<th>Tài khoản</th>
+				<th>Mã CK</th>
+				<th>Lệnh</th>
+				<th>Loại lệnh</th>
+				<th>Khối lượng</th>
+				<th>Giá</th>
+				<th>KL khớp</th>
+				<th>Giá khớp</th>
+				<th>KL còn lại</th>
+				<th>Trạng thái</th>
+			</tr>
+			</thead>
+			<tbody>
+			 	<tr ng-repeat="order in orders | orderBy:'originalID':true ">
+					<td ng-bind="order.account"></td>
+					<td ng-bind="order.symbol"></td>
+					<td ng-bind="order.side"></td>
+					<td ng-bind="order.type"></td>
+					<td ng-bind="order.qty"></td>
+					<td ng-bind="order.price"></td>
+					<td ng-bind="order.avgQty"></td>
+					<td ng-bind="order.avgPX"></td>
+					<td ng-bind="order.remain"></td>
+					<td class="status" ng-bind="order.status"></td>
+				</tr>
+			</tbody>
+		</table>
+		<div id="info">
+			<div class="exchange">
+				<span class="des">[HNX]</span>
+				<span class="session new" ng-class="{CLOSE:'close', OPEN1:'open', OPEN2:'open'}[dockInfo.session.HNX]" ng-bind="dockInfo.session.HNX"></span>
+				<span class="des">[HOSE]</span>
+				<span class="session new" ng-class="{CLOSE:'close', OPEN1:'open', OPEN2:'open'}[dockInfo.session.HOSE]" ng-bind="dockInfo.session.HOSE"></span>
+			</div>
+			<div class="account">
+				<span class="des">[ACC]</span>
+				<span class="acc" ng-bind="dockInfo.acc"></span>
+				<span class="pp0" ng-bind="dockInfo.pp0"></span>
+				<span class="trade" ng-bind="dockInfo.trade"></span>
+			</div>
+		</div>
+	</div>
 </div>

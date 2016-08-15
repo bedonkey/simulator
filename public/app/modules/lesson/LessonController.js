@@ -15,7 +15,7 @@ LessonController = function($scope, $http, interprester) {
             $("#learn-box .content").niceScroll({cursorborder:"", cursorcolor:"#ddd", boxzoom:false});
         }
 
-        $http.get('api/testcases')
+        $http.get('api/lessons')
         .success(function(data, status) {
             if (data && status === 200) {
                 for (var i = 0; i < data.length; i++) {
@@ -34,7 +34,7 @@ LessonController = function($scope, $http, interprester) {
         $scope.selectedTest = selectedTest;
         $scope.testTitle = selectedTest;
         learnData.testTitle = selectedTest;
-        $http.get('api/testcase?name=' + selectedTest.replace(/ /g,'-'))
+        $http.get('api/lesson?name=' + selectedTest.replace(/ /g,'-'))
         .success(function(data, status) {
             if (data && status === 200) {
                 $scope.lines = data.match(/[^\r\n]+/g);

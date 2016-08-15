@@ -188,7 +188,9 @@ span.glyphicon:hover, .glyphicon:hover {
 .navbar a {
 	cursor: pointer;
 }
-
+#lesson .navbar a {
+	color: #333;
+}
 .navbar {
 	z-index: 9999;
 }
@@ -926,10 +928,30 @@ td.action {
 	position: fixed;
 	top: 132px;
 }
+#lesson #orderbook {
+	height: 200px;
+	background: #2A2A2A;
+	bottom: 0;
+    left: 25%;
+    position: fixed;
+    right: 0;
+    width: 75%;
+    font-size: 14px !important;
+    
+}
+#lesson #orderbook th{
+	text-align: center;
+	color:#ddd !important;
+}
+#orderbook #info{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
 #lesson #learn-box {
 	background: white;
 	padding-top: 0;
-	z-index: 10000;
 	color: black;
 }
 #lesson #learn-box .content{
@@ -941,25 +963,28 @@ td.action {
 	margin: 0;
 }
 #lesson #testcases {
-	background: white;
+	background: #eee;
 	color: black;
 	padding-top: 0;
-	z-index: 10000;
 }
-#lesson #testcases li{
+#lesson #testcases .box-content li{
 	border-bottom: 1px solid #ddd;
 }
 #lesson #learn-bar {
 	background: #eee;
 	color: black;
-	z-index: 99999;
 }
-#lesson .box-title {
-	background: white;
+#lesson .header {
 	height: 52px;
 	border-bottom: 2px solid #333;
 }
-#lesson .box-title input{
+#lesson .header a{
+	line-height: 18px;
+}
+#lesson .box-search {
+	padding: 10px;
+}
+#lesson .box-search input{
 	background: white !important;
 	color: black !important;
 }
@@ -976,7 +1001,6 @@ td.action {
 
 #testcases .testcase {
 	height: 90%;
-	border-right: 1px solid #333;
 	width: 100%;
 }
 
@@ -1002,22 +1026,22 @@ td.action {
 	float: right;
 }
 
-#testcases ul {
+#testcases .box-content ul {
 	padding: 0;
 }
 
-#testcases li {
+#testcases .box-content li {
 	list-style: none;
 	cursor: pointer;
 	padding: 5px;
 	border-bottom: 2px solid #2a2a2a;
 }
 
-#testcases li.selected {
+#testcases .box-content li.selected {
 	border-bottom: 2px solid #777;
 }
 
-#testcases li:hover {
+#testcases .box-content li:hover {
 	background: #ddd;
 }
 
@@ -1286,7 +1310,7 @@ td.action {
     position: absolute;
     right: 0;
     width: 75%;
-    padding-bottom: 140px;
+    padding-bottom: 300px;
     bottom: 0;
     top: 0;
     padding-top: 100px;
@@ -1298,36 +1322,33 @@ td.action {
 
 #learn-bar {
     background-color: #111;
-    border-top: 2px solid #333;
-    bottom: 0;
+    bottom: 200px;
     color: #ddd;
     left: 25%;
     padding: 5px;
     position: fixed;
     right: 0;
-    height: 100px;
     width: 75%;
+    min-height: 45px;
 }
 
 #learn-bar span.glyphicon {
-	font-size: 50px;
-	color: #777;
-	padding-top: 20px;
+	font-size: 35px;
+	color: green;
 }
 
 #learn-bar .mainInfo {
 	float: left;
 	width: 80%;
-	height: 90px;
 	padding: 10px;
 	font-size: 16px;
 	text-align: center;
 }
 
 #learn-bar .nextButton {
-	float: right;
-	text-align: right;
-	width: 10%;
+	position: absolute;
+	bottom: 0;
+	right: 10px;
 }
 
 #learn-bar .prevButton {
