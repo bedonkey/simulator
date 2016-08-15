@@ -2,7 +2,7 @@ UnholdAllOrders()
 ClearExchange()
 ResetAccounts()
 
-SetSession(HNX, OPEN1) # Set sesison on [[ORS]] is Open
+SetSession(HNX, OPEN1) # Set sesison on [[ORS]] and [[Gateway]] is Open
 
 result = Place(0001000001, AAA, Buy, LO, 15000, 100)
 Assert(result.msg, Exchange is waiting order session)
