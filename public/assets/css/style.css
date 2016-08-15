@@ -981,11 +981,14 @@ td.action {
 #lesson #testcases .box-content li{
 	border-bottom: 1px solid #ddd;
 }
-#lesson #testcases .lessonLevel{
+#lesson #testcases .lessonLevel {
 	line-height: 30px;
 	border-bottom: 1px solid #ddd;
 	cursor: pointer;
+	font-size: large;
+	font-family: Arial;
 }
+
 #lesson #learn-bar {
 	background: #eee;
 	color: black;

@@ -194,7 +194,7 @@ Interpreter.prototype = {
         orderPlace.type = para[3].trim();
         orderPlace.price = parseInt(para[4].trim());
         orderPlace.qty = parseInt(para[5].trim());
-        this.logScreen.append("Place Order: " + JSON.stringify(orderPlace));
+        this.logScreen.append("Basic Finance: " + JSON.stringify(orderPlace));
         return this.ors.place(orderPlace);
     },
 
