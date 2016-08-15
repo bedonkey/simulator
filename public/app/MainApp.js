@@ -20,6 +20,7 @@ app.service('secinfo', ['secInfoValidator', SecInfo]);
 app.service('exSecinfo', ExSecInfo);
 app.service('priceBoard', ['secinfo', PriceBoard]);
 app.service('orderStore', OrderStore);
+app.service('testCaseTranslator', TestCaseTranslator);
 app.service('dockService', ['account', 'secinfo', DockService]);
 app.service('logScreen', LogScreen);
 app.service('interpreter', ['logScreen', 'account', 'ors', 'gateway',  'exchange', Interpreter]);
@@ -42,7 +43,7 @@ app.controller("DockController", ['$scope', 'ors', 'dockService', DockController
 app.controller("RobotController", ['$scope', '$http', 'logScreen', 'interpreter', RobotController]);
 app.controller("LearnController", ['$scope', '$http', 'interpreter', LearnController]);
 app.controller("MonitorController", ['$scope', 'ors', 'gateway', 'exchange', MonitorController]);
-app.controller("LessonController", ['$scope', '$http', 'interpreter', 'dockService', 'orderStore', LessonController]);
+app.controller("LessonController", ['$scope', '$http', 'interpreter', 'dockService', 'orderStore', 'testCaseTranslator', LessonController]);
 
 app.directive("orderDetail", function(){return {templateUrl:'app/modules/home/orderbook/detail.html'};});
 app.directive("orderReplace", function(){return {templateUrl:'app/modules/home/orderbook/replace.html'};});
