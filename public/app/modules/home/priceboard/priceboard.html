@@ -1,6 +1,6 @@
 <div id="price-board" ng-controller="PriceBoardController">
 	<div class="place_button">
-		<input class="btn right" type="submit" value="Place Order" ng-click="openTradeMenu();"/>
+		<input class="btn right" type="submit" value="Đặt Lệnh" ng-click="openTradeMenu();"/>
 	</div>
 	<div class="col-sm-12" style="padding-top: 30px;">
 		<table class="table table-bordered fix-header">
@@ -27,30 +27,30 @@
 	        </colgroup>
 	        <thead>
 				<tr>
-					<th rowspan="2" class="vertical">Sym</th>
-					<th rowspan="2" class="vertical">Ref</th>
-					<th rowspan="2" class="vertical">Ceil</th>
-					<th rowspan="2" class="vertical">Floor</th>
-					<th rowspan="2" class="vertical">Total</th>
-					<th colspan="6">Buy</th>
-					<th colspan="2">Match</th>
-					<th colspan="6">Sell</th>
+					<th rowspan="2" class="vertical">Mã</th>
+					<th rowspan="2" class="vertical">TC</th>
+					<th rowspan="2" class="vertical">Trần</th>
+					<th rowspan="2" class="vertical">Sàn</th>
+					<th rowspan="2" class="vertical">Tổng KL</th>
+					<th colspan="6">Bên Mua</th>
+					<th colspan="2">Khớp</th>
+					<th colspan="6">Bên Bán</th>
 				</tr>
 				<tr>
-					<th>PX 3</th>
-					<th>Qty 3</th>
-					<th>PX 2</th>
-					<th>Qty 2</th>
-					<th>PX 1</th>
-					<th>Qty 1</th>
-					<th>Match PX</th>
-					<th>Match Qty</th>
-					<th>PX 1</th>
-					<th>Qty 1</th>
-					<th>PX 2</th>
-					<th>Qty 2</th>
-					<th>PX 3</th>
-					<th>Qty 3</th>
+					<th>Giá 3</th>
+					<th>KL 3</th>
+					<th>Giá 2</th>
+					<th>KL 2</th>
+					<th>Giá 1</th>
+					<th>KL 1</th>
+					<th>Giá Khớp</th>
+					<th>KL Khớp</th>
+					<th>Giá 1</th>
+					<th>KL 1</th>
+					<th>Giá 2</th>
+					<th>KL 2</th>
+					<th>Giá 3</th>
+					<th>KL 3</th>
 				</tr>
 			</thead>
 		</table>
@@ -137,19 +137,19 @@
 			</div>
 			<div class="body" ng-class="formColor">
 				<div>
-					<label>Account</label>
+					<label>Tài Khoản</label>
 					<input class="form-control" type="text" name="account" ng-model="orderPlace.account"/>
 				</div>
 				<div class="form-field">
-					<label>Symbol</label>
+					<label>Mã</label>
 					<input class="form-control" type="text" name="symbol" ng-model="orderPlace.symbol" uppercased/>
 				</div>
 				<div class="form-field">
-					<label>Quantity</label>
+					<label>Khối Lượng</label>
 					<input class="form-control" type="text" name="quantity" ng-model="orderPlace.qty"/>
 				</div>
 				<div class="form-field">
-					<label>Quantity</label>
+					<label>Loại Lệnh</label>
 					<select class="form-control" ng-model="orderPlace.type" ng-change="onTypeChange()">
 							<option value="LO">LO</option>
 							<option value="ATO">ATO</option>
@@ -161,12 +161,12 @@
 					</select>
 				</div>
 				<div class="form-field">
-					<label>Price</label>
+					<label>Giá</label>
 					<input class="form-control" type="text" name="price" ng-model="orderPlace.price"/>
 				</div>
 			</div>
 			<div class="button-place">
-				<input type="button" class="btn btn-lg {{buttonColor}}" type="submit" value="Place Order" ng-click="place()"/>
+				<input type="button" class="btn btn-lg {{buttonColor}}" type="submit" value="Đặt Lệnh" ng-click="place()"/>
 			</div>
 		</div>
 	</div>

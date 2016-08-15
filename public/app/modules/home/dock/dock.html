@@ -2,16 +2,16 @@
 	<div id="placeOrder">
 		<div class="placeOrderForm form-inline">
 			
-			<span>Account</span>
+			<span>Tài Khoản</span>
 			<input class="form-control" type="text" name="account" focus-me="{{accountFocus}}" ng-enter="accountInput()" ng-model="orderPlace.account" ng-change="refreshAccount()"/>
-			<span>sYmbol</span>
+			<span>Mã</span>
 			<input class="form-control" type="text" name="symbol" focus-me="{{symbolFocus}}" ng-enter="symbolInput()" ng-model="orderPlace.symbol" uppercased ng-change="refeshSymbol()"/>
-			<span>Side</span>
+			<span>Lệnh</span>
 			<select class="form-control" ng-model="orderPlace.side" ng-change="onSideChange()">
-					<option value="Sell">Sell</option>
-					<option value="Buy">Buy</option>
+					<option value="Sell">Bán</option>
+					<option value="Buy">Mua</option>
 			</select>
-			<span>Type</span>
+			<span>Loại Lệnh</span>
 			<select class="form-control" ng-model="orderPlace.type" ng-change="onTypeChange()">
 					<option value="LO">LO</option>
 					<option value="ATO">ATO</option>
@@ -21,11 +21,11 @@
 					<option value="MTL">MTL</option>
 					<option value="MP">MP</option>
 			</select>
-			<span>Quantity</span>
+			<span>Khối Lượng</span>
 			<input class="form-control" type="text" focus-me="{{quantityFocus}}" ng-enter="quantityInput()" name="quantity" ng-model="orderPlace.qty"/>
-			<span>Price</span>
+			<span>Giá</span>
 			<input class="form-control" type="text" focus-me="{{priceFocus}}" ng-enter="priceInput()" name="price" ng-model="orderPlace.price" ng-change="onPriceChange()"/>
-			<input type="button" class="btn btn-lg {{buttonColor}}" type="submit" value="Place Order" ng-click="place()"/>
+			<input type="button" class="btn btn-lg {{buttonColor}}" type="submit" value="Đặt Lệnh" ng-click="place()"/>
 		</div>
 		<div id="info">
 			<div class="exchange">
@@ -56,5 +56,5 @@
 	</div>
 </div>
 <div id="placeOrderButton">
-	<input class="btn btn-lg grey_button" type="submit" value="Place Order" ng-show="!placeBoxShow" ng-click="placeBoxShow=true"/>
+	<input class="btn btn-lg grey_button" type="submit" value="Đặt Lệnh" ng-show="!placeBoxShow" ng-click="placeBoxShow=true"/>
 </div>

@@ -6,7 +6,7 @@ AccountValidator.prototype = {
 		var error = "";
 		if (account.id == undefined) {
         	error = "Account ID not empty";
-	    } else if (account.pp0 == undefined) {
+	    } else if (account.balance == undefined) {
 	        error = "Balance not empty";
 	    }
 	    return error;

@@ -1,7 +1,7 @@
 <div id="secinfo" ng-controller="ExSecInfoController">
 	<div class="search-box well form-inline">
 			<div class="search-input">
-				<input class="form-control" type="text" style="width:400px;" ng-model="search.symbol" ng-enter="search()" uppercased placeholder="Symbol"/>
+				<input class="form-control" type="text" style="width:400px;" ng-model="search.symbol" ng-enter="search()" placeholder="Mã Chứng Khoán"/>
 			</div>
 	</div>
 	<div class="col-sm-12">
@@ -12,20 +12,20 @@
 	<div class="result_box col-sm-12">
 		<table class="secinfo table table-striped">
 			<colgroup>
-	            <col width="15%" />
 	            <col width="20%" />
 	            <col width="20%" />
+	            <col width="20%" />
 	            <col width="15%" />
 	            <col width="15%" />
-	            <col width="15%" />
+	            <col width="10%" />
 	        </colgroup>
 	        <thead>
 				<tr>
-					<th>Symbol</th>
-					<th>Floor Price</th>
-					<th>Reference Price</th>
-					<th>Ceil Price</th>
-					<th>Status</th>
+					<th>Mã Chứng Khoán</th>
+					<th>Giá Sàn</th>
+					<th>Giá Tham Chiếu</th>
+					<th>Giá Trần</th>
+					<th>Trạng Thái</th>
 					<th></th>
 				</tr>
 			</thead>

@@ -103,8 +103,8 @@ DockService.prototype = {
             var sec = this.secinfo.get(currentSym);
             if(sec.length > 0) {
                 this.updateTrade();
-                dockInfo.floor = 'Floor: ' + sec[0].floor; 
-                dockInfo.ceil = 'Ceil: ' + sec[0].ceil;
+                dockInfo.floor = 'Sàn: ' + sec[0].floor;
+                dockInfo.ceil = 'Trần: ' + sec[0].ceil;
                 currentPrice = sec[0].ref;
             }
         } else {

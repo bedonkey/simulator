@@ -83,8 +83,8 @@
 			<div ng-include="currentTab"></div>
 		</div>
 		<div class='lessons-btn' ng-click="showHideLesson()">
-			<span ng-if="!showLessons">Lessons</span>
-			<span ng-if="showLessons">Practice</span>
+			<span ng-if="!showLessons">Bài Học</span>
+			<span ng-if="showLessons">Thực Hành</span>
 			<span class="glyphicon glyphicon-transfer"></span>
 		</div>
 		<div ng-include="'app/modules/lesson/lesson.html'" ng-if="showLessons"></div>

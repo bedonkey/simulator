@@ -1,7 +1,7 @@
 <div id="account" ng-controller="AccountController">
 	<div class="search-box well form-inline">
 		<div class="search-input">
-			<input class="form-control" type="text" style="width:400px;" ng-model="search.account" ng-enter="search()" placeholder="Account"/>
+			<input class="form-control" type="text" style="width:400px;" ng-model="search.account" ng-enter="search()" placeholder="Số Tài Khoản"/>
 		</div>
 	</div>
 	<div class="col-sm-12">
@@ -20,21 +20,21 @@
 		            <col width="6%" />
 		            <col width="10%" />
 		            <col width="30%" />
-		            <col width="8%" />
-		            <col width="8%" />
-		            <col width="10%" />
+		            <col width="4%" />
+		            <col width="15%" />
+		            <col width="7%" />
 		        </colgroup>
 		        <thead>
 					<tr>
 						<th>ID</th>
-						<th>Balance</th>
+						<th>Tiền Mặt</th>
 						<th>T0</th>
 						<th>T1</th>
 						<th>T2</th>
-						<th>Hold</th>
-						<th>Secutities</th>
+						<th>Ký Quỹ</th>
+						<th>Số Dư Chứng Khoán</th>
 						<th>AfType</th>
-						<th>AutoAdv</th>
+						<th>Ứng Trước Tiền Bán</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -54,7 +54,7 @@
 							</span>
 						</td>
 						<td ng-bind="acc.afType"></td>
-						<td ng-bind="acc.autoAdv"></td>
+						<td align="center" ng-bind="(acc.autoAdv == true ? 'Có' : 'Không')"></td>
 						<td class="action">
 							<span class="glyphicon glyphicon-remove right" ng-click="remove(acc)"></span>
 							<span class="glyphicon glyphicon-pencil right" ng-click="openEditBox(acc)"></span>
