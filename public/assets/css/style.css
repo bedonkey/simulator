@@ -195,6 +195,25 @@ span.glyphicon:hover, .glyphicon:hover {
 #lesson .navbar a {
 	color: #333;
 }
+#lesson #keyword-explain {
+	position: absolute;
+	bottom: 255px;
+	left: 25%;
+	background: #ddd;
+	min-height: 100px;
+	max-height: 200px;
+	padding: 5px;
+	right: 0;
+}
+#lesson #keyword-explain .title{
+	font-weight: bold;
+}
+#lesson #keyword-explain .glyphicon-remove-circle {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	font-size: 20px;
+}
 .navbar {
 	z-index: 9999;
 }
@@ -990,6 +1009,11 @@ td.action {
 	background: #eee;
 	color: black;
 }
+#lesson #learn-bar .keyword{
+	color: #1eaedb;
+	cursor: pointer;
+	font-weight: bold;
+}
 #lesson .header {
 	height: 52px;
 	border-bottom: 2px solid #333;
@@ -1355,7 +1379,7 @@ td.action {
 
 #learn-bar .mainInfo {
 	float: left;
-	width: 80%;
+	width: 95%;
 	padding: 10px;
 	font-size: 16px;
 	text-align: center;

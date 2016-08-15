@@ -50,9 +50,15 @@
 		</div> 
 	</div>
 
+	<div id="keyword-explain" ng-show="showExplain">
+		<span class="glyphicon glyphicon-remove-circle" ng-click="closeExplain()"></span>
+		<p class="title" ng-bind="keywordExplain"></p>
+		<p ng-bind="contentExplain"></p>
+	</div>
+
 	<div id="learn-bar">
-		<div class="mainInfo">
-			{{explain}}
+		<div class="mainInfo" >
+			<span ng-bind-html="explain | to_trusted" compile-template></span>
 		</div>
 		<div class="nextButton">
 			<span class="glyphicon glyphicon-circle-arrow-right" ng-click="nextStep()"></span>
