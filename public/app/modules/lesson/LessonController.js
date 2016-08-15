@@ -1,5 +1,5 @@
 learnData = {};
-LessonController = function($scope, $http, interprester) {
+LessonController = function($scope, $http, interprester, dockService, orderStore) {
 	$scope.isSave = true;
 	$scope.isClickTest = false;
 	$scope.testTitle = learnData.testTitle == undefined ? "None Testcase selected" : learnData.testTitle;
@@ -8,8 +8,10 @@ LessonController = function($scope, $http, interprester) {
     $scope.lines = {};
     $scope.testcases = [];
     learnData.testcases = [];
+    $scope.dockInfo = dockService.initDock();
 
     $scope.init = function() {
+        $scope.orders = orderStore.getAll();
         if (learnData.lines != undefined) {
             $scope.lines = learnData.lines;
             $("#learn-box .content").niceScroll({cursorborder:"", cursorcolor:"#ddd", boxzoom:false});
