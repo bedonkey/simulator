@@ -68,6 +68,8 @@ span.glyphicon:hover, .glyphicon:hover {
 	border-radius: 3px 3px 0 0;
 	cursor: pointer;
 	z-index: 99999;
+	width: 130px;
+	text-align: center;
 }
 .lessons-btn span{
 	padding: 0 10px;
@@ -75,6 +77,8 @@ span.glyphicon:hover, .glyphicon:hover {
 }
 .lessons-btn span.glyphicon{
 	padding: 0;
+	float: right;
+	padding-top: 10px;
 }
 .account span.glyphicon-user {
 	color: #777;
@@ -936,17 +940,24 @@ td.action {
     position: fixed;
     right: 0;
     width: 75%;
-    font-size: 14px !important;
-    
+    font-size: 13px !important;
+    overflow: auto;
+    margin-bottom: 10px;
+}
+#lesson #orderbook table{
+	border: none;
 }
 #lesson #orderbook th{
 	text-align: center;
 	color:#ddd !important;
 }
+#lesson #orderbook #info{
+	position: fixed;
+}
 #orderbook #info{
 	position: absolute;
 	bottom: 0;
-	left: 0;
+	left: 25%;
 	right: 0;
 }
 #lesson #learn-box {
@@ -1310,7 +1321,7 @@ td.action {
     position: absolute;
     right: 0;
     width: 75%;
-    padding-bottom: 300px;
+    padding-bottom: 310px;
     bottom: 0;
     top: 0;
     padding-top: 100px;
@@ -1322,7 +1333,7 @@ td.action {
 
 #learn-bar {
     background-color: #111;
-    bottom: 200px;
+    bottom: 210px;
     color: #ddd;
     left: 25%;
     padding: 5px;
