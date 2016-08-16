@@ -199,11 +199,15 @@ span.glyphicon:hover, .glyphicon:hover {
 	position: absolute;
 	bottom: 255px;
 	left: 25%;
-	background: #ddd;
+	background: #f7941d;
 	min-height: 100px;
 	max-height: 200px;
 	padding: 5px;
 	right: 0;
+	color: white;
+}
+#lesson #tabs li.active {
+	font-weight: bold;
 }
 #lesson #keyword-explain .title{
 	font-weight: bold;
@@ -1000,6 +1004,10 @@ td.action {
 	border-bottom: 1px solid #ddd;
 	padding-left: 15px;
 }
+#lesson #testcases .box-content li.selected{
+	background: #f7941d none repeat scroll 0 0;
+    color: white;
+}
 #lesson #testcases .lessonLevel {
 	line-height: 30px;
 	border-bottom: 1px solid #ddd;
@@ -1011,6 +1019,7 @@ td.action {
 #lesson #learn-bar {
 	background: #eee;
 	color: black;
+	font-weight: bold;
 }
 #lesson #learn-bar .keyword{
 	color: #1eaedb;
@@ -1173,13 +1182,17 @@ td.action {
     width: 120px;
     line-height: 50px;
     cursor: pointer;
-    margin-top: 15%;
+    margin-top: 10%;
 }
 #learn-box .mask {
 	height: 100%;
 	width: 100%;
 	background: #fff;
 	z-index: 999;
+}
+#learn-box .mask h3{
+	text-align: center;
+	margin-top: 100px;
 }
 #learn-box ul {
 	list-style: none;

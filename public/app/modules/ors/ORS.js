@@ -261,6 +261,10 @@ ORS.prototype = {
 		};
 	},
 
+	clearOrders: function() {
+		this.orderStore.init();
+	},
+
 	getOrderStatus: function(ordId) {
 		var order = this.orderStore.gerOrderById(ordId);
 		if (order != null) {

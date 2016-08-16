@@ -93,11 +93,15 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
 
     $scope.nextStep = function () {
         if ($scope.curLine < $scope.lines.length) {
-            console.log($scope.lines[$scope.curLine])
             interprester.runLine($scope.lines[$scope.curLine].split('#')[0]);
             $scope.curLine++;
-            $scope.explain = $scope.lines[$scope.curLine].split('#')[2];
-            learnData.curLine = $scope.curLine;
+            if ($scope.lines[$scope.curLine]) {
+                $scope.explain = $scope.lines[$scope.curLine].split('#')[2];
+                learnData.curLine = $scope.curLine;
+            } else {
+                $scope.showLesson = false;
+                $scope.curLine = 0;
+            }
         }
     }
 
