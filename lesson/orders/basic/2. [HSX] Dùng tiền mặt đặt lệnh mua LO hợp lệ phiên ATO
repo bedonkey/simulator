@@ -1,3 +1,4 @@
+# #
 SetSession(HOSE, ATO) # Sàn HSX chuyển phiên ATO # Khi [[Sàn HSX]] chuyển phiên thì phiên của [[Gateway]] và [[ORS]] là [[Phiên ATO]]
 result = GetPP0(0001000001) # Tài khoản 0001000001 chỉ có 10,000,000 tiền mặt # [[Sức Mua]] của tài khoản 0001000001 là 10,000,000
 ord1= Place(0001000001, SSI, Buy, LO, 22000, 200) # Tài khoản 0001000001 đặt lệnh mua LO 200 cổ SSI giá 22000 ở phiên ATO # Sau khi đặt lệnh, Tài khoản 0001000001 bị [[Ký Quỹ]] bao gồm tiền đăt mua và [[Phí Giao Dịch]].
