@@ -13,11 +13,8 @@
 			     </div>
 		  	</nav>
 		</div>
-		<div class="box-search">
-			<input class="form-control" type="text" style="width:100%;" ng-model="search.title" ng-enter="search()" placeholder="Tên bài học"/>
-		</div>
 
-		<div ng-show="isShowOrder">
+		<div ng-show="isShowOrder" style="padding-top: 10px;">
 			<div class="lessonLevel" ng-click="clearLesson('basic');getLesson('basic','orders')">
 				Basic
 			</div>
@@ -25,7 +22,7 @@
 				<div class="box-content">
 					<ul>
 						<li ng-class="{selected: test.name === selectedTest}" ng-repeat="lesson in lessonBasic | filter: {name: search.title}" ng-click="setSelected(lesson.name,'basic')">
-							{{ lesson.name | limitTo: 40 }}{{lesson.name.length > 40 ? '...' : ''}}
+							{{lesson.name}}
 						</li>
 					</ul>
 				</div>
