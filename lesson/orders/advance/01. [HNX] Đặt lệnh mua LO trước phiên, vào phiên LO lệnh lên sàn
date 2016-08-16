@@ -1,0 +1,5 @@
+# #
+SetSession(HNX, NEW) # Sàn HNX chưa mở cửa # Khi [[Sàn HNX]] chưa mở cửa thì phiên của [[Gateway]] và [[ORS]] là [[Phiên NEW]]
+# Tài khoản 0001000001 có 10 triệu tiền mặt.# [[Sức Mua]] của Tài khoản 0001000001 là 10 triệu.
+Ord= Place(0001000001, VND, Buy, LO, 11000, 200) # Tài khoản 0001000001 mua 200 lệnh LO giá 11,000 trước giờ mở cửa # Sau khi đặt lệnh, lệnh được ghi nhận vào hệ thống, Tài khoản 0001000001 bị [[Ký Quỹ]] bao gồm tiền đăt mua và [[Phí Giao Dịch]]. Trạng thái lệnh lúc này là [[Pending New]].
+SetSession(HNX, OPEN1) # Sàn HNX vào phiên LO # Khi [[Sàn HNX]] vào phiên liên tục thì phiên của [[Gateway]] và [[ORS]] là [[Phiên LO]]. Lệnh từ hệ thống được đẩy lên Sàn. Trạng thái lệnh chuyển sang [[NEW]].

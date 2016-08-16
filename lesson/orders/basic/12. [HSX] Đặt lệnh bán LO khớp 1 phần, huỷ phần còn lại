@@ -1,0 +1,6 @@
+# #
+SetSession(HOSE, OPEN1) # Sàn HSX chuyển phiên LO # Khi [[Sàn HSX]] chuyển phiên thì phiên của [[Gateway]] và [[ORS]] là [[Phiên LO]].
+ord1= Place(0001000001, SSI, Buy, LO, 22000, 200) # Trên Sàn đã có lệnh mua 200 SSI giá 22,000.#
+# Tài khoản 0001000002 có 1,000 cổ phiếu SSI được giao dịch #
+ord2= Place(0001000002, SSI, Sell, LO, 22000, 300) # Tài khoản 0001000002 đặt lệnh bán 300 SSI giá 22,000 trong phiên liên tục # Lệnh bán của tài khoản 0001000002 khớp lệnh một phần 200 SSI với giá 22,000. Trạng thái lệnh SSI là [[Partial Filled]]. Khi đó, tài khoản bán 0001000002 có tiền bán chứng khoán chờ về, sau khi đã trừ đi thuế và phí giao dịch. Khối Lượng còn lại là 100. #
+result1 = Cancel(ord2.msg) # Hủy lệnh bán chưa khớp còn lại là 100 SSI giá 22,000 của tài khoản 0001000002 # Sau Khi hủy lệnh trạng thái lệnh chuyển thành [[Cancelled]]. Giải tỏa phần [[Ký Quỹ]] chưa khớp. #

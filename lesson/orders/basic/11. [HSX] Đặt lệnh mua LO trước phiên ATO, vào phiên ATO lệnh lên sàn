@@ -1,0 +1,5 @@
+# #
+SetSession(HOSE, NEW) # Sàn HSX chưa mở cửa # Khi [[Sàn HSX]] chưa mở cửa thì phiên của [[Gateway]] và [[ORS]] là [[Phiên NEW]]
+result = GetPP0(0001000001) # Tài khoản 0001000001 chỉ có 10,000,000 tiền mặt # [[Sức mua]] của tài khoản 0001000001 là 10,000,000
+ord1= Place(0001000001, SSI, Buy, LO, 22000, 200) # Tài khoản 0001000001 đặt lệnh mua LO 200 cổ phiếu SSI giá 22,000 trước phiên # Tài khoản 0001000001 bị [[ký quỹ]] bao gồm tiền đặt mua và [[phí giao dịch]]. Trạng thái lệnh là PendingNew (Chờ đẩy lên sàn)
+SetSession(HOSE, ATO) # Sàn HSX vào phiên ATO # Khi Sàn vào phiên thì phiên của [[Gateway]] và [[ORS]] là  [[Phiên ATO]]. Lúc này Lệnh sẽ được đẩy lên sàn. Trạng Thái lệnh sẽ thành [[NEW]]
