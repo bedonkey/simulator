@@ -80,7 +80,7 @@
 	<div id="wrap" class="container" ng-controller="TabsCtrl">
 		<div ng-include="'app/shared/nav.html'"></div>
 		<div id="main-content">
-			<div class="welcome" ng-show="currentTab==''">DSchools</div>
+			<div class="welcome" ng-show="currentTab==''"><span class="d">D</span>Schools</div>
 			<div ng-include="currentTab"></div>
 		</div>
 		<div class='lessons-btn' ng-click="showHideLesson()">
