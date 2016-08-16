@@ -1164,7 +1164,23 @@ td.action {
 #learn-box .content {
 	height: 100%;
 }
-
+#learn-box .mask .lesson-btn {
+	background: green none repeat scroll 0 0;
+    border-radius: 5px;
+    color: white;
+    margin: auto;
+    text-align: center;
+    width: 120px;
+    line-height: 50px;
+    cursor: pointer;
+    margin-top: 15%;
+}
+#learn-box .mask {
+	height: 100%;
+	width: 100%;
+	background: #fff;
+	z-index: 999;
+}
 #learn-box ul {
 	list-style: none;
 	padding: 0;

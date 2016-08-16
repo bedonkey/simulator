@@ -18,6 +18,8 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
     $scope.lessonType = 'orders';
     $scope.lessonLevel = 'basic';
 
+    $scope.showLesson = true;
+
     $scope.init = function() {
         $scope.orders = orderStore.getAll();
         if (learnData.lines != undefined) {
@@ -56,6 +58,7 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
             }
         });
         
+        $scope.showLesson = false;
     };
 
     $scope.getWiki = function(keyword) {
@@ -79,6 +82,13 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
 
     $scope.closeExplain = function() {
         $scope.showExplain = false;
+    }
+
+    $scope.getStart = function() {
+        $scope.showLesson = true;
+        interprester.runLine('UnholdAllOrders()');
+        interprester.runLine('ClearExchange()');
+        interprester.runLine('ResetAccounts()');
     }
 
     $scope.nextStep = function () {
@@ -112,7 +122,6 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
     }
 
     $scope.getLesson = function (level) {
-        
         $http.get('api/lessons?level=' + level + '&type=' + $scope.lessonType)
         .success(function(data, status) {
             if (data && status === 200) {
@@ -121,14 +130,14 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
                         $scope.lessonBasic.push({"name": data[i].replace('.robot','')});
                         learnData.lessonBasic.push({"name": data[i].replace('.robot','')});
                     };
-                    $("#testcases .testcase").niceScroll({cursorborder:"", cursorcolor:"#ddd", boxzoom:false});
+                    
                 } else if (level = 'advance') {
                     for (var i = 0; i < data.length; i++) {
                         $scope.lessonAdvance.push({"name": data[i].replace('.robot','')});
                         learnData.lessonAdvance.push({"name": data[i].replace('.robot','')});
                     };
-                    $("#testcases .testcase").niceScroll({cursorborder:"", cursorcolor:"#ddd", boxzoom:false});
                 }
+                $("#testcases").niceScroll({cursorborder:"", cursorcolor:"#ddd", boxzoom:false});
             }
         });
     }
