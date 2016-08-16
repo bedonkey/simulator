@@ -75,8 +75,13 @@
 		 <div class="content">
 		 	<div class="mask" ng-if="!showLesson">
 		 		<h3 ng-bind="testTitle"></h3>
-		 		<div class="lesson-btn" ng-click="getStart()">
-		 			Bắt đầu
+		 		<div style="text-align: center;">
+			 		<div class="lesson-btn" ng-click="getStart()">
+			 			{{again? 'Học lại' : 'Bắt đầu'}}
+			 		</div>
+			 		<div class="lesson-btn" ng-click="getNext()" ng-if="again">
+			 			Bài tiếp theo
+			 		</div>
 		 		</div>
 		 	</div>
 		 	<ul>
@@ -151,12 +156,6 @@
 				<span class="session new" ng-class="{CLOSE:'close', OPEN1:'open', OPEN2:'open'}[dockInfo.session.HNX]" ng-bind="dockInfo.session.HNX"></span>
 				<span class="des">[HOSE]</span>
 				<span class="session new" ng-class="{CLOSE:'close', OPEN1:'open', OPEN2:'open'}[dockInfo.session.HOSE]" ng-bind="dockInfo.session.HOSE"></span>
-			</div>
-			<div class="account">
-				<span class="des">[ACC]</span>
-				<span class="acc" ng-bind="dockInfo.acc"></span>
-				<span class="pp0" ng-bind="dockInfo.pp0"></span>
-				<span class="trade" ng-bind="dockInfo.trade"></span>
 			</div>
 		</div>
 	</div>

@@ -38,7 +38,10 @@ span.glyphicon:hover, .glyphicon:hover {
 	font-size: 200px;
 	text-align: center;
 }
-
+.welcome .d {
+	color: #f7941d;
+	opacity: 0.3;
+}
 #logo .version{
 	font-size: 10px;
 	color: white;
@@ -1054,6 +1057,7 @@ td.action {
 #testcases .testcase {
 	height: 90%;
 	width: 100%;
+	border-right: 1px solid #ddd;
 }
 
 #testcases .box-title button{
@@ -1182,7 +1186,8 @@ td.action {
     width: 120px;
     line-height: 50px;
     cursor: pointer;
-    margin-top: 10%;
+    margin-top: 20px;
+    display: inline-table;
 }
 #learn-box .mask {
 	height: 100%;

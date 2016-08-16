@@ -19,8 +19,17 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
     $scope.lessonLevel = 'basic';
 
     $scope.showLesson = true;
+    $scope.again = false;
 
     $scope.init = function() {
+        $scope.selectedTest = learnData.selectedTest;
+        $scope.lessonBasic = [];
+        $scope.lessonAdvance = [];
+        $scope.lessonType = 'orders';
+        $scope.isShowFinance = false;
+        $scope.isShowOrder = true;
+        $scope.getLesson('basic');
+        $scope.getLesson('advance');
         $scope.orders = orderStore.getAll();
         if (learnData.lines != undefined) {
             $scope.lines = learnData.lines;
@@ -29,12 +38,14 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
     }
 
     $scope.setSelected = function (selectedTest, lessonLevel) {
+        $scope.again = false;
         $scope.curLine = 0;
         learnData.curLine = 0;
         $scope.isClickTest = true;
         $scope.selectedTest = selectedTest;
         $scope.testTitle = selectedTest;
         learnData.testTitle = selectedTest;
+        learnData.selectedTest = selectedTest;
         $scope.lessonLevel = lessonLevel;
         $http.get('api/lesson?name=' + selectedTest.replace(/ /g,'-') +'&type=' + $scope.lessonType + '&level=' +$scope.lessonLevel)
         .success(function(data, status) {
@@ -91,7 +102,24 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
         interprester.runLine('ResetAccounts()');
     }
 
+    $scope.getNext = function() {
+        var next = $scope.testTitle;
+        for (var i =  0; i < $scope.lessonBasic.length; i++) {
+            if ($scope.lessonBasic[i].name == next && i < $scope.lessonBasic.length - 1) {
+                next = $scope.lessonBasic[i + 1].name;
+                break;
+            }
+        };
+        console.log(next)
+        $scope.setSelected(next, 'basic');
+        $scope.showLesson = true;
+        interprester.runLine('UnholdAllOrders()');
+        interprester.runLine('ClearExchange()');
+        interprester.runLine('ResetAccounts()');
+    }
+
     $scope.nextStep = function () {
+        $scope.showExplain = false;
         if ($scope.curLine < $scope.lines.length) {
             interprester.runLine($scope.lines[$scope.curLine].split('#')[0]);
             $scope.curLine++;
@@ -101,6 +129,8 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
             } else {
                 $scope.showLesson = false;
                 $scope.curLine = 0;
+                $scope.again = true;
+                $scope.contentExplain = '';
             }
         }
     }
