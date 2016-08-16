@@ -1,0 +1,7 @@
+# #
+SetSession(HOSE, ATO) # Sàn HSX chuyển phiên ATO # Khi [[Sàn HSX]] chuyển phiên thì phiên của [[Gateway]] và [[ORS]] là ATO
+ord2= Place(0001000002, SSI, Sell, LO, 20000, 300) # Trên sàn có một lệnh bán 300 SSI giá 20000. # Lệnh bán SSI này chưa khớp, trạng thái lệnh bán là New
+result = GetPP0(0001000001) # Tài khoản 0001000001 chỉ có 10,000,000 tiền mặt # [[Sức mua]] của tài khoản 0001000001 là 10,000,000
+ord1= Place(0001000001, SSI, Buy, ATO, 0, 200) # Tài khoản 0001000001 đặt lệnh mua LO 200 cổ phiếu SSI giá ATO # Sau khi đặt lệnh, tài khoản 0001000001 bị [[ký quỹ]] bao gồm tiền đặt mua (được tạm tính theo giá trần * khối lượng) và [[phí giao dịch]].
+SetSession(HOSE, OPEN1) # Sàn HSX chuyển phiên Open # Khi [[Sàn HSX]] chuyển phiên thì phiên của [[Gateway]] và [[ORS]] là [[Phiên Open]]
+status=GetOrderStatus(ord1.msg) # Lệnh mua của tài khoản 0001000001 khớp lệnh toàn bộ 200 SSI # Giá khớp của lệnh này được tính theo quy tắc của Sàn, Trạng thái lệnh SSI là Filled (Khớp toàn bộ). Khi đó, tài khoản mua 0001000001 có 200 SSI mua khớp.

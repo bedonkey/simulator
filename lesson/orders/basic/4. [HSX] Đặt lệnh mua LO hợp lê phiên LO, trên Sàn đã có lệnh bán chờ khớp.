@@ -1,5 +1,0 @@
-SetSession(HNX, OPEN1) # Sàn HSX chuyển phiên LO # Khi [[Sàn HSX]] chuyển phiên thì phiên của [[Gateway]] và [[ORS]] là [[Phiên LO]].
-Ord1= Place(0001000002, VND, Sell, LO, 22000, 200) # Trên sàn có một lệnh bán LO 300 cổ SSI giá 22,000. # Lệnh bán SSI này chưa khớp, trạng thái lệnh bán là New
-Result = GetPP0(0001000001) # Tài khoản 0001000001 chỉ có 10,000,000 tiền mặt # [[Sức Mua]] của tài khoản 0001000001 là 10,000,000.
-Ord2= Place(0001000001, VND, Buy, LO, 22000, 200) # Tài khoản 0001000001 đặt lệnh mua LO 200 cổ SSI giá 22000 ở phiên LO # Tài khoản 0001000001 bị [[Ký Quỹ]] bao gồm tiền đặt mua và [[Phí Giao Dịch]].
-Status = GetOrderStatus(ord1.msg) # Lệnh mua khớp hết 200 giá 22000 #
