@@ -2,9 +2,9 @@ UnholdAllOrders()
 ClearExchange()
 ResetAccounts()
 
-SetSession(HNX, OPEN1) # Set sesison on [[ORS]] is Open
+SetSession(HNX, OPEN1) # Sàn HNX chuyển phiên  # Set sesison on [[ORS]] is Open
 
-result = Place(0001000001, AAA, Buy, LO, 15000, 100)
+result = Place(0001000001, AAA, Buy, LO, 15000, 100) # Tài khoản 0001000001 đặt lệnh mua LO mã AAA với giá 15000 và khối lượng 100 cổ.
 Assert(result.msg, Exchange is waiting order session)
 
 SetExchangeSession(HNX, INTERMISSION) # Set session on Exchange is Open
