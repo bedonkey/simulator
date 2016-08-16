@@ -122,7 +122,6 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
     }
 
     $scope.getLesson = function (level) {
-        
         $http.get('api/lessons?level=' + level + '&type=' + $scope.lessonType)
         .success(function(data, status) {
             if (data && status === 200) {
@@ -131,14 +130,14 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
                         $scope.lessonBasic.push({"name": data[i].replace('.robot','')});
                         learnData.lessonBasic.push({"name": data[i].replace('.robot','')});
                     };
-                    $("#testcases .testcase").niceScroll({cursorborder:"", cursorcolor:"#ddd", boxzoom:false});
+                    
                 } else if (level = 'advance') {
                     for (var i = 0; i < data.length; i++) {
                         $scope.lessonAdvance.push({"name": data[i].replace('.robot','')});
                         learnData.lessonAdvance.push({"name": data[i].replace('.robot','')});
                     };
-                    $("#testcases .testcase").niceScroll({cursorborder:"", cursorcolor:"#ddd", boxzoom:false});
                 }
+                $("#testcases").niceScroll({cursorborder:"", cursorcolor:"#ddd", boxzoom:false});
             }
         });
     }
