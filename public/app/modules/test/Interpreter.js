@@ -322,6 +322,7 @@ Interpreter.prototype = {
     doUnholdAllOrders: function() {
         this.logScreen.append("Unhold All Orders")
         this.ors.unholdAll();
+        this.ors.clearOrders();
     },
 
     getValuePara: function(para) {

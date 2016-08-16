@@ -21,7 +21,7 @@
 			<div class="testcase">
 				<div class="box-content">
 					<ul>
-						<li ng-class="{selected: test.name === selectedTest}" ng-repeat="lesson in lessonBasic | filter: {name: search.title}" ng-click="setSelected(lesson.name,'basic')">
+						<li ng-class="{selected: lesson.name === selectedTest}" ng-repeat="lesson in lessonBasic | filter: {name: search.title}" ng-click="setSelected(lesson.name,'basic')">
 							{{lesson.name}}
 						</li>
 					</ul>
@@ -33,7 +33,7 @@
 			<div class="testcase">
 				<div class="box-content">
 					<ul>
-						<li ng-class="{selected: test.name === selectedTest}" ng-repeat="lesson in lessonAdvance | filter: {name: search.title}" ng-click="setSelected(lesson.name,'advance')">
+						<li ng-class="{selected: lesson.name === selectedTest}" ng-repeat="lesson in lessonAdvance | filter: {name: search.title}" ng-click="setSelected(lesson.name,'advance')">
 							{{ lesson.name | limitTo: 40 }}{{lesson.name.length > 40 ? '...' : ''}}
 						</li>
 					</ul>
@@ -47,7 +47,7 @@
 			<div class="testcase">
 				<div class="box-content">
 					<ul>
-						<li ng-class="{selected: test.name === selectedTest}" ng-repeat="lesson in lessonBasic | filter: {name: search.title}" ng-click="setSelected(lesson.name,'basic')">
+						<li ng-class="{selected: lesson.name === selectedTest}" ng-repeat="lesson in lessonBasic | filter: {name: search.title}" ng-click="setSelected(lesson.name,'basic')">
 							{{ lesson.name | limitTo: 40 }}{{lesson.name.length > 40 ? '...' : ''}}
 						</li>
 					</ul>
@@ -59,7 +59,7 @@
 			<div class="testcase">
 				<div class="box-content">
 					<ul>
-						<li ng-class="{selected: test.name === selectedTest}" ng-repeat="lesson in lessonAdvance | filter: {name: search.title}" ng-click="setSelected(lesson.name,'advance')">
+						<li ng-class="{selected: lesson.name === selectedTest}" ng-repeat="lesson in lessonAdvance | filter: {name: search.title}" ng-click="setSelected(lesson.name,'advance')">
 							{{ lesson.name | limitTo: 40 }}{{lesson.name.length > 40 ? '...' : ''}}
 						</li>
 					</ul>
@@ -70,10 +70,11 @@
 
 	<div id="learn-box" class="">
 		<div class="title">
-			<h4 ng-bind="testTitle"></h4>
+			<h4 ng-bind="testTitle" ng-if="showLesson"></h4>
 		</div>
 		 <div class="content">
 		 	<div class="mask" ng-if="!showLesson">
+		 		<h3 ng-bind="testTitle"></h3>
 		 		<div class="lesson-btn" ng-click="getStart()">
 		 			Bắt đầu
 		 		</div>
