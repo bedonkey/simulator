@@ -2,7 +2,7 @@ learnData = {};
 LessonController = function($scope, $http, interprester, dockService, orderStore, testcaseTranslator) {
 	$scope.isSave = true;
 	$scope.isClickTest = false;
-	$scope.testTitle = learnData.testTitle == undefined ? "None Testcase selected" : learnData.testTitle;
+	$scope.testTitle = learnData.testTitle == undefined ? '' : learnData.testTitle;
     $scope.testPass = '';
     $scope.curLine = learnData.curLine == undefined ? 0 : learnData.curLine;
     $scope.lines = {};
@@ -61,7 +61,18 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
     $scope.getWiki = function(keyword) {
         $scope.showExplain = true;
         $scope.keywordExplain = keyword;
-        $scope.contentExplain = 'Hello ' + keyword;
+        
+        $http({method: 'GET', url: 'http://wiki-bedonkey.rhcloud.com/api/page?title=' + keyword})
+        .success(function(data, status) {
+            var content = '';
+            var key = Object.keys(data.content)[0];
+            for (var i = data.content[key]['sections'].length - 1; i >= 0; i--) {
+                if (data.content[key]['sections'][i]) {
+                    content += data.content[key]['sections'][i]['content'];
+                }
+            };
+            $scope.contentExplain = content;
+        });
     }
 
     $scope.closeExplain = function() {

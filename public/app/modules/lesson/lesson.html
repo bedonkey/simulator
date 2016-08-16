@@ -72,7 +72,9 @@
 	</div>
 
 	<div id="learn-box" class="">
-		<h4 ng-bind="testTitle"></h4>
+		<div class="title">
+			<h4 ng-bind="testTitle"></h4>
+		</div>
 		 <div class="content">
 		 	<ul>
 		 		<li ng-repeat="line in lines track by $index" ng-class="$index == curLine ? 'lineActive' : ''">
