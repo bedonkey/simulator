@@ -1,8 +1,8 @@
 learnData = {};
 LessonController = function($scope, $http, interprester, dockService, orderStore, testcaseTranslator) {
-	$scope.isSave = true;
-	$scope.isClickTest = false;
-	$scope.testTitle = learnData.testTitle == undefined ? '' : learnData.testTitle;
+    $scope.isSave = true;
+    $scope.isClickTest = false;
+    $scope.testTitle = learnData.testTitle == undefined ? '' : learnData.testTitle;
     $scope.testPass = '';
     $scope.curLine = learnData.curLine == undefined ? 0 : learnData.curLine;
     $scope.lines = {};
@@ -26,7 +26,7 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
         }
     }
 
-	$scope.setSelected = function (selectedTest, lessonLevel) {
+    $scope.setSelected = function (selectedTest, lessonLevel) {
         $scope.curLine = 0;
         learnData.curLine = 0;
         $scope.isClickTest = true;
@@ -56,12 +56,12 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
             }
         });
         
-	};
+    };
 
     $scope.getWiki = function(keyword) {
         $scope.showExplain = true;
         $scope.keywordExplain = keyword;
-        
+        $scope.contentExplain = "";
         $http({method: 'GET', url: 'http://wiki-bedonkey.rhcloud.com/api/page?title=' + keyword})
         .success(function(data, status) {
             var content = '';
@@ -71,6 +71,8 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
                     content += data.content[key]['sections'][i]['content'];
                 }
             };
+            content = content.replace(/\[\[/g, '');
+            content = content.replace(/\]\]/g, '');
             $scope.contentExplain = content;
         });
     }
