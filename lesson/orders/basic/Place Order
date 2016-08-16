@@ -1,3 +1,0 @@
-SetSession(HNX, OPEN1) # Sàn HNX chuyển phiên  # Set sesison on [[ORS]] and [[Gateway]] is Open #
-result = Place(0001000001, AAA, Buy, LO, 15000, 100) # Tài khoản 0001000001 đặt lệnh mua LO mã AAA với giá 15000 và khối lượng 100 cổ. #
-SetExchangeSession(HNX, INTERMISSION) # Set session on Exchange is Open #
