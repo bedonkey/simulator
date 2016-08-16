@@ -998,6 +998,7 @@ td.action {
 }
 #lesson #testcases .box-content li{
 	border-bottom: 1px solid #ddd;
+	padding-left: 15px;
 }
 #lesson #testcases .lessonLevel {
 	line-height: 30px;

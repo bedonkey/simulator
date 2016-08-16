@@ -6,8 +6,8 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
     $scope.testPass = '';
     $scope.curLine = learnData.curLine == undefined ? 0 : learnData.curLine;
     $scope.lines = {};
-    $scope.lessonBasic = [];
     learnData.lessonBasic = [];
+    $scope.lessonBasic = [];
     $scope.lessonAdvance = [];
     learnData.lessonAdvance = [];
     $scope.dockInfo = dockService.initDock();
@@ -90,19 +90,28 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
     }
 
     $scope.showLessonOrder = function () {
+        $scope.lessonBasic = [];
+        $scope.lessonAdvance = [];
         $scope.lessonType = 'orders';
         $scope.isShowFinance = false;
         $scope.isShowOrder = true;
+        $scope.getLesson('basic');
+        $scope.getLesson('advance');
     }
 
     $scope.showLessonFinance = function () {
+        $scope.lessonBasic = [];
+        $scope.lessonAdvance = [];
         $scope.lessonType = 'finance';
         $scope.isShowOrder = false;
         $scope.isShowFinance = true;
+        $scope.getLesson('advance');
+        $scope.getLesson('basic');
     }
 
-    $scope.getLesson = function (level, lessonType) {
-        $http.get('api/lessons?level=' + level + '&type='+lessonType)
+    $scope.getLesson = function (level) {
+        
+        $http.get('api/lessons?level=' + level + '&type=' + $scope.lessonType)
         .success(function(data, status) {
             if (data && status === 200) {
                 if (level == 'basic') {
@@ -120,14 +129,6 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
                 }
             }
         });
-    }
-
-    $scope.clearLesson = function (level) {
-        if (level == 'basic') {
-            $scope.lessonBasic = [];
-        } else if (level == 'advance') {
-            $scope.lessonAdvance = [];
-        }
     }
 
     $scope.init();
