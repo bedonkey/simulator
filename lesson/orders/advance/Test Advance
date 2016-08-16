@@ -1,7 +1,3 @@
-UnholdAllOrders()
-ClearExchange()
-ResetAccounts()
-
 SetExchangeSession(HNX, NEW) # Set session on Exchange is Open
 SetGatewaySession(HNX, OPEN1) # Set session on Gateway is Open
 SetORSSession(HNX, OPEN1) # Set sesison on ORS is Open

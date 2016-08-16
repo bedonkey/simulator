@@ -18,6 +18,8 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
     $scope.lessonType = 'orders';
     $scope.lessonLevel = 'basic';
 
+    $scope.showLesson = true;
+
     $scope.init = function() {
         $scope.orders = orderStore.getAll();
         if (learnData.lines != undefined) {
@@ -56,6 +58,7 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
             }
         });
         
+        $scope.showLesson = false;
     };
 
     $scope.getWiki = function(keyword) {
@@ -79,6 +82,13 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
 
     $scope.closeExplain = function() {
         $scope.showExplain = false;
+    }
+
+    $scope.getStart = function() {
+        $scope.showLesson = true;
+        interprester.runLine('UnholdAllOrders()');
+        interprester.runLine('ClearExchange()');
+        interprester.runLine('ResetAccounts()');
     }
 
     $scope.nextStep = function () {

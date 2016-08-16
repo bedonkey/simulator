@@ -73,6 +73,11 @@
 			<h4 ng-bind="testTitle"></h4>
 		</div>
 		 <div class="content">
+		 	<div class="mask" ng-if="!showLesson">
+		 		<div class="lesson-btn" ng-click="getStart()">
+		 			Bắt đầu
+		 		</div>
+		 	</div>
 		 	<ul>
 		 		<li ng-repeat="line in lines track by $index" ng-class="$index == curLine ? 'lineActive' : ''">
 		 			{{line| split:'#':1}}
@@ -88,7 +93,7 @@
 		<p ng-bind="contentExplain"></p>
 	</div>
 
-	<div id="learn-bar">
+	<div id="learn-bar" ng-show="showLesson">
 		<div class="mainInfo" >
 			<span ng-bind-html="explain | to_trusted" compile-template></span>
 		</div>
