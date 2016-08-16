@@ -1,0 +1,8 @@
+ClearExchange() # #
+ResetAccounts() # #
+SetSession(HOSE, LO) # Sàn HSX chuyển phiên Open1 # Khi Sàn chuyển phiên thì phiên của [[Gateway]] và [[ORS]] là Open1 #
+result = GetPP0(0001000001) # Tài khoản 0001000001 chỉ có 10,000,000 tiền mặt # [[Sức mua]] của tài khoản 0001000001 là 10,000,000 #
+ord1= Place(0001000001, SSI, Buy, LO, 22,000, 400) # Tài khoản 0001000001 đặt lệnh mua LO 400 cổ phiếu SSI giá 22,000 ở phiên ATO # Tài khoản 0001000001 bị [[ký quỹ]] bao gồm tiền đặt mua và [[phí giao dịch]].
+result = GetTrade(0001000002, SSI) # Tài khoản 0001000002 có 1,000 cổ phiếu SSI được giao dịch. #
+ord2= Place(0001000002, SSI, Sell, MP, 0, 300) # Tài khoản 0001000002 đặt lệnh bán 300 SSI giá MP trong phiên LO # Tài khoản 0001000002 bị kỹ quỹ 300 SSI, khối lượng SSI còn lại để giao dịch là 700 #
+status=GetOrderStatus(ord2.msg) # Lệnh bán của tài khoản 0001000002 khớp lệnh toàn bộ 300 SSI với giá 22,000 # Trạng thái lệnh SSI là Filled (Khớp toàn bộ) # Khi đó, tài khoản mua 0001000001 bị cắt tiền kỹ quỹ và có 300 SSI mua khớp. Tài khoản bán 0001000002 có [[tiền bán chứng khoán chờ về]], sau khi đã trừ đi thuế và phí giao dịch #

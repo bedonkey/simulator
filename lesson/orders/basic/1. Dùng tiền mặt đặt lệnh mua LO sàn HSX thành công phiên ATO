@@ -1,6 +1,0 @@
-ClearExchange() # #
-ResetAccounts() # #
-SetSession(HOSE, ATO) # Sàn HNX chuyển phiên ATO # Khi Sàn chuyển phiên thì phiên của [[Gateway]] và [[ORS]] là [[ATO]] #
-result = GetPP0(0001000001) # Tài khoản 0001000001 chỉ có 10,000,000 tiền mặt # [[Sức mua]] của tài khoản 0001000001 là 10,000,000 #
-ord1= Place(0001000001, SSI, Buy, LO, 22000, 200) # Tài khoản 0001000001 đặt lệnh mua LO 200 cổ SSI giá 22000 ở phiên ATO # Tài khoản 0001000001 bị [[ký quỹ]] bao gồm tiền đăt mua và [[phí giao dịch]].
-status=GetOrderStatus(ord1.msg) # Lệnh của tài khoản này vào hệ thống và được đẩy lên sàn HSX thành công # Trạng thái [[lệnh LO]] SSI là New (Đã lên sàn)

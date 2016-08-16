@@ -1,0 +1,6 @@
+ClearExchange() # #
+ResetAccounts() # #
+SetSession(HOSE, PT) # Sàn HSX chuyển về phiên PT (phiên thỏa thuận) # Khi Sàn chuyển phiên thì phiên của [[Gateway]] và [[ORS]] là PT #
+result = GetTrade(0001000002) # Tài khoản 0001000002 có 1,000 cổ phiếu SSI được giao dịch #
+ord1= Place(0001000002, SSI, Sell, LO, 22000, 500) # Tài khoản 0001000002 đặt lệnh bán 500 SSI giá 22,000 trong phiên thỏa thuận #
+status=GetOrderStatus(ord1.msg) # Lệnh bán 500 SSI với giá 22,000 của tài khoản 0001000002 bị từ chối, trạng thái Rejected do đặt lệnh LO trong phiên thỏa thuận #
