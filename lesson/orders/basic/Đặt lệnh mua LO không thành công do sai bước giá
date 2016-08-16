@@ -1,6 +1,0 @@
-ClearExchange() # #
-ResetAccounts() # #
-SetSession(HOSE, Open1) # Sàn HSX chuyển về phiên Open1 # Khi Sàn chuyển phiên thì phiên của [[Gateway]] và [[ORS]] là Open1 #
-result = GetPP0(0001000001) # Tài khoản 0001000001 chỉ có 10,000,000 tiền mặt # [[Sức mua]] của tài khoản 0001000001 là 10,000,000 #
-ord1= Place(0001000001, SSI, Buy, LO, 22150, 200) # Tài khoản 0001000001 đặt lệnh mua LO 200 cổ phiếu SSI giá 22,150 ở phiên liên tục #
-status=GetOrderStatus(ord1.msg) # Lệnh mua 200 SSI với giá 22,150 của tài khoản 0001000001 bị từ chối, trạng thái Rejected do sai quy định bước giá của sàn HSX #

@@ -1,0 +1,4 @@
+# #
+SetSession(HOSE, OPEN1) # Sàn HSX chuyển phiên LO # Khi [[Sàn HSX]] chuyển phiên thì phiên của [[Gateway]] và [[ORS]] là [[Phiên LO]].
+result = GetPP0(0001000001) # Tài khoản 0001000001 chỉ có 10,000,000 tiền mặt # [[Sức mua]] của tài khoản 0001000001 là 10,000,000 #
+ord1= Place(0001000001, SSI, Buy, LO, 22000, 500) # Tài khoản 0001000001 đặt lệnh mua LO 500 cổ phiếu SSI giá 22,000 ở phiên liên tục # Lệnh mua 500 SSI với giá 22,000 của tài khoản 0001000001 bị từ chối (trạng thái [[Rejected]]) vì Số tiền bị [[Ký Quỹ]] = 500 * 22000 = 11,000,000 + [[Phí Giao Dịch]] vượt quá [[Sức Mua]]).
