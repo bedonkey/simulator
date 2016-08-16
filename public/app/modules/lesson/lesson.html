@@ -78,7 +78,7 @@
 		 <div class="content">
 		 	<ul>
 		 		<li ng-repeat="line in lines track by $index" ng-class="$index == curLine ? 'lineActive' : ''">
-		 			{{line}}
+		 			{{line| split:'#':1}}
 		 		</li>
 		 	</ul>
 		 	

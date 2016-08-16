@@ -50,7 +50,7 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
                             learnData.lines[i] = learnData.lines[i].replace(keywords[j], '<span class="keyword" ng-click="getWiki(\'' + k + '\')">' + k + '</span>');
                         };
                     }
-                    learnData.lines[i] = testcaseTranslator.translate(learnData.lines[i]);
+                    //learnData.lines[i] = testcaseTranslator.translate(learnData.lines[i]);
                 };
                 $("#learn-box .content").niceScroll({cursorborder:"", cursorcolor:"#ddd", boxzoom:false});
             }
@@ -81,6 +81,7 @@ LessonController = function($scope, $http, interprester, dockService, orderStore
 
     $scope.nextStep = function () {
         if ($scope.curLine < $scope.lines.length) {
+            console.log($scope.lines[$scope.curLine])
             interprester.runLine($scope.lines[$scope.curLine].split('#')[0]);
             $scope.curLine++;
             $scope.explain = $scope.lines[$scope.curLine].split('#')[2];
