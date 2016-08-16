@@ -1,0 +1,4 @@
+# #
+SetSession(HNX, OPEN1) # Sàn HNX chuyển phiên LO # Khi [[Sàn HNX]] chuyển phiên thì phiên của [[Gateway]] và [[ORS]] là [[Phiên LO]].
+result = GetPP0(0001000001) # Tài khoản 0001000001 chỉ có 10,000,000 tiền mặt # [[Sức Mua]] của tài khoản 0001000001 là 10,000,000 #
+ord1= Place(0001000001, VND, Buy, LO, 11150, 200) # Tài khoản 0001000001 đặt lệnh mua LO 200 cổ phiếu SSI giá 11,150 ở phiên liên tục # Lệnh mua 200 VND với giá 11,150 của tài khoản 0001000001 bị từ chối, trạng thái [[Rejected]] do sai quy định [[Bước Giá Của Sàn HNX]].

@@ -1,0 +1,4 @@
+# #
+SetSession(HNX, OPEN1) # Sàn HNX chuyển phiên LO # Khi [[Sàn HNX]] chuyển phiên thì phiên của [[Gateway]] và [[ORS]] là [[Phiên LO]].
+# Tài khoản 0001000002 có 1,000 cổ phiếu VND được giao dịch #
+ord1= Place(0001000002, VND, Sell, LO, 12000, 1500) # Tài khoản 0001000002 đặt lệnh bán 1500 VND giá 12,000 trong phiên liên tục # Lệnh bán 1500 VND với giá 12,000 của tài khoản 0001000002 bị từ chối, trạng thái [[Rejected]] do đặt lệnh quá khối lượng chứng khoán giao dịch tối đa có trong tài khoản

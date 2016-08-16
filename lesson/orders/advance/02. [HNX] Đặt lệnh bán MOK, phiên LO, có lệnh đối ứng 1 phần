@@ -1,0 +1,6 @@
+# #
+SetSession(HNX, OPEN1) # Sàn HNX chuyển phiên LO # Khi [[Sàn HNX]] chuyển phiên thì phiên của [[Gateway]] và [[ORS]] là [[Phiên LO]].
+result = GetPP0(0001000001) # Tài khoản 0001000001 chỉ có 10,000,000 tiền mặt # [[Sức mua]] của tài khoản 0001000001 là 10,000,000 #
+# Tài khoản 0001000002 có 1,000 cổ phiếu VND được giao dịch #
+Ord1= Place(0001000001, VND, Buy, LO, 11000, 200) # Tài khoản 0001000001 mua 200 lệnh LO giá 11,000 trong phiên LO# Sau khi đặt lệnh, lệnh được ghi nhận vào hệ thống, Tài khoản 0001000001 bị [[Ký Quỹ]] bao gồm tiền đăt mua và [[Phí Giao Dịch]]. Trạng thái lệnh lúc này là [[New]]
+Ord2= Place(0001000002, VND, Sell, MOK, 0, 500) # Tài khoản 0001000002 đặt lệnh bán 500 VND giá MOK trong phiên liên tục # [[Lệnh MOK]] của tài khoản 0001000002 được đẩy vào sàn, do không khớp được hết khối lượng nên lệnh MOK sẽ bị Expired. Trạng thái lệnh là [[Expired]].
